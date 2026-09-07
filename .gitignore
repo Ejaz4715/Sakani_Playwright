@@ -14,3 +14,7 @@ certs/
 # AI & IDE Cache / Logs
 .claude/
 .playwright-mcp/
+.claude/
+.playwright-mcp/
+certs/
+.env
