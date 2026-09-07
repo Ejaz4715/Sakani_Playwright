@@ -1,0 +1,147 @@
+- generic [ref=f118e2]:
+  - generic [ref=f118e3]:
+    - generic [ref=f118e6]:
+      - generic [ref=f118e9]:
+        - generic [ref=f118e10]:
+          - generic [ref=f118e11]: A government website registered with the Digital Government Authority.
+          - button "How you know?" [ref=f118e14] [cursor=pointer]
+        - generic [ref=f118e16]:
+          - generic [ref=f118e17]:
+            - generic [ref=f118e22]:
+              - heading "Official Saudi Government website URL ends with .sa" [level=5] [ref=f118e23]
+              - generic [ref=f118e24]: Website belongs to an official activities and initiatives in the Kingdom of Saudi Arabia always ends with .sa
+            - generic [ref=f118e29]:
+              - heading "Official Secure websites use HTTPS" [level=5] [ref=f118e30]
+              - generic [ref=f118e31]: Secured governments websites in the Kingdom of Saudi Arabia use HTTPS encryption.
+          - generic [ref=f118e34]:
+            - generic [ref=f118e35]: "Registered on Digital Government Authority:"
+            - generic [ref=f118e36]: "20250428955"
+      - navigation [ref=f118e37]:
+        - generic [ref=f118e40]:
+          - generic [ref=f118e41]:
+            - link [ref=f118e42] [cursor=pointer]:
+              - /url: /
+              - img "Sakani logo" [ref=f118e43]
+            - generic [ref=f118e44]:
+              - listitem [ref=f118e45] [cursor=pointer]:
+                - button "Properties for Sale" [ref=f118e46]
+              - listitem [ref=f118e49] [cursor=pointer]:
+                - button "Properties for Rent" [ref=f118e50]
+              - listitem [ref=f118e53] [cursor=pointer]:
+                - button "Services" [ref=f118e54]
+              - listitem [ref=f118e57] [cursor=pointer]:
+                - button "Help" [ref=f118e58]
+          - generic [ref=f118e60]:
+            - listitem [ref=f118e61] [cursor=pointer]:
+              - button "Search" [ref=f118e64]
+            - listitem [ref=f118e67] [cursor=pointer]:
+              - button "التبديل إلى العربية" [ref=f118e68]:
+                - generic [ref=f118e70]: عربي
+            - listitem [ref=f118e71] [cursor=pointer]:
+              - button "Login" [ref=f118e72]
+    - generic [ref=f118e75]:
+      - generic [ref=f118e81]:
+        - generic [ref=f118e82]:
+          - heading "Where your dream property becomes reality" [level=3] [ref=f118e83]
+          - paragraph [ref=f118e84]: Start your journey, sign up or log in now.
+        - generic [ref=f118e87]:
+          - generic [ref=f118e88]:
+            - generic [ref=f118e89]: Email, mobile number or ID
+            - textbox "Enter your ID, phone number, or email" [ref=f118e96]
+          - button "Continue" [disabled]
+        - generic [ref=f118e97]: OR
+        - button "Continue with Nafath" [ref=f118e98] [cursor=pointer]
+        - generic [ref=f118e101]:
+          - text: I accept Sakani’s
+          - link "Terms of Use" [ref=f118e102] [cursor=pointer]:
+            - /url: /terms
+          - text: and
+          - link "Privacy Policy" [ref=f118e103] [cursor=pointer]:
+            - /url: /housing-subsidy-policy
+        - paragraph [ref=f118e105]:
+          - text: This site is protected by reCAPTCHA and the Google
+          - link "Privacy Policy" [ref=f118e106] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy
+          - text: and
+          - link "Terms of Service" [ref=f118e107] [cursor=pointer]:
+            - /url: https://policies.google.com/terms
+          - text: apply.
+      - contentinfo [ref=f118e111]:
+        - generic [ref=f118e112]:
+          - generic [ref=f118e113]:
+            - generic [ref=f118e114]:
+              - generic [ref=f118e115]:
+                - generic [ref=f118e116]: Housing
+                - generic [ref=f118e117]:
+                  - link "Marketplace" [ref=f118e118] [cursor=pointer]:
+                    - /url: /app/marketplace
+                  - link "Housing Designs" [ref=f118e119] [cursor=pointer]:
+                    - /url: /app/housing-designs
+                  - link "Sakani Metaverse" [ref=f118e120] [cursor=pointer]:
+                    - /url: /services/sakani-metaverse
+                  - link "Sakani Offers" [ref=f118e121] [cursor=pointer]:
+                    - /url: /app/promotion-vouchers
+              - generic [ref=f118e122]:
+                - generic [ref=f118e123]: News and Reports
+                - generic [ref=f118e124]:
+                  - link "News" [ref=f118e125] [cursor=pointer]:
+                    - /url: /news
+                  - link "Real Estate Indicators" [ref=f118e126] [cursor=pointer]:
+                    - /url: https://rei.rega.gov.sa/
+                  - link "Rental Indicators" [ref=f118e127] [cursor=pointer]:
+                    - /url: /reports-and-data/rental-units
+              - generic [ref=f118e128]:
+                - generic [ref=f118e129]: Support
+                - generic [ref=f118e130]:
+                  - link "Privacy Policy and Terms and Conditions" [ref=f118e131] [cursor=pointer]:
+                    - /url: /terms
+                  - link "Executive Regulations for Housing Support" [ref=f118e132] [cursor=pointer]:
+                    - /url: /housing-subsidy-policy
+                  - link "Help and Support" [ref=f118e133] [cursor=pointer]:
+                    - /url: /support-and-help
+                  - link "Frequently Asked Questions" [ref=f118e134] [cursor=pointer]:
+                    - /url: /support-and-help/faqs
+                  - link "Contact Us" [ref=f118e135] [cursor=pointer]:
+                    - /url: /support-and-help/contact-us
+            - generic [ref=f118e136]:
+              - generic [ref=f118e137]:
+                - generic [ref=f118e138]: Contact us
+                - generic [ref=f118e139]:
+                  - link "LinkedIn" [ref=f118e140] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/company/sakani
+                  - link "X" [ref=f118e142] [cursor=pointer]:
+                    - /url: https://x.com/sakani
+                  - link "Instagram" [ref=f118e144] [cursor=pointer]:
+                    - /url: https://www.instagram.com/sakaniksa/
+                  - link "WhatsApp" [ref=f118e146] [cursor=pointer]:
+                    - /url: https://whatsapp.com/channel/0029VbBckQJFMqrPN3WTAu20
+                  - link "YouTube" [ref=f118e148] [cursor=pointer]:
+                    - /url: https://www.youtube.com/@Sakani
+                  - link "TikTok" [ref=f118e150] [cursor=pointer]:
+                    - /url: https://www.tiktok.com/@sakani
+              - generic [ref=f118e152]:
+                - generic [ref=f118e153]: Accessibility tool
+                - link "Live sign language" [ref=f118e155] [cursor=pointer]:
+                  - /url: https://metaverse.sakani.sa/mv?q=P0oIuYtReWqAzX1cSdFvGbHnJkLm8Q2R
+          - generic [ref=f118e157]:
+            - generic [ref=f118e158]: All rights are received © 2026 - NHC Innovation
+            - generic [ref=f118e159]:
+              - img "FAL license" [ref=f118e161] [cursor=pointer]
+              - img "AI" [ref=f118e162]
+              - link [ref=f118e163] [cursor=pointer]:
+                - /url: https://www.nhc.sa
+                - img "NHC" [ref=f118e164]
+              - link [ref=f118e165] [cursor=pointer]:
+                - /url: https://www.vision2030.gov.sa
+                - img "Vision 2030" [ref=f118e166]
+    - generic [ref=f118e167]:
+      - generic:
+        - button "Close chat"
+        - iframe [ref=f118e168]:
+          
+      - generic:
+        - button "Chat"
+        - button "Accessibility"
+      - button "Toggle menu" [ref=f118e169] [cursor=pointer]
+  - status [ref=f118e175]:
+    - generic [ref=f118e176]: Loading...

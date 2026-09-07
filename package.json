@@ -1,0 +1,45 @@
+{
+  "name": "sakani-e2e",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript E2E suite (POM) for the Sakani customer portal — pre-production",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:critical": "playwright test --grep @P0",
+    "test:auth": "playwright test tests/auth",
+    "test:marketplace": "playwright test tests/marketplace",
+    "test:project": "playwright test tests/project",
+    "test:booking": "playwright test tests/booking",
+    "test:account": "playwright test tests/account",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen https://pre-sakani.housingapps.sa",
+    "install:browsers": "playwright install chromium",
+    "typecheck": "tsc --noEmit",
+    "clean:reports": "rimraf allure-report allure--results && mkdirp allure-report allure-results",
+    "generate:report": "npx allure generate ./allure-results --clean -o ./allure-report",
+    "open:report": "npx allure open ./allure-report",
+    "pretest": "npm run clean:reports",
+    "posttest": "npm run generate:report && npm run open:report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.0",
+    "allure": "^3.16.0",
+    "allure-commandline": "^2.32.0",
+    "allure-playwright": "^3.12.0",
+    "allure-single-html-file-js": "^0.0.6",
+    "dotenv": "^17.2.3",
+    "mkdirp": "^3.0.1",
+    "rimraf": "^6.1.3",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "xlsx": "^0.18.5"
+  }
+}

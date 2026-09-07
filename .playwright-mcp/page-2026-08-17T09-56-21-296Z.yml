@@ -1,0 +1,175 @@
+- generic [active] [ref=f88e1]:
+  - generic [ref=f88e4]:
+    - generic [ref=f88e7]:
+      - generic [ref=f88e8]:
+        - generic [ref=f88e9]: A government website registered with the Digital Government Authority.
+        - button "How you know?" [ref=f88e12] [cursor=pointer]
+      - generic [ref=f88e14]:
+        - generic [ref=f88e15]:
+          - generic [ref=f88e20]:
+            - heading "Official Saudi Government website URL ends with .sa" [level=5] [ref=f88e21]
+            - generic [ref=f88e22]: Website belongs to an official activities and initiatives in the Kingdom of Saudi Arabia always ends with .sa
+          - generic [ref=f88e27]:
+            - heading "Official Secure websites use HTTPS" [level=5] [ref=f88e28]
+            - generic [ref=f88e29]: Secured governments websites in the Kingdom of Saudi Arabia use HTTPS encryption.
+        - generic [ref=f88e32]:
+          - generic [ref=f88e33]: "Registered on Digital Government Authority:"
+          - generic [ref=f88e34]: "20250428955"
+    - navigation [ref=f88e35]:
+      - generic [ref=f88e38]:
+        - generic [ref=f88e39]:
+          - link [ref=f88e40] [cursor=pointer]:
+            - /url: /
+            - img "Sakani logo" [ref=f88e41]
+          - generic [ref=f88e42]:
+            - listitem [ref=f88e43] [cursor=pointer]:
+              - button "Properties for Sale" [ref=f88e44]
+            - listitem [ref=f88e47] [cursor=pointer]:
+              - button "Properties for Rent" [ref=f88e48]
+            - listitem [ref=f88e51] [cursor=pointer]:
+              - button "Auctions" [ref=f88e52]
+            - listitem [ref=f88e54] [cursor=pointer]:
+              - button "Services" [ref=f88e55]
+            - listitem [ref=f88e58] [cursor=pointer]:
+              - button "Help" [ref=f88e59]
+        - generic [ref=f88e61]:
+          - listitem [ref=f88e62] [cursor=pointer]:
+            - button "Search" [ref=f88e65]
+          - listitem [ref=f88e68] [cursor=pointer]:
+            - button "التبديل إلى العربية" [ref=f88e69]:
+              - generic [ref=f88e71]: عربي
+          - listitem [ref=f88e72] [cursor=pointer]:
+            - button "Login" [ref=f88e73]
+  - generic [ref=f88e79]:
+    - link "Home" [ref=f88e80] [cursor=pointer]:
+      - /url: /
+    - link "Help" [ref=f88e85] [cursor=pointer]:
+      - /url: /support-and-help
+    - generic [ref=f88e86]: FAQs
+  - generic [ref=f88e89]:
+    - generic [ref=f88e93]:
+      - heading "Frequently Asked Questions" [level=1] [ref=f88e94]
+      - generic [ref=f88e95]: Find answers to frequently asked questions about our products, services, and policies.
+    - generic [ref=f88e98]:
+      - generic [ref=f88e100]:
+        - generic [ref=f88e102]:
+          - generic [ref=f88e103] [cursor=pointer]
+          - textbox "Search" [ref=f88e104]
+        - generic [ref=f88e106]:
+          - generic [ref=f88e112] [cursor=pointer]:
+            - generic [ref=f88e113]: Select Category
+            - combobox [ref=f88e115]
+          - generic [ref=f88e119]:
+            - button "Search" [disabled]
+      - generic [ref=f88e120]:
+        - button "What is the aim of the Sakani Program?" [ref=f88e123] [cursor=pointer]
+        - button "What solutions and services are provided to beneficiaries?" [ref=f88e126] [cursor=pointer]
+        - button "What electronic services does Sakani offer?" [ref=f88e129] [cursor=pointer]
+        - button "How can one obtain housing support?" [ref=f88e132] [cursor=pointer]
+        - button "When is an applicant eligible for housing support?" [ref=f88e135] [cursor=pointer]
+        - button "Is there a specific duration for housing support after registration and eligibility?" [ref=f88e138] [cursor=pointer]
+        - 'button "What happens if the applicant`s situation changes after the application submission date and they no longer meet the support criteria?" [ref=f88e141] [cursor=pointer]'
+        - button "What is the application process for social security beneficiaries?" [ref=f88e144] [cursor=pointer]
+      - navigation "Pagination" [ref=f88e146]:
+        - listitem [ref=f88e147]:
+          - button "Previous page" [disabled]
+        - listitem [ref=f88e148]:
+          - button "Page 1 is your current page" [ref=f88e149] [cursor=pointer]: "1"
+        - listitem [ref=f88e150]:
+          - button "Page 2" [ref=f88e151] [cursor=pointer]: "2"
+        - listitem [ref=f88e152]:
+          - button "Page 3" [ref=f88e153] [cursor=pointer]: "3"
+        - listitem [ref=f88e154]:
+          - button "Jump forward" [ref=f88e155] [cursor=pointer]: ...
+        - listitem [ref=f88e156]:
+          - button "Page 9" [ref=f88e157] [cursor=pointer]: "9"
+        - listitem [ref=f88e158]:
+          - button "Page 10" [ref=f88e159] [cursor=pointer]: "10"
+        - listitem [ref=f88e160]:
+          - button "Page 11" [ref=f88e161] [cursor=pointer]: "11"
+        - listitem [ref=f88e162]:
+          - button "Next page" [ref=f88e163] [cursor=pointer]
+    - generic [ref=f88e169]:
+      - paragraph [ref=f88e170]: Was this page useful?
+      - generic [ref=f88e171]:
+        - button "Yes" [ref=f88e172] [cursor=pointer]
+        - button "No" [ref=f88e173] [cursor=pointer]
+  - contentinfo [ref=f88e175]:
+    - generic [ref=f88e176]:
+      - generic [ref=f88e177]:
+        - generic [ref=f88e178]:
+          - generic [ref=f88e179]:
+            - generic [ref=f88e180]: Housing
+            - generic [ref=f88e181]:
+              - link "Marketplace" [ref=f88e182] [cursor=pointer]:
+                - /url: /app/marketplace
+              - link "Housing Designs" [ref=f88e183] [cursor=pointer]:
+                - /url: /app/housing-designs
+              - link "Sakani Metaverse" [ref=f88e184] [cursor=pointer]:
+                - /url: /services/sakani-metaverse
+              - link "Sakani Offers" [ref=f88e185] [cursor=pointer]:
+                - /url: /app/promotion-vouchers
+          - generic [ref=f88e186]:
+            - generic [ref=f88e187]: News and Reports
+            - generic [ref=f88e188]:
+              - link "News" [ref=f88e189] [cursor=pointer]:
+                - /url: /news
+              - link "Real Estate Indicators" [ref=f88e190] [cursor=pointer]:
+                - /url: https://rei.rega.gov.sa/
+              - link "Rental Indicators" [ref=f88e191] [cursor=pointer]:
+                - /url: /reports-and-data/rental-units
+          - generic [ref=f88e192]:
+            - generic [ref=f88e193]: Support
+            - generic [ref=f88e194]:
+              - link "Privacy Policy and Terms and Conditions" [ref=f88e195] [cursor=pointer]:
+                - /url: /terms
+              - link "Executive Regulations for Housing Support" [ref=f88e196] [cursor=pointer]:
+                - /url: /housing-subsidy-policy
+              - link "Help and Support" [ref=f88e197] [cursor=pointer]:
+                - /url: /support-and-help
+              - link "Frequently Asked Questions" [ref=f88e198] [cursor=pointer]:
+                - /url: /support-and-help/faqs
+              - link "Contact Us" [ref=f88e199] [cursor=pointer]:
+                - /url: /support-and-help/contact-us
+        - generic [ref=f88e200]:
+          - generic [ref=f88e201]:
+            - generic [ref=f88e202]: Contact us
+            - generic [ref=f88e203]:
+              - link "LinkedIn" [ref=f88e204] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/sakani
+              - link "X" [ref=f88e206] [cursor=pointer]:
+                - /url: https://x.com/sakani
+              - link "Instagram" [ref=f88e208] [cursor=pointer]:
+                - /url: https://www.instagram.com/sakaniksa/
+              - link "WhatsApp" [ref=f88e210] [cursor=pointer]:
+                - /url: https://whatsapp.com/channel/0029VbBckQJFMqrPN3WTAu20
+              - link "YouTube" [ref=f88e212] [cursor=pointer]:
+                - /url: https://www.youtube.com/@Sakani
+              - link "TikTok" [ref=f88e214] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@sakani
+          - generic [ref=f88e216]:
+            - generic [ref=f88e217]: Accessibility tool
+            - link "Live sign language" [ref=f88e219] [cursor=pointer]:
+              - /url: https://metaverse.sakani.sa/mv?q=P0oIuYtReWqAzX1cSdFvGbHnJkLm8Q2R
+      - generic [ref=f88e221]:
+        - generic [ref=f88e222]: All rights are received © 2026 - NHC Innovation
+        - generic [ref=f88e223]:
+          - link [ref=f88e224] [cursor=pointer]:
+            - /url: https://jed-s3.bluvalt.com/sakani-cms-service-prod/sites/61a6e4e5811b9f450388c11f/assets/69369b6fbaf70a4b90d34267/fal_license_report.pdf
+            - img "FAL license" [ref=f88e225]
+          - img "AI" [ref=f88e226]
+          - link [ref=f88e227] [cursor=pointer]:
+            - /url: https://www.nhc.sa
+            - img "NHC" [ref=f88e228]
+          - link [ref=f88e229] [cursor=pointer]:
+            - /url: https://www.vision2030.gov.sa
+            - img "Vision 2030" [ref=f88e230]
+  - generic [ref=f88e231]:
+    - generic:
+      - button "Close chat"
+      - iframe [ref=f88e232]:
+        
+    - generic:
+      - button "Open chat"
+      - button "Open accessibility"
+    - button "Toggle menu" [ref=f88e233] [cursor=pointer]

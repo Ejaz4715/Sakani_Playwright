@@ -1,0 +1,317 @@
+- generic [active] [ref=f58e1]:
+  - generic [ref=f58e4]:
+    - generic [ref=f58e7]:
+      - generic [ref=f58e8]:
+        - generic [ref=f58e9]: A government website registered with the Digital Government Authority.
+        - button "How you know?" [ref=f58e12] [cursor=pointer]
+      - generic [ref=f58e14]:
+        - generic [ref=f58e15]:
+          - generic [ref=f58e20]:
+            - heading "Official Saudi Government website URL ends with .sa" [level=5] [ref=f58e21]
+            - generic [ref=f58e22]: Website belongs to an official activities and initiatives in the Kingdom of Saudi Arabia always ends with .sa
+          - generic [ref=f58e27]:
+            - heading "Official Secure websites use HTTPS" [level=5] [ref=f58e28]
+            - generic [ref=f58e29]: Secured governments websites in the Kingdom of Saudi Arabia use HTTPS encryption.
+        - generic [ref=f58e32]:
+          - generic [ref=f58e33]: "Registered on Digital Government Authority:"
+          - generic [ref=f58e34]: "20250428955"
+    - navigation [ref=f58e35]:
+      - generic [ref=f58e38]:
+        - generic [ref=f58e39]:
+          - link [ref=f58e40] [cursor=pointer]:
+            - /url: /
+            - img "Sakani logo" [ref=f58e41]
+          - generic [ref=f58e42]:
+            - listitem [ref=f58e43] [cursor=pointer]:
+              - button "Properties for Sale" [ref=f58e44]
+            - listitem [ref=f58e47] [cursor=pointer]:
+              - button "Properties for Rent" [ref=f58e48]
+            - listitem [ref=f58e51] [cursor=pointer]:
+              - button "Auctions" [ref=f58e52]
+            - listitem [ref=f58e54] [cursor=pointer]:
+              - button "Services" [ref=f58e55]
+            - listitem [ref=f58e58] [cursor=pointer]:
+              - button "Help" [ref=f58e59]
+        - generic [ref=f58e61]:
+          - listitem [ref=f58e62] [cursor=pointer]:
+            - button "Search" [ref=f58e65]
+          - listitem [ref=f58e68] [cursor=pointer]:
+            - button "التبديل إلى العربية" [ref=f58e69]:
+              - generic [ref=f58e71]: عربي
+          - listitem [ref=f58e72] [cursor=pointer]:
+            - button "Login" [ref=f58e73]
+  - generic [ref=f58e76]:
+    - generic [ref=f58e77]:
+      - generic [ref=f58e80]:
+        - generic [ref=f58e84] [cursor=pointer]
+        - generic [ref=f58e91]:
+          - heading "Explore your housing options" [level=2] [ref=f58e92]
+          - generic [ref=f58e93]:
+            - button "Offplan" [ref=f58e94] [cursor=pointer]
+            - button "Readymade units" [ref=f58e96] [cursor=pointer]
+            - button "Units for rent" [ref=f58e98] [cursor=pointer]
+          - generic [ref=f58e100]:
+            - button "AI Search" [ref=f58e102] [cursor=pointer]
+            - textbox "Search for city" [ref=f58e108]
+          - generic [ref=f58e109]:
+            - button "Unit type" [ref=f58e111] [cursor=pointer]
+            - button "Price range" [ref=f58e115] [cursor=pointer]
+            - button "Rooms" [ref=f58e119] [cursor=pointer]
+          - button "Search" [ref=f58e122] [cursor=pointer]
+      - generic [ref=f58e125]:
+        - generic [ref=f58e126]:
+          - heading "Services tailored for you" [level=2] [ref=f58e127]
+          - generic [ref=f58e128]:
+            - button "Broker" [ref=f58e129] [cursor=pointer]
+            - button "Developer" [ref=f58e130] [cursor=pointer]
+            - button "Self-Build" [ref=f58e131] [cursor=pointer]
+            - button "Buyer" [ref=f58e132] [cursor=pointer]
+            - button "Tenant" [ref=f58e133] [cursor=pointer]
+        - generic [ref=f58e136]:
+          - heading "Digitar.. your digital office to manage and market your properties" [level=3] [ref=f58e137]
+          - paragraph [ref=f58e138]: Marketing, advertising, tracking, real estate market insights, and direct communication with buyers… all your work in one place.
+          - link "Join now" [ref=f58e140] [cursor=pointer]:
+            - /url: https://digitar.sakani.sa?lang=en
+      - generic [ref=f58e146]:
+        - group "1 / 15" [ref=f58e148]:
+          - generic [ref=f58e150]:
+            - heading "Khuzam Community" [level=2] [ref=f58e151]
+            - generic [ref=f58e152]: The suburb of Khuzam, the largest residential suburb of the National Housing Authority; Where it is developing in the north of the city of Riyadh. It extends over a total area of about 30 million square metres. It is located in a vital location near King Khalid International Airport; It is one of the major residential suburbs that the company is developing in partnership with real estate developers and private sector companies, to provide more than 50,000 housing units that can accommodate more than 281,000 people.
+            - generic [ref=f58e153]:
+              - generic [ref=f58e154]:
+                - generic [ref=f58e155]: Total Units
+                - generic [ref=f58e156]: 32,578 Units
+              - generic [ref=f58e158]:
+                - generic [ref=f58e159]: Total Area
+                - generic [ref=f58e160]: 33,231,264 square metres
+            - link "Explore More" [ref=f58e162] [cursor=pointer]:
+              - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/5
+            - generic [ref=f58e164]:
+              - button "Previous slide" [disabled]
+              - button "Next slide" [ref=f58e165] [cursor=pointer]
+        - generic [ref=f58e168] [cursor=pointer]
+        - generic [ref=f58e169] [cursor=pointer]
+      - generic [ref=f58e170]:
+        - generic [ref=f58e177]:
+          - generic [ref=f58e178]:
+            - heading "Most Popular Properties" [level=2] [ref=f58e179]
+            - generic [ref=f58e180]:
+              - button [disabled]
+              - button [ref=f58e181] [cursor=pointer]
+          - generic [ref=f58e187]:
+            - generic:
+              - group "1 / 5" [ref=f58e188]:
+                - generic [ref=f58e191]:
+                  - generic [ref=f58e192]:
+                    - generic [ref=f58e193] [cursor=pointer]
+                    - generic [ref=f58e195]:
+                      - tablist [ref=f58e196]:
+                        - tab "Slide 1 of 3" [selected] [ref=f58e197] [cursor=pointer]
+                        - tab "Slide 2 of 3" [ref=f58e198] [cursor=pointer]
+                        - tab "Slide 3 of 3" [ref=f58e199] [cursor=pointer]
+                      - tabpanel [ref=f58e201]:
+                        - generic [ref=f58e202]: Slide 1 of 3
+                        - img [ref=f58e203] [cursor=pointer]
+                  - generic [ref=f58e204] [cursor=pointer]:
+                    - generic [ref=f58e205]: Townhouse 07-05-07-05-D-E-06
+                    - generic [ref=f58e207]: Riyadh Region, Shaqra
+                    - generic [ref=f58e210]:
+                      - generic [ref=f58e211]: SAR
+                      - text: 844,331
+                    - generic [ref=f58e213]:
+                      - generic [ref=f58e214]: Townhouse
+                      - generic [ref=f58e218]:
+                        - generic [ref=f58e219]: ‎5
+                        - generic [ref=f58e221]: ‎5
+                      - generic [ref=f58e223]: 230m²
+                  - generic [ref=f58e226]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - group "2 / 5" [ref=f58e233]:
+                - generic [ref=f58e236]:
+                  - generic [ref=f58e237]:
+                    - generic [ref=f58e238] [cursor=pointer]
+                    - tabpanel [ref=f58e242]:
+                      - generic [ref=f58e243]: Slide 1 of 1
+                      - img [ref=f58e244] [cursor=pointer]
+                  - generic [ref=f58e245] [cursor=pointer]:
+                    - generic [ref=f58e246]: Apartment A5-101
+                    - generic [ref=f58e248]: Riyadh Region, Riyadh
+                    - generic [ref=f58e251]:
+                      - generic [ref=f58e252]: SAR
+                      - text: 100,000
+                    - generic [ref=f58e254]:
+                      - generic [ref=f58e255]: Apartment
+                      - generic [ref=f58e259]:
+                        - generic [ref=f58e260]: ‎3
+                        - generic [ref=f58e262]: ‎2
+                      - generic [ref=f58e264]: 150m²
+                  - generic [ref=f58e267]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - group "3 / 5" [ref=f58e274]:
+                - generic [ref=f58e277]:
+                  - generic [ref=f58e278]:
+                    - generic [ref=f58e279] [cursor=pointer]
+                    - generic [ref=f58e281]:
+                      - tablist [ref=f58e282]:
+                        - tab "Slide 1 of 3" [selected] [ref=f58e283] [cursor=pointer]
+                        - tab "Slide 2 of 3" [ref=f58e284] [cursor=pointer]
+                        - tab "Slide 3 of 3" [ref=f58e285] [cursor=pointer]
+                      - tabpanel [ref=f58e287]:
+                        - generic [ref=f58e288]: Slide 1 of 3
+                        - img [ref=f58e289] [cursor=pointer]
+                  - generic [ref=f58e290] [cursor=pointer]:
+                    - generic [ref=f58e291]: Apartment 999-123
+                    - generic [ref=f58e293]: Riyadh Region, Shaqra
+                    - generic [ref=f58e296]:
+                      - generic [ref=f58e297]: SAR
+                      - text: 150,000
+                    - generic [ref=f58e299]:
+                      - generic [ref=f58e300]: Apartment
+                      - generic [ref=f58e304]:
+                        - generic [ref=f58e305]: ‎3
+                        - generic [ref=f58e307]: ‎2
+                      - generic [ref=f58e309]: 150m²
+                  - generic [ref=f58e312]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - group "4 / 5" [ref=f58e319]:
+                - generic [ref=f58e322]:
+                  - generic [ref=f58e323]:
+                    - generic [ref=f58e324] [cursor=pointer]
+                    - generic [ref=f58e326]:
+                      - tablist [ref=f58e327]:
+                        - tab "Slide 1 of 2" [selected] [ref=f58e328] [cursor=pointer]
+                        - tab "Slide 2 of 2" [ref=f58e329] [cursor=pointer]
+                      - tabpanel [ref=f58e331]:
+                        - generic [ref=f58e332]: Slide 1 of 2
+                        - img [ref=f58e333] [cursor=pointer]
+                  - generic [ref=f58e334] [cursor=pointer]:
+                    - generic [ref=f58e335]: Villa A4-14
+                    - generic [ref=f58e337]: Riyadh Region, Riyadh
+                    - generic [ref=f58e340]:
+                      - generic [ref=f58e341]: SAR
+                      - text: 638,738
+                    - generic [ref=f58e343]:
+                      - generic [ref=f58e344]: Villa
+                      - generic [ref=f58e348]: ‎4
+                      - generic [ref=f58e351]: 237.5m²
+                  - generic [ref=f58e354]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - group "5 / 5" [ref=f58e361]:
+                - generic [ref=f58e364]:
+                  - generic [ref=f58e365]:
+                    - generic [ref=f58e366] [cursor=pointer]
+                    - generic [ref=f58e368]:
+                      - tablist [ref=f58e369]:
+                        - tab "Slide 1 of 3" [selected] [ref=f58e370] [cursor=pointer]
+                        - tab "Slide 2 of 3" [ref=f58e371] [cursor=pointer]
+                        - tab "Slide 3 of 3" [ref=f58e372] [cursor=pointer]
+                      - tabpanel [ref=f58e374]:
+                        - generic [ref=f58e375]: Slide 1 of 3
+                        - img [ref=f58e376] [cursor=pointer]
+                  - generic [ref=f58e377] [cursor=pointer]:
+                    - generic [ref=f58e378]: Townhouse 06-09-06-09-B-M-39
+                    - generic [ref=f58e380]: Riyadh Region, Shaqra
+                    - generic [ref=f58e383]:
+                      - generic [ref=f58e384]: SAR
+                      - text: 672,900
+                    - generic [ref=f58e386]:
+                      - generic [ref=f58e387]: Townhouse
+                      - generic [ref=f58e391]:
+                        - generic [ref=f58e392]: ‎4
+                        - generic [ref=f58e394]: ‎4
+                      - generic [ref=f58e396]: 200m²
+                  - generic [ref=f58e399]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+        - generic [ref=f58e408]:
+          - heading "Deferred subsidy" [level=2] [ref=f58e411]
+          - iframe [ref=f58e415]:
+            - paragraph [ref=f59e6]: The following projects apply the 5%-95% payment plan, 5% upon booking and 95% over equal installments.
+          - link "Explore more projects" [ref=f58e419] [cursor=pointer]:
+            - /url: /app/marketplace?marketplace_purpose=buy&nhc=false&target_segment_info=&payment_options=deferred_subsidy
+        - generic [ref=f58e426]:
+          - generic [ref=f58e428]:
+            - heading "Find your perfect property anytime, anywhere! Download our app now!" [level=2] [ref=f58e429]
+            - paragraph [ref=f58e430]: Browse the property market with ease, from searching for properties to closing deals, all at your fingertips.
+            - generic [ref=f58e432]:
+              - link [ref=f58e433] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=sa.housing.sakani&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1
+                - img "Google Play" [ref=f58e434]
+              - link [ref=f58e435] [cursor=pointer]:
+                - /url: https://apps.apple.com/us/app/sakani/id1439423333
+                - img "App Store" [ref=f58e436]
+          - img "Find your dream property" [ref=f58e438]
+    - generic: Rate your Experience
+    - contentinfo [ref=f58e445]:
+      - generic [ref=f58e446]:
+        - generic [ref=f58e447]:
+          - generic [ref=f58e448]:
+            - generic [ref=f58e449]:
+              - generic [ref=f58e450]: Housing
+              - generic [ref=f58e451]:
+                - link "Marketplace" [ref=f58e452] [cursor=pointer]:
+                  - /url: /app/marketplace
+                - link "Housing Designs" [ref=f58e453] [cursor=pointer]:
+                  - /url: /app/housing-designs
+                - link "Sakani Metaverse" [ref=f58e454] [cursor=pointer]:
+                  - /url: /services/sakani-metaverse
+                - link "Sakani Offers" [ref=f58e455] [cursor=pointer]:
+                  - /url: /app/promotion-vouchers
+            - generic [ref=f58e456]:
+              - generic [ref=f58e457]: News and Reports
+              - generic [ref=f58e458]:
+                - link "News" [ref=f58e459] [cursor=pointer]:
+                  - /url: /news
+                - link "Real Estate Indicators" [ref=f58e460] [cursor=pointer]:
+                  - /url: https://rei.rega.gov.sa/
+                - link "Rental Indicators" [ref=f58e461] [cursor=pointer]:
+                  - /url: /reports-and-data/rental-units
+            - generic [ref=f58e462]:
+              - generic [ref=f58e463]: Support
+              - generic [ref=f58e464]:
+                - link "Privacy Policy and Terms and Conditions" [ref=f58e465] [cursor=pointer]:
+                  - /url: /terms
+                - link "Executive Regulations for Housing Support" [ref=f58e466] [cursor=pointer]:
+                  - /url: /housing-subsidy-policy
+                - link "Help and Support" [ref=f58e467] [cursor=pointer]:
+                  - /url: /support-and-help
+                - link "Frequently Asked Questions" [ref=f58e468] [cursor=pointer]:
+                  - /url: /support-and-help/faqs
+                - link "Contact Us" [ref=f58e469] [cursor=pointer]:
+                  - /url: /support-and-help/contact-us
+          - generic [ref=f58e470]:
+            - generic [ref=f58e471]:
+              - generic [ref=f58e472]: Contact us
+              - generic [ref=f58e473]:
+                - link "LinkedIn" [ref=f58e474] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/sakani
+                - link "X" [ref=f58e476] [cursor=pointer]:
+                  - /url: https://x.com/sakani
+                - link "Instagram" [ref=f58e478] [cursor=pointer]:
+                  - /url: https://www.instagram.com/sakaniksa/
+                - link "WhatsApp" [ref=f58e480] [cursor=pointer]:
+                  - /url: https://whatsapp.com/channel/0029VbBckQJFMqrPN3WTAu20
+                - link "YouTube" [ref=f58e482] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@Sakani
+                - link "TikTok" [ref=f58e484] [cursor=pointer]:
+                  - /url: https://www.tiktok.com/@sakani
+            - generic [ref=f58e486]:
+              - generic [ref=f58e487]: Accessibility tool
+              - link "Live sign language" [ref=f58e489] [cursor=pointer]:
+                - /url: https://metaverse.sakani.sa/mv?q=P0oIuYtReWqAzX1cSdFvGbHnJkLm8Q2R
+        - generic [ref=f58e491]:
+          - generic [ref=f58e492]: All rights are received © 2026 - NHC Innovation
+          - generic [ref=f58e493]:
+            - link [ref=f58e494] [cursor=pointer]:
+              - /url: https://jed-s3.bluvalt.com/sakani-cms-service-prod/sites/61a6e4e5811b9f450388c11f/assets/69369b6fbaf70a4b90d34267/fal_license_report.pdf
+              - img "FAL license" [ref=f58e495]
+            - img "AI" [ref=f58e496]
+            - link [ref=f58e497] [cursor=pointer]:
+              - /url: https://www.nhc.sa
+              - img "NHC" [ref=f58e498]
+            - link [ref=f58e499] [cursor=pointer]:
+              - /url: https://www.vision2030.gov.sa
+              - img "Vision 2030" [ref=f58e500]
+  - generic [ref=f58e501]:
+    - generic:
+      - button "Close chat"
+      - iframe [ref=f58e502]:
+        
+    - generic:
+      - button "Open chat"
+      - button "Open accessibility"
+    - button "Toggle menu" [ref=f58e503] [cursor=pointer]

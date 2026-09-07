@@ -1,0 +1,239 @@
+- generic [ref=f145e2]:
+  - generic [ref=f145e3]:
+    - navigation [ref=f145e7]:
+      - generic [ref=f145e10]:
+        - generic [ref=f145e11]:
+          - link [ref=f145e12] [cursor=pointer]:
+            - /url: https://nhc.sakani.sa/marketplace
+            - img "Mini marketplace logo" [ref=f145e13]
+          - link "Go to NHC Marketplace" [ref=f145e14] [cursor=pointer]:
+            - /url: https://nhc.sakani.sa
+        - generic [ref=f145e15]:
+          - link "Back to Sakani" [ref=f145e16] [cursor=pointer]:
+            - /url: https://pre-sakani.housingapps.sa/app
+          - listitem [ref=f145e17] [cursor=pointer]: عربي
+          - listitem [ref=f145e18]:
+            - generic [ref=f145e21]:
+              - generic [ref=f145e22]: Hello
+              - generic [ref=f145e23]: ALSHAIKHA محمد اليامي
+    - generic [ref=f145e25]:
+      - generic [ref=f145e26]:
+        - generic [ref=f145e29]:
+          - generic [ref=f145e30]: Home
+          - generic [ref=f145e33]: Marketplace
+          - generic [ref=f145e37]: مشروع مساكن طيبة المدائن EN
+          - generic [ref=f145e41]: model_1
+          - generic [ref=f145e45]: Apartment
+        - generic [ref=f145e53]:
+          - generic [ref=f145e57]:
+            - button "Compare" [ref=f145e60] [cursor=pointer]
+            - button "Favorite" [ref=f145e63] [cursor=pointer]
+            - button "Share" [ref=f145e67] [cursor=pointer]
+          - generic [ref=f145e71]:
+            - img "Main Gallery Media" [ref=f145e74]
+            - generic [ref=f145e75]:
+              - img "Grid Thumbnail" [ref=f145e77]
+              - img "Grid Thumbnail" [ref=f145e79]
+            - button "3 Photos" [ref=f145e81] [cursor=pointer]
+          - generic [ref=f145e84]:
+            - generic [ref=f145e85]:
+              - generic [ref=f145e86]:
+                - generic [ref=f145e88]:
+                  - generic [ref=f145e89]: For All
+                  - generic [ref=f145e91]: Bookings open
+                - heading "999-288" [level=3] [ref=f145e93]
+                - generic [ref=f145e94]:
+                  - generic [ref=f145e97]:
+                    - heading "Unit price" [level=6] [ref=f145e98]
+                    - heading "SAR 200,000 Exl. VAT" [level=3] [ref=f145e99]:
+                      - generic [ref=f145e100]:
+                        - generic [ref=f145e101]: SAR 200,000
+                        - generic [ref=f145e103]: Exl. VAT
+                  - generic [ref=f145e105]:
+                    - paragraph [ref=f145e106]: Calculate your monthly installment
+                    - button "Mortgage Calculator" [ref=f145e107] [cursor=pointer]
+                  - generic [ref=f145e109]: Applied Deferred Subsidy Contract ( 5% - 95% )
+                - generic [ref=f145e110]:
+                  - generic [ref=f145e111]: Apartment
+                  - generic [ref=f145e113]: "3"
+                  - generic [ref=f145e118]: "2"
+                  - generic [ref=f145e124]:
+                    - generic [ref=f145e126]: "150"
+                    - generic [ref=f145e127]: m²
+                - paragraph [ref=f145e128]: Shaqra, Riyadh Region
+                - heading "About this unit" [level=5] [ref=f145e129]
+                - paragraph [ref=f145e130]: Description EN Description EN Description EN Description EN
+                - heading "About this project" [level=5] [ref=f145e132]
+                - generic [ref=f145e133]:
+                  - generic [ref=f145e134]:
+                    - heading "Developer" [level=6] [ref=f145e136]
+                    - link "ElDahia El Mesalia" [ref=f145e139] [cursor=pointer]:
+                      - /url: /app/developers/1010486785
+                  - generic [ref=f145e142]:
+                    - heading "Project" [level=6] [ref=f145e144]
+                    - heading "مشروع مساكن طيبة المدائن EN" [level=6] [ref=f145e146] [cursor=pointer]
+                  - generic [ref=f145e147]:
+                    - heading "Target audience" [level=6] [ref=f145e149]
+                    - heading "For All" [level=6] [ref=f145e151]
+                  - generic [ref=f145e152]:
+                    - heading "First unit delivery date" [level=6] [ref=f145e154]
+                    - heading "-" [level=6] [ref=f145e156]
+                  - generic [ref=f145e157]:
+                    - heading "Payment methods" [level=6] [ref=f145e159]
+                    - generic [ref=f145e160]: Cash
+              - generic [ref=f145e164]:
+                - heading "Documents" [level=5] [ref=f145e165]
+                - generic [ref=f145e168]:
+                  - generic [ref=f145e169]:
+                    - generic [ref=f145e172]: Masterplan
+                    - generic [ref=f145e173]: View the project layout and surrounding community plan.
+                  - button "View file" [ref=f145e176] [cursor=pointer]
+              - generic [ref=f145e179]:
+                - heading "Unit details" [level=5] [ref=f145e180]
+                - generic [ref=f145e182]:
+                  - generic [ref=f145e183]:
+                    - heading "Floor" [level=6] [ref=f145e184]
+                    - heading "2" [level=6] [ref=f145e185]
+                  - generic [ref=f145e186]:
+                    - heading "Apartment" [level=6] [ref=f145e187]
+                    - heading "288" [level=6] [ref=f145e188]
+                  - generic [ref=f145e189]:
+                    - heading "Property type" [level=6] [ref=f145e190]
+                    - heading "Apartment" [level=6] [ref=f145e191]
+                  - generic [ref=f145e192]:
+                    - heading "Building" [level=6] [ref=f145e193]
+                    - heading "2" [level=6] [ref=f145e194]
+                  - generic [ref=f145e195]:
+                    - heading "Number of Bathrooms" [level=6] [ref=f145e196]
+                    - heading "2" [level=6] [ref=f145e197]
+                  - generic [ref=f145e198]:
+                    - heading "Number of Bedrooms" [level=6] [ref=f145e199]
+                    - heading "3" [level=6] [ref=f145e200]
+                  - generic [ref=f145e201]:
+                    - heading "Unit area" [level=6] [ref=f145e202]
+                    - heading "150 sqm" [level=6] [ref=f145e203]
+                  - generic [ref=f145e204]:
+                    - heading "City" [level=6] [ref=f145e205]
+                    - heading "Shaqra" [level=6] [ref=f145e206]
+                  - generic [ref=f145e207]:
+                    - heading "Region" [level=6] [ref=f145e208]
+                    - heading "Riyadh" [level=6] [ref=f145e209]
+                  - generic [ref=f145e210]:
+                    - heading "Corner" [level=6] [ref=f145e211]
+                    - heading "No" [level=6] [ref=f145e212]
+                  - generic [ref=f145e213]:
+                    - heading "Block" [level=6] [ref=f145e214]
+                    - heading "999" [level=6] [ref=f145e215]
+                  - generic [ref=f145e216]:
+                    - heading "Deed number" [level=6] [ref=f145e217]
+                    - heading "12" [level=6] [ref=f145e218]
+              - generic [ref=f145e220]:
+                - heading "Facilities" [level=5] [ref=f145e221]
+                - paragraph [ref=f145e222]: No have data yet
+              - generic [ref=f145e225]:
+                - generic [ref=f145e226]:
+                  - heading "Location" [level=5] [ref=f145e227]
+                  - button "Get directions" [ref=f145e228] [cursor=pointer]
+                - generic [ref=f145e231]:
+                  - application [ref=f145e238]
+                  - paragraph [ref=f145e239]: Shaqra, Riyadh Region
+              - generic [ref=f145e241]:
+                - heading "Housing assistance packages" [level=5] [ref=f145e242]
+                - generic [ref=f145e243]: This project includes various optional packages that provide beneficiaries with assistance worth up to SAR 100,000, which may include financial support and in-kind benefits, depending on the package selected.
+              - heading "Payment schedule in cash" [level=5] [ref=f145e247]
+              - generic [ref=f145e269]:
+                - heading "Participating banks" [level=5] [ref=f145e270]
+                - generic [ref=f145e271]:
+                  - generic [ref=f145e273]: Bank Albilad
+                  - generic [ref=f145e274]: Online lending
+                - generic [ref=f145e275]:
+                  - generic [ref=f145e277]: Bank Bidaya
+                  - generic [ref=f145e278]: Online lending
+                - generic [ref=f145e279]:
+                  - generic [ref=f145e281]: Bank Alrajhi
+                  - generic [ref=f145e282]: Online lending
+                - generic [ref=f145e283]:
+                  - generic [ref=f145e285]: سامبا - التمويل الالكتروني
+                  - generic [ref=f145e286]: Online lending
+                - generic [ref=f145e287]:
+                  - generic [ref=f145e289]: بنك الأهلي السعودي
+                  - generic [ref=f145e290]: Online lending
+                - generic [ref=f145e291]: See more
+              - generic [ref=f145e294]:
+                - heading "Owners Association" [level=5] [ref=f145e295]
+                - generic [ref=f145e297]:
+                  - text: The project is subject to the Owners Association, which aims to regulate the relationship between all owners of condominiums in common areas, more information about the Malak program
+                  - link "click here" [ref=f145e298] [cursor=pointer]:
+                    - /url: https://mullak.housing.gov.sa
+              - generic [ref=f145e303]:
+                - heading "Contact" [level=5] [ref=f145e304]
+                - generic [ref=f145e306]:
+                  - heading "Developer" [level=6] [ref=f145e307]
+                  - link "Contact Image ElDahia El Mesalia RIYADH" [ref=f145e309] [cursor=pointer]:
+                    - /url: /app/developers/1010486785
+                    - img "Contact Image" [ref=f145e311]
+                    - generic [ref=f145e312]:
+                      - generic [ref=f145e313]: ElDahia El Mesalia
+                      - generic [ref=f145e314]: RIYADH
+                  - generic [ref=f145e315]:
+                    - button "Call" [ref=f145e316] [cursor=pointer]
+                    - button "Whatsapp" [ref=f145e319] [cursor=pointer]
+            - generic [ref=f145e327]:
+              - generic [ref=f145e328]: Licensed by
+              - generic [ref=f145e331]:
+                - generic [ref=f145e332]:
+                  - progressbar "progress bar" [ref=f145e333]
+                  - generic [ref=f145e335]:
+                    - generic [ref=f145e336]:
+                      - generic [ref=f145e337]: First unit delivery
+                      - generic [ref=f145e338]: "-"
+                    - generic [ref=f145e339]:
+                      - generic [ref=f145e340]: Progress
+                      - generic [ref=f145e341]: 100.0 % complete
+                - link "ElDahia El Mesalia Licensed" [ref=f145e345] [cursor=pointer]:
+                  - /url: /app/developers/1010486785
+                  - generic [ref=f145e348]:
+                    - generic [ref=f145e349]: ElDahia El Mesalia
+                    - generic [ref=f145e350]: Licensed
+                - button "Book a unit" [ref=f145e354] [cursor=pointer]
+                - button "Contact Developer" [ref=f145e356] [cursor=pointer]
+          - generic [ref=f145e359]:
+            - heading "More units in Shaqra, Riyadh Region" [level=5] [ref=f145e363]
+            - heading "Similar units in other projects" [level=5] [ref=f145e414]
+      - generic [ref=f145e466]:
+        - generic [ref=f145e468]:
+          - link [ref=f145e469] [cursor=pointer]:
+            - /url: https://nhc.sakani.sa/marketplace
+            - img "Mini marketplace logo" [ref=f145e470]
+          - generic [ref=f145e471]: At NHC, we take pride in creating exceptional destinations that enrich lives today and shape a better tomorrow for everyone.
+          - generic [ref=f145e472]:
+            - link [ref=f145e473] [cursor=pointer]:
+              - /url: https://www.facebook.com/sakani.housing
+              - img "facebook" [ref=f145e474]
+            - link [ref=f145e475] [cursor=pointer]:
+              - /url: https://www.x.com/sakani
+              - img "x" [ref=f145e476]
+            - link [ref=f145e477] [cursor=pointer]:
+              - /url: https://www.youtube.com/@Sakani
+              - img "youtube" [ref=f145e478]
+            - link [ref=f145e479] [cursor=pointer]:
+              - /url: https://www.instagram.com/sakaniksa/
+              - img "instagram" [ref=f145e480]
+            - link [ref=f145e481] [cursor=pointer]:
+              - /url: https://www.instagram.com/sakaniksa/
+              - img "whatsapp" [ref=f145e482]
+        - separator [ref=f145e483]
+        - generic [ref=f145e484]: © 2025 NHC. All rights reserved.
+    - generic [ref=f145e486]:
+      - generic:
+        - button "Close chat"
+        - iframe [ref=f145e487]:
+          
+      - generic:
+        - button "Chat"
+        - button "Accessibility"
+      - button "Toggle menu" [ref=f145e488] [cursor=pointer]
+  - status [ref=f145e494]:
+    - generic [ref=f145e495]: Loading...
+  - status [ref=f145e499]:
+    - generic [ref=f145e500]: Loading...

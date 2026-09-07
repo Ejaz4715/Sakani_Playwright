@@ -1,0 +1,18 @@
+{
+  "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
+  "developerUserId": "1023129537",
+  "projectName": "Automation Auction 20260906095721",
+  "userPortalUrl": "https://pre-sakani.housingapps.sa",
+  "sakaniUserId": "1300064852",
+  "sakaniUserIdMoh": "1019075999",
+  "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth",
+  "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+  "adminPassword": "admin",
+  "bookedUnitCode": "02-01-0169-16-112",
+  "auctionStartDate": "06-09-2026",
+  "auctionEndDate": "06-09-2026",
+  "auctionStartTime": "14:57",
+  "auctionEndTime": "16:57",
+  "invoice_number": "2609010000000403",
+  "viban_number": "SA0001000000000843"
+}

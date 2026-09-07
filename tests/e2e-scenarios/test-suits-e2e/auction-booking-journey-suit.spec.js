@@ -1,0 +1,42 @@
+const path = require("path");
+
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "auction",
+    "electronic-auction",
+    "TC-01-create-auction-project-electornic_with-fee.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "auction",
+    "electronic-auction",
+    "TC-02-user-bids-electronic-auction-and-pay-fee.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "auction",
+    "hybrid-auction",
+    "TC-01-create-auction-project-hybrid-without-fee.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "auction",
+    "hybrid-auction",
+    "TC-02-user-joins-hybrid-auction-and-sign-contract.spec.js",
+  ),
+);

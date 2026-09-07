@@ -1,0 +1,185 @@
+- generic [ref=f133e2]:
+  - generic [ref=f133e3]:
+    - generic [ref=f133e6]:
+      - generic [ref=f133e9]:
+        - generic [ref=f133e10]:
+          - generic [ref=f133e11]: A government website registered with the Digital Government Authority.
+          - button "How you know?" [ref=f133e14] [cursor=pointer]
+        - generic [ref=f133e16]:
+          - generic [ref=f133e17]:
+            - generic [ref=f133e22]:
+              - heading "Official Saudi Government website URL ends with .sa" [level=5] [ref=f133e23]
+              - generic [ref=f133e24]: Website belongs to an official activities and initiatives in the Kingdom of Saudi Arabia always ends with .sa
+            - generic [ref=f133e29]:
+              - heading "Official Secure websites use HTTPS" [level=5] [ref=f133e30]
+              - generic [ref=f133e31]: Secured governments websites in the Kingdom of Saudi Arabia use HTTPS encryption.
+          - generic [ref=f133e34]:
+            - generic [ref=f133e35]: "Registered on Digital Government Authority:"
+            - generic [ref=f133e36]: "20250428955"
+      - navigation [ref=f133e37]:
+        - generic [ref=f133e40]:
+          - generic [ref=f133e41]:
+            - link [ref=f133e42] [cursor=pointer]:
+              - /url: /
+              - img "Sakani logo" [ref=f133e43]
+            - generic [ref=f133e44]:
+              - listitem [ref=f133e45] [cursor=pointer]:
+                - button "Properties for Sale" [ref=f133e46]
+              - listitem [ref=f133e49] [cursor=pointer]:
+                - button "Properties for Rent" [ref=f133e50]
+              - listitem [ref=f133e53] [cursor=pointer]:
+                - button "Auctions" [ref=f133e54]
+              - listitem [ref=f133e56] [cursor=pointer]:
+                - button "Services" [ref=f133e57]
+              - listitem [ref=f133e60] [cursor=pointer]:
+                - button "Help" [ref=f133e61]
+          - generic [ref=f133e63]:
+            - listitem [ref=f133e64] [cursor=pointer]:
+              - button "Search" [ref=f133e67]
+            - listitem [ref=f133e70] [cursor=pointer]:
+              - button "التبديل إلى العربية" [ref=f133e71]:
+                - generic [ref=f133e73]: عربي
+            - listitem [ref=f133e74] [cursor=pointer]:
+              - button "ALSHAIKHA محمد اليامي" [ref=f133e79]
+    - generic [ref=f133e84]:
+      - generic [ref=f133e85]:
+        - generic [ref=f133e88]:
+          - generic [ref=f133e89]: Home
+          - generic [ref=f133e92]: Services
+          - generic [ref=f133e96]: Housing Designs
+        - generic [ref=f133e101]:
+          - generic [ref=f133e103]:
+            - heading "Browse available housing designs" [level=3] [ref=f133e104]
+            - paragraph [ref=f133e107]: Because the house is larger than a built-up area, it needs engineering foundations to evaluate it; On the Sakani platform, we offer an engineering design service, to make your home suitable for the different needs of your family.
+          - generic [ref=f133e109]:
+            - heading "Features of engineering designs in Sakani" [level=4] [ref=f133e110]
+            - generic [ref=f133e111]:
+              - generic [ref=f133e112]: Modern designs for floors, rooms and various spaces
+              - generic [ref=f133e115]: Variety menu to choose the right and discounted price
+              - generic [ref=f133e118]: With the possibility of harmonizing and obtaining a building permit
+          - generic [ref=f133e122]:
+            - heading "Available designs" [level=4] [ref=f133e123]
+            - generic [ref=f133e127]:
+              - paragraph [ref=f133e128]: Filters
+              - generic [ref=f133e129]:
+                - generic [ref=f133e130]:
+                  - generic [ref=f133e131]: Building code
+                  - generic [ref=f133e137]:
+                    - generic [ref=f133e139] [cursor=pointer]:
+                      - generic [ref=f133e140]: Select an option
+                      - combobox [ref=f133e142]
+                    - status [ref=f133e144]
+                - generic [ref=f133e145]:
+                  - generic [ref=f133e146]: Space
+                  - generic [ref=f133e149]:
+                    - textbox "Min" [ref=f133e150]
+                    - generic [ref=f133e151]: "-"
+                    - textbox "Maxgroup" [ref=f133e152]:
+                      - /placeholder: Max
+                - generic [ref=f133e153]:
+                  - generic [ref=f133e154]: Bedrooms
+                  - generic [ref=f133e159]:
+                    - button "2" [ref=f133e160] [cursor=pointer]
+                    - button "3" [ref=f133e161] [cursor=pointer]
+                    - button "4" [ref=f133e162] [cursor=pointer]
+                    - button "5+" [ref=f133e163] [cursor=pointer]
+                - generic [ref=f133e164]:
+                  - generic [ref=f133e165]: Floors
+                  - generic [ref=f133e170]:
+                    - button "1" [ref=f133e171] [cursor=pointer]
+                    - button "2" [ref=f133e172] [cursor=pointer]
+                    - button "3+" [ref=f133e173] [cursor=pointer]
+                - generic [ref=f133e174]:
+                  - generic [ref=f133e175]:
+                    - generic [ref=f133e176]: Land width
+                    - textbox "Enter land width" [ref=f133e179]
+                  - generic [ref=f133e180]:
+                    - generic [ref=f133e181]: Land length
+                    - textbox "Enter land length" [ref=f133e184]
+                  - generic [ref=f133e185]:
+                    - generic [ref=f133e186]: Front street width
+                    - textbox "Enter front street width" [ref=f133e189]
+                - generic [ref=f133e190]:
+                  - checkbox [ref=f133e193] [cursor=pointer]
+                  - generic [ref=f133e194]: Advanced filters
+      - contentinfo [ref=f133e267]:
+        - generic [ref=f133e268]:
+          - generic [ref=f133e269]:
+            - generic [ref=f133e270]:
+              - generic [ref=f133e271]:
+                - generic [ref=f133e272]: Housing
+                - generic [ref=f133e273]:
+                  - link "Marketplace" [ref=f133e274] [cursor=pointer]:
+                    - /url: /app/marketplace
+                  - link "Housing Designs" [ref=f133e275] [cursor=pointer]:
+                    - /url: /app/housing-designs
+                  - link "Sakani Metaverse" [ref=f133e276] [cursor=pointer]:
+                    - /url: /services/sakani-metaverse
+                  - link "Sakani Offers" [ref=f133e277] [cursor=pointer]:
+                    - /url: /app/promotion-vouchers
+              - generic [ref=f133e278]:
+                - generic [ref=f133e279]: News and Reports
+                - generic [ref=f133e280]:
+                  - link "News" [ref=f133e281] [cursor=pointer]:
+                    - /url: /news
+                  - link "Real Estate Indicators" [ref=f133e282] [cursor=pointer]:
+                    - /url: https://rei.rega.gov.sa/
+                  - link "Rental Indicators" [ref=f133e283] [cursor=pointer]:
+                    - /url: /reports-and-data/rental-units
+              - generic [ref=f133e284]:
+                - generic [ref=f133e285]: Support
+                - generic [ref=f133e286]:
+                  - link "Privacy Policy and Terms and Conditions" [ref=f133e287] [cursor=pointer]:
+                    - /url: /terms
+                  - link "Executive Regulations for Housing Support" [ref=f133e288] [cursor=pointer]:
+                    - /url: /housing-subsidy-policy
+                  - link "Help and Support" [ref=f133e289] [cursor=pointer]:
+                    - /url: /support-and-help
+                  - link "Frequently Asked Questions" [ref=f133e290] [cursor=pointer]:
+                    - /url: /support-and-help/faqs
+                  - link "Contact Us" [ref=f133e291] [cursor=pointer]:
+                    - /url: /support-and-help/contact-us
+            - generic [ref=f133e292]:
+              - generic [ref=f133e293]:
+                - generic [ref=f133e294]: Contact us
+                - generic [ref=f133e295]:
+                  - link "LinkedIn" [ref=f133e296] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/company/sakani
+                  - link "X" [ref=f133e298] [cursor=pointer]:
+                    - /url: https://x.com/sakani
+                  - link "Instagram" [ref=f133e300] [cursor=pointer]:
+                    - /url: https://www.instagram.com/sakaniksa/
+                  - link "WhatsApp" [ref=f133e302] [cursor=pointer]:
+                    - /url: https://whatsapp.com/channel/0029VbBckQJFMqrPN3WTAu20
+                  - link "YouTube" [ref=f133e304] [cursor=pointer]:
+                    - /url: https://www.youtube.com/@Sakani
+                  - link "TikTok" [ref=f133e306] [cursor=pointer]:
+                    - /url: https://www.tiktok.com/@sakani
+              - generic [ref=f133e308]:
+                - generic [ref=f133e309]: Accessibility tool
+                - link "Live sign language" [ref=f133e311] [cursor=pointer]:
+                  - /url: https://metaverse.sakani.sa/mv?q=P0oIuYtReWqAzX1cSdFvGbHnJkLm8Q2R
+          - generic [ref=f133e313]:
+            - generic [ref=f133e314]: All rights are received © 2026 - NHC Innovation
+            - generic [ref=f133e315]:
+              - img "FAL license" [ref=f133e317] [cursor=pointer]
+              - img "AI" [ref=f133e318]
+              - link [ref=f133e319] [cursor=pointer]:
+                - /url: https://www.nhc.sa
+                - img "NHC" [ref=f133e320]
+              - link [ref=f133e321] [cursor=pointer]:
+                - /url: https://www.vision2030.gov.sa
+                - img "Vision 2030" [ref=f133e322]
+    - generic [ref=f133e323]:
+      - generic:
+        - button "Close chat"
+        - iframe [ref=f133e324]:
+          
+      - generic:
+        - button "Chat"
+        - button "Accessibility"
+      - button "Toggle menu" [ref=f133e325] [cursor=pointer]
+  - status [ref=f133e331]:
+    - generic [ref=f133e332]: Loading...
+  - status [ref=f133e336]:
+    - generic [ref=f133e337]: Loading...

@@ -1,0 +1,29 @@
+const path = require("path");
+
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "moh-land-booking-journey",
+    "TC-01-add-new-moh-land-project.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "moh-land-booking-journey",
+    "TC-02-book-moh-land.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "moh-land-booking-journey",
+    "TC-03-cancel-moh-land-booking.spec.js",
+  ),
+);

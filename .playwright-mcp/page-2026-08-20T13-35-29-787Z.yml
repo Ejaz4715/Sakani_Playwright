@@ -1,0 +1,1083 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: A government website registered with the Digital Government Authority.
+          - button [ref=e868] [cursor=pointer]: How you know?
+        - generic [ref=e16]:
+          - generic [ref=e17]:
+            - generic [ref=e22]:
+              - heading [level=5] [ref=e869]: Official Saudi Government website URL ends with .sa
+              - generic [ref=e24]: Website belongs to an official activities and initiatives in the Kingdom of Saudi Arabia always ends with .sa
+            - generic [ref=e29]:
+              - heading [level=5] [ref=e870]: Official Secure websites use HTTPS
+              - generic [ref=e31]: Secured governments websites in the Kingdom of Saudi Arabia use HTTPS encryption.
+          - generic [ref=e34]:
+            - generic [ref=e35]: "Registered on Digital Government Authority:"
+            - generic [ref=e36]: "20250428955"
+      - navigation [ref=e37]:
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - link [ref=e871] [cursor=pointer]:
+              - /url: /
+            - generic [ref=e44]:
+              - listitem [ref=e45] [cursor=pointer]:
+                - button [ref=e873]:
+                  - generic [ref=e47]: Properties for Sale
+              - listitem [ref=e49] [cursor=pointer]:
+                - button [ref=e874]:
+                  - generic [ref=e51]: Properties for Rent
+              - listitem [ref=e53] [cursor=pointer]:
+                - button [ref=e875]:
+                  - generic [ref=e55]: Auctions
+              - listitem [ref=e56] [cursor=pointer]:
+                - button [ref=e876]:
+                  - generic [ref=e58]: Services
+              - listitem [ref=e60] [cursor=pointer]:
+                - button [ref=e877]:
+                  - generic [ref=e62]: Help
+          - generic [ref=e63]:
+            - listitem [ref=e64] [cursor=pointer]:
+              - button [ref=e878]:
+                - generic [ref=e879]: Search
+            - listitem [ref=e69] [cursor=pointer]:
+              - button [ref=e880]:
+                - generic [ref=e881]: عربي
+            - listitem [ref=e72] [cursor=pointer]:
+              - button [ref=e73]:
+                - generic [ref=e882]: Login
+    - generic [ref=e78]:
+      - generic [ref=e82]:
+        - generic [ref=e87]:
+          - generic [ref=e91]:
+            - generic [ref=e93]:
+              - generic [ref=e97]:
+                - generic [ref=e104]:
+                  - generic [ref=e105] [cursor=pointer]: Property to Buy
+                  - status [ref=e112]
+                - generic [ref=e126]:
+                  - textbox [ref=e883]:
+                    - /placeholder: City, Region, Neighborhood, Project, or Street
+                  - generic [ref=e130] [cursor=pointer]
+              - generic [ref=e885]:
+                - generic [ref=e886] [cursor=pointer]: Sort by
+                - generic [ref=e890] [cursor=pointer]: Filter
+            - generic [ref=e135]:
+              - generic [ref=e138]:
+                - group [ref=e894]:
+                  - generic [ref=e148] [cursor=pointer]: For you
+                - group [ref=e895]:
+                  - generic [ref=e152] [cursor=pointer]: Register Interested
+                - group [ref=e896]:
+                  - generic [ref=e156]:
+                    - generic [ref=e157] [cursor=pointer]: Under construction
+                    - status [ref=e163]
+                - group [ref=e897]:
+                  - generic [ref=e166]:
+                    - generic [ref=e167] [cursor=pointer]: Property type
+                    - status [ref=e172]
+                - group [ref=e898]:
+                  - generic [ref=e174] [cursor=pointer]: Price
+                - group [ref=e899]:
+                  - generic [ref=e180]:
+                    - generic [ref=e181] [cursor=pointer]: Bedrooms
+                    - status [ref=e186]
+                - group [ref=e900]:
+                  - generic [ref=e189]:
+                    - generic [ref=e190] [cursor=pointer]: Baths
+                    - status [ref=e195]
+                - group [ref=e901]:
+                  - generic [ref=e198]:
+                    - generic [ref=e199] [cursor=pointer]: Project Status
+                    - status [ref=e204]
+              - button [ref=e902] [cursor=pointer]
+          - generic [ref=e214]:
+            - generic [ref=e215]:
+              - heading [level=4] [ref=e903]: NHC Destinations
+              - generic [ref=e219]:
+                - generic [ref=e220] [cursor=pointer]
+                - generic [ref=e221] [cursor=pointer]
+            - generic [ref=e224]:
+              - group [ref=e904]:
+                - link [ref=e905] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/41
+                  - generic [ref=e229]:
+                    - generic [ref=e231]: 200+ units
+                    - generic [ref=e232]: Wdyana Destination
+              - group [ref=e906]:
+                - link [ref=e907] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/53
+                  - generic [ref=e239]:
+                    - generic [ref=e241]: 96 units
+                    - generic [ref=e242]: Diwan Project
+              - group [ref=e908]:
+                - link [ref=e909] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/51
+                  - generic [ref=e249]:
+                    - generic [ref=e251]: Units available soon
+                    - generic [ref=e252]: Ehsan mega project
+              - group [ref=e910]:
+                - link [ref=e911] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/26
+                  - generic [ref=e259]:
+                    - generic [ref=e261]: Units available soon
+                    - generic [ref=e262]: Aldar Destination
+              - group [ref=e912]:
+                - link [ref=e913] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/28
+                  - generic [ref=e269]:
+                    - generic [ref=e271]: Units available soon
+                    - generic [ref=e272]: Alwajha Destination
+              - group [ref=e914]:
+                - link [ref=e915] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/1
+                  - generic [ref=e279]:
+                    - generic [ref=e281]: 200+ units
+                    - generic [ref=e282]: Al-Fursan
+              - group [ref=e916]:
+                - link [ref=e917] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/2
+                  - generic [ref=e289]:
+                    - generic [ref=e291]: Units available soon
+                    - generic [ref=e292]: Aerospace projects
+              - group [ref=e918]:
+                - link [ref=e919] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/3
+                  - generic [ref=e299]:
+                    - generic [ref=e301]: Units available soon
+                    - generic [ref=e302]: Aerospace projects One 7
+              - group [ref=e920]:
+                - link [ref=e921] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/4
+                  - generic [ref=e309]:
+                    - generic [ref=e311]: 200+ units
+                    - generic [ref=e312]: Mega pro 1
+              - group [ref=e922]:
+                - link [ref=e923] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/5
+                  - generic [ref=e319]:
+                    - generic [ref=e321]: Last few units left
+                    - generic [ref=e322]: وجهة خزام
+              - group [ref=e924]:
+                - link [ref=e925] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/9
+                  - generic [ref=e329]:
+                    - generic [ref=e331]: Units available soon
+                    - generic [ref=e332]: Saryya 1
+              - group [ref=e926]:
+                - link [ref=e927] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/10
+                  - generic [ref=e339]:
+                    - generic [ref=e341]: Units available soon
+                    - generic [ref=e342]: Jeddah Haites
+              - group [ref=e928]:
+                - link [ref=e929] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/11
+                  - generic [ref=e349]:
+                    - generic [ref=e351]: Units available soon
+                    - generic [ref=e352]: Makkah Gate
+              - group [ref=e930]:
+                - link [ref=e931] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/12
+                  - generic [ref=e359]:
+                    - generic [ref=e361]: Units available soon
+                    - generic [ref=e362]: Alasalah
+              - group [ref=e932]:
+                - link [ref=e933] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/13
+                  - generic [ref=e369]:
+                    - generic [ref=e371]: Units available soon
+                    - generic [ref=e372]: وجهة جدة هايتس
+              - group [ref=e934]:
+                - link [ref=e935] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/14
+                  - generic [ref=e379]:
+                    - generic [ref=e381]: 5 units
+                    - generic [ref=e382]: Makkah Gate
+              - group [ref=e936]:
+                - link [ref=e937] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/15
+                  - generic [ref=e389]:
+                    - generic [ref=e391]: Units available soon
+                    - generic [ref=e392]: Tabuk mega project
+              - group [ref=e938]:
+                - link [ref=e939] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/16
+                  - generic [ref=e399]:
+                    - generic [ref=e401]: Units available soon
+                    - generic [ref=e402]: Ebtesam Mega Project
+              - group [ref=e940]:
+                - link [ref=e941] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/17
+                  - generic [ref=e409]:
+                    - generic [ref=e411]: Units available soon
+                    - generic [ref=e412]: ِAl-Daharan Mega Project
+              - group [ref=e942]:
+                - link [ref=e943] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/18
+                  - generic [ref=e419]:
+                    - generic [ref=e421]: Units available soon
+                    - generic [ref=e422]: Test Mega CRM
+              - group [ref=e944]:
+                - link [ref=e945] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/19
+                  - generic [ref=e429]:
+                    - generic [ref=e431]: 70 units
+                    - generic [ref=e432]: Yanboaa
+              - group [ref=e946]:
+                - link [ref=e947] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/20
+                  - generic [ref=e439]:
+                    - generic [ref=e441]: 53 units
+                    - generic [ref=e442]: Jeddah Heights Destination
+              - group [ref=e948]:
+                - link [ref=e949] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/21
+                  - generic [ref=e449]:
+                    - generic [ref=e451]: 16 units
+                    - generic [ref=e452]: New Test Mega project 19Mar
+              - group [ref=e950]:
+                - link [ref=e951] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/22
+                  - generic [ref=e459]:
+                    - generic [ref=e461]: Units available soon
+                    - generic [ref=e462]: Almshriq Destination
+              - group [ref=e952]:
+                - link [ref=e953] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/24
+                  - generic [ref=e469]:
+                    - generic [ref=e471]: Units available soon
+                    - generic [ref=e472]: Test 30678
+              - group [ref=e954]:
+                - link [ref=e955] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/25
+                  - generic [ref=e479]:
+                    - generic [ref=e481]: Units available soon
+                    - generic [ref=e482]: Alruba Destination
+              - group [ref=e956]:
+                - link [ref=e957] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/27
+                  - generic [ref=e489]:
+                    - generic [ref=e491]: Units available soon
+                    - generic [ref=e492]: Alworod Destination
+              - group [ref=e958]:
+                - link [ref=e959] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/29
+                  - generic [ref=e499]:
+                    - generic [ref=e501]: Units available soon
+                    - generic [ref=e502]: Sdayem Destination
+              - group [ref=e960]:
+                - link [ref=e961] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/30
+                  - generic [ref=e509]:
+                    - generic [ref=e511]: Units available soon
+                    - generic [ref=e512]: Almukaymn Destination
+              - group [ref=e962]:
+                - link [ref=e963] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/31
+                  - generic [ref=e519]:
+                    - generic [ref=e521]: Units available soon
+                    - generic [ref=e522]: Lazaward Destination
+              - group [ref=e964]:
+                - link [ref=e965] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/32
+                  - generic [ref=e529]:
+                    - generic [ref=e531]: Units available soon
+                    - generic [ref=e532]: Mega project Makkah EN
+              - group [ref=e966]:
+                - link [ref=e967] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/33
+                  - generic [ref=e539]:
+                    - generic [ref=e541]: Units available soon
+                    - generic [ref=e542]: Mega project Jizan EN
+              - group [ref=e968]:
+                - link [ref=e969] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/36
+                  - generic [ref=e549]:
+                    - generic [ref=e551]: Units available soon
+                    - generic [ref=e552]: test mega project 101 EN
+              - group [ref=e970]:
+                - link [ref=e971] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/38
+                  - generic [ref=e559]:
+                    - generic [ref=e561]: Units available soon
+                    - generic [ref=e562]: test mega project 101 EN
+              - group [ref=e972]:
+                - link [ref=e973] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/42
+                  - generic [ref=e569]:
+                    - generic [ref=e571]: Units available soon
+                    - generic [ref=e572]: West Arab project
+              - group [ref=e974]:
+                - link [ref=e975] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/44
+                  - generic [ref=e579]:
+                    - generic [ref=e581]: 200+ units
+                    - generic [ref=e582]: Mega project Riyadh test why choose destination EN
+              - group [ref=e976]:
+                - link [ref=e977] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/45
+                  - generic [ref=e589]:
+                    - generic [ref=e591]: Units available soon
+                    - generic [ref=e592]: Red Star Mega project
+              - group [ref=e978]:
+                - link [ref=e979] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/46
+                  - generic [ref=e599]:
+                    - generic [ref=e601]: Units available soon
+                    - generic [ref=e602]: Sharq Ibda
+              - group [ref=e980]:
+                - link [ref=e981] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/47
+                  - generic [ref=e609]:
+                    - generic [ref=e611]: Units available soon
+                    - generic [ref=e612]: Alwaha
+              - group [ref=e982]:
+                - link [ref=e983] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/48
+                  - generic [ref=e619]:
+                    - generic [ref=e621]: Units available soon
+                    - generic [ref=e622]: Riyadh Gate
+              - group [ref=e984]:
+                - link [ref=e985] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/49
+                  - generic [ref=e629]:
+                    - generic [ref=e631]: Units available soon
+                    - generic [ref=e632]: Rufof Mega Project
+              - group [ref=e986]:
+                - link [ref=e987] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/50
+                  - generic [ref=e639]:
+                    - generic [ref=e641]: Units available soon
+                    - generic [ref=e642]: Mega Project Hilal
+              - group [ref=e988]:
+                - link [ref=e989] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/52
+                  - generic [ref=e649]:
+                    - generic [ref=e651]: Units available soon
+                    - generic [ref=e652]: Mega project Makkah EN
+              - group [ref=e990]:
+                - link [ref=e991] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/54
+                  - generic [ref=e659]:
+                    - generic [ref=e661]: 100+ units
+                    - generic [ref=e662]: "[EN] Mega 54"
+              - group [ref=e992]:
+                - link [ref=e993] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/43
+                  - generic [ref=e669]:
+                    - generic [ref=e671]: 200+ units
+                    - generic [ref=e672]: Riyadh
+          - generic [ref=e677]:
+            - heading [level=6] [ref=e994]: Insights & trends
+            - generic [ref=e680]:
+              - generic [ref=e687]:
+                - generic [ref=e688]: AVG. SALE PER UNIT IN AR RIYADH
+                - generic [ref=e692]:
+                  - heading [level=5] [ref=e995]:
+                    - generic [ref=e695]:
+                      - text: SAR
+                      - generic [ref=e696]: 822.52K
+                  - generic [ref=e697]:
+                    - generic [ref=e698]: "-19.66‎%"
+                    - text: Compared previous month
+              - generic [ref=e705]:
+                - generic [ref=e706]: NUMBER OF MONTHLY RESERVATIONS
+                - generic [ref=e710]:
+                  - heading [level=5] [ref=e996]:
+                    - generic [ref=e712]: 6,153
+                  - generic [ref=e713]:
+                    - generic [ref=e714]: "-12.01‎%"
+                    - text: Compared previous month
+          - generic [ref=e715]:
+            - heading [level=4] [ref=e997]: 25 Projects
+            - tablist [ref=e717]:
+              - tab [selected] [ref=e998] [cursor=pointer]: Projects
+              - tab [ref=e999] [cursor=pointer]: Units
+          - generic [ref=e720]:
+            - generic [ref=e1003]:
+              - generic [ref=e1005]:
+                - generic [ref=e1006]:
+                  - generic [ref=e1007]:
+                    - tablist [ref=e1008]:
+                      - tab [selected] [ref=e1009] [cursor=pointer]
+                      - tab [ref=e1010] [cursor=pointer]
+                    - tabpanel [ref=e1012]:
+                      - generic [ref=e1013]: Slide 1 of 2
+                  - generic [ref=e1015] [cursor=pointer]: 2 units left
+                - generic [ref=e1020] [cursor=pointer]:
+                  - generic [ref=e1021]: TH Comprehensive journey EN test 123
+                  - generic [ref=e1022]: Units Under Construction At Riyadh Region, Aldammam
+                  - generic [ref=e1025]:
+                    - generic [ref=e1026]: Starting from
+                    - generic [ref=e1028]:
+                      - generic [ref=e1029]: SAR 99
+                      - generic [ref=e1031]: SAR 999
+                  - generic [ref=e1033]:
+                    - generic [ref=e1034]:
+                      - generic [ref=e1036]: Villa
+                      - generic [ref=e1037]: + 1
+                    - generic [ref=e1038]:
+                      - generic [ref=e1039]: ‎2-5
+                      - generic [ref=e1041]: ‎1-5
+                    - generic [ref=e1043]:
+                      - generic [ref=e1045]: ‎27-175
+                      - generic [ref=e1046]: m²
+                - generic [ref=e1047]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - generic [ref=e1054] [cursor=pointer]
+            - generic [ref=e1059]:
+              - generic [ref=e1061]:
+                - generic [ref=e1062]:
+                  - generic [ref=e1063]:
+                    - tablist [ref=e1064]:
+                      - tab [selected] [ref=e1065] [cursor=pointer]
+                      - tab [ref=e1066] [cursor=pointer]
+                    - tabpanel [ref=e1068]:
+                      - generic [ref=e1069]: Slide 1 of 2
+                  - generic [ref=e1071] [cursor=pointer]: Few units left
+                - generic [ref=e1076] [cursor=pointer]:
+                  - generic [ref=e1077]: مشروع مساكن طيبة المدائن EN
+                  - generic [ref=e1078]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1081]:
+                    - generic [ref=e1082]: Starting from
+                    - generic [ref=e1083]: SAR 100,000
+                  - generic [ref=e1085]:
+                    - generic [ref=e1086]:
+                      - generic [ref=e1088]: Apartment
+                      - generic [ref=e1089]: + 2
+                    - generic [ref=e1090]:
+                      - generic [ref=e1091]: ‎3-4
+                      - generic [ref=e1093]: ‎2
+                    - generic [ref=e1095]:
+                      - generic [ref=e1097]: ‎120-175
+                      - generic [ref=e1098]: m²
+                - generic [ref=e1099]: Published by مؤسسة مسكني المثالي العقارية
+              - generic [ref=e1110] [cursor=pointer]
+            - generic [ref=e1115]:
+              - generic [ref=e1117]:
+                - generic [ref=e1118]:
+                  - tabpanel [ref=e1121]:
+                    - generic [ref=e1122]: Slide 1 of 1
+                  - generic [ref=e1125] [cursor=pointer]:
+                    - generic [ref=e1126]: Few units left
+                    - generic [ref=e1128]: Promoted
+                - generic [ref=e1132] [cursor=pointer]:
+                  - generic [ref=e1133]: اختبار عنوان صفحة تفاصيل المشروع من الملفات النصية
+                  - generic [ref=e1134]: Units Under Construction At Riyadh Region, Riyadh
+                  - generic [ref=e1137]:
+                    - generic [ref=e1138]: Starting from
+                    - generic [ref=e1139]: SAR 100,000
+                  - generic [ref=e1141]:
+                    - generic [ref=e1142]: Land
+                    - generic [ref=e1145]:
+                      - generic [ref=e1147]: ‎693
+                      - generic [ref=e1148]: m²
+                - generic [ref=e1149]: Published by الحاكمية للتطوير العقاري
+              - generic [ref=e1157] [cursor=pointer]
+            - generic [ref=e1162]:
+              - generic [ref=e1164]:
+                - generic [ref=e1165]:
+                  - tabpanel [ref=e1168]:
+                    - generic [ref=e1169]: Slide 1 of 1
+                  - generic [ref=e1171] [cursor=pointer]: Few units left
+                - generic [ref=e1176] [cursor=pointer]:
+                  - generic [ref=e1177]: "[CRM] Project 100325"
+                  - generic [ref=e1178]: Units Under Construction At Riyadh Region, Riyadh
+                  - generic [ref=e1181]:
+                    - generic [ref=e1182]: Starting from
+                    - generic [ref=e1183]: SAR 100,000
+                  - generic [ref=e1185]:
+                    - generic [ref=e1186]: Apartment
+                    - generic [ref=e1189]:
+                      - generic [ref=e1190]: ‎3-4
+                      - generic [ref=e1192]: ‎2
+                    - generic [ref=e1194]:
+                      - generic [ref=e1196]: ‎130-170
+                      - generic [ref=e1197]: m²
+                - generic [ref=e1198]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - generic [ref=e1205] [cursor=pointer]
+            - generic [ref=e1210]:
+              - generic [ref=e1212]:
+                - generic [ref=e1213]:
+                  - generic [ref=e1214]:
+                    - tablist [ref=e1215]:
+                      - tab [selected] [ref=e1216] [cursor=pointer]
+                      - tab [ref=e1217] [cursor=pointer]
+                    - tabpanel [ref=e1219]:
+                      - generic [ref=e1220]: Slide 1 of 2
+                  - generic [ref=e1223] [cursor=pointer]:
+                    - generic [ref=e1224]: Few plots left
+                    - generic [ref=e1226]: Promoted
+                - generic [ref=e1230] [cursor=pointer]:
+                  - generic [ref=e1231]: QP 2 Offplan land land only
+                  - generic [ref=e1232]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1235]:
+                    - generic [ref=e1236]: Starting from
+                    - generic [ref=e1237]: SAR 100,000
+                  - generic [ref=e1239]:
+                    - generic [ref=e1240]: Land
+                    - generic [ref=e1243]:
+                      - generic [ref=e1245]: ‎674-770
+                      - generic [ref=e1246]: m²
+                - generic [ref=e1247]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - generic [ref=e1254] [cursor=pointer]
+            - generic [ref=e1259]:
+              - generic [ref=e1261]:
+                - generic [ref=e1262]:
+                  - tabpanel [ref=e1265]:
+                    - generic [ref=e1266]: Slide 1 of 1
+                  - generic [ref=e1268] [cursor=pointer]: Few units left
+                - generic [ref=e1273] [cursor=pointer]:
+                  - generic [ref=e1274]: Offplan MOH check price 001 Fully Subsidized test
+                  - generic [ref=e1275]: Units Under Construction At Riyadh Region, AL HAIR
+                  - generic [ref=e1278]:
+                    - generic [ref=e1279]: Starting from
+                    - generic [ref=e1280]: SAR 620,000
+                  - generic [ref=e1282]:
+                    - generic [ref=e1283]: Apartment
+                    - generic [ref=e1286]:
+                      - generic [ref=e1287]: ‎3-4
+                      - generic [ref=e1289]: ‎2
+                    - generic [ref=e1291]:
+                      - generic [ref=e1293]: ‎120-170
+                      - generic [ref=e1294]: m²
+                - generic [ref=e1295]: Published by شركة دار مثمره
+              - generic [ref=e1307] [cursor=pointer]
+            - generic [ref=e1312]:
+              - generic [ref=e1314]:
+                - generic [ref=e1315]:
+                  - tabpanel [ref=e1318]:
+                    - generic [ref=e1319]: Slide 1 of 1
+                  - generic [ref=e1321] [cursor=pointer]: Few units left
+                - generic [ref=e1326] [cursor=pointer]:
+                  - generic [ref=e1327]: اراضي المثالية للمساكن طيبة
+                  - generic [ref=e1328]: Units Under Construction At Najran Region, AL SHAHI
+                  - generic [ref=e1331]:
+                    - generic [ref=e1332]: Starting from
+                    - generic [ref=e1333]: SAR 100,000
+                  - generic [ref=e1335]:
+                    - generic [ref=e1336]:
+                      - generic [ref=e1338]: Villa
+                      - generic [ref=e1339]: + 1
+                    - generic [ref=e1340]:
+                      - generic [ref=e1341]: ‎3-5
+                      - generic [ref=e1343]: ‎2-6
+                    - generic [ref=e1345]:
+                      - generic [ref=e1347]: ‎120-425
+                      - generic [ref=e1348]: m²
+                - generic [ref=e1349]: Published by مؤسسة مسكني المثالي العقارية
+              - generic [ref=e1356] [cursor=pointer]
+            - generic [ref=e1361]:
+              - generic [ref=e1363]:
+                - generic [ref=e1364]:
+                  - tabpanel [ref=e1367]:
+                    - generic [ref=e1368]: Slide 1 of 1
+                  - generic [ref=e1370] [cursor=pointer]: Few units left
+                - generic [ref=e1375] [cursor=pointer]:
+                  - generic [ref=e1376]: VT Test CRM
+                  - generic [ref=e1377]: Units Under Construction At Riyadh Region, AL HAIR
+                  - generic [ref=e1380]:
+                    - generic [ref=e1381]: Starting from
+                    - generic [ref=e1382]: SAR 100,000
+                  - generic [ref=e1384]:
+                    - generic [ref=e1385]: Apartment
+                    - generic [ref=e1388]:
+                      - generic [ref=e1389]: ‎3
+                      - generic [ref=e1391]: ‎2
+                    - generic [ref=e1393]:
+                      - generic [ref=e1395]: ‎150
+                      - generic [ref=e1396]: m²
+                - generic [ref=e1397]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - generic [ref=e1404] [cursor=pointer]
+            - generic [ref=e1409]:
+              - generic [ref=e1411]:
+                - generic [ref=e1412]:
+                  - tabpanel [ref=e1415]:
+                    - generic [ref=e1416]: Slide 1 of 1
+                  - generic [ref=e1418] [cursor=pointer]: Few units left
+                - generic [ref=e1423] [cursor=pointer]:
+                  - generic [ref=e1424]: Offplan MOH Land Oct - VT
+                  - generic [ref=e1425]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1428]:
+                    - generic [ref=e1429]: Starting from
+                    - generic [ref=e1430]: SAR 100,000
+                  - generic [ref=e1432]:
+                    - generic [ref=e1433]: Apartment
+                    - generic [ref=e1436]:
+                      - generic [ref=e1437]: ‎3-5
+                      - generic [ref=e1439]: ‎2
+                    - generic [ref=e1441]:
+                      - generic [ref=e1443]: ‎120-170
+                      - generic [ref=e1444]: m²
+                - generic [ref=e1445]: Published by Developer test Update 2
+              - generic [ref=e1457] [cursor=pointer]
+            - generic [ref=e1462]:
+              - generic [ref=e1464]:
+                - generic [ref=e1465]:
+                  - generic [ref=e1466]:
+                    - tablist [ref=e1467]:
+                      - tab [selected] [ref=e1468] [cursor=pointer]
+                      - tab [ref=e1469] [cursor=pointer]
+                      - tab [ref=e1470] [cursor=pointer]
+                      - tab [ref=e1471] [cursor=pointer]
+                    - tabpanel [ref=e1473]:
+                      - generic [ref=e1474]: Slide 1 of 4
+                  - generic [ref=e1476] [cursor=pointer]: Few units left
+                - generic [ref=e1481] [cursor=pointer]:
+                  - generic [ref=e1482]: Offplan MOH 5-95 feature
+                  - generic [ref=e1483]: Units Under Construction At Riyadh Region, AL HAIR
+                  - generic [ref=e1486]:
+                    - generic [ref=e1487]: Starting from
+                    - generic [ref=e1488]: SAR 100,000
+                  - generic [ref=e1490]:
+                    - generic [ref=e1491]: Apartment
+                    - generic [ref=e1494]:
+                      - generic [ref=e1495]: ‎3-5
+                      - generic [ref=e1497]: ‎2
+                    - generic [ref=e1499]:
+                      - generic [ref=e1501]: ‎150
+                      - generic [ref=e1502]: m²
+                - generic [ref=e1503]: Published by Developer test Update 2
+              - generic [ref=e1511] [cursor=pointer]
+            - generic [ref=e1516]:
+              - generic [ref=e1518]:
+                - generic [ref=e1519]:
+                  - generic [ref=e1520]:
+                    - tablist [ref=e1521]:
+                      - tab [selected] [ref=e1522] [cursor=pointer]
+                      - tab [ref=e1523] [cursor=pointer]
+                    - tabpanel [ref=e1525]:
+                      - generic [ref=e1526]: Slide 1 of 2
+                  - generic [ref=e1528] [cursor=pointer]: Few units left
+                - generic [ref=e1533] [cursor=pointer]:
+                  - generic [ref=e1534]: media title dec30 moh
+                  - generic [ref=e1535]: Units Under Construction At Riyadh Region, AL HAIR
+                  - generic [ref=e1538]:
+                    - generic [ref=e1539]: Starting from
+                    - generic [ref=e1540]: SAR 210,000
+                  - generic [ref=e1542]:
+                    - generic [ref=e1543]: Apartment
+                    - generic [ref=e1546]:
+                      - generic [ref=e1547]: ‎3
+                      - generic [ref=e1549]: ‎2
+                    - generic [ref=e1551]:
+                      - generic [ref=e1553]: ‎150
+                      - generic [ref=e1554]: m²
+                - generic [ref=e1555]: Published by test 4031200534
+              - generic [ref=e1563] [cursor=pointer]
+            - generic [ref=e1568]:
+              - generic [ref=e1570]:
+                - generic [ref=e1571]:
+                  - generic [ref=e1572]:
+                    - tablist [ref=e1573]:
+                      - tab [selected] [ref=e1574] [cursor=pointer]
+                      - tab [ref=e1575] [cursor=pointer]
+                      - tab [ref=e1576] [cursor=pointer]
+                      - tab [ref=e1577] [cursor=pointer]
+                      - tab [ref=e1578] [cursor=pointer]
+                    - tabpanel [ref=e1580]:
+                      - generic [ref=e1581]: Slide 1 of 5
+                  - generic [ref=e1583] [cursor=pointer]: Few units left
+                - generic [ref=e1588] [cursor=pointer]:
+                  - generic [ref=e1589]: Offplan MOH Land Project - VT
+                  - generic [ref=e1590]: Units Under Construction At Riyadh Region, AL HAIR
+                  - generic [ref=e1593]:
+                    - generic [ref=e1594]: Starting from
+                    - generic [ref=e1595]: SAR 100,000
+                  - generic [ref=e1597]:
+                    - generic [ref=e1598]:
+                      - generic [ref=e1600]: Apartment
+                      - generic [ref=e1601]: + 1
+                    - generic [ref=e1602]:
+                      - generic [ref=e1603]: ‎3-5
+                      - generic [ref=e1605]: ‎2
+                    - generic [ref=e1607]:
+                      - generic [ref=e1609]: ‎125-175
+                      - generic [ref=e1610]: m²
+                - generic [ref=e1611]: Published by Developer test Update 2
+              - generic [ref=e1619] [cursor=pointer]
+            - generic [ref=e1624]:
+              - generic [ref=e1626]:
+                - generic [ref=e1627]:
+                  - tabpanel [ref=e1630]:
+                    - generic [ref=e1631]: Slide 1 of 1
+                  - generic [ref=e1633] [cursor=pointer]: Few units left
+                - generic [ref=e1638] [cursor=pointer]:
+                  - generic [ref=e1639]: 004 Detail page
+                  - generic [ref=e1640]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1643]:
+                    - generic [ref=e1644]: Starting from
+                    - generic [ref=e1645]: SAR 100,000
+                  - generic [ref=e1647]:
+                    - generic [ref=e1648]: Apartment
+                    - generic [ref=e1651]:
+                      - generic [ref=e1652]: ‎3-4
+                      - generic [ref=e1654]: ‎2
+                    - generic [ref=e1656]:
+                      - generic [ref=e1658]: ‎125-150
+                      - generic [ref=e1659]: m²
+                - generic [ref=e1660]: Published by test11
+              - generic [ref=e1671] [cursor=pointer]
+            - generic [ref=e1676]:
+              - generic [ref=e1678]:
+                - generic [ref=e1679]:
+                  - tabpanel [ref=e1682]:
+                    - generic [ref=e1683]: Slide 1 of 1
+                  - generic [ref=e1685] [cursor=pointer]: Few units left
+                - generic [ref=e1690] [cursor=pointer]:
+                  - generic [ref=e1691]: 002 Detail page
+                  - generic [ref=e1692]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1695]:
+                    - generic [ref=e1696]: Starting from
+                    - generic [ref=e1697]: SAR 100,000
+                  - generic [ref=e1699]:
+                    - generic [ref=e1700]: Apartment
+                    - generic [ref=e1703]:
+                      - generic [ref=e1704]: ‎3-4
+                      - generic [ref=e1706]: ‎2
+                    - generic [ref=e1708]:
+                      - generic [ref=e1710]: ‎130-170
+                      - generic [ref=e1711]: m²
+                - generic [ref=e1712]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - generic [ref=e1723] [cursor=pointer]
+            - generic [ref=e1728]:
+              - generic [ref=e1730]:
+                - generic [ref=e1731]:
+                  - tabpanel [ref=e1734]:
+                    - generic [ref=e1735]: Slide 1 of 1
+                  - generic [ref=e1737] [cursor=pointer]: Few units left
+                - generic [ref=e1742] [cursor=pointer]:
+                  - generic [ref=e1743]: Offplan Normal flow - 14/11/2025 - title
+                  - generic [ref=e1744]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1747]:
+                    - generic [ref=e1748]: Starting from
+                    - generic [ref=e1749]: SAR 200,000
+                  - generic [ref=e1751]:
+                    - generic [ref=e1752]:
+                      - generic [ref=e1754]: Apartment
+                      - generic [ref=e1755]: + 1
+                    - generic [ref=e1756]:
+                      - generic [ref=e1757]: ‎3-4
+                      - generic [ref=e1759]: ‎2
+                    - generic [ref=e1761]:
+                      - generic [ref=e1763]: ‎120-175
+                      - generic [ref=e1764]: m²
+                - generic [ref=e1765]: Published by Developer test 1
+              - generic [ref=e1777] [cursor=pointer]
+            - generic [ref=e1782]:
+              - generic [ref=e1784]:
+                - generic [ref=e1785]:
+                  - tabpanel [ref=e1788]:
+                    - generic [ref=e1789]: Slide 1 of 1
+                  - generic [ref=e1791] [cursor=pointer]: Few units left
+                - generic [ref=e1796] [cursor=pointer]:
+                  - generic [ref=e1797]: Title of detail page by SAKAKAKAKA
+                  - generic [ref=e1798]: Units Under Construction At Riyadh Region, Riyadh
+                  - generic [ref=e1801]:
+                    - generic [ref=e1802]: Starting from
+                    - generic [ref=e1803]: SAR 220,000
+                  - generic [ref=e1805]:
+                    - generic [ref=e1806]: Apartment
+                    - generic [ref=e1809]:
+                      - generic [ref=e1810]: ‎3
+                      - generic [ref=e1812]: ‎2
+                    - generic [ref=e1814]:
+                      - generic [ref=e1816]: ‎150
+                      - generic [ref=e1817]: m²
+                - generic [ref=e1818]: Published by شركة الضاحية المثالية للتطوير والاستثمار العقاري
+              - generic [ref=e1829] [cursor=pointer]
+            - generic [ref=e1834]:
+              - generic [ref=e1836]:
+                - generic [ref=e1837]:
+                  - tabpanel [ref=e1840]:
+                    - generic [ref=e1841]: Slide 1 of 1
+                  - generic [ref=e1843] [cursor=pointer]: Few units left
+                - generic [ref=e1848] [cursor=pointer]:
+                  - generic [ref=e1849]: Test from new Role Manager acc1
+                  - generic [ref=e1850]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1853]:
+                    - generic [ref=e1854]: Starting from
+                    - generic [ref=e1855]: SAR 200,000
+                  - generic [ref=e1857]:
+                    - generic [ref=e1858]: Apartment
+                    - generic [ref=e1861]:
+                      - generic [ref=e1862]: ‎3-4
+                      - generic [ref=e1864]: ‎2
+                    - generic [ref=e1866]:
+                      - generic [ref=e1868]: ‎120-170
+                      - generic [ref=e1869]: m²
+                - generic [ref=e1870]: Published by الوطنية للأسكان
+              - generic [ref=e1881] [cursor=pointer]
+            - generic [ref=e1886]:
+              - generic [ref=e1888]:
+                - generic [ref=e1889]:
+                  - tabpanel [ref=e1892]:
+                    - generic [ref=e1893]: Slide 1 of 1
+                  - generic [ref=e1895] [cursor=pointer]: Few units left
+                - generic [ref=e1900] [cursor=pointer]:
+                  - generic [ref=e1901]: Offplan project 20102025 - VT
+                  - generic [ref=e1902]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1905]:
+                    - generic [ref=e1906]: Starting from
+                    - generic [ref=e1907]: SAR 100,000
+                  - generic [ref=e1909]:
+                    - generic [ref=e1910]: Apartment
+                    - generic [ref=e1913]:
+                      - generic [ref=e1914]: ‎3-5
+                      - generic [ref=e1916]: ‎2
+                    - generic [ref=e1918]:
+                      - generic [ref=e1920]: ‎150
+                      - generic [ref=e1921]: m²
+                - generic [ref=e1922]: Published by Developer test Update 2
+              - generic [ref=e1930] [cursor=pointer]
+            - generic [ref=e1935]:
+              - generic [ref=e1937]:
+                - generic [ref=e1938]:
+                  - tabpanel [ref=e1941]:
+                    - generic [ref=e1942]: Slide 1 of 1
+                  - generic [ref=e1944] [cursor=pointer]: Few units left
+                - generic [ref=e1949] [cursor=pointer]:
+                  - generic [ref=e1950]: test creat 1
+                  - generic [ref=e1951]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e1954]:
+                    - generic [ref=e1955]: Starting from
+                    - generic [ref=e1956]: SAR 100,000
+                  - generic [ref=e1958]:
+                    - generic [ref=e1959]: Apartment
+                    - generic [ref=e1962]:
+                      - generic [ref=e1963]: ‎3
+                      - generic [ref=e1965]: ‎2
+                    - generic [ref=e1967]:
+                      - generic [ref=e1969]: ‎150
+                      - generic [ref=e1970]: m²
+                - generic [ref=e1971]: Published by Developer test Update 2
+              - generic [ref=e1983] [cursor=pointer]
+            - generic [ref=e1988]:
+              - generic [ref=e1990]:
+                - generic [ref=e1991]:
+                  - tabpanel [ref=e1994]:
+                    - generic [ref=e1995]: Slide 1 of 1
+                  - generic [ref=e1997] [cursor=pointer]: Few units left
+                - generic [ref=e2002] [cursor=pointer]:
+                  - generic [ref=e2003]: Alfursan Gold
+                  - generic [ref=e2004]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e2007]:
+                    - generic [ref=e2008]: Starting from
+                    - generic [ref=e2009]: SAR 100,000
+                  - generic [ref=e2011]:
+                    - generic [ref=e2012]: Apartment
+                    - generic [ref=e2015]:
+                      - generic [ref=e2016]: ‎3-4
+                      - generic [ref=e2018]: ‎2
+                    - generic [ref=e2020]:
+                      - generic [ref=e2022]: ‎130-170
+                      - generic [ref=e2023]: m²
+                - generic [ref=e2024]: Published by شركة الخماسية العالمية للتطوير العقاري
+              - generic [ref=e2036] [cursor=pointer]
+            - generic [ref=e2041]:
+              - generic [ref=e2043]:
+                - generic [ref=e2044]:
+                  - tabpanel [ref=e2047]:
+                    - generic [ref=e2048]: Slide 1 of 1
+                  - generic [ref=e2050] [cursor=pointer]: Few units left
+                - generic [ref=e2055] [cursor=pointer]:
+                  - generic [ref=e2056]: ضاحية طيبة المطور الاسكانية1
+                  - generic [ref=e2057]: Units Under Construction At Riyadh Region, Shaqra
+                  - generic [ref=e2060]:
+                    - generic [ref=e2061]: Starting from
+                    - generic [ref=e2062]: SAR 200,000
+                  - generic [ref=e2064]:
+                    - generic [ref=e2065]: Apartment
+                    - generic [ref=e2068]:
+                      - generic [ref=e2069]: ‎3-4
+                      - generic [ref=e2071]: ‎2
+                    - generic [ref=e2073]:
+                      - generic [ref=e2075]: ‎120-170
+                      - generic [ref=e2076]: m²
+                - generic [ref=e2077]: Published by شركة الخماسية العالمية للتطوير العقاري
+              - generic [ref=e2089] [cursor=pointer]
+          - button [ref=e2092] [cursor=pointer]: Next
+        - generic [ref=e784]:
+          - generic [ref=e786]:
+            - tablist [ref=e788] [cursor=pointer]:
+              - button [ref=e789]
+              - button [ref=e2094]:
+                - generic [ref=e792]: View map
+            - generic [ref=e793] [cursor=pointer]
+            - generic [ref=e795] [cursor=pointer]
+          - generic [ref=e797]:
+            - generic [ref=e798] [cursor=pointer]: +
+            - generic [ref=e800] [cursor=pointer]: "-"
+          - generic [ref=e804]:
+            - application [ref=e805]
+            - generic:  
+      - contentinfo [ref=e807]:
+        - generic [ref=e808]:
+          - generic [ref=e809]:
+            - generic [ref=e810]:
+              - generic [ref=e811]:
+                - generic [ref=e812]: Housing
+                - generic [ref=e813]:
+                  - link [ref=e2096] [cursor=pointer]:
+                    - /url: /app/marketplace
+                    - text: Marketplace
+                  - link [ref=e2097] [cursor=pointer]:
+                    - /url: /app/housing-designs
+                    - text: Housing Designs
+                  - link [ref=e2098] [cursor=pointer]:
+                    - /url: /services/sakani-metaverse
+                    - text: Sakani Metaverse
+                  - link [ref=e2099] [cursor=pointer]:
+                    - /url: /app/promotion-vouchers
+                    - text: Sakani Offers
+              - generic [ref=e818]:
+                - generic [ref=e819]: News and Reports
+                - generic [ref=e820]:
+                  - link [ref=e2100] [cursor=pointer]:
+                    - /url: /news
+                    - text: News
+                  - link [ref=e2101] [cursor=pointer]:
+                    - /url: https://rei.rega.gov.sa/
+                    - text: Real Estate Indicators
+                  - link [ref=e2102] [cursor=pointer]:
+                    - /url: /reports-and-data/rental-units
+                    - text: Rental Indicators
+              - generic [ref=e824]:
+                - generic [ref=e825]: Support
+                - generic [ref=e826]:
+                  - link [ref=e2103] [cursor=pointer]:
+                    - /url: /terms
+                    - text: Privacy Policy and Terms and Conditions
+                  - link [ref=e2104] [cursor=pointer]:
+                    - /url: /housing-subsidy-policy
+                    - text: Executive Regulations for Housing Support
+                  - link [ref=e2105] [cursor=pointer]:
+                    - /url: /support-and-help
+                    - text: Help and Support
+                  - link [ref=e2106] [cursor=pointer]:
+                    - /url: /support-and-help/faqs
+                    - text: Frequently Asked Questions
+                  - link [ref=e2107] [cursor=pointer]:
+                    - /url: /support-and-help/contact-us
+                    - text: Contact Us
+            - generic [ref=e832]:
+              - generic [ref=e833]:
+                - generic [ref=e834]: Contact us
+                - generic [ref=e835]:
+                  - link [ref=e2108] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/company/sakani
+                  - link [ref=e2109] [cursor=pointer]:
+                    - /url: https://x.com/sakani
+                  - link [ref=e2110] [cursor=pointer]:
+                    - /url: https://www.instagram.com/sakaniksa/
+                  - link [ref=e2111] [cursor=pointer]:
+                    - /url: https://whatsapp.com/channel/0029VbBckQJFMqrPN3WTAu20
+                  - link [ref=e2112] [cursor=pointer]:
+                    - /url: https://www.youtube.com/@Sakani
+                  - link [ref=e2113] [cursor=pointer]:
+                    - /url: https://www.tiktok.com/@sakani
+              - generic [ref=e848]:
+                - generic [ref=e849]: Accessibility tool
+                - link [ref=e2114] [cursor=pointer]:
+                  - /url: https://metaverse.sakani.sa/mv?q=P0oIuYtReWqAzX1cSdFvGbHnJkLm8Q2R
+          - generic [ref=e853]:
+            - generic [ref=e854]: All rights are received © 2026 - NHC Innovation
+            - generic [ref=e855]:
+              - generic [ref=e856] [cursor=pointer]
+              - link [ref=e2117] [cursor=pointer]:
+                - /url: https://www.nhc.sa
+              - link [ref=e2119] [cursor=pointer]:
+                - /url: https://www.vision2030.gov.sa
+    - generic [ref=e863]:
+      - generic:
+        - button
+        - iframe [ref=e864]:
+          
+      - button
+      - button
+      - button [ref=e2121] [cursor=pointer]
+  - dialog [ref=e2123]:
+    - document:
+      - generic [ref=e2125]:
+        - generic [ref=e2126]:
+          - generic [ref=e2127] [cursor=pointer]
+          - paragraph [ref=e2128]: Filters
+        - generic [ref=e2131]:
+          - generic [ref=e2133]:
+            - generic [ref=e2134]: Price range
+            - generic [ref=e2139]:
+              - slider [active]: "1000"
+              - slider: "20000000"
+            - generic [ref=e2144]:
+              - generic [ref=e2145]:
+                - generic [ref=e2146]: Minimum price
+                - textbox [ref=e2147]: 1,000 SAR
+              - generic [ref=e2148]:
+                - generic [ref=e2149]: Maximum price
+                - textbox [ref=e2150]: 20,000,000 SAR
+          - generic [ref=e2151]:
+            - generic [ref=e2152]: Eligibility type
+            - generic [ref=e2154]:
+              - radio "All" [ref=e2155] [cursor=pointer]
+              - radio "Beneficiary" [ref=e2156] [cursor=pointer]
+              - radio "Non-beneficiary" [ref=e2157] [cursor=pointer]
+          - generic [ref=e2158]:
+            - generic [ref=e2159]: Payment options
+            - generic [ref=e2161]:
+              - radio "All" [ref=e2162] [cursor=pointer]
+              - radio "Deferred Subsidy" [ref=e2163] [cursor=pointer]
+          - generic [ref=e2164]:
+            - generic [ref=e2165]: Construction Status
+            - generic [ref=e2167]:
+              - radio "Under construction" [ref=e2168] [cursor=pointer]
+              - radio "Readymade Units" [ref=e2169] [cursor=pointer]
+              - radio "Lands" [ref=e2170] [cursor=pointer]
+          - generic [ref=e2171]:
+            - generic [ref=e2172]: Project Status
+            - generic [ref=e2174]:
+              - checkbox "Bookings Open" [ref=e2175] [cursor=pointer]
+              - checkbox "Available Soon" [ref=e2176] [cursor=pointer]
+              - checkbox "Last few units left" [ref=e2177] [cursor=pointer]
+          - generic [ref=e2178]:
+            - generic [ref=e2179]: Property type
+            - generic [ref=e2181]:
+              - checkbox "Apartment" [ref=e2182] [cursor=pointer]
+              - checkbox "Townhouse" [ref=e2183] [cursor=pointer]
+              - checkbox "Villa" [ref=e2184] [cursor=pointer]
+              - checkbox "Land" [ref=e2185] [cursor=pointer]
+          - generic [ref=e2186]:
+            - generic [ref=e2187]: Property specification
+            - generic [ref=e2189]:
+              - generic [ref=e2190]: Area/Size Range
+              - generic [ref=e2195]:
+                - slider: "20"
+                - slider: "5000"
+              - generic [ref=e2200]:
+                - generic [ref=e2201]:
+                  - generic [ref=e2202]: Minimum area
+                  - textbox [ref=e2203]: 20 m²
+                - generic [ref=e2204]:
+                  - generic [ref=e2205]: Maximum area
+                  - textbox [ref=e2206]: 5,000 m²
+            - generic [ref=e2207]:
+              - generic [ref=e2208]: Rooms
+              - generic [ref=e2210]:
+                - checkbox "1" [ref=e2211] [cursor=pointer]
+                - checkbox "2" [ref=e2212] [cursor=pointer]
+                - checkbox "3" [ref=e2213] [cursor=pointer]
+                - checkbox "4" [ref=e2214] [cursor=pointer]
+                - checkbox "5" [ref=e2215] [cursor=pointer]
+                - checkbox "+6" [ref=e2216] [cursor=pointer]
+            - generic [ref=e2217]:
+              - generic [ref=e2218]: Bath rooms
+              - generic [ref=e2220]:
+                - checkbox "1" [ref=e2221] [cursor=pointer]
+                - checkbox "2" [ref=e2222] [cursor=pointer]
+                - checkbox "3" [ref=e2223] [cursor=pointer]
+                - checkbox "4" [ref=e2224] [cursor=pointer]
+                - checkbox "5" [ref=e2225] [cursor=pointer]
+                - checkbox "+6" [ref=e2226] [cursor=pointer]
+        - generic [ref=e2227]:
+          - button "Clear" [ref=e2228] [cursor=pointer]
+          - button "Apply" [ref=e2229] [cursor=pointer]

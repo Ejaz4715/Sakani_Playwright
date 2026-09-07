@@ -1,0 +1,74 @@
+const path = require("path");
+
+require(
+  path.join(
+    process.cwd(), 
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-01-add-new-project.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(), 
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-02-developer-adds-payment-schdeules.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(), 
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-03-developer-approves-sales-contract.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(), 
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-04-book-offplan-unit.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(),
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-05-cancel-booking-offplan.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(), 
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-06-book-second-offplan-unit.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(), 
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-07-sign-sales-contract.spec.js",
+  ),
+);
+require(
+  path.join(
+    process.cwd(), 
+    "tests",
+    "e2e-scenarios",
+    "offplan-moh-land-booking-journey",
+    "TC-08-developer-adds-annex.spec.js",
+  ),
+);

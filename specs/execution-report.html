@@ -1,0 +1,516 @@
+<title>Sakani E2E Coverage</title>
+<style>
+  :root {
+    --ground: #F6F8F8;
+    --card: #FFFFFF;
+    --ink: #12181C;
+    --ink-2: #37464B;
+    --muted: #5B6A6E;
+    --rule: #DDE4E4;
+    --rule-soft: #EAEFEF;
+    --accent: #0E6B63;
+    --accent-soft: #E3F0EE;
+    --pass: #2E7D57;
+    --pass-soft: #E4F1EA;
+    --fail: #B3261E;
+    --fail-soft: #FAE7E5;
+    --block: #8A5A00;
+    --block-soft: #F7EDDC;
+    --pend: #5B6A6E;
+    --pend-soft: #EAEEEE;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0D1214;
+      --card: #151D20;
+      --ink: #EAF0F0;
+      --ink-2: #C0CCCD;
+      --muted: #8CA0A2;
+      --rule: #263235;
+      --rule-soft: #1D272A;
+      --accent: #4FBFB0;
+      --accent-soft: #14312E;
+      --pass: #6DCB99;
+      --pass-soft: #16301F;
+      --fail: #F2867C;
+      --fail-soft: #33191A;
+      --block: #E0AE5C;
+      --block-soft: #33270F;
+      --pend: #8CA0A2;
+      --pend-soft: #1D272A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0D1214;
+    --card: #151D20;
+    --ink: #EAF0F0;
+    --ink-2: #C0CCCD;
+    --muted: #8CA0A2;
+    --rule: #263235;
+    --rule-soft: #1D272A;
+    --accent: #4FBFB0;
+    --accent-soft: #14312E;
+    --pass: #6DCB99;
+    --pass-soft: #16301F;
+    --fail: #F2867C;
+    --fail-soft: #33191A;
+    --block: #E0AE5C;
+    --block-soft: #33270F;
+    --pend: #8CA0A2;
+    --pend-soft: #1D272A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+  }
+
+  .mono {
+    font-family: ui-monospace, 'Cascadia Mono', 'Cascadia Code', Consolas, 'SF Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- masthead ---------- */
+  header { display: flex; flex-direction: column; gap: 14px; }
+
+  .eyebrow {
+    font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(30px, 4.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    margin: 0;
+    max-width: 66ch;
+    font-size: 17px;
+    color: var(--ink-2);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .meta b { color: var(--ink-2); font-weight: 600; }
+
+  /* ---------- metric strip ---------- */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    gap: 12px;
+  }
+
+  .tile {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 16px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    border-top: 3px solid var(--edge, var(--rule));
+  }
+  .tile .n {
+    font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--tone, var(--ink));
+  }
+  .tile .k {
+    font-size: 11.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .tile .sub { font-size: 12.5px; color: var(--muted); }
+
+  .t-total { --edge: var(--accent); --tone: var(--ink); }
+  .t-pass  { --edge: var(--pass);  --tone: var(--pass); }
+  .t-fail  { --edge: var(--fail);  --tone: var(--fail); }
+  .t-block { --edge: var(--block); --tone: var(--block); }
+  .t-skip  { --edge: var(--pend);  --tone: var(--ink-2); }
+  .t-pend  { --edge: var(--pend);  --tone: var(--ink-2); }
+
+  /* ---------- sections ---------- */
+  section { display: flex; flex-direction: column; gap: 16px; }
+
+  h2 {
+    margin: 0;
+    font-size: 21px;
+    letter-spacing: -0.012em;
+    font-weight: 650;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 650;
+    color: var(--ink-2);
+  }
+
+  p { margin: 0; max-width: 72ch; color: var(--ink-2); }
+  p.tight { max-width: none; }
+
+  .note {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 5px 5px 0;
+    padding: 13px 16px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+    max-width: 78ch;
+  }
+
+  /* ---------- tables ---------- */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--card); }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+
+  th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+    color: var(--ink-2);
+  }
+  tr:last-child td { border-bottom: none; }
+  td.id { white-space: nowrap; color: var(--ink); }
+  td.num { text-align: right; white-space: nowrap; }
+
+  /* severity stripe encodes state in form, not only colour */
+  tr.s-pass  td:first-child { box-shadow: inset 3px 0 0 var(--pass); }
+  tr.s-fail  td:first-child { box-shadow: inset 3px 0 0 var(--fail); }
+  tr.s-block td:first-child { box-shadow: inset 3px 0 0 var(--block); }
+  tr.s-pend  td:first-child { box-shadow: inset 3px 0 0 var(--pend); }
+
+  .pill {
+    display: inline-block;
+    font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .p-pass  { background: var(--pass-soft);  color: var(--pass); }
+  .p-fail  { background: var(--fail-soft);  color: var(--fail); }
+  .p-block { background: var(--block-soft); color: var(--block); }
+  .p-pend  { background: var(--pend-soft);  color: var(--ink-2); }
+
+  ul { margin: 0; padding-left: 19px; color: var(--ink-2); max-width: 74ch; }
+  li { margin-bottom: 6px; }
+  li::marker { color: var(--accent); }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    font-size: 12.5px;
+    color: var(--muted);
+    max-width: 74ch;
+  }
+
+  code {
+    font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    font-size: 0.9em;
+    background: var(--rule-soft);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Playwright · TypeScript · Page Object Model</div>
+    <h1>Sakani E2E Coverage</h1>
+    <p class="standfirst">
+      Implementation and execution status for the end-to-end suite against
+      <span class="mono">pre-sakani.housingapps.sa</span>, covering the 28 spec files built from the
+      functional test design.
+    </p>
+    <div class="meta">
+      <span>Environment <b>Pre-production</b></span>
+      <span>Test identity <b class="mono">1000011485</b></span>
+      <span>Browser <b>Chromium 1440×900</b></span>
+      <span>Basis <b>Aggregated partial runs</b></span>
+    </div>
+  </header>
+
+  <section>
+    <div class="metrics">
+      <div class="tile t-total"><span class="n">286</span><span class="k">Implemented</span><span class="sub">28 spec files</span></div>
+      <div class="tile t-pass"><span class="n">197</span><span class="k">Passed</span><span class="sub">verified in runs</span></div>
+      <div class="tile t-fail"><span class="n">11</span><span class="k">Failed</span><span class="sub">classified below</span></div>
+      <div class="tile t-block"><span class="n">8</span><span class="k">Blocked</span><span class="sub">destructive / data</span></div>
+      <div class="tile t-skip"><span class="n">26</span><span class="k">Skip guards</span><span class="sub">5 hit so far</span></div>
+      <div class="tile t-pend"><span class="n">68</span><span class="k">Not executed</span><span class="sub">runtime-bound</span></div>
+    </div>
+    <div class="note">
+      Counts aggregate several partial runs, the last of which completed in <b>1.3 hours for 44 tests</b>
+      (31 passed · 11 failed · 2 skipped). <b>No single end-to-end run of all 286 has been performed</b> — at the
+      environment's 3–5 minutes per test that is 12–15 hours of wall-clock. Four expected-failure markers are counted
+      separately from Passed; two of those have executed.
+    </div>
+  </section>
+
+  <section>
+    <h2>Results by module</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Module</th><th>Spec file</th><th class="num">Verified</th><th>State</th></tr>
+        </thead>
+        <tbody>
+          <tr class="s-pass"><td class="id">Register Interest</td><td class="mono">services/register-interest</td><td class="num mono">16 / 16</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Shell &amp; menu routing</td><td class="mono">navigation/shell-and-menus</td><td class="num mono">14 / 14</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Activities (generic)</td><td class="mono">account/activities-modules</td><td class="num mono">15 / 15</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Marketplace advanced</td><td class="mono">marketplace/filters-advanced</td><td class="num mono">15 / 15</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Mortgage Calculator</td><td class="mono">services/mortgage-calculator</td><td class="num mono">18 / 20</td><td><span class="pill p-pass">passed</span> <span class="pill p-fail">2 defect</span></td></tr>
+          <tr class="s-pass"><td class="id">Account profile pages</td><td class="mono">account/user-profile</td><td class="num mono">15 / 17</td><td><span class="pill p-pass">passed</span> <span class="pill p-pend">2 skip</span></td></tr>
+          <tr class="s-pass"><td class="id">Support FAQ &amp; Contact</td><td class="mono">services/support-and-help</td><td class="num mono">12 / 13</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Booking completion</td><td class="mono">booking/booking-completion</td><td class="num mono">10 / 14</td><td><span class="pill p-pass">passed</span> <span class="pill p-block">4 blocked</span></td></tr>
+          <tr class="s-pass"><td class="id">Home hero search</td><td class="mono">navigation/home-hero</td><td class="num mono">7 / 7</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Developers directory</td><td class="mono">marketplace/developers</td><td class="num mono">7 / 7</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">My Bookings depth</td><td class="mono">account/my-bookings-depth</td><td class="num mono">7 / 9</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Eligibility wizard</td><td class="mono">services/eligibility-check</td><td class="num mono">5 / 5</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Marketplace browse &amp; filters</td><td class="mono">marketplace/browse-and-search · filters</td><td class="num mono">10 / 10</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-pass"><td class="id">Navigation structure</td><td class="mono">navigation/site-structure</td><td class="num mono">5 / 5</td><td><span class="pill p-pass">passed</span></td></tr>
+          <tr class="s-fail"><td class="id">Project detail</td><td class="mono">project/project-detail</td><td class="num mono">12 / 13</td><td><span class="pill p-fail">1 failed</span></td></tr>
+          <tr class="s-fail"><td class="id">Unit model &amp; detail</td><td class="mono">project/unit-model-and-detail</td><td class="num mono">9 / 12</td><td><span class="pill p-fail">3 failed</span></td></tr>
+          <tr class="s-pend"><td class="id">Cross-cutting behaviour</td><td class="mono">navigation/cross-cutting</td><td class="num mono">0 / 11</td><td><span class="pill p-pend">not executed</span></td></tr>
+          <tr class="s-pend"><td class="id">Localization &amp; a11y</td><td class="mono">navigation/localization-a11y</td><td class="num mono">0 / 11</td><td><span class="pill p-pend">not executed</span></td></tr>
+          <tr class="s-pend"><td class="id">Activities (module-specific)</td><td class="mono">account/activities-detail</td><td class="num mono">0 / 22</td><td><span class="pill p-pend">not executed</span></td></tr>
+          <tr class="s-pend"><td class="id">Identifier &amp; session</td><td class="mono">auth/identifier-validation</td><td class="num mono">0 / 10</td><td><span class="pill p-pend">not executed</span></td></tr>
+          <tr class="s-fail"><td class="id">Catalogues (HDS/VCH/SVC)</td><td class="mono">services/catalogues</td><td class="num mono">10 / 17</td><td><span class="pill p-fail">7 failed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Failed — 11</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Case</th><th>Classification</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr class="s-fail">
+            <td class="id mono">HDS-08</td>
+            <td><span class="pill p-fail">probable defect</span></td>
+            <td>The land-width field <b>accepted “-5”</b>. A negative land dimension is not a meaningful value; the assertion is left failing pending a product decision on whether validation belongs on input or on submit.</td>
+          </tr>
+          <tr class="s-fail">
+            <td class="id mono">HDS-09</td>
+            <td><span class="pill p-fail">probable defect</span></td>
+            <td>The same field <b>accepted “abc”</b>. Recorded as <b>D13</b> alongside HDS-08.</td>
+          </tr>
+          <tr class="s-fail">
+            <td class="id mono">HDS-01 · HDS-02 · HDS-05</td>
+            <td><span class="pill p-fail">automation</span></td>
+            <td>Design tiles are not anchors — the catalogue uses role-less containers, the same pattern already corrected for developer cards and marketplace results. The <span class="mono">designCards</span> locator needs the component selector.</td>
+          </tr>
+          <tr class="s-fail">
+            <td class="id mono">VCH-01 · VCH-08</td>
+            <td><span class="pill p-fail">automation</span></td>
+            <td>The offers page is public and renders correctly when checked directly — “Sakani Offers” plus four discount tiles. The text and CTA locators resolve to the wrong nodes; the vendor CTA is not a button.</td>
+          </tr>
+          <tr class="s-fail">
+            <td class="id mono">UDP-06 · UDP-11</td>
+            <td><span class="pill p-fail">automation</span></td>
+            <td>Mortgage CTA routing and the guest-to-login redirect from a unit page. UDP-11 ran 5.1 minutes, so slow hydration is a contributing factor.</td>
+          </tr>
+          <tr class="s-fail">
+            <td class="id mono">UMD-06</td>
+            <td><span class="pill p-fail">automation / data</span></td>
+            <td>Single-unit model 581 never rendered within the retry budget. Either the model's inventory changed or the page needs project context.</td>
+          </tr>
+          <tr class="s-fail">
+            <td class="id mono">PDP-17</td>
+            <td><span class="pill p-fail">automation</span></td>
+            <td>Register Interest CTA is <code>href="#"</code> and JS-driven. Two fixes attempted — activating the control instead of reading the href, then handling a possible new tab. Still failing; needs a live trace of what the click actually does.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>No assertion was weakened to make anything pass.</b> HDS-08 and HDS-09 are deliberately left red because the application's behaviour looks wrong, not the test.</p>
+  </section>
+
+  <section>
+    <h2>Known application defects</h2>
+    <p>Defects with a stable reproduction are encoded as <code>test.fail()</code> so a fix surfaces as an unexpected pass rather than sitting unnoticed.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Ref</th><th>Defect</th><th>Encoded as</th></tr></thead>
+        <tbody>
+          <tr class="s-fail"><td class="id mono">D1</td><td>Bookings-closed project: CTA stays enabled, <code>start_booking</code> returns <b>403</b>, and nothing is shown to the user.</td><td><span class="pill p-pend">documented</span></td></tr>
+          <tr class="s-fail"><td class="id mono">D11</td><td>“Monthly Liabilities” is presented as optional, but leaving it blank silently blocks the calculation with no validation message.</td><td><span class="pill p-fail">MTG-04 / 04b</span></td></tr>
+          <tr class="s-fail"><td class="id mono">D2</td><td>Header language toggle does not change the rendered locale; only the <code>?lang=</code> parameter works.</td><td><span class="pill p-fail">I18N-01</span></td></tr>
+          <tr class="s-fail"><td class="id mono">D10</td><td>Document title remains <span class="mono">سكني</span> on English marketing pages.</td><td><span class="pill p-fail">I18N-04</span></td></tr>
+          <tr class="s-fail"><td class="id mono">D13</td><td>Housing-design land-dimension fields accept negative and non-numeric values (<span class="mono">-5</span>, <span class="mono">abc</span>). Needs a product decision on where validation belongs.</td><td><span class="pill p-fail">HDS-08 / 09</span></td></tr>
+          <tr class="s-fail"><td class="id mono">D7–D9</td><td>Copy grammar in Financial applications; marketplace coach-mark overlaps the filter chips; result cards and chips are role-less with no accessible name.</td><td><span class="pill p-pend">documented</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>D12 was retracted.</b> The developers-directory search is not broken — it applies on <code>Enter</code>, exactly like the
+      marketplace location search. The original finding was a defect in my page object, not in the product.
+    </div>
+  </section>
+
+  <section>
+    <h2>Environment issues</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Erratic Angular hydration</h3>
+        <p class="tight">The same project page took <b>40 seconds</b> in one run and <b>5.2 minutes</b> in another. One window produced nine consecutive My Bookings failures that all died before any assertion — the login form never rendered — and passed later with no code change. Server HTML responds in 3–5 s, so this is client-bundle hydration, not an outage.</p>
+      </div>
+      <div class="card">
+        <h3>Cookie banner interception</h3>
+        <p class="tight">The consent handler matched <span class="mono">“Accept cookies”</span> but marketing pages label the button <span class="mono">“Accept all cookies”</span>, so it looped without dismissing and swallowed every click. Pre-seeding <code>localStorage.accept_cookies</code> cut the home module from 7.2 m to 2.9 m.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Test-data dependencies</h2>
+    <p>26 conditional guards are defined; each states its reason rather than skipping silently.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Missing data</th><th>Cases affected</th></tr></thead>
+        <tbody>
+          <tr class="s-pend"><td>No available non-beneficiary unit in the target project</td><td class="mono">UMD-01 · UMD-02 · UMD-03 · UDP-01 · UDP-02 · UDP-04 · UDP-05 · UDP-06</td></tr>
+          <tr class="s-pend"><td>No booking available to drive the completion wizard</td><td class="mono">BPM-01 · BPM-02 · BPM-04 · BPM-05 · BPM-07 · BPM-08 · BPM-11 · BPM-16</td></tr>
+          <tr class="s-pend"><td>No invoice on the account to preview</td><td class="mono">PAY-02</td></tr>
+          <tr class="s-pend"><td>No cancelled booking on the account</td><td class="mono">MBK-01 assertions</td></tr>
+          <tr class="s-pend"><td>Too few records to paginate</td><td class="mono">DEV-12 · PAY-04 · UMD-03</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Destructive cases requiring data or a reset</h2>
+    <p>All eight are written out in full and kept in the suite — none were deleted. Their non-destructive halves do run: <span class="mono">BPM-01/02/04/05/07/08/11/16/18</span> cover the entire payment-method gate, and <span class="mono">BCN-02</span> confirms the cancel control is confirmation-guarded without ever accepting it.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Case</th><th>What it would change</th><th>Requirement</th></tr></thead>
+        <tbody>
+          <tr class="s-block"><td class="id mono">BPM-14</td><td>Commits the payment method, advancing the booking</td><td>Disposable beneficiary or booking-reset hook</td></tr>
+          <tr class="s-block"><td class="id mono">BCT-04</td><td>Signs the contract — irreversible</td><td>Disposable beneficiary</td></tr>
+          <tr class="s-block"><td class="id mono">BCN-03</td><td>Cancels the only active booking the other suites depend on</td><td>Disposable beneficiary</td></tr>
+          <tr class="s-block"><td class="id mono">BCT-07</td><td>Pays a booking fee through the provider</td><td>Fee project + payment sandbox</td></tr>
+          <tr class="s-block"><td class="id mono">ACV-02</td><td>Creates a real conveyance request</td><td>Reset hook</td></tr>
+          <tr class="s-block"><td class="id mono">AOL-01b</td><td>Starts a real online-lending application</td><td>Reset hook</td></tr>
+          <tr class="s-block"><td class="id mono">AWL-02</td><td>Joins a project waiting list</td><td>No project in pre-prod exposes the CTA</td></tr>
+          <tr class="s-block"><td class="id mono">ARS-03</td><td>Submits a resale request</td><td>Account owns no resale-eligible unit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Does anything from the test design remain unimplemented?</h2>
+    <p><b>Every module is implemented. Not every individual case is.</b> The design document holds 551 written cases (611 when the generic Activities pattern is expanded across its 13 modules); the suite contains 286 tests. That gap is two different things:</p>
+    <div class="cols">
+      <div class="card">
+        <h3>Consolidated — most of the gap, intentional</h3>
+        <p class="tight">A single test frequently covers several design rows. One “all six status tabs are present” assertion subsumes six per-tab cases. This is deliberate: splitting them would multiply a run that already costs minutes per test without adding signal.</p>
+      </div>
+      <div class="card">
+        <h3>Genuinely unautomated — roughly 60–80 cases</h3>
+        <ul>
+          <li><b>Error injection</b> (<span class="mono">SHL-14, BST-11/12, BSM-12, XCT-10</span>) — needs <code>page.route()</code> mocking, not built.</li>
+          <li><b>OTP flows</b> (<span class="mono">MYI-05/09/10</span>) — the code cannot be received.</li>
+          <li><b>Concurrency</b> (<span class="mono">BST-06, BSM-10, XCT-15</span>) — needs two coordinated sessions.</li>
+          <li><b>Visual and motion</b> — carousel behaviour, map pin ↔ card highlighting, colour contrast, screen-reader announcement.</li>
+          <li><b>External redirects</b> — asserted by href only; destinations are never loaded.</li>
+          <li><b>Booking depth</b> (<span class="mono">BST/BSM/BSC</span>) — largely folded into the existing <span class="mono">BOOK-01</span> journey rather than written as discrete cases.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Decisions needed to close the remaining gap</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>A disposable account or reset hook</h3>
+        <p class="tight">Unblocks all eight destructive cases in one move. Today they cannot run twice against a shared beneficiary whose booking state the rest of the suite depends on.</p>
+      </div>
+      <div class="card">
+        <h3>Seeded fixture data</h3>
+        <p class="tight">An invoice, a cancelled booking and a resale-eligible unit would convert most of the 26 conditional skips from guards into real coverage.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Figures consolidated from all executions completed during the implementation sessions, including the final
+    44-test batch covering booking completion, unit detail and the catalogues. Four modules — cross-cutting,
+    localisation and accessibility, Activities module-specifics, and identifier validation — are implemented and
+    type-checked but have not yet been executed. The suite type-checks clean, no previously passing test was removed
+    or altered, and the framework structure, fixtures and Page Object Model were extended rather than rebuilt.
+  </footer>
+
+</div>

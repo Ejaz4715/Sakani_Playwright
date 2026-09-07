@@ -1,0 +1,43 @@
+- generic [ref=f137e2]:
+  - generic [ref=f137e3]:
+    - navigation [ref=f137e7]:
+      - generic [ref=f137e10]:
+        - link [ref=f137e12] [cursor=pointer]:
+          - /url: /
+          - img "Sakani logo" [ref=f137e13]
+        - generic [ref=f137e14]:
+          - listitem [ref=f137e15] [cursor=pointer]:
+            - button "Search" [ref=f137e18]
+          - listitem [ref=f137e21] [cursor=pointer]:
+            - button "التبديل إلى العربية" [ref=f137e22]:
+              - generic [ref=f137e24]: عربي
+          - listitem [ref=f137e25] [cursor=pointer]:
+            - button "ALSHAIKHA محمد اليامي" [ref=f137e30]
+    - generic [ref=f137e35]:
+      - generic [ref=f137e39]:
+        - generic [ref=f137e40]: Home
+        - generic [ref=f137e43]: Marketplace
+      - contentinfo [ref=f137e49]:
+        - generic [ref=f137e50]:
+          - generic [ref=f137e51]: Contact us
+          - generic [ref=f137e57]:
+            - img "AI" [ref=f137e58]
+            - link [ref=f137e59] [cursor=pointer]:
+              - /url: ""
+              - img "NHC" [ref=f137e60]
+            - link [ref=f137e61] [cursor=pointer]:
+              - /url: ""
+              - img "Vision 2030" [ref=f137e62]
+    - generic [ref=f137e63]:
+      - generic:
+        - button "Close chat"
+        - iframe [ref=f137e64]:
+          
+      - generic:
+        - button "Chat"
+        - button "Accessibility"
+      - button "Toggle menu" [ref=f137e65] [cursor=pointer]
+  - status [ref=f137e71]:
+    - generic [ref=f137e72]: Loading...
+  - status [ref=f137e76]:
+    - generic [ref=f137e77]: Loading...

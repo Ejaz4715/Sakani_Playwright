@@ -1,0 +1,197 @@
+- generic [ref=f94e3]:
+  - navigation [ref=f94e7]:
+    - generic [ref=f94e10]:
+      - generic [ref=f94e11]:
+        - link [ref=f94e12] [cursor=pointer]:
+          - /url: https://nhc.sakani.sa/marketplace
+          - img "Mini marketplace logo" [ref=f94e13]
+        - link "Go to NHC Marketplace" [ref=f94e14] [cursor=pointer]:
+          - /url: https://nhc.sakani.sa
+      - generic [ref=f94e15]:
+        - link "Back to Sakani" [ref=f94e16] [cursor=pointer]:
+          - /url: https://pre-sakani.housingapps.sa/app
+        - listitem [ref=f94e17] [cursor=pointer]: عربي
+        - listitem
+  - generic [ref=f94e18]:
+    - generic [ref=f94e19]:
+      - generic [ref=f94e22]:
+        - generic [ref=f94e23]: Home
+        - generic [ref=f94e26]: Marketplace
+        - generic [ref=f94e30]: مشروع مساكن طيبة المدائن EN
+      - generic [ref=f94e38]:
+        - generic [ref=f94e42]:
+          - button "Favorite" [ref=f94e44] [cursor=pointer]
+          - button "Share" [ref=f94e48] [cursor=pointer]
+        - generic [ref=f94e52]:
+          - img "Main Gallery Media" [ref=f94e55]
+          - button "1 Photo" [ref=f94e57] [cursor=pointer]
+        - generic [ref=f94e60]:
+          - generic [ref=f94e61]:
+            - generic [ref=f94e62]:
+              - heading "مشروع مساكن طيبة المدائن EN" [level=3] [ref=f94e63]
+              - generic [ref=f94e64]:
+                - generic [ref=f94e66]:
+                  - heading "Prices start from" [level=6] [ref=f94e67]
+                  - heading "SAR 100,000 Exl. VAT" [level=3] [ref=f94e68]:
+                    - generic [ref=f94e69]:
+                      - generic [ref=f94e70]: SAR 100,000
+                      - generic [ref=f94e72]: Exl. VAT
+                - generic [ref=f94e73]: Applied Deferred Subsidy Contract ( 5% - 95% )
+              - link "Register Interest" [ref=f94e77] [cursor=pointer]:
+                - /url: "#"
+              - generic [ref=f94e80]:
+                - generic [ref=f94e81]: Apartment, Townhouse, Villa
+                - generic [ref=f94e83]: 3 - 4
+                - generic [ref=f94e88]: "2"
+                - generic [ref=f94e94]:
+                  - generic [ref=f94e96]: 120 - 175
+                  - generic [ref=f94e97]: m²
+              - paragraph [ref=f94e98]: Riyadh Region, Shaqra
+              - heading "About this project" [level=5] [ref=f94e99]
+              - paragraph [ref=f94e100]: Description EN Description EN Description EN Description EN
+              - generic [ref=f94e101]:
+                - generic [ref=f94e102]:
+                  - heading "Developer" [level=6] [ref=f94e104]
+                  - link "ElDahia El Mesalia" [ref=f94e107] [cursor=pointer]:
+                    - /url: /app/developers/1010486785
+                - generic [ref=f94e110]:
+                  - heading "Project" [level=6] [ref=f94e112]
+                  - heading "Units Under Construction" [level=6] [ref=f94e114]
+                - generic [ref=f94e115]:
+                  - heading "Target audience" [level=6] [ref=f94e117]
+                  - heading "For All" [level=6] [ref=f94e119]
+                - generic [ref=f94e120]:
+                  - heading "First unit delivery date" [level=6] [ref=f94e122]
+                  - heading "-" [level=6] [ref=f94e124]
+                - generic [ref=f94e125]:
+                  - heading "Payment methods" [level=6] [ref=f94e127]
+                  - generic [ref=f94e128]: Cash
+            - generic [ref=f94e132]:
+              - heading "Brochure" [level=5] [ref=f94e133]
+              - generic [ref=f94e134]: Masterplan
+            - generic [ref=f94e140]:
+              - heading "Units in project" [level=5] [ref=f94e141]
+              - generic [ref=f94e143]:
+                - generic [ref=f94e144]: Apartment
+                - generic [ref=f94e148]: Townhouse
+                - generic [ref=f94e152]: Villa
+            - generic [ref=f94e157]:
+              - heading "Facilities" [level=5] [ref=f94e158]
+              - paragraph [ref=f94e159]: No have data yet
+            - generic [ref=f94e162]:
+              - generic [ref=f94e163]:
+                - heading "Location" [level=5] [ref=f94e164]
+                - button "Get directions" [ref=f94e165] [cursor=pointer]
+              - generic [ref=f94e168]:
+                - generic [ref=f94e174]:
+                  - application [ref=f94e175]
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic [ref=f94e176]:
+                          - button "Zoom in" [ref=f94e177] [cursor=pointer]:
+                            - generic [ref=f94e178]: 
+                          - button "Zoom out" [ref=f94e180] [cursor=pointer]:
+                            - generic [ref=f94e181]: 
+                        - generic "Reset map orientation" [ref=f94e184] [cursor=pointer]:
+                          - button [disabled]
+                        - button "Find my location"
+                        - button "Home" [ref=f94e185] [cursor=pointer]
+                - paragraph [ref=f94e188]: Riyadh Region, Shaqra
+            - generic [ref=f94e192]:
+              - heading "Insights & trends" [level=4] [ref=f94e194]
+              - generic [ref=f94e196]: Powered by Bayanat
+            - generic [ref=f94e201]:
+              - heading "Housing assistance packages" [level=5] [ref=f94e202]
+              - generic [ref=f94e203]: This project includes various optional packages that provide beneficiaries with assistance worth up to SAR 100,000, which may include financial support and in-kind benefits, depending on the package selected.
+            - heading "Payment schedule in cash" [level=5] [ref=f94e207]
+            - generic [ref=f94e229]:
+              - heading "Participating banks" [level=5] [ref=f94e230]
+              - generic [ref=f94e231]:
+                - generic [ref=f94e233]: Bank Albilad
+                - generic [ref=f94e234]: Online lending
+              - generic [ref=f94e235]:
+                - generic [ref=f94e237]: Bank Bidaya
+                - generic [ref=f94e238]: Online lending
+              - generic [ref=f94e239]:
+                - generic [ref=f94e241]: Bank Alrajhi
+                - generic [ref=f94e242]: Online lending
+              - generic [ref=f94e243]:
+                - generic [ref=f94e245]: سامبا - التمويل الالكتروني
+                - generic [ref=f94e246]: Online lending
+              - generic [ref=f94e247]:
+                - generic [ref=f94e249]: بنك الأهلي السعودي
+                - generic [ref=f94e250]: Online lending
+              - generic [ref=f94e251]: See more
+            - generic [ref=f94e254]:
+              - heading "Owners Association" [level=5] [ref=f94e255]
+              - generic [ref=f94e257]:
+                - text: The project is subject to the Owners Association, which aims to regulate the relationship between all owners of condominiums in common areas, more information about the Malak program
+                - link "click here" [ref=f94e258] [cursor=pointer]:
+                  - /url: https://mullak.housing.gov.sa
+            - generic [ref=f94e263]:
+              - heading "Contact" [level=5] [ref=f94e264]
+              - generic [ref=f94e266]:
+                - heading "Developer" [level=6] [ref=f94e267]
+                - link "Contact Image ElDahia El Mesalia RIYADH" [ref=f94e269] [cursor=pointer]:
+                  - /url: /app/developers/1010486785
+                  - img "Contact Image" [ref=f94e271]
+                  - generic [ref=f94e272]:
+                    - generic [ref=f94e273]: ElDahia El Mesalia
+                    - generic [ref=f94e274]: RIYADH
+                - generic [ref=f94e275]:
+                  - button "Call" [ref=f94e276] [cursor=pointer]
+                  - button "Whatsapp" [ref=f94e279] [cursor=pointer]
+            - heading "Project Unit Models" [level=4] [ref=f94e286]
+          - generic [ref=f94e324]:
+            - generic [ref=f94e325]: Licensed by
+            - generic [ref=f94e328]:
+              - generic [ref=f94e329]:
+                - progressbar "progress bar" [ref=f94e330]
+                - generic [ref=f94e332]:
+                  - generic [ref=f94e333]:
+                    - generic [ref=f94e334]: First unit delivery
+                    - generic [ref=f94e335]: "-"
+                  - generic [ref=f94e336]:
+                    - generic [ref=f94e337]: Progress
+                    - generic [ref=f94e338]: 100.0 % complete
+              - link "ElDahia El Mesalia Licensed" [ref=f94e342] [cursor=pointer]:
+                - /url: /app/developers/1010486785
+                - generic [ref=f94e345]:
+                  - generic [ref=f94e346]: ElDahia El Mesalia
+                  - generic [ref=f94e347]: Licensed
+              - button "View units" [ref=f94e349] [cursor=pointer]
+              - button "Contact Developer" [ref=f94e351] [cursor=pointer]
+    - generic [ref=f94e357]:
+      - generic [ref=f94e359]:
+        - link [ref=f94e360] [cursor=pointer]:
+          - /url: https://nhc.sakani.sa/marketplace
+          - img "Mini marketplace logo" [ref=f94e361]
+        - generic [ref=f94e362]: At NHC, we take pride in creating exceptional destinations that enrich lives today and shape a better tomorrow for everyone.
+        - generic [ref=f94e363]:
+          - link [ref=f94e364] [cursor=pointer]:
+            - /url: https://www.facebook.com/sakani.housing
+            - img "facebook" [ref=f94e365]
+          - link [ref=f94e366] [cursor=pointer]:
+            - /url: https://www.x.com/sakani
+            - img "x" [ref=f94e367]
+          - link [ref=f94e368] [cursor=pointer]:
+            - /url: https://www.youtube.com/@Sakani
+            - img "youtube" [ref=f94e369]
+          - link [ref=f94e370] [cursor=pointer]:
+            - /url: https://www.instagram.com/sakaniksa/
+            - img "instagram" [ref=f94e371]
+          - link [ref=f94e372] [cursor=pointer]:
+            - /url: https://www.instagram.com/sakaniksa/
+            - img "whatsapp" [ref=f94e373]
+      - separator [ref=f94e374]
+      - generic [ref=f94e375]: © 2025 NHC. All rights reserved.
+  - generic [ref=f94e377]:
+    - generic:
+      - button "Close chat"
+      - iframe [ref=f94e378]:
+        
+    - generic:
+      - button "Chat"
+      - button "Accessibility"
+    - button "Toggle menu" [ref=f94e379] [cursor=pointer]

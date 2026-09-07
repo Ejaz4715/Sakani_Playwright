@@ -1,0 +1,505 @@
+- generic [ref=e3]:
+  - generic [ref=e6]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]: A government website registered with the Digital Government Authority.
+        - button "How you know?" [ref=e14] [cursor=pointer]
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e22]:
+            - heading "Official Saudi Government website URL ends with .sa" [level=5] [ref=e23]
+            - generic [ref=e24]: Website belongs to an official activities and initiatives in the Kingdom of Saudi Arabia always ends with .sa
+          - generic [ref=e29]:
+            - heading "Official Secure websites use HTTPS" [level=5] [ref=e30]
+            - generic [ref=e31]: Secured governments websites in the Kingdom of Saudi Arabia use HTTPS encryption.
+        - generic [ref=e34]:
+          - generic [ref=e35]: "Registered on Digital Government Authority:"
+          - generic [ref=e36]: "20250428955"
+    - navigation [ref=e37]:
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - link [ref=e42] [cursor=pointer]:
+            - /url: /
+            - img "Sakani logo" [ref=e43]
+          - generic [ref=e44]:
+            - listitem [ref=e45] [cursor=pointer]:
+              - button "Properties for Sale" [ref=e46]
+            - listitem [ref=e49] [cursor=pointer]:
+              - button "Properties for Rent" [ref=e50]
+            - listitem [ref=e53] [cursor=pointer]:
+              - button "Auctions" [ref=e54]
+            - listitem [ref=e56] [cursor=pointer]:
+              - button "Services" [ref=e57]
+            - listitem [ref=e60] [cursor=pointer]:
+              - button "Help" [ref=e61]
+        - generic [ref=e63]:
+          - listitem [ref=e64] [cursor=pointer]:
+            - button "Search" [ref=e67]
+          - listitem [ref=e69] [cursor=pointer]:
+            - button "التبديل إلى العربية" [ref=e70]
+          - listitem [ref=e72] [cursor=pointer]:
+            - button [ref=e73]
+  - generic [ref=e78]:
+    - generic [ref=e82]:
+      - generic [ref=e87]:
+        - generic [ref=e89]:
+          - generic [ref=e91]:
+            - generic [ref=e97]:
+              - generic [ref=e100]:
+                - generic [ref=e104]:
+                  - generic [ref=e106] [cursor=pointer]:
+                    - generic [ref=e107]: Property to Buy
+                    - generic [ref=e110]:
+                      - combobox
+                  - status [ref=e112]
+                - tooltip "Find more Sakani products that fit your needs":
+                  - generic [ref=e114]:
+                    - generic [ref=e116]: Find more Sakani products that fit your needs
+                    - generic [ref=e117] [cursor=pointer]
+              - generic [ref=e126]:
+                - textbox "City, Region, Neighborhood, Project, or Street" [ref=e129]
+                - generic [ref=e130] [cursor=pointer]
+            - generic [ref=e135]:
+              - generic [ref=e138]:
+                - generic:
+                  - group "1 / 9" [ref=e139]:
+                    - generic [ref=e142]:
+                      - generic [ref=e143] [cursor=pointer]
+                      - generic [ref=e145] [cursor=pointer]
+                  - group "2 / 9" [ref=e147]:
+                    - generic: For you
+                  - group "3 / 9" [ref=e151]:
+                    - generic: Register Interested
+                  - group "4 / 9" [ref=e154]:
+                    - generic [ref=e156]:
+                      - generic [ref=e158] [cursor=pointer]:
+                        - generic [ref=e159]: Under construction
+                        - generic [ref=e161]:
+                          - combobox
+                      - status [ref=e163]
+                  - group "5 / 9" [ref=e164]:
+                    - generic [ref=e166]:
+                      - generic [ref=e168] [cursor=pointer]:
+                        - generic [ref=e169]: Property type
+                        - generic [ref=e170]:
+                          - combobox
+                      - status [ref=e172]
+                  - group "6 / 9" [ref=e173]:
+                    - generic: Price
+                  - group "7 / 9" [ref=e178]:
+                    - generic [ref=e180]:
+                      - generic [ref=e182] [cursor=pointer]:
+                        - generic [ref=e183]: Bedrooms
+                        - generic [ref=e184]:
+                          - combobox
+                      - status [ref=e186]
+                  - group "8 / 9" [ref=e187]:
+                    - generic [ref=e189]:
+                      - generic [ref=e191] [cursor=pointer]:
+                        - generic [ref=e192]: Baths
+                        - generic [ref=e193]:
+                          - combobox
+                      - status [ref=e195]
+                  - group "9 / 9" [ref=e196]:
+                    - generic [ref=e198]:
+                      - generic [ref=e200] [cursor=pointer]:
+                        - generic [ref=e201]: Project Status
+                        - generic [ref=e202]:
+                          - combobox
+                      - status [ref=e204]
+              - button "Next slide" [ref=e206] [cursor=pointer]
+          - generic: Map view
+        - generic [ref=e214]:
+          - generic [ref=e215]:
+            - heading "NHC Destinations" [level=4] [ref=e217]
+            - generic [ref=e219]:
+              - generic [ref=e220] [cursor=pointer]
+              - generic [ref=e221] [cursor=pointer]
+          - generic [ref=e224]:
+            - generic:
+              - group "1 / 45" [ref=e225]:
+                - link "200+ units Wdyana Destination" [ref=e228] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/41
+                  - generic [ref=e229]:
+                    - generic [ref=e231]: 200+ units
+                    - generic [ref=e232]: Wdyana Destination
+              - group "2 / 45" [ref=e235]:
+                - link "96 units Diwan Project" [ref=e238] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/53
+                  - generic [ref=e239]:
+                    - generic [ref=e241]: 96 units
+                    - generic [ref=e242]: Diwan Project
+              - group "3 / 45" [ref=e245]:
+                - link "Units available soon Ehsan mega project" [ref=e248] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/51
+                  - generic [ref=e249]:
+                    - generic [ref=e251]: Units available soon
+                    - generic [ref=e252]: Ehsan mega project
+              - group "4 / 45" [ref=e255]:
+                - link "Units available soon Aldar Destination" [ref=e258] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/26
+                  - generic [ref=e259]:
+                    - generic [ref=e261]: Units available soon
+                    - generic [ref=e262]: Aldar Destination
+              - group "5 / 45" [ref=e265]:
+                - link "Units available soon Alwajha Destination" [ref=e268] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/28
+                  - generic [ref=e269]:
+                    - generic [ref=e271]: Units available soon
+                    - generic [ref=e272]: Alwajha Destination
+              - group "6 / 45" [ref=e275]:
+                - link "200+ units Al-Fursan" [ref=e278] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/1
+                  - generic [ref=e279]:
+                    - generic [ref=e281]: 200+ units
+                    - generic [ref=e282]: Al-Fursan
+              - group "7 / 45" [ref=e285]:
+                - link "Units available soon Aerospace projects" [ref=e288] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/2
+                  - generic [ref=e289]:
+                    - generic [ref=e291]: Units available soon
+                    - generic [ref=e292]: Aerospace projects
+              - group "8 / 45" [ref=e295]:
+                - link "Units available soon Aerospace projects One 7" [ref=e298] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/3
+                  - generic [ref=e299]:
+                    - generic [ref=e301]: Units available soon
+                    - generic [ref=e302]: Aerospace projects One 7
+              - group "9 / 45" [ref=e305]:
+                - link "200+ units Mega pro 1" [ref=e308] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/4
+                  - generic [ref=e309]:
+                    - generic [ref=e311]: 200+ units
+                    - generic [ref=e312]: Mega pro 1
+              - group "10 / 45" [ref=e315]:
+                - link "Last few units left وجهة خزام" [ref=e318] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/5
+                  - generic [ref=e319]:
+                    - generic [ref=e321]: Last few units left
+                    - generic [ref=e322]: وجهة خزام
+              - group "11 / 45" [ref=e325]:
+                - link "Units available soon Saryya 1" [ref=e328] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/9
+                  - generic [ref=e329]:
+                    - generic [ref=e331]: Units available soon
+                    - generic [ref=e332]: Saryya 1
+              - group "12 / 45" [ref=e335]:
+                - link "Units available soon Jeddah Haites" [ref=e338] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/10
+                  - generic [ref=e339]:
+                    - generic [ref=e341]: Units available soon
+                    - generic [ref=e342]: Jeddah Haites
+              - group "13 / 45" [ref=e345]:
+                - link "Units available soon Makkah Gate" [ref=e348] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/11
+                  - generic [ref=e349]:
+                    - generic [ref=e351]: Units available soon
+                    - generic [ref=e352]: Makkah Gate
+              - group "14 / 45" [ref=e355]:
+                - link "Units available soon Alasalah" [ref=e358] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/12
+                  - generic [ref=e359]:
+                    - generic [ref=e361]: Units available soon
+                    - generic [ref=e362]: Alasalah
+              - group "15 / 45" [ref=e365]:
+                - link "Units available soon وجهة جدة هايتس" [ref=e368] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/13
+                  - generic [ref=e369]:
+                    - generic [ref=e371]: Units available soon
+                    - generic [ref=e372]: وجهة جدة هايتس
+              - group "16 / 45" [ref=e375]:
+                - link "5 units Makkah Gate" [ref=e378] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/14
+                  - generic [ref=e379]:
+                    - generic [ref=e381]: 5 units
+                    - generic [ref=e382]: Makkah Gate
+              - group "17 / 45" [ref=e385]:
+                - link "Units available soon Tabuk mega project" [ref=e388] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/15
+                  - generic [ref=e389]:
+                    - generic [ref=e391]: Units available soon
+                    - generic [ref=e392]: Tabuk mega project
+              - group "18 / 45" [ref=e395]:
+                - link "Units available soon Ebtesam Mega Project" [ref=e398] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/16
+                  - generic [ref=e399]:
+                    - generic [ref=e401]: Units available soon
+                    - generic [ref=e402]: Ebtesam Mega Project
+              - group "19 / 45" [ref=e405]:
+                - link "Units available soon ِAl-Daharan Mega Project" [ref=e408] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/17
+                  - generic [ref=e409]:
+                    - generic [ref=e411]: Units available soon
+                    - generic [ref=e412]: ِAl-Daharan Mega Project
+              - group "20 / 45" [ref=e415]:
+                - link "Units available soon Test Mega CRM" [ref=e418] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/18
+                  - generic [ref=e419]:
+                    - generic [ref=e421]: Units available soon
+                    - generic [ref=e422]: Test Mega CRM
+              - group "21 / 45" [ref=e425]:
+                - link "70 units Yanboaa" [ref=e428] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/19
+                  - generic [ref=e429]:
+                    - generic [ref=e431]: 70 units
+                    - generic [ref=e432]: Yanboaa
+              - group "22 / 45" [ref=e435]:
+                - link "53 units Jeddah Heights Destination" [ref=e438] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/20
+                  - generic [ref=e439]:
+                    - generic [ref=e441]: 53 units
+                    - generic [ref=e442]: Jeddah Heights Destination
+              - group "23 / 45" [ref=e445]:
+                - link "16 units New Test Mega project 19Mar" [ref=e448] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/21
+                  - generic [ref=e449]:
+                    - generic [ref=e451]: 16 units
+                    - generic [ref=e452]: New Test Mega project 19Mar
+              - group "24 / 45" [ref=e455]:
+                - link "Units available soon Almshriq Destination" [ref=e458] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/22
+                  - generic [ref=e459]:
+                    - generic [ref=e461]: Units available soon
+                    - generic [ref=e462]: Almshriq Destination
+              - group "25 / 45" [ref=e465]:
+                - link "Units available soon Test 30678" [ref=e468] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/24
+                  - generic [ref=e469]:
+                    - generic [ref=e471]: Units available soon
+                    - generic [ref=e472]: Test 30678
+              - group "26 / 45" [ref=e475]:
+                - link "Units available soon Alruba Destination" [ref=e478] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/25
+                  - generic [ref=e479]:
+                    - generic [ref=e481]: Units available soon
+                    - generic [ref=e482]: Alruba Destination
+              - group "27 / 45" [ref=e485]:
+                - link "Units available soon Alworod Destination" [ref=e488] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/27
+                  - generic [ref=e489]:
+                    - generic [ref=e491]: Units available soon
+                    - generic [ref=e492]: Alworod Destination
+              - group "28 / 45" [ref=e495]:
+                - link "Units available soon Sdayem Destination" [ref=e498] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/29
+                  - generic [ref=e499]:
+                    - generic [ref=e501]: Units available soon
+                    - generic [ref=e502]: Sdayem Destination
+              - group "29 / 45" [ref=e505]:
+                - link "Units available soon Almukaymn Destination" [ref=e508] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/30
+                  - generic [ref=e509]:
+                    - generic [ref=e511]: Units available soon
+                    - generic [ref=e512]: Almukaymn Destination
+              - group "30 / 45" [ref=e515]:
+                - link "Units available soon Lazaward Destination" [ref=e518] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/31
+                  - generic [ref=e519]:
+                    - generic [ref=e521]: Units available soon
+                    - generic [ref=e522]: Lazaward Destination
+              - group "31 / 45" [ref=e525]:
+                - link "Units available soon Mega project Makkah EN" [ref=e528] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/32
+                  - generic [ref=e529]:
+                    - generic [ref=e531]: Units available soon
+                    - generic [ref=e532]: Mega project Makkah EN
+              - group "32 / 45" [ref=e535]:
+                - link "Units available soon Mega project Jizan EN" [ref=e538] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/33
+                  - generic [ref=e539]:
+                    - generic [ref=e541]: Units available soon
+                    - generic [ref=e542]: Mega project Jizan EN
+              - group "33 / 45" [ref=e545]:
+                - link "Units available soon test mega project 101 EN" [ref=e548] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/36
+                  - generic [ref=e549]:
+                    - generic [ref=e551]: Units available soon
+                    - generic [ref=e552]: test mega project 101 EN
+              - group "34 / 45" [ref=e555]:
+                - link "Units available soon test mega project 101 EN" [ref=e558] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/38
+                  - generic [ref=e559]:
+                    - generic [ref=e561]: Units available soon
+                    - generic [ref=e562]: test mega project 101 EN
+              - group "35 / 45" [ref=e565]:
+                - link "Units available soon West Arab project" [ref=e568] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/42
+                  - generic [ref=e569]:
+                    - generic [ref=e571]: Units available soon
+                    - generic [ref=e572]: West Arab project
+              - group "36 / 45" [ref=e575]:
+                - link "200+ units Mega project Riyadh test why choose destination EN" [ref=e578] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/44
+                  - generic [ref=e579]:
+                    - generic [ref=e581]: 200+ units
+                    - generic [ref=e582]: Mega project Riyadh test why choose destination EN
+              - group "37 / 45" [ref=e585]:
+                - link "Units available soon Red Star Mega project" [ref=e588] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/45
+                  - generic [ref=e589]:
+                    - generic [ref=e591]: Units available soon
+                    - generic [ref=e592]: Red Star Mega project
+              - group "38 / 45" [ref=e595]:
+                - link "Units available soon Sharq Ibda" [ref=e598] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/46
+                  - generic [ref=e599]:
+                    - generic [ref=e601]: Units available soon
+                    - generic [ref=e602]: Sharq Ibda
+              - group "39 / 45" [ref=e605]:
+                - link "Units available soon Alwaha" [ref=e608] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/47
+                  - generic [ref=e609]:
+                    - generic [ref=e611]: Units available soon
+                    - generic [ref=e612]: Alwaha
+              - group "40 / 45" [ref=e615]:
+                - link "Units available soon Riyadh Gate" [ref=e618] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/48
+                  - generic [ref=e619]:
+                    - generic [ref=e621]: Units available soon
+                    - generic [ref=e622]: Riyadh Gate
+              - group "41 / 45" [ref=e625]:
+                - link "Units available soon Rufof Mega Project" [ref=e628] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/49
+                  - generic [ref=e629]:
+                    - generic [ref=e631]: Units available soon
+                    - generic [ref=e632]: Rufof Mega Project
+              - group "42 / 45" [ref=e635]:
+                - link "Units available soon Mega Project Hilal" [ref=e638] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/50
+                  - generic [ref=e639]:
+                    - generic [ref=e641]: Units available soon
+                    - generic [ref=e642]: Mega Project Hilal
+              - group "43 / 45" [ref=e645]:
+                - link "Units available soon Mega project Makkah EN" [ref=e648] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/52
+                  - generic [ref=e649]:
+                    - generic [ref=e651]: Units available soon
+                    - generic [ref=e652]: Mega project Makkah EN
+              - group "44 / 45" [ref=e655]:
+                - link "100+ units [EN] Mega 54" [ref=e658] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/54
+                  - generic [ref=e659]:
+                    - generic [ref=e661]: 100+ units
+                    - generic [ref=e662]: "[EN] Mega 54"
+              - group "45 / 45" [ref=e665]:
+                - link "200+ units Riyadh" [ref=e668] [cursor=pointer]:
+                  - /url: https://pre-sakani-nhc.housingapps.sa/mega-project/43
+                  - generic [ref=e669]:
+                    - generic [ref=e671]: 200+ units
+                    - generic [ref=e672]: Riyadh
+        - generic [ref=e677]:
+          - heading "Insights & trends" [level=6] [ref=e679]
+          - generic [ref=e680]:
+            - generic [ref=e687]:
+              - generic [ref=e688]: AVG. SALE PER UNIT IN AR RIYADH
+              - generic [ref=e692]:
+                - heading "SAR 822.52K" [level=5] [ref=e693]:
+                  - generic [ref=e695]:
+                    - text: SAR
+                    - generic [ref=e696]: 822.52K
+                - generic [ref=e697]:
+                  - generic [ref=e698]: "-19.66‎%"
+                  - text: Compared previous month
+            - generic [ref=e705]:
+              - generic [ref=e706]: NUMBER OF MONTHLY RESERVATIONS
+              - generic [ref=e710]:
+                - heading "6,153" [level=5] [ref=e711]
+                - generic [ref=e713]:
+                  - generic [ref=e714]: "-12.01‎%"
+                  - text: Compared previous month
+        - generic [ref=e715]:
+          - heading [level=4]
+          - tablist [ref=e717]:
+            - tab "Projects" [selected] [ref=e718] [cursor=pointer]
+            - tab "Units" [ref=e719] [cursor=pointer]
+      - generic [ref=e784]:
+        - generic [ref=e786]:
+          - tablist [ref=e788] [cursor=pointer]:
+            - button [ref=e789]
+            - button "View map" [ref=e791]
+          - button "You are in editing mode, draw the area you wish to look into"
+          - generic [ref=e793] [cursor=pointer]
+          - generic [ref=e795] [cursor=pointer]
+        - generic [ref=e797]:
+          - generic [ref=e798] [cursor=pointer]: +
+          - generic [ref=e800] [cursor=pointer]: "-"
+        - generic [ref=e804]:
+          - application [ref=e805]
+          - generic:  
+    - contentinfo [ref=e807]:
+      - generic [ref=e808]:
+        - generic [ref=e809]:
+          - generic [ref=e810]:
+            - generic [ref=e811]:
+              - generic [ref=e812]: Housing
+              - generic [ref=e813]:
+                - link "Marketplace" [ref=e814] [cursor=pointer]:
+                  - /url: /app/marketplace
+                - link "Housing Designs" [ref=e815] [cursor=pointer]:
+                  - /url: /app/housing-designs
+                - link "Sakani Metaverse" [ref=e816] [cursor=pointer]:
+                  - /url: /services/sakani-metaverse
+                - link "Sakani Offers" [ref=e817] [cursor=pointer]:
+                  - /url: /app/promotion-vouchers
+            - generic [ref=e818]:
+              - generic [ref=e819]: News and Reports
+              - generic [ref=e820]:
+                - link "News" [ref=e821] [cursor=pointer]:
+                  - /url: /news
+                - link "Real Estate Indicators" [ref=e822] [cursor=pointer]:
+                  - /url: https://rei.rega.gov.sa/
+                - link "Rental Indicators" [ref=e823] [cursor=pointer]:
+                  - /url: /reports-and-data/rental-units
+            - generic [ref=e824]:
+              - generic [ref=e825]: Support
+              - generic [ref=e826]:
+                - link "Privacy Policy and Terms and Conditions" [ref=e827] [cursor=pointer]:
+                  - /url: /terms
+                - link "Executive Regulations for Housing Support" [ref=e828] [cursor=pointer]:
+                  - /url: /housing-subsidy-policy
+                - link "Help and Support" [ref=e829] [cursor=pointer]:
+                  - /url: /support-and-help
+                - link "Frequently Asked Questions" [ref=e830] [cursor=pointer]:
+                  - /url: /support-and-help/faqs
+                - link "Contact Us" [ref=e831] [cursor=pointer]:
+                  - /url: /support-and-help/contact-us
+          - generic [ref=e832]:
+            - generic [ref=e833]:
+              - generic [ref=e834]: Contact us
+              - generic [ref=e835]:
+                - link "LinkedIn" [ref=e836] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/sakani
+                - link "X" [ref=e838] [cursor=pointer]:
+                  - /url: https://x.com/sakani
+                - link "Instagram" [ref=e840] [cursor=pointer]:
+                  - /url: https://www.instagram.com/sakaniksa/
+                - link "WhatsApp" [ref=e842] [cursor=pointer]:
+                  - /url: https://whatsapp.com/channel/0029VbBckQJFMqrPN3WTAu20
+                - link "YouTube" [ref=e844] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@Sakani
+                - link "TikTok" [ref=e846] [cursor=pointer]:
+                  - /url: https://www.tiktok.com/@sakani
+            - generic [ref=e848]:
+              - generic [ref=e849]: Accessibility tool
+              - link "Live sign language" [ref=e851] [cursor=pointer]:
+                - /url: https://metaverse.sakani.sa/mv?q=P0oIuYtReWqAzX1cSdFvGbHnJkLm8Q2R
+        - generic [ref=e853]:
+          - generic [ref=e854]: All rights are received © 2026 - NHC Innovation
+          - generic [ref=e855]:
+            - img "FAL license" [ref=e857] [cursor=pointer]
+            - img "AI" [ref=e858]
+            - link [ref=e859] [cursor=pointer]:
+              - /url: https://www.nhc.sa
+              - img "NHC" [ref=e860]
+            - link [ref=e861] [cursor=pointer]:
+              - /url: https://www.vision2030.gov.sa
+              - img "Vision 2030" [ref=e862]
+  - generic [ref=e863]:
+    - generic:
+      - button "Close chat"
+      - iframe [ref=e864]:
+        
+    - generic:
+      - button "Chat"
+      - button "Accessibility"
+    - button "Toggle menu" [ref=e865] [cursor=pointer]
