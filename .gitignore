@@ -1,23 +1,16 @@
+# Dependencies
 node_modules/
+
+# Generated Test Reports & Artifacts
+allure-results/
+allure-report/
 playwright-report/
 test-results/
-blob-report/
-playwright/.cache/
-.auth/
+
+# Certificates & Secrets
+certs/
 .env
-*.log
 
-allure-results/
-allure-report/
-test-results/
-
-allure-results/
-allure-report/
-test-results/
-playwright-report/
-.git/
-
-allure-results/
-allure-report/
-test-results/
-playwright-report/
+# AI & IDE Cache / Logs
+.claude/
+.playwright-mcp/
