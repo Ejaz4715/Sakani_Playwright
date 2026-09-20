@@ -1,5 +1,5 @@
 const ProjectUnitsObjects = {
-  propertyText: "شقة",
+  unitCard: "//app-marketplace-unit-card/descendant::span[text() ='SAR']",
   landUnitCard: "//app-dx-project-unit-card",
 };
 

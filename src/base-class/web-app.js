@@ -33,9 +33,24 @@ const { AuctionPage } = require(
 const { AdminProjectPage } = require(
   path.join(process.cwd(), "src", "Pages", "AdminProjectPage"),
 );
+const { CreateMegaProjectPage } = require(
+  path.join(process.cwd(), "src", "pages", "CreateMegaProjectPage"),
+);
+
+const { FlexiblePaymentPage } = require(
+  path.join(process.cwd(), "src", "pages","Developer", "FlexiblePaymentPage"),
+);
+
+const { BookingAndSelectPaymentMethodPage } = require(
+  path.join(process.cwd(), "src", "pages", "BookingAndSelectPaymentMethodPage"),
+);
+const { PaymentTrackingPage} = require(
+  path.join(process.cwd(), "src", "pages", "PaymentTrackingPage"),
+);
+
 
 class WebApp {
-  constructor(page) {
+constructor(page) {
     this.page = page;
     this.loginPage = new LoginPage(page);
     this.marketplaceLandingPage = new MarketplaceLandingPage(page);
@@ -49,6 +64,10 @@ class WebApp {
     this.developerProjectPage = new DeveloperProjectPage(page);
     this.auctionPage = new AuctionPage(page);
     this.adminProjectPage = new AdminProjectPage(page);
+    this.createMegaProjectPage = new CreateMegaProjectPage (page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
+    this.paymentTrackingPage = new PaymentTrackingPage (page);
   }
 }
 

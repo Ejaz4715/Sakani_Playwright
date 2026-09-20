@@ -33,6 +33,8 @@ class UnitBookingPage {
     await this.click(payBookingFeeButton);
   }
 
+  
+
   async acceptAuctionTerms() {
     await this.page
       .getByRole("checkbox", {

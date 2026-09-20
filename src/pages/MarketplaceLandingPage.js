@@ -40,8 +40,8 @@ class MarketplaceLandingPage {
     await this.click(projectResult);
   }
 
-  async openResidentialUnit(unitIndex = 0) {
-    const unit = this.page.getByText("شقة معروضة للبيع في").first();
+  async openResidentialUnit() {
+    const unit = this.page.locator("//app-marketplace-project-card-template/descendant::span[text() ='SAR']").first();
     await unit.waitFor({ state: "visible", timeout: 30000 });
     await unit.click();
   }

@@ -69,7 +69,7 @@ test("TC-01 - Add new project", async ({ page }) => {
     .click();
   await page.getByText("الرياض").click();
   await page.locator("//input[@id='inputCity']").click();
-  await page.getByRole("option", { name: "الخرج", exact: true }).click();
+  await page.getByRole("option", { name: "الرياض", exact: true }).click();
   await page
     .locator("//input[@id='inputDeveloper']")
     .fill("شركة الضاحية المثالية للتطوير والاستثمار العقاري");
@@ -116,25 +116,8 @@ test("TC-01 - Add new project", async ({ page }) => {
     .fill("test");
   await page.getByRole("textbox", { name: "DD/MM/YYYY" }).fill("01/01/2026");
   await page.getByRole("button", { name: "حفظ" }).click();
-  const saveSuccessToast = page.locator("//app-toasts").getByText("تم الحفظ بنجاح!");
-  await expect(saveSuccessToast).toBeVisible({ timeout:120000 });
-
-
-   // Link with AZM
-  await page.waitForTimeout(3000);
-  const azmToggle = page.locator(
-    "//label[contains (text(), 'AZM')]/preceding-sibling::button",
-  );
-  const isAzmLinked = await azmToggle.getAttribute("aria-checked");
-  if (isAzmLinked === "false") {
-    await azmToggle.click();
-    await page.waitForTimeout(5000);
-    await expect(azmToggle).toHaveAttribute("aria-checked", "true");
-  } else {
-    await expect(azmToggle).toHaveAttribute("aria-checked", "true");
-  }
-
-
+  const saveSuccessToast = page.getByText("تم الحفظ بنجاح!");
+  await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
 
   // Partcipating banks
   await expect(page.getByText(/قائمة الجهات التمويلية/i)).toBeVisible({
@@ -330,7 +313,18 @@ test("TC-01 - Add new project", async ({ page }) => {
     await expect(publishProjectToggle).toHaveAttribute("aria-checked", "true");
   }
 
- 
+  // Link with AZM
+  await page.waitForTimeout(3000);
+  const azmToggle = page.locator(
+    "//label[contains (text(), 'AZM')]/preceding-sibling::button",
+  );
+  const isAzmLinked = await azmToggle.getAttribute("aria-checked");
+  if (isAzmLinked === "false") {
+    await azmToggle.click();
+    await expect(azmToggle).toHaveAttribute("aria-checked", "true");
+  } else {
+    await expect(azmToggle).toHaveAttribute("aria-checked", "true");
+  }
 
   await page.getByRole("button", { name: "حفظ" }).click();
   await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });

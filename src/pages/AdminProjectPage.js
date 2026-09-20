@@ -28,7 +28,11 @@ class AdminProjectPage {
     await this.page.getByRole("link", { name: "المشاريع" }).click();
   }
 
+    async clickInternalInventory() {
 
+    // await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).toBeVisible({ timeout: 30000 });
+    await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
+  }
 
   async openAuctionCreation() {
     await this.page.locator("a").filter({ hasText: "المزادات" }).click();

@@ -13,13 +13,13 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@pages/*": ["src/pages/*"],
-      "@components/*": ["src/pages/components/*"],
-      "@fixtures/*": ["src/fixtures/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@data/*": ["src/data/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@components/*": ["./src/pages/components/*"],
+      "@fixtures/*": ["./src/fixtures/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@data/*": ["./src/data/*"],
       "@base/*": ["./src/base/*"],
-      "@objects/*": ["./src/objects/*"]
+      "@objects/*": ["./src/Objects/*"]
     }
   },
 
