@@ -1,8 +1,10 @@
 // @ts-nocheck
 import { UnitDetailsObjects } from '@objects/UnitDetailsObjects'
+import {Page} from '@playwright/test';
 
 export class UnitDetailsPage {
-  constructor(page) {
+  page: Page;
+  constructor(page: Page) {
     this.page = page;
   }
 

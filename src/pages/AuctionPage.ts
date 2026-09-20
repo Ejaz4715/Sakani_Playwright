@@ -1,5 +1,5 @@
 // @ts-nocheck
-const { expect } = require("@playwright/test");
+import { expect } from '@playwright/test';
 import { AdminObjects } from '@objects/AdminObjects'
 
 export class AuctionPage {
@@ -24,7 +24,6 @@ export class AuctionPage {
     await this.page.getByRole("button", { name: "تأكيد" }).click();
   }
 
-
   async joinHybridAuction() {
   await this.page.getByRole('button', { name: 'المشاركة في المزاد' }).click();
   await this.page.getByRole('radio', { name: 'متصل' }).check();
@@ -33,7 +32,6 @@ export class AuctionPage {
   await this.page.getByRole('checkbox', { name: 'أؤكد قراءتي وفهمي وموافقتي على الشروط والأحكام' }).check();
   await this.page.getByRole('button', { name: 'تأكيد' }).click();
   }
-
 
   async joinHybridAuction() {
     await this.page
@@ -60,12 +58,10 @@ export class AuctionPage {
     await this.page.getByRole("button", { name: buttonName }).click();
   }
 
-
   async validateCongratulationsMessaeg() {
     const congratulationsText = this.page.getByText('تهانينا!', { exact: true });
     await expect(congratulationsText).toBeVisible();
   }
-
 
   async expectAuctionPaymentPending() {
   await expect(
@@ -107,5 +103,3 @@ export class AuctionPage {
     await expect(this.page.getByText("ألف مبروك!")).toBeVisible();
   }
 }
-
-// module.exports = { AuctionPage };

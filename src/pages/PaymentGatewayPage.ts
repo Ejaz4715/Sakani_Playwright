@@ -1,21 +1,19 @@
 // @ts-nocheck
-const { expect } = require("@playwright/test");
+const { Page, expect } = require("@playwright/test");
 import { PaymentGatewayObjects } from '@objects/PaymentGatewayObjects'
 import { UnitBookingObjects } from '@objects/UnitBookingObjects'
 
 export class PaymentGatewayPage {
-  constructor(page) {
+  page: Page;
+  constructor(page: Page) {
     this.page = page;
   }
-
   async click(locator) {
     await locator.click();
   }
-
   async check(locator) {
     await locator.check();
   }
-
   async fillCardDetails() {
     const madaPaymentTitle = this.page.getByTitle(
       UnitBookingObjects.madaPaymentTitle.title,

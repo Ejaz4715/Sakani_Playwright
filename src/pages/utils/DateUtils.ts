@@ -1,4 +1,4 @@
-﻿class DateUtils {
+﻿export class DateUtils {
   static getDateISO(offsetDays = 0) {
     const date = new Date();
     date.setDate(date.getDate() + offsetDays);
@@ -39,6 +39,4 @@
 
     return formatted;
   }
-}
-
-module.exports = { DateUtils };
+};

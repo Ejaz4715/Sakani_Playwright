@@ -1,42 +1,4 @@
 import {type Page } from "@playwright/test";
-// const path = require("path");
-// const { LoginPage } = require(
-//   path.join(process.cwd(), "src", "pages", "LoginPage")
-// ); 
-// const { MarketplaceLandingPage } = require(
-//   path.join(process.cwd(), "src", "pages", "MarketplaceLandingPage"),
-// );
-// const { ProjectDetailsPage } = require(
-//   path.join(process.cwd(), "src", "pages", "ProjectDetailsPage"),
-// );
-// const { ProjectUnitsPage } = require(
-//   path.join(process.cwd(), "src", "pages", "ProjectUnitsPage"),
-// );
-// const { UnitDetailsPage } = require(
-//   path.join(process.cwd(), "src", "pages", "UnitDetailsPage"),
-// );
-// const { UnitBookingPage } = require(
-//   path.join(process.cwd(), "src", "pages", "UnitBookingPage"),
-// );
-// const { PaymentGatewayPage } = require(
-//   path.join(process.cwd(), "src", "pages", "PaymentGatewayPage"),
-// );
-// const { BookingCancellationPage } = require(
-//   path.join(process.cwd(), "src", "pages", "BookingCancellationPage"),
-// );
-// const { AuctionPage } = require(
-//   path.join(process.cwd(), "src", "pages", "AuctionPage"),
-// );
-// const { AdminProjectPage } = require(
-//   path.join(process.cwd(), "src", "pages", "AdminProjectPage"),
-// );
-// const { DeveloperProjectPage } = require(
-//   path.join(process.cwd(), "src", "pages", "DeveloperProjectPage"),
-// );
-// const { PaymentConfirmationPage } = require(
-//   path.join(process.cwd(), "src", "pages", "PaymentConfirmationPage"),
-// );
-
 import { LoginPage } from '@pages/LoginPage';
 import { MarketplaceLandingPage } from '@pages/MarketplaceLandingPage';
 import { ProjectDetailsPage } from '@pages/ProjectDetailsPage';
@@ -49,6 +11,11 @@ import { AdminProjectPage } from '@pages/AdminProjectPage';
 import { DeveloperProjectPage } from '@pages/DeveloperProjectPage';
 import { PaymentConfirmationPage } from '@pages/PaymentConfirmationPage';
 import { AuctionPage } from '@pages/AuctionPage';
+import { ElectronicAuctionProjectPage } from '@pages/ElectronicAuctionProjectPage';
+import { CreateMegaProjectPage } from '@pages/CreateMegaProjectPage';
+import { FlexiblePaymentPage } from '@pages/FlexiblePaymentPage';
+import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymentMethodPage';
+import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 
 export class WebApp {
   page: Page;
@@ -63,7 +30,12 @@ export class WebApp {
   bookingCancellationPage: InstanceType<typeof BookingCancellationPage>;
   developerProjectPage: InstanceType<typeof DeveloperProjectPage>;
   auctionPage: InstanceType<typeof AuctionPage>;
+  electronicAuctionProjectPage: InstanceType<typeof ElectronicAuctionProjectPage>;
   adminProjectPage: InstanceType<typeof AdminProjectPage>;
+  createMegaProjectPage: InstanceType<typeof CreateMegaProjectPage>;
+  flexiblePaymentPage: InstanceType<typeof FlexiblePaymentPage>;
+  bookingAndSelectPaymentMethodPage: InstanceType<typeof BookingAndSelectPaymentMethodPage>;
+  paymentTrackingPage: InstanceType<typeof PaymentTrackingPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -78,6 +50,11 @@ export class WebApp {
     this.bookingCancellationPage = new BookingCancellationPage(page);
     this.developerProjectPage = new DeveloperProjectPage(page);
     this.auctionPage = new AuctionPage(page);
+    this.electronicAuctionProjectPage = new ElectronicAuctionProjectPage(page);
     this.adminProjectPage = new AdminProjectPage(page);
+    this.createMegaProjectPage = new CreateMegaProjectPage (page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
+    this.paymentTrackingPage = new PaymentTrackingPage (page);
   }
 }

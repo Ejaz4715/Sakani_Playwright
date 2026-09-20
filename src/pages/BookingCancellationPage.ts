@@ -1,6 +1,5 @@
 // @ts-nocheck
-const { expect } = require("@playwright/test");
-
+import { expect } from "@playwright/test";
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects'
 
 export class BookingCancellationPage {

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { AdminObjects } from '@objects/AdminObjects'
-const { expect } = require("@playwright/test");
+import { expect } from '@playwright/test';
 
 export class AdminProjectPage {
   constructor(page) {
@@ -27,6 +27,9 @@ export class AdminProjectPage {
   async openProjects() {
     await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
     await this.page.getByRole("link", { name: "المشاريع" }).click();
+  }
+    async clickInternalInventory() {
+    await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
   }
 
   async openAuctionCreation() {

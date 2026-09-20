@@ -10,7 +10,7 @@ import {
 } from '@helpers/marketplaceApi';
 
 const path = require("path");
-const { WebApp } = require(path.join(process.cwd(), "src", "base-class", "web-app"));
+import { WebApp } from "@base-class/web-app";
 const fs = require('fs');
 
 function readTestData() {

@@ -12,7 +12,9 @@ export default defineConfig({
     'tests/**/*.spec.{js,ts}',
     'e2e-scenarios/tests/**/*.spec.{js,ts}'
   ],
-  testIgnore: ['tests/e2e-scenarios/test-suits-e2e/**'],
+  testIgnore: [
+    /tests[\\/]e2e-scenarios[\\/]test-suits-e2e[\\/](?!(?:moh-land|auction|offplan-moh-land|offplan-private-land)-booking-journey-suit\.spec\.ts$|mega-project-suit\.spec\.ts$|payment-tracking-(?:completion-percentage|specified-period)-suit\.spec\.ts$)/,
+  ],
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

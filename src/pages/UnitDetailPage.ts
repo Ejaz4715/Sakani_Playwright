@@ -11,7 +11,6 @@ import { BasePage, APP_READY_TIMEOUT } from './BasePage';
 export class UnitDetailPage extends BasePage {
   protected readonly path: string;
   readonly unitId: string;
-
   readonly unitName: Locator;
   readonly unitPrice: Locator;
   readonly bookingsOpenBadge: Locator;

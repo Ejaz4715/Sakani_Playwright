@@ -1,7 +1,9 @@
 // @ts-nocheck
 import {ProjectDetailsObjects} from '@objects/ProjectDetailsObjects'
+import {Page} from '@playwright/test';
 
 export class ProjectDetailsPage {
+  page: Page;
   constructor(page) {
     this.page = page;
   }
@@ -25,8 +27,8 @@ export class ProjectDetailsPage {
   async openUnitsAndScroll() {
     const unitsButton = this.page.getByRole("button", { name: "عرض الوحدات" });
     await unitsButton.waitFor({ state: "visible", timeout: 30000 });
-    await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await this.page.waitForTimeout(2000);
+    // await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    // await this.page.waitForTimeout(2000);
     await unitsButton.click();
   }
 }

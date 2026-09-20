@@ -19,6 +19,7 @@
       "@helpers/*": ["./src/helpers/*"],
       "@data/*": ["./src/data/*"],
       "@base/*": ["./src/base/*"],
+      "@base-class/*": ["./src/base-class/*"],
       "@objects/*": ["./src/objects/*"]
     }
   },

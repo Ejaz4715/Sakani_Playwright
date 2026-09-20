@@ -1,9 +1,11 @@
 // @ts-nocheck
 const path = require("path");
+import {Page} from '@playwright/test';
 import { MarketplaceLandingObjects } from '@objects/MarketplaceLandingObjects'
 
 export class MarketplaceLandingPage {
-  constructor(page) {
+  page: Page;
+  constructor(page: Page) {
     this.page = page;
   }
   async click(locator) {
@@ -35,8 +37,8 @@ export class MarketplaceLandingPage {
     await this.click(projectResult);
   }
 
-  async openResidentialUnit(unitIndex = 0) {
-    const unit = this.page.getByText("شقة معروضة للبيع في").first();
+  async openResidentialUnit() {
+    const unit = this.page.locator("//app-marketplace-project-card-template/descendant::span[text() ='SAR']").first();
     await unit.waitFor({ state: "visible", timeout: 30000 });
     await unit.click();
   }

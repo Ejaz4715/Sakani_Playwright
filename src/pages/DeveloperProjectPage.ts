@@ -1,5 +1,5 @@
 // @ts-nocheck
-const { expect } = require("@playwright/test");
+import { Page, expect, Locator } from "@playwright/test";
 const path = require("path");
 import { DeveloperObjects } from '@objects/DeveloperObjects'
 
@@ -8,12 +8,14 @@ const testData = require(
 );
 
 export class DeveloperProjectPage {
-  constructor(page) {
+  page: Page;
+  defaultTimeout: number | undefined;
+  constructor(page: Page) {
     this.page = page;
     this.defaultTimeout = 60000;
   }
 
-  async waitForVisible(locator) {
+  async waitForVisible(locator: any) {
     await expect(locator).toBeVisible({ timeout: this.defaultTimeout });
   }
 
@@ -24,7 +26,6 @@ export class DeveloperProjectPage {
       await locator.click();
     }
   }
-
   async gotoAuth(url) {
     await this.page.goto(url);
   }

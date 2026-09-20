@@ -4,6 +4,9 @@ node_modules/
 # Generated Test Reports & Artifacts
 playwright-report/
 test-results/
+report-dashboard/test-reports-history/
+report-dashboard/dashboard.html
+
 
 # Certificates & Secrets
 certs/
