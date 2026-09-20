@@ -1,44 +1,56 @@
-import type { Page } from "@playwright/test";
-const path = require("path");
+import {type Page } from "@playwright/test";
+// const path = require("path");
+// const { LoginPage } = require(
+//   path.join(process.cwd(), "src", "pages", "LoginPage")
+// ); 
+// const { MarketplaceLandingPage } = require(
+//   path.join(process.cwd(), "src", "pages", "MarketplaceLandingPage"),
+// );
+// const { ProjectDetailsPage } = require(
+//   path.join(process.cwd(), "src", "pages", "ProjectDetailsPage"),
+// );
+// const { ProjectUnitsPage } = require(
+//   path.join(process.cwd(), "src", "pages", "ProjectUnitsPage"),
+// );
+// const { UnitDetailsPage } = require(
+//   path.join(process.cwd(), "src", "pages", "UnitDetailsPage"),
+// );
+// const { UnitBookingPage } = require(
+//   path.join(process.cwd(), "src", "pages", "UnitBookingPage"),
+// );
+// const { PaymentGatewayPage } = require(
+//   path.join(process.cwd(), "src", "pages", "PaymentGatewayPage"),
+// );
+// const { BookingCancellationPage } = require(
+//   path.join(process.cwd(), "src", "pages", "BookingCancellationPage"),
+// );
+// const { AuctionPage } = require(
+//   path.join(process.cwd(), "src", "pages", "AuctionPage"),
+// );
+// const { AdminProjectPage } = require(
+//   path.join(process.cwd(), "src", "pages", "AdminProjectPage"),
+// );
+// const { DeveloperProjectPage } = require(
+//   path.join(process.cwd(), "src", "pages", "DeveloperProjectPage"),
+// );
+// const { PaymentConfirmationPage } = require(
+//   path.join(process.cwd(), "src", "pages", "PaymentConfirmationPage"),
+// );
 
-const { LoginPage } = require(
-  path.join(process.cwd(), "src", "pages", "LoginPage")
-);
-const { MarketplaceLandingPage } = require(
-  path.join(process.cwd(), "src", "pages", "MarketplaceLandingPage"),
-);
-const { ProjectDetailsPage } = require(
-  path.join(process.cwd(), "src", "pages", "ProjectDetailsPage"),
-);
-const { ProjectUnitsPage } = require(
-  path.join(process.cwd(), "src", "pages", "ProjectUnitsPage"),
-);
-const { UnitDetailsPage } = require(
-  path.join(process.cwd(), "src", "pages", "UnitDetailsPage"),
-);
-const { UnitBookingPage } = require(
-  path.join(process.cwd(), "src", "pages", "UnitBookingPage"),
-);
-const { PaymentGatewayPage } = require(
-  path.join(process.cwd(), "src", "pages", "PaymentGatewayPage"),
-);
-const { BookingCancellationPage } = require(
-  path.join(process.cwd(), "src", "pages", "BookingCancellationPage"),
-);
-const { AuctionPage } = require(
-  path.join(process.cwd(), "src", "pages", "AuctionPage"),
-);
-const { AdminProjectPage } = require(
-  path.join(process.cwd(), "src", "pages", "AdminProjectPage"),
-);
-const { DeveloperProjectPage } = require(
-  path.join(process.cwd(), "src", "pages", "DeveloperProjectPage"),
-);
-const { PaymentConfirmationPage } = require(
-  path.join(process.cwd(), "src", "pages", "PaymentConfirmationPage"),
-);
+import { LoginPage } from '@pages/LoginPage';
+import { MarketplaceLandingPage } from '@pages/MarketplaceLandingPage';
+import { ProjectDetailsPage } from '@pages/ProjectDetailsPage';
+import { ProjectUnitsPage } from '@pages/ProjectUnitsPage';
+import { UnitDetailsPage } from '@pages/UnitDetailsPage';
+import { UnitBookingPage } from '@pages/UnitBookingPage';
+import { PaymentGatewayPage } from '@pages/PaymentGatewayPage';
+import { BookingCancellationPage } from '@pages/BookingCancellationPage';
+import { AdminProjectPage } from '@pages/AdminProjectPage';
+import { DeveloperProjectPage } from '@pages/DeveloperProjectPage';
+import { PaymentConfirmationPage } from '@pages/PaymentConfirmationPage';
+import { AuctionPage } from '@pages/AuctionPage';
 
-class WebApp {
+export class WebApp {
   page: Page;
   loginPage: InstanceType<typeof LoginPage>;
   marketplaceLandingPage: InstanceType<typeof MarketplaceLandingPage>;
@@ -69,5 +81,3 @@ class WebApp {
     this.adminProjectPage = new AdminProjectPage(page);
   }
 }
-
-module.exports = { WebApp };

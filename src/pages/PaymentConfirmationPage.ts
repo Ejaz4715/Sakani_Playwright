@@ -1,11 +1,8 @@
 // @ts-nocheck
-const { expect } = require("@playwright/test");
-const path = require("path");
-const { PaymentConfirmationObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "PaymentConfirmationObjects"),
-);
+import { expect } from '@playwright/test';
+import { PaymentConfirmationObjects } from '@objects/PaymentConfirmationObjects'
 
-class PaymentConfirmationPage {
+export class PaymentConfirmationPage {
   constructor(page) {
     this.page = page;
   }
@@ -33,5 +30,3 @@ class PaymentConfirmationPage {
     await expect(successMessage).toContainText("تم اكتمال الحجز بنجاح!");
   }
 }
-
-module.exports = { PaymentConfirmationPage };

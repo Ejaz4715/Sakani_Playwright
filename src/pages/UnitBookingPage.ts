@@ -1,10 +1,7 @@
 // @ts-nocheck
-const path = require("path");
-const { UnitBookingObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "UnitBookingObjects"),
-);
+import { UnitBookingObjects } from '@objects/UnitBookingObjects'
 
-class UnitBookingPage {
+export class UnitBookingPage {
   constructor(page) {
     this.page = page;
   }
@@ -74,5 +71,3 @@ class UnitBookingPage {
     ).toBeVisible();
   }
 }
-
-module.exports = { UnitBookingPage };

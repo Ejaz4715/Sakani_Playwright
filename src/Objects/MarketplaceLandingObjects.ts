@@ -1,4 +1,4 @@
-const MarketplaceLandingObjects = {
+export const MarketplaceLandingObjects = {
   searchButton: { role: "button", name: "بحث", exact: true },
   searchInput: {
     role: "textbox",
@@ -6,5 +6,3 @@ const MarketplaceLandingObjects = {
   },
   projectResultModal: "app-global-search-modal-result-block",
 };
-
-module.exports = { MarketplaceLandingObjects };

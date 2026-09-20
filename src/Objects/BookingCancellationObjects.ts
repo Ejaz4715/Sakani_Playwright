@@ -1,4 +1,4 @@
-const BookingCancellationObjects = {
+export const BookingCancellationObjects = {
   userProfileButton: "//button[@id='profile-dropdown']",
   myBookingsLink: { text: "حجوزاتي" },
   activeBookingsTab: { role: "tab", name: "نشطة" },
@@ -15,5 +15,3 @@ const BookingCancellationObjects = {
   bookedUnitCode:
     "//div[text() = 'رمز الوحدة']/following-sibling::div/child::div",
 };
-
-module.exports = { BookingCancellationObjects };

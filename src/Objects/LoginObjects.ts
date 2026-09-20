@@ -1,4 +1,4 @@
-const LoginObjects = {
+export const LoginObjects = {
   acceptCookiesModal: "#acceptCookiesModal",
   acceptCookiesButton: { role: "button", name: "قبول ملفات تعريف الارتباط" },
   closeCookiesModal: ".svg-icon.icon-close-dark",
@@ -10,5 +10,3 @@ const LoginObjects = {
   newUserContinueButton: { role: "button", name: "موافقة واستمرار" },
   allowNotificationsButton: { role: "button", name: "Allow" },
 };
-
-module.exports = { LoginObjects };
