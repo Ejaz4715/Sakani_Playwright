@@ -4,17 +4,17 @@ import { ACTIVITY_MODULES } from '@data/testData';
 
 test.describe('Account - activities modules', () => {
   for (const module of ACTIVITY_MODULES) {
-    test(`ACT-${module.key} @P1 ${module.label} loads with its tabs and state`, async ({
+    test(`TC-01 ${module.key} ${module.label} loads with its tabs and state`, {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
       authenticatedPage,
     }) => {
       const activities = new ActivitiesPage(authenticatedPage, module);
 
-      // ACT-G03 — the module is reachable by direct URL.
+      // the module is reachable by direct URL.
       await activities.open();
       await activities.expectLoaded();
       await expect(authenticatedPage).toHaveURL(new RegExp(escapeRegExp(module.path)));
 
-      // ACT-G01 — every documented status tab is present.
+      // every documented status tab is present.
       if (module.tabs.length) {
         const visible = await activities.visibleTabLabels();
         expect(visible, `${module.label} should expose all documented tabs`).toEqual(
@@ -22,7 +22,7 @@ test.describe('Account - activities modules', () => {
         );
       }
 
-      // ACT-G02 — the module resolves to data or its own empty state.
+      // module resolves to data or its own empty state.
       await activities.waitForListing();
       if (module.emptyText) {
         expect(
@@ -38,7 +38,7 @@ test.describe('Account - activities modules', () => {
     });
   }
 
-  test('ACT-G05 @P0 activities modules are not reachable when logged out', async ({ page }) => {
+  test('TC-02 Activities modules are not reachable when logged out', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ page }) => {
     const module = ACTIVITY_MODULES[0];
 
     await page.goto(`${module.path}?lang=en`, { waitUntil: 'commit' });
@@ -47,7 +47,7 @@ test.describe('Account - activities modules', () => {
     await expect(page.locator('#username')).toBeVisible({ timeout: 60_000 });
   });
 
-  test('ACT-G04 @P2 a selected tab survives a reload', async ({ authenticatedPage }) => {
+  test('TC-03 Selected tab survives a reload', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
     const module = ACTIVITY_MODULES.find((m) => m.key === 'conveyance')!;
     const activities = new ActivitiesPage(authenticatedPage, module);
 

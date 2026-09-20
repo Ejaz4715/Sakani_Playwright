@@ -2,15 +2,17 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
+
+const timestamp = new Date().toISOString().replace(/[:T]/g, '-').replace(/\..+/, '');
+
 export default defineConfig({
-// Tell Playwright to look at the project root level
+  preserveOutput: 'always',
   testDir: './', 
-  
-  // Match .js and .ts test files across both folder locations
   testMatch: [
     'tests/**/*.spec.{js,ts}',
     'e2e-scenarios/tests/**/*.spec.{js,ts}'
   ],
+  testIgnore: ['tests/e2e-scenarios/test-suits-e2e/**'],
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -19,9 +21,20 @@ export default defineConfig({
     ['html', { open: 'never' }],
     ['list'],
     ['json', { outputFile: 'test-results/results.json' }],
-      ['allure-playwright', { outputFolder: 'allure-results' }],
-    // ['allure-playwright'],
+    ['json', { outputFile: `report-dashboard/test-reports-history/results-${timestamp}.json` }]
   ],
+
+  metadata: {
+    // Default fallback environment
+    environment: process.env.TEST_ENV || 'Pre-Prod',
+    
+    // Per-product environment mapping
+    environments: {
+      Sakani: process.env.MARKETPLACE_ENV || 'Pre-Prod',
+      Digitar: process.env.DIGITAR_ENV || 'STG',
+      Sayal: process.env.SAYAL_ENV || 'Pre-Prod',
+    }
+  },
 
   timeout: 480_000,
   expect: { timeout: 30_000 },

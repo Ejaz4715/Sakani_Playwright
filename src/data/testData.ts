@@ -243,14 +243,15 @@ export const PROFILE_ROUTES = {
  */
 export const MORTGAGE = {
   valid: {
-    propertyPrice: '800000',
+    propertyPrice: '500000',
     monthlyIncome: '25000',
     monthlyLiabilities: '2000',
     financingTerm: '20',
     interestRate: '4',
-    downPayment: '10',
-    firstHome: 'yes',
+    downPayment: '80000',
+    firstHome: "First house",
     beneficiary: 'no',
+    fundingPeriodDropdown: "5 Years"
   },
   incomeRange: { min: 2000, max: 500000 },
   errors: {

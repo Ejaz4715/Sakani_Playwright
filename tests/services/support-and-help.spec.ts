@@ -1,16 +1,8 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { SupportPage } from '@pages/SupportPage';
 
-/**
- * FAQ / CNT — Help & support surfaces.
- * spec: specs/functional-test-design.md § 25
- *
- * Public marketing pages, so no login. The Contact form is never actually
- * submitted: it raises a real support ticket, so coverage stops at the
- * validation gate (see the blocked list in the summary).
- */
 test.describe('FAQs', () => {
-  test('FAQ-01 @P2 the FAQ list renders with pagination', async ({ page }) => {
+  test('TC-01 FAQ list renders with pagination', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openFaqs();
     await support.expectFaqsLoaded();
@@ -19,7 +11,7 @@ test.describe('FAQs', () => {
     expect(await support.faqPagination.count()).toBeGreaterThan(0);
   });
 
-  test('FAQ-02 @P2 search is disabled until a term is entered', async ({ page }) => {
+  test('TC-02 FAQ search is disabled until a term is entered', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openFaqs();
     await support.expectFaqsLoaded();
@@ -27,7 +19,7 @@ test.describe('FAQs', () => {
     await expect(support.faqSearchButton).toBeDisabled();
   });
 
-  test('FAQ-03 @P1 searching a keyword returns matching questions', async ({ page }) => {
+  test('TC-03 searching a keyword returns matching questions', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openFaqs();
     await support.expectFaqsLoaded();
@@ -43,7 +35,7 @@ test.describe('FAQs', () => {
       .not.toBe(before.join(' | '));
   });
 
-  test('FAQ-04 @P1 a no-match search shows an empty result set', async ({ page }) => {
+  test('TC-04 A no-match search shows an empty result set', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openFaqs();
     await support.expectFaqsLoaded();
@@ -55,7 +47,7 @@ test.describe('FAQs', () => {
       .toBe(0);
   });
 
-  test('FAQ-06 @P3 a question expands to reveal its answer', async ({ page }) => {
+  test('TC-05 A question expands to reveal its answer', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openFaqs();
     await support.expectFaqsLoaded();
@@ -67,7 +59,7 @@ test.describe('FAQs', () => {
     await expect(first).toBeVisible();
   });
 
-  test('SVC-06 @P3 the "was this helpful" control is offered', async ({ page }) => {
+  test('TC-06 The "was this helpful" control is offered', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openFaqs();
     await support.expectFaqsLoaded();
@@ -78,7 +70,7 @@ test.describe('FAQs', () => {
 });
 
 test.describe('Contact us', () => {
-  test('CNT-01 @P1 Send is disabled while the form is empty', async ({ page }) => {
+  test('TC-01 Send is disabled while the form is empty', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openContactUs();
     await support.expectContactLoaded();
@@ -86,7 +78,7 @@ test.describe('Contact us', () => {
     await expect(support.sendButton).toBeDisabled();
   });
 
-  test('CNT-03 @P1 all six fields are marked mandatory', async ({ page }) => {
+  test('TC-02 All six fields are marked mandatory (Type of request, National ID, Beneficiary Name, Region, City, Message)', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openContactUs();
     await support.expectContactLoaded();
@@ -98,7 +90,7 @@ test.describe('Contact us', () => {
     expect(required.length).toBeGreaterThanOrEqual(6);
   });
 
-  test('CNT-03b @P1 filling only some fields leaves Send disabled', async ({ page }) => {
+  test('TC-03 Filling only some fields leaves Send disabled', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openContactUs();
     await support.expectContactLoaded();
@@ -111,7 +103,7 @@ test.describe('Contact us', () => {
     await expect(support.sendButton).toBeDisabled();
   });
 
-  test('CNT-04 @P1 a malformed national ID does not enable submission', async ({ page }) => {
+  test('TC-04 A malformed national ID does not enable submission', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openContactUs();
     await support.expectContactLoaded();
@@ -123,7 +115,7 @@ test.describe('Contact us', () => {
     await expect(support.sendButton).toBeDisabled();
   });
 
-  test('CNT-05 @P2 a very long message is accepted or capped without breaking', async ({
+  test('TC-05 A very long message is accepted or capped without breaking', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     page,
   }) => {
     const support = new SupportPage(page);
@@ -137,7 +129,7 @@ test.describe('Contact us', () => {
     await expect(support.messageInput).toBeVisible();
   });
 
-  test('CNT-06 @P1 script-like input in the message is not executed', async ({ page }) => {
+  test('TC-06 Script-like input in the message is not executed', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openContactUs();
     await support.expectContactLoaded();
@@ -155,7 +147,7 @@ test.describe('Contact us', () => {
     expect(await support.messageInput.inputValue()).toContain('script');
   });
 
-  test('CNT-07 @P1 the request-type dropdown offers options', async ({ page }) => {
+  test('TC-07 The request-type dropdown offers options', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     const support = new SupportPage(page);
     await support.openContactUs();
     await support.expectContactLoaded();

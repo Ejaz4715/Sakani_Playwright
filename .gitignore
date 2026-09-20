@@ -2,8 +2,6 @@
 node_modules/
 
 # Generated Test Reports & Artifacts
-allure-results/
-allure-report/
 playwright-report/
 test-results/
 

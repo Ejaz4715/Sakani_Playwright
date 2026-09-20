@@ -1,0 +1,210 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-g",
+      "TC-06 Unit in a closed project shows its closed state"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-16-11-18-24.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests\\project\\unit-model-and-detail.spec.ts",
+      "file": "tests/project/unit-model-and-detail.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Unit details page",
+          "file": "tests/project/unit-model-and-detail.spec.ts",
+          "line": 85,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-06 Unit in a closed project shows its closed state",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\unit-model-and-detail.spec.ts",
+                        "line": 160,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 136134,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/not taking.*bookings|Bookings.*closed/i).first()\nExpected: visible\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/not taking.*bookings|Bookings.*closed/i).first() with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/not taking.*bookings|Bookings.*closed/i).first()\u001b[22m\n\u001b[2m    9 × found locator('ngb-tooltip-window, [class*=\"coach\"], [class*=\"onboarding\"]').filter({ hasText: /Find more Sakani products|منتجات سكني/i }).first(), intercepting action to run the handler\u001b[22m\n\u001b[2m      - locator handler has finished\u001b[22m\n\u001b[2m      - interception handler has finished, continuing\u001b[22m\n\u001b[2m    - found locator('ngb-tooltip-window, [class*=\"coach\"], [class*=\"onboarding\"]').filter({ hasText: /Find more Sakani products|منتجات سكني/i }).first(), intercepting action to run the handler\u001b[22m\n\u001b[2m  - Target page, context or browser has been closed\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/not taking.*bookings|Bookings.*closed/i).first()\nExpected: visible\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/not taking.*bookings|Bookings.*closed/i).first() with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/not taking.*bookings|Bookings.*closed/i).first()\u001b[22m\n\u001b[2m    9 × found locator('ngb-tooltip-window, [class*=\"coach\"], [class*=\"onboarding\"]').filter({ hasText: /Find more Sakani products|منتجات سكني/i }).first(), intercepting action to run the handler\u001b[22m\n\u001b[2m      - locator handler has finished\u001b[22m\n\u001b[2m      - interception handler has finished, continuing\u001b[22m\n\u001b[2m    - found locator('ngb-tooltip-window, [class*=\"coach\"], [class*=\"onboarding\"]').filter({ hasText: /Find more Sakani products|منتجات سكني/i }).first(), intercepting action to run the handler\u001b[22m\n\u001b[2m  - Target page, context or browser has been closed\u001b[22m\n\n    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\unit-model-and-detail.spec.ts:166:47",
+                        "location": {
+                          "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\unit-model-and-detail.spec.ts",
+                          "column": 47,
+                          "line": 166
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 164 |\u001b[39m     \u001b[36mconst\u001b[39m detail \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mUnitDetailPage\u001b[39m(authenticatedPage\u001b[33m,\u001b[39m \u001b[32m'174918'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 165 |\u001b[39m     \u001b[90m// await detail.open();\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 166 |\u001b[39m     \u001b[36mawait\u001b[39m expect(detail\u001b[33m.\u001b[39mbookingsClosedNotice)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m60000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 167 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 168 |\u001b[39m\n \u001b[90m 169 |\u001b[39m   test(\u001b[32m'TC-07 An unknown unit id does not render a broken page'\u001b[39m\u001b[33m,\u001b[39m {annotation\u001b[33m:\u001b[39m [{ product\u001b[33m:\u001b[39m \u001b[32m'Marketplace'\u001b[39m\u001b[33m,\u001b[39m type\u001b[33m:\u001b[39m \u001b[32m'non-critical'\u001b[39m } \u001b[36mas\u001b[39m any]} \u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\unit-model-and-detail.spec.ts",
+                            "column": 47,
+                            "line": 166
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/not taking.*bookings|Bookings.*closed/i).first()\nExpected: visible\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/not taking.*bookings|Bookings.*closed/i).first() with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/not taking.*bookings|Bookings.*closed/i).first()\u001b[22m\n\u001b[2m    9 × found locator('ngb-tooltip-window, [class*=\"coach\"], [class*=\"onboarding\"]').filter({ hasText: /Find more Sakani products|منتجات سكني/i }).first(), intercepting action to run the handler\u001b[22m\n\u001b[2m      - locator handler has finished\u001b[22m\n\u001b[2m      - interception handler has finished, continuing\u001b[22m\n\u001b[2m    - found locator('ngb-tooltip-window, [class*=\"coach\"], [class*=\"onboarding\"]').filter({ hasText: /Find more Sakani products|منتجات سكني/i }).first(), intercepting action to run the handler\u001b[22m\n\u001b[2m  - Target page, context or browser has been closed\u001b[22m\n\n\n\u001b[0m \u001b[90m 164 |\u001b[39m     \u001b[36mconst\u001b[39m detail \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mUnitDetailPage\u001b[39m(authenticatedPage\u001b[33m,\u001b[39m \u001b[32m'174918'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 165 |\u001b[39m     \u001b[90m// await detail.open();\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 166 |\u001b[39m     \u001b[36mawait\u001b[39m expect(detail\u001b[33m.\u001b[39mbookingsClosedNotice)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m60000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 167 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 168 |\u001b[39m\n \u001b[90m 169 |\u001b[39m   test(\u001b[32m'TC-07 An unknown unit id does not render a broken page'\u001b[39m\u001b[33m,\u001b[39m {annotation\u001b[33m:\u001b[39m [{ product\u001b[33m:\u001b[39m \u001b[32m'Marketplace'\u001b[39m\u001b[33m,\u001b[39m type\u001b[33m:\u001b[39m \u001b[32m'non-critical'\u001b[39m } \u001b[36mas\u001b[39m any]} \u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({\u001b[0m\n\u001b[2m    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\unit-model-and-detail.spec.ts:166:47\u001b[22m"
+                        },
+                        {
+                          "message": "Error: End of central directory record signature not found. Either not a zip file, or file is truncated."
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-16T11:18:26.128Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\unit-model-and-detail.spec.ts",
+                            "line": 160,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-unit-model-a-990aa-ject-shows-its-closed-state-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\unit-model-and-detail.spec.ts",
+                        "column": 47,
+                        "line": 166
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "2363dd2eb79aafd13f89-6c9d9e2d05c24f564686",
+              "file": "tests/project/unit-model-and-detail.spec.ts",
+              "line": 160,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-16T11:18:24.896Z",
+    "duration": 138703.2,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

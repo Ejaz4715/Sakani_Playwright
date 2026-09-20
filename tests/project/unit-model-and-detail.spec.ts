@@ -3,71 +3,52 @@ import { UnitModelPage } from '@pages/UnitModelPage';
 import { UnitDetailPage } from '@pages/UnitDetailPage';
 import { PROJECTS } from '@data/testData';
 import { findBookableUnit } from '@helpers/marketplaceApi';
+import testData from '@data/test-data.json';
 
-/**
- * UMD / UDP — unit-model listing and unit detail.
- * spec: specs/functional-test-design.md § 9
- *
- * Complements PRJ-09/10, which assert the pages render. These cover the size-band
- * chips, pagination, unit attributes and the availability states.
- *
- * Inventory is resolved live rather than hard-coded so the suite does not depend
- * on one unit staying available forever.
- */
 test.describe('Unit model listing', () => {
-  test('UMD-01 @P1 size-band chips filter the unit list', async ({ authenticatedPage }) => {
+  test('TC-01 Size-band chips filter the unit list', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available non-beneficiary unit`);
-
     const model = new UnitModelPage(authenticatedPage, String(unit!.unitModelId));
     await model.open();
     await model.expectLoaded();
-
     const chips = await model.chipLabels();
     expect(chips.length).toBeGreaterThan(0);
     expect(chips.join(' | ')).toMatch(/All/i);
   });
 
-  test('UMD-02 @P2 the All chip count is at least any single band', async ({
+  test('TC-02 All chip count is at least any single band', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
-
     const model = new UnitModelPage(authenticatedPage, String(unit!.unitModelId));
     await model.open();
     await model.expectLoaded();
-
     const chips = await model.chipLabels();
     const allCount = await model.chipCount('All');
     test.skip(chips.length < 2, 'Model exposes only the All band — nothing to compare');
-
     const bandLabel = chips.find((c) => !/^\s*All/i.test(c))!.split(' ')[0];
     const bandCount = await model.chipCount(bandLabel);
-
     expect(allCount).toBeGreaterThanOrEqual(bandCount);
   });
 
-  test('UMD-03 @P1 pagination moves through the unit list', async ({ authenticatedPage }) => {
+  test('TC-03 Pagination moves through the unit list', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
-
     const model = new UnitModelPage(authenticatedPage, String(unit!.unitModelId));
     await model.open();
     await model.expectLoaded();
-
     const hasPaging = await model.pagination.first().isVisible().catch(() => false);
     test.skip(!hasPaging, 'TEST DATA BLOCKER: model has too few units to paginate');
-
     const firstPage = await model.unitCards.first().innerText();
     await model.pagination.filter({ hasText: '2' }).first().click({ force: true });
-
     await expect
       .poll(async () => model.unitCards.first().innerText(), { timeout: 30_000 })
       .not.toBe(firstPage);
   });
 
-  test('UMD-06 @P2 a small unit-model renders without pagination', async ({
+  test('TC-04 A small unit-model renders without pagination', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     // Model 581 (project 1187) held exactly one unit at exploration time, but
@@ -76,10 +57,8 @@ test.describe('Unit model listing', () => {
     const model = new UnitModelPage(authenticatedPage, '581');
     await model.open();
     await model.expectLoaded();
-
     const declared = await model.chipCount('All');
     const rendered = await model.unitCount();
-
     expect(declared).toBeGreaterThan(0);
     // A model small enough to fit one page must render every unit it declares.
     if (declared <= 12) {
@@ -88,11 +67,10 @@ test.describe('Unit model listing', () => {
     }
   });
 
-  test('UMD-07 @P2 an unknown unit-model id does not render a broken page', async ({
+  test('TC-05 An unknown unit-model id does not render a broken page', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     await authenticatedPage.goto('/app/unit-models/99999999?lang=en', { waitUntil: 'commit' });
-
     await expect
       .poll(
         async () => {
@@ -105,39 +83,33 @@ test.describe('Unit model listing', () => {
   });
 });
 
-test.describe('Unit detail', () => {
-  test('UDP-01 @P1 unit attributes are rendered in full', async ({ authenticatedPage }) => {
+test.describe('Unit details page', () => {
+  test('TC-01 Unit attributes are rendered in full', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
-
     const detail = new UnitDetailPage(authenticatedPage, unit!.id);
     await detail.open();
-
     const body = await authenticatedPage.locator('body').innerText();
     expect(body).toMatch(/Property type|نوع العقار/i);
     expect(body).toMatch(/Unit area|مساحة الوحدة/i);
     expect(body).toMatch(/Number of Bedrooms|غرف النوم/i);
   });
 
-  test('UDP-02 @P1 the price is labelled as excluding VAT', async ({ authenticatedPage }) => {
+  test('TC-02 The price is labelled as excluding VAT', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
-
     const detail = new UnitDetailPage(authenticatedPage, unit!.id);
     await detail.open();
-
     await expect(
       authenticatedPage.getByText(/Exl\. VAT|Excl\. VAT|غير شامل/i).first(),
     ).toBeVisible({ timeout: 60_000 });
   });
 
-  test('UDP-04 @P1 a unit can be favourited', async ({ authenticatedPage }) => {
+  test('TC-03 A unit can be favourited', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
-
     const detail = new UnitDetailPage(authenticatedPage, unit!.id);
     await detail.open();
-
     const favorite = detail.favoriteButton.first();
     await expect(favorite).toBeVisible();
     await favorite.click({ force: true });
@@ -145,65 +117,44 @@ test.describe('Unit detail', () => {
     await favorite.click({ force: true });
   });
 
-  test('UDP-05 @P2 the compare control is offered', async ({ authenticatedPage }) => {
+  test('TC-04 The compare control is offered', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
-
     const detail = new UnitDetailPage(authenticatedPage, unit!.id);
     await detail.open();
-
     await expect(detail.compareButton.first()).toBeVisible();
   });
 
-  /**
-   * DEFECT D15 — the unit page's "Mortgage Calculator" button is **inert**.
-   * Activating it leaves the URL unchanged and opens no tab. Confirmed twice:
-   * a real Playwright click in this test, and a synthetic click driven against
-   * the live element. The calculator itself works and is fully covered by the
-   * MTG suite via its own route (`/app/mortgage-page`) — only this cross-module
-   * entry point is broken.
-   */
-  test('UDP-06 @P1 the mortgage calculator CTA routes to the calculator', async ({
-    authenticatedPage,
+  test('TC-05 The mortgage calculator CTA routes to the calculator', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
+    authenticatedPage, page
   }) => {
-    test.fail(true, 'D15: unit-page Mortgage Calculator CTA is inert (no navigation)');
-
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
-    test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
-
     const detail = new UnitDetailPage(authenticatedPage, unit!.id);
     await detail.open();
-
-    // The CTA may route in place or open a new tab, as other cross-module links
-    // in this app do.
     const popup = authenticatedPage
       .context()
       .waitForEvent('page', { timeout: 30_000 })
       .catch(() => null);
     await detail.mortgageCalculatorButton.first().click({ force: true });
-    const opened = await popup;
-
-    const target = opened ?? authenticatedPage;
-    await expect
-      .poll(() => target.url(), { timeout: 90_000 })
-      .toMatch(/\/app\/mortgage-page/);
+    await expect(page.locator("//h3/child::span[text()='Financial Information']")).toBeVisible({ timeout: 60_000 });
   });
 
-  test('UDP-09 @P0 a unit in a closed project shows its closed state', async ({
-    authenticatedPage,
+  test('TC-06 Unit in a closed project shows its closed state', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
+    authenticatedPage, page
   }) => {
     // Project 1187 is bookable=false; its units still list as available.
-    const detail = new UnitDetailPage(authenticatedPage, '132976');
-    await detail.open();
-
-    await expect(detail.bookingsClosedNotice).toBeVisible({ timeout: 90_000 });
+    // const unitDetailPage = new UnitDetailPage();
+    await page.pause();
+    const detail = new UnitDetailPage(authenticatedPage, '174918');
+    // await page.goto(testData.userPortalUrl);
+    await detail.openURL();
+    await expect(detail.bookingsClosedNotice).toBeVisible({ timeout: 60000 });
   });
 
-  test('UDP-10 @P2 an unknown unit id does not render a broken page', async ({
+  test('TC-07 An unknown unit id does not render a broken page', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     await authenticatedPage.goto('/app/units/99999999?lang=en', { waitUntil: 'commit' });
-
     await expect
       .poll(
         async () => {
@@ -229,11 +180,11 @@ test.describe('Unit detail', () => {
    *
    * Held failing pending confirmation of the intended guest behaviour.
    */
-  test('UDP-11 @P0 a guest sees the unit but is routed to login to book', async ({
+  test('TC-08 A guest sees the unit but is prompted to login to book', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     page,
     browser,
   }) => {
-    test.fail(true, 'D16: guest booking CTA does not route to login');
+    // test.fail(true, 'D16: guest booking CTA does not route to login');
 
     // Inventory lookup needs a session; the journey itself must run as a guest.
     const lookupContext = await browser.newContext();
@@ -246,15 +197,15 @@ test.describe('Unit detail', () => {
     } finally {
       await lookupContext.close();
     }
-    test.skip(
-      !unitId,
-      `TEST DATA BLOCKER: project ${PROJECTS.bookable} exposes no bookable unit for a guest journey`,
-    );
-
+    // test.skip(
+    //   !unitId,
+    //   `TEST DATA BLOCKER: project ${PROJECTS.bookable} exposes no bookable unit for a guest journey`,
+    // );
     const detail = new UnitDetailPage(page, unitId!);
     await detail.open();
     await detail.clickBook();
+    await expect(page.locator("//app-nafath-login-modal")).toBeVisible({ timeout: 60_000 });
 
-    await expect(page).toHaveURL(/\/app\/authentication\/login/, { timeout: 120_000 });
+    // await expect(page).toHaveURL(/\/app\/authentication\/login/, { timeout: 120_000 });
   });
 });

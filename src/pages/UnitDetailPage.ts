@@ -39,7 +39,7 @@ export class UnitDetailPage extends BasePage {
     this.unitName = page.getByRole('heading').first();
     this.unitPrice = page.getByRole('heading', { name: /SAR/ }).first();
     this.bookingsOpenBadge = page.getByText(/Bookings open|الحجز متاح/i).first();
-    this.bookingsClosedNotice = page.getByText(/not taking bookings yet|Bookings closed/i).first();
+    this.bookingsClosedNotice = page.getByText(/not taking.*bookings|Bookings.*closed/i).first();
     this.bookUnitButton = page.getByRole('button', { name: /Book a unit|احجز وحدة/i }).first();
     this.compareButton = page.getByRole('button', { name: /Compare|مقارنة/i });
     this.favoriteButton = page.getByRole('button', { name: /Favorite|المفضلة/i });
@@ -60,6 +60,10 @@ export class UnitDetailPage extends BasePage {
 
   async open(): Promise<void> {
     await this.gotoUntilReady(this.bookUnitButton);
+  }
+
+  async openURL() {
+    await this.gotoUrl(this.path);
   }
 
   async expectBookable(): Promise<void> {

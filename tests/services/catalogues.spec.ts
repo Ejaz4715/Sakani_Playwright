@@ -2,7 +2,7 @@ import { test, expect } from '@fixtures/pages.fixture';
 import { HousingDesignsPage } from '@pages/HousingDesignsPage';
 
 test.describe('Housing designs catalogue', () => {
-  test('HDS-01 @P1 the catalogue renders designs', async ({ authenticatedPage }) => {
+  test('TC-01 The catalogue renders designs', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -11,7 +11,7 @@ test.describe('Housing designs catalogue', () => {
     await expect(designs.availableDesignsHeading.first()).toBeVisible();
   });
 
-  test('HDS-07 @P1 land width accepts a valid dimension', async ({ authenticatedPage }) => {
+  test('TC-02 Land width accepts a valid dimension', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -21,7 +21,7 @@ test.describe('Housing designs catalogue', () => {
     expect(await designs.landWidth.inputValue()).toBe('20');
   });
 
-  test('HDS-08 @P1 land width rejects a negative dimension', async ({ authenticatedPage }) => {
+  test('TC-03 Land width rejects a negative dimension', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -31,7 +31,7 @@ test.describe('Housing designs catalogue', () => {
     expect(await designs.landWidth.inputValue()).not.toMatch(/^-/);
   });
 
-  test('HDS-09 @P1 land width rejects non-numeric input', async ({ authenticatedPage }) => {
+  test('TC-04 Land width rejects non-numeric input', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -41,7 +41,7 @@ test.describe('Housing designs catalogue', () => {
     expect(await designs.landWidth.inputValue()).not.toMatch(/abc/i);
   });
 
-  test('HDS-10 @P2 land length accepts both ends of a plausible range', async ({ authenticatedPage }) => {
+  test('TC-05 Land length accepts both ends of a plausible range', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -53,7 +53,7 @@ test.describe('Housing designs catalogue', () => {
     expect(await designs.landLength.inputValue()).toBe('9999');
   });
 
-  test('HDS-11 @P2 front street width is filterable', async ({ authenticatedPage }) => {
+  test('TC-06 Front street width is filterable', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -63,7 +63,7 @@ test.describe('Housing designs catalogue', () => {
     expect(await designs.frontStreetWidth.inputValue()).toBe('15');
   });
 
-  test('HDS-05 @P1 a price range can be applied', async ({ authenticatedPage }) => {
+  test('TC-07 A price range can be applied', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -74,7 +74,7 @@ test.describe('Housing designs catalogue', () => {
     await designs.waitForCatalogue();
   });
 
-  test('HDS-12 @P1 an impossible dimension combination settles on an empty state', async ({
+  test('TC-08 An impossible dimension combination settles on an empty state', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     authenticatedPage,
   }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
@@ -88,7 +88,7 @@ test.describe('Housing designs catalogue', () => {
     await designs.waitForCatalogue();
   });
 
-  test('HDS-02 @P1 a room-count chip is selectable', async ({ authenticatedPage }) => {
+  test('TC-09 A room-count chip is selectable', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const designs = new HousingDesignsPage(authenticatedPage);
     await designs.open();
     await designs.expectLoaded();
@@ -102,12 +102,7 @@ test.describe('Housing designs catalogue', () => {
 });
 
 test.describe('Sakani offers', () => {
-  /**
-   * The offers carousel renders each discount heading more than once — the
-   * duplicates are hidden slides — so `.first()` lands on an invisible node.
-   * `filter({ visible: true })` counts only what the user can actually see.
-   */
-  test('VCH-01 @P1 the offers page lists vouchers', async ({ page }) => {
+  test('TC-01 The offers page lists vouchers', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     await page.goto('/app/promotion-vouchers?lang=en', { waitUntil: 'commit' });
 
     await expect(
@@ -129,7 +124,7 @@ test.describe('Sakani offers', () => {
    * Vendor" copy with no "Join us" control at all. Verified by comparing the
    * page in both states.
    */
-  test('VCH-08 @P2 the vendor join CTA is offered to a signed-in visitor', async ({
+  test('TC-02 The vendor join CTA is offered to a signed-in visitor', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     authenticatedPage,
   }) => {
     await authenticatedPage.goto('/app/promotion-vouchers?lang=en', { waitUntil: 'commit' });
@@ -161,7 +156,7 @@ test.describe('Service landing pages', () => {
   ];
 
   for (const service of services) {
-    test(`SVC-01 @P2 the ${service.slug} landing page renders`, async ({ page }) => {
+    test(`TC-01 The ${service.slug} landing page renders`, {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
       await page.goto(`/services/${service.slug}?lang=en`, { waitUntil: 'commit' });
 
       await expect(page.getByRole('heading', { name: service.name }).first()).toBeVisible({
@@ -176,7 +171,7 @@ test.describe('Service landing pages', () => {
     });
   }
 
-  test('SVC-03 @P1 mortgage "Get started" opens the calculator', async ({ page }) => {
+  test('TC-02 Mortgage "Get started" opens the calculator', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
     await page.goto('/services/mortgage-calculator?lang=en', { waitUntil: 'commit' });
 
     const cta = page
