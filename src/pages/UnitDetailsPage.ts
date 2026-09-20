@@ -1,10 +1,7 @@
 // @ts-nocheck
-const path = require("path");
-const { UnitDetailsObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "UnitDetailsObjects"),
-);
+import { UnitDetailsObjects } from '@objects/UnitDetailsObjects'
 
-class UnitDetailsPage {
+export class UnitDetailsPage {
   constructor(page) {
     this.page = page;
   }
@@ -59,5 +56,3 @@ class UnitDetailsPage {
     }
   }
 }
-
-module.exports = { UnitDetailsPage };

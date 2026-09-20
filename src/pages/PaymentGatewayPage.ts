@@ -1,14 +1,9 @@
 // @ts-nocheck
 const { expect } = require("@playwright/test");
-const path = require("path");
-const { PaymentGatewayObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "PaymentGatewayObjects"),
-);
-const { UnitBookingObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "UnitBookingObjects"),
-);
+import { PaymentGatewayObjects } from '@objects/PaymentGatewayObjects'
+import { UnitBookingObjects } from '@objects/UnitBookingObjects'
 
-class PaymentGatewayPage {
+export class PaymentGatewayPage {
   constructor(page) {
     this.page = page;
   }
@@ -63,5 +58,3 @@ class PaymentGatewayPage {
     await this.click(payNowButton);
   }
 }
-
-module.exports = { PaymentGatewayPage };

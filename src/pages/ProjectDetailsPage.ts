@@ -1,10 +1,7 @@
 // @ts-nocheck
-const path = require("path");
-const { ProjectDetailsObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "ProjectDetailsObjects"),
-);
+import {ProjectDetailsObjects} from '@objects/ProjectDetailsObjects'
 
-class ProjectDetailsPage {
+export class ProjectDetailsPage {
   constructor(page) {
     this.page = page;
   }
@@ -33,5 +30,3 @@ class ProjectDetailsPage {
     await unitsButton.click();
   }
 }
-
-module.exports = { ProjectDetailsPage };

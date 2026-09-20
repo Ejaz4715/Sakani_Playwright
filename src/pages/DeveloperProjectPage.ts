@@ -1,14 +1,13 @@
 // @ts-nocheck
 const { expect } = require("@playwright/test");
 const path = require("path");
-const { DeveloperObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "Developer", "DeveloperObjects"),
-);
+import { DeveloperObjects } from '@objects/DeveloperObjects'
+
 const testData = require(
   path.join(process.cwd(), "src", "data", "test-data.json"),
 );
 
-class DeveloperProjectPage {
+export class DeveloperProjectPage {
   constructor(page) {
     this.page = page;
     this.defaultTimeout = 60000;
@@ -381,5 +380,3 @@ class DeveloperProjectPage {
     await this.page.getByText("تهانينا!").click();
   }
 }
-
-module.exports = { DeveloperProjectPage };

@@ -1,4 +1,4 @@
-const DeveloperObjects = {
+export const DeveloperObjects = {
   usernameInput: {
     role: "textbox",
     name: "أدخل معرفك أو رقم هاتفك أو بريدك الإلكتروني",
@@ -48,5 +48,3 @@ const DeveloperObjects = {
   completionPercentageOne: "#completion_percentage_1",
   percentageOne: "#percentage_1",
 };
-
-module.exports = { DeveloperObjects };

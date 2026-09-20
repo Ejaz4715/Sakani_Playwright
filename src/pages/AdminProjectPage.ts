@@ -1,7 +1,8 @@
 // @ts-nocheck
+import { AdminObjects } from '@objects/AdminObjects'
 const { expect } = require("@playwright/test");
 
-class AdminProjectPage {
+export class AdminProjectPage {
   constructor(page) {
     this.page = page;
   }
@@ -23,13 +24,10 @@ class AdminProjectPage {
     await this.page.getByRole("button", { name: "إضافة مشروع جديد" }).click();
   }
 
-
-    async openProjects() {
+  async openProjects() {
     await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
     await this.page.getByRole("link", { name: "المشاريع" }).click();
   }
-
-
 
   async openAuctionCreation() {
     await this.page.locator("a").filter({ hasText: "المزادات" }).click();
@@ -54,5 +52,3 @@ class AdminProjectPage {
     });
   }
 }
-
-module.exports = { AdminProjectPage };

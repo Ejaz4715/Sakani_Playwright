@@ -1,12 +1,9 @@
 // @ts-nocheck
 const { expect } = require("@playwright/test");
-const path = require("path");
 
-const { BookingCancellationObjects } = require(
-  path.join(process.cwd(), "src","objects", "BookingCancellationObjects")
-);
+import { BookingCancellationObjects } from '@objects/BookingCancellationObjects'
 
-class BookingCancellationPage {
+export class BookingCancellationPage {
   constructor(page) {
     this.page = page;
   }
@@ -43,7 +40,6 @@ class BookingCancellationPage {
     );
     await this.click(userProfileButton);
   }
-
 
   async openBookingDetails() {
     const bookingDetailsButton = this.page
@@ -124,5 +120,3 @@ class BookingCancellationPage {
       .click();
   }
 }
-
-module.exports = { BookingCancellationPage };

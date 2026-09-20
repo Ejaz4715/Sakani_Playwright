@@ -1,15 +1,12 @@
 // @ts-nocheck
 const path = require("path");
-
-const { LoginObjects } = require(
-  path.join(process.cwd(), "src","objects", "LoginObjects")
-);
+import { LoginObjects } from '@objects/LoginObjects'
 
 const testData = require(
   path.join(process.cwd(), "src","data", "test-data.json"),
 );
 
-class LoginPage {
+export class LoginPage {
   constructor(page) {
     this.page = page;
   }
@@ -106,5 +103,3 @@ class LoginPage {
     }
   }
 }
-
-module.exports = { LoginPage };

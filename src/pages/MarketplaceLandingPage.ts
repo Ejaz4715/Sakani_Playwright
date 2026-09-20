@@ -1,22 +1,17 @@
 // @ts-nocheck
 const path = require("path");
-const { MarketplaceLandingObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "MarketplaceLandingObjects"),
-);
+import { MarketplaceLandingObjects } from '@objects/MarketplaceLandingObjects'
 
-class MarketplaceLandingPage {
+export class MarketplaceLandingPage {
   constructor(page) {
     this.page = page;
   }
-
   async click(locator) {
     await locator.click();
   }
-
   async check(locator) {
     await locator.check();
   }
-
   async openSearch() {
     const searchButton = this.page.getByRole(
       MarketplaceLandingObjects.searchButton.role,
@@ -34,7 +29,6 @@ class MarketplaceLandingPage {
       { name: MarketplaceLandingObjects.searchInput.name },
     );
     await searchInput.fill(projectName);
-
     const projectResult = this.page
       .locator(MarketplaceLandingObjects.projectResultModal)
       .getByText(projectName, { exact: true });
@@ -47,5 +41,3 @@ class MarketplaceLandingPage {
     await unit.click();
   }
 }
-
-module.exports = { MarketplaceLandingPage };

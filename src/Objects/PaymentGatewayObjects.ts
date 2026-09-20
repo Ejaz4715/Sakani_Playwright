@@ -1,4 +1,4 @@
-const PaymentGatewayObjects = {
+export const PaymentGatewayObjects = {
   cardNumberFrame: 'iframe[name="card.number"]',
   cardNumberInput: { role: "textbox", name: "رقم البطاقة" },
   expiryDateInput: { role: "textbox", name: "تاريخ الانتهاء" },
@@ -7,5 +7,3 @@ const PaymentGatewayObjects = {
   cvvInput: { role: "textbox", name: "رمز الحماية CVV" },
   payNowButton: { role: "button", name: "إدفع الأن" },
 };
-
-module.exports = { PaymentGatewayObjects };

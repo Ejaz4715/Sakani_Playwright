@@ -1,7 +1,8 @@
 // @ts-nocheck
 const { expect } = require("@playwright/test");
+import { AdminObjects } from '@objects/AdminObjects'
 
-class AuctionPage {
+export class AuctionPage {
   constructor(page) {
     this.page = page;
   }
@@ -107,4 +108,4 @@ class AuctionPage {
   }
 }
 
-module.exports = { AuctionPage };
+// module.exports = { AuctionPage };
