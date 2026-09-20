@@ -1,0 +1,193 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-g",
+      "TC-01 A non-bookable project rejects does not allow to user to book a unit"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-14-12-35-37.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests\\booking\\booking-rules.spec.ts",
+      "file": "tests/booking/booking-rules.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Booking - business rules",
+          "file": "tests/booking/booking-rules.spec.ts",
+          "line": 21,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-01 A non-bookable project rejects does not allow to user to book a unit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 0,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\booking\\booking-rules.spec.ts",
+                        "line": 24,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6267,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T12:35:37.904Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\booking\\booking-rules.spec.ts",
+                            "line": 24,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-booking-booking-rule-1f00f-llow-to-user-to-book-a-unit-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-booking-booking-rule-1f00f-llow-to-user-to-book-a-unit-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-booking-booking-rule-1f00f-llow-to-user-to-book-a-unit-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f9ebdfca47954840c28f-126dda8d3559fcd84b3c",
+              "file": "tests/booking/booking-rules.spec.ts",
+              "line": 24,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-14T12:35:37.063Z",
+    "duration": 7925.171,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

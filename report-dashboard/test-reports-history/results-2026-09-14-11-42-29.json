@@ -1,0 +1,114 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-g",
+      "TC-03 guest booking redirects to login and preserves the return url"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      }
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          }
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-14-11-42-29.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "SyntaxError: D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\booking\\booking-rules.spec.ts: Unexpected token, expected \",\" (49:65)\n\n\u001b[0m \u001b[90m 47 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 48 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 49 |\u001b[39m   test(\u001b[32m'BOOK-13 @P1 a non-bookable project rejects start_booking'\u001b[39m{annotation\u001b[33m:\u001b[39m [{ product\u001b[33m:\u001b[39m \u001b[32m'Marketplace'\u001b[39m\u001b[33m,\u001b[39m type\u001b[33m:\u001b[39m \u001b[32m'non-critical'\u001b[39m } \u001b[36mas\u001b[39m any]} \u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({\n \u001b[90m    |\u001b[39m                                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 50 |\u001b[39m     authenticatedPage\u001b[33m,\u001b[39m\n \u001b[90m 51 |\u001b[39m   }) \u001b[33m=>\u001b[39m {\n \u001b[90m 52 |\u001b[39m     \u001b[36mconst\u001b[39m page \u001b[33m=\u001b[39m authenticatedPage\u001b[33m;\u001b[39m\u001b[0m",
+      "stack": "SyntaxError: D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\booking\\booking-rules.spec.ts: Unexpected token, expected \",\" (49:65)\n\n\u001b[0m \u001b[90m 47 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 48 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 49 |\u001b[39m   test(\u001b[32m'BOOK-13 @P1 a non-bookable project rejects start_booking'\u001b[39m{annotation\u001b[33m:\u001b[39m [{ product\u001b[33m:\u001b[39m \u001b[32m'Marketplace'\u001b[39m\u001b[33m,\u001b[39m type\u001b[33m:\u001b[39m \u001b[32m'non-critical'\u001b[39m } \u001b[36mas\u001b[39m any]} \u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({\n \u001b[90m    |\u001b[39m                                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 50 |\u001b[39m     authenticatedPage\u001b[33m,\u001b[39m\n \u001b[90m 51 |\u001b[39m   }) \u001b[33m=>\u001b[39m {\n \u001b[90m 52 |\u001b[39m     \u001b[36mconst\u001b[39m page \u001b[33m=\u001b[39m authenticatedPage\u001b[33m;\u001b[39m\u001b[0m",
+      "location": {
+        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\booking\\booking-rules.spec.ts",
+        "line": 49,
+        "column": 65
+      },
+      "snippet": "\u001b[90m   at \u001b[39mtests\\booking\\booking-rules.spec.ts:49\n\n\u001b[0m \u001b[90m 47 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 48 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 49 |\u001b[39m   test(\u001b[32m'BOOK-13 @P1 a non-bookable project rejects start_booking'\u001b[39m{annotation\u001b[33m:\u001b[39m [{ product\u001b[33m:\u001b[39m \u001b[32m'Marketplace'\u001b[39m\u001b[33m,\u001b[39m type\u001b[33m:\u001b[39m \u001b[32m'non-critical'\u001b[39m } \u001b[36mas\u001b[39m any]} \u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({\n \u001b[90m    |\u001b[39m                                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 50 |\u001b[39m     authenticatedPage\u001b[33m,\u001b[39m\n \u001b[90m 51 |\u001b[39m   }) \u001b[33m=>\u001b[39m {\n \u001b[90m 52 |\u001b[39m     \u001b[36mconst\u001b[39m page \u001b[33m=\u001b[39m authenticatedPage\u001b[33m;\u001b[39m\u001b[0m"
+    }
+  ],
+  "stats": {
+    "startTime": "2026-09-14T11:42:29.630Z",
+    "duration": 1259.2510000000002,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-g",
+      "TC-01 Calculating with valid input returns all three figures"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-17-15-42-41.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests\\services\\mortgage-calculator.spec.ts",
+      "file": "tests/services/mortgage-calculator.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Mortgage Calculator",
+          "file": "tests/services/mortgage-calculator.spec.ts",
+          "line": 12,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-01 Calculating with valid input returns all three figures",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\services\\mortgage-calculator.spec.ts",
+                        "line": 18,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 40976,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first() with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first()\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first() with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first()\u001b[22m\n\n    at MortgageCalculatorPage.results (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MortgageCalculatorPage.ts:161:51)\n    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\services\\mortgage-calculator.spec.ts:23:50",
+                        "location": {
+                          "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MortgageCalculatorPage.ts",
+                          "column": 51,
+                          "line": 161
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39msrc\\pages\\MortgageCalculatorPage.ts:161\n\n\u001b[0m \u001b[90m 159 |\u001b[39m \u001b[90m   */\u001b[39m\n \u001b[90m 160 |\u001b[39m   \u001b[36masync\u001b[39m results()\u001b[33m:\u001b[39m \u001b[33mPromise\u001b[39m\u001b[33m<\u001b[39m\u001b[33mMortgageResult\u001b[39m\u001b[33m>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 161 |\u001b[39m     \u001b[36mawait\u001b[39m expect(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mestimateDisclaimer\u001b[33m.\u001b[39mfirst())\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m30\u001b[39m_000 })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 162 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m {\n \u001b[90m 163 |\u001b[39m       \u001b[36mconst\u001b[39m text \u001b[33m=\u001b[39m (document\u001b[33m.\u001b[39mbody\u001b[33m.\u001b[39minnerText \u001b[33m||\u001b[39m \u001b[32m''\u001b[39m)\u001b[33m.\u001b[39mreplace(\u001b[35m/\\s+/g\u001b[39m\u001b[33m,\u001b[39m \u001b[32m' '\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 164 |\u001b[39m       \u001b[36mconst\u001b[39m grab \u001b[33m=\u001b[39m (label\u001b[33m:\u001b[39m string) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MortgageCalculatorPage.ts",
+                            "column": 51,
+                            "line": 161
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first() with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/This result is an estimate|هذه النتيجة تقديرية/i).first()\u001b[22m\n\n\n\u001b[90m   at \u001b[39msrc\\pages\\MortgageCalculatorPage.ts:161\n\n\u001b[0m \u001b[90m 159 |\u001b[39m \u001b[90m   */\u001b[39m\n \u001b[90m 160 |\u001b[39m   \u001b[36masync\u001b[39m results()\u001b[33m:\u001b[39m \u001b[33mPromise\u001b[39m\u001b[33m<\u001b[39m\u001b[33mMortgageResult\u001b[39m\u001b[33m>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 161 |\u001b[39m     \u001b[36mawait\u001b[39m expect(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mestimateDisclaimer\u001b[33m.\u001b[39mfirst())\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m30\u001b[39m_000 })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 162 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m {\n \u001b[90m 163 |\u001b[39m       \u001b[36mconst\u001b[39m text \u001b[33m=\u001b[39m (document\u001b[33m.\u001b[39mbody\u001b[33m.\u001b[39minnerText \u001b[33m||\u001b[39m \u001b[32m''\u001b[39m)\u001b[33m.\u001b[39mreplace(\u001b[35m/\\s+/g\u001b[39m\u001b[33m,\u001b[39m \u001b[32m' '\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 164 |\u001b[39m       \u001b[36mconst\u001b[39m grab \u001b[33m=\u001b[39m (label\u001b[33m:\u001b[39m string) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at MortgageCalculatorPage.results (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MortgageCalculatorPage.ts:161:51)\u001b[22m\n\u001b[2m    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\services\\mortgage-calculator.spec.ts:23:50\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-17T15:42:44.967Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\services\\mortgage-calculator.spec.ts",
+                            "line": 18,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-services-mortgage-ca-bfb7b-t-returns-all-three-figures-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-services-mortgage-ca-bfb7b-t-returns-all-three-figures-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-services-mortgage-ca-bfb7b-t-returns-all-three-figures-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-services-mortgage-ca-bfb7b-t-returns-all-three-figures-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MortgageCalculatorPage.ts",
+                        "column": 51,
+                        "line": 161
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "74e1ba7fd40b7ab103f8-4a67becca6fbaf4cb6d7",
+              "file": "tests/services/mortgage-calculator.spec.ts",
+              "line": 18,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-17T15:42:41.106Z",
+    "duration": 46361.156,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

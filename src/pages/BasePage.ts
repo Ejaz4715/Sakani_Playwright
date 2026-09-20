@@ -61,6 +61,10 @@ export abstract class BasePage {
     }
   }
 
+    protected async gotoUrl(url: string = this.path): Promise<void> {
+    await this.goto(url);
+  }
+
   async expectTitleContains(text: string | RegExp): Promise<void> {
     await expect(this.page).toHaveTitle(text);
   }

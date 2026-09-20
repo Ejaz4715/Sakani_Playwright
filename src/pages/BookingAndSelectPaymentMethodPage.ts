@@ -1,14 +1,11 @@
 import { expect, Page } from "@playwright/test";
-import { BookingAndSelectPaymentMethodObjects } from '@objects/User/BookingAndSelectPaymentMethodObjects';
-const path = require("path");
-
+import { BookingAndSelectPaymentMethodObjects } from '@objects/BookingAndSelectPaymentMethodObjects';
 
 export class BookingAndSelectPaymentMethodPage {
     page: Page;
     constructor(page: Page) {
         this.page = page;
     }
-
 
     async checkOnTermAndCondition() {
         const termsCheckbox = this.page.locator(
@@ -95,9 +92,6 @@ export class BookingAndSelectPaymentMethodPage {
         if (!unitCodeMatch) {
             throw new Error(`Could not extract unit code from: ${headingText}`);
         }
-
         return unitCodeMatch[1].replace(/\s+/g, "");
     }
-
-
 }

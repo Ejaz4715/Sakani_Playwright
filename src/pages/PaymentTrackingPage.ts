@@ -1,7 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import { PaymentTrackingObjects } from '@objects/Admin/PaymentTrackingObjects';
-const path = require("path");
-
+import { PaymentTrackingObjects } from '@objects/PaymentTrackingObjects';
 
 export class PaymentTrackingPage {
     page: Page;

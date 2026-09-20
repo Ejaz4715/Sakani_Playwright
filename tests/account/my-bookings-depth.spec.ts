@@ -2,79 +2,65 @@ import { test, expect } from '@fixtures/pages.fixture';
 import { MyBookingsPage } from '@pages/MyBookingsPage';
 
 test.describe('My bookings - depth', () => {
-  test('MBK-01 @P1 the Cancelled tab lists only cancelled bookings', async ({
+  test('TC-01 The Cancelled tab lists only cancelled bookings', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
     authenticatedPage,
   }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     await bookings.selectTab(bookings.tabCancelled);
-
     const hasAny = await bookings.hasAnyBooking();
     test.skip(!hasAny, 'Account has no cancelled bookings in this environment');
-
     const body = await authenticatedPage.locator('body').innerText();
     expect(body).toMatch(/Cancel|ملغ/i);
   });
 
-  test('MBK-02 @P1 the Completed tab renders', async ({ authenticatedPage }) => {
+  test('TC-02 The Completed tab renders', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     await bookings.selectTab(bookings.tabCompleted);
-
     // Either completed bookings or an explicit empty state — never a blank pane.
     await bookings.waitForListing();
   });
 
-  test('MBK-03 @P1 the Unpaid tab renders', async ({ authenticatedPage }) => {
+  test('TC-03 The Unpaid tab renders', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     await bookings.selectTab(bookings.tabUnpaid);
-
     await bookings.waitForListing();
   });
 
-  test('MBK-04 @P1 the Ready to sign tab renders', async ({ authenticatedPage }) => {
+  test('TC-04 The Ready to sign tab renders', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     await bookings.selectTab(bookings.tabReadyToSign);
-
     await bookings.waitForListing();
   });
 
-  test('MBK-05 @P2 the All tab is a superset of the Active tab', async ({
+  test('TC-05 The All tab is a superset of the Active tab', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
     authenticatedPage,
   }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     await bookings.selectTab(bookings.tabActive);
     const activeCount = await bookings.bookingCount();
-
     await bookings.selectTab(bookings.tabAll);
     const allCount = await bookings.bookingCount();
-
     expect(allCount).toBeGreaterThanOrEqual(activeCount);
   });
 
-  test('MBK-07 @P1 a booking card carries its identifying fields', async ({
+  test('TC-06 Booking card carries its identifying fields', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
     authenticatedPage,
   }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     const hasAny = await bookings.hasAnyBooking();
     test.skip(!hasAny, 'Account has no bookings to inspect');
-
     const body = await authenticatedPage.locator('body').innerText();
     // The listing card carries product type, unit type and the unit code.
     // "Property type" belongs to the booking *detail* page, not this listing.
@@ -82,43 +68,36 @@ test.describe('My bookings - depth', () => {
     expect(body).toMatch(/Unit type|Unit code|Plot code|نوع الوحدة/i);
   });
 
-  test('MBK-11 @P1 View details opens the matching booking', async ({ authenticatedPage }) => {
+  test('TC-07 View details opens the matching booking', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     const hasAny = await bookings.hasAnyBooking();
     test.skip(!hasAny, 'Account has no bookings to open');
-
     await bookings.openBookingDetails(0);
-
     await expect(authenticatedPage).toHaveURL(/view-booking\/\d+/);
     await expect(
       authenticatedPage.getByRole('heading', { name: /Booking/i }).first(),
     ).toBeVisible({ timeout: 90_000 });
   });
 
-  test('MBK-13 @P2 returning from a booking keeps the listing usable', async ({
+  test('TC-08 Returning from a booking keeps the listing usable', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({
     authenticatedPage,
   }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     const hasAny = await bookings.hasAnyBooking();
     test.skip(!hasAny, 'Account has no bookings to open');
-
     await bookings.openBookingDetails(0);
     await authenticatedPage.goBack({ waitUntil: 'commit' });
-
     await bookings.expectLoaded();
   });
 
-  test('MBK-06 @P1 every status tab is present', async ({ authenticatedPage }) => {
+  test('TC-09 Every status tab is present', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
     await bookings.open();
     await bookings.expectLoaded();
-
     expect(await bookings.tabLabels()).toEqual(
       expect.arrayContaining(['All', 'Active', 'Cancelled', 'Completed', 'Unpaid', 'Ready to sign']),
     );

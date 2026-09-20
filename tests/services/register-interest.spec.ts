@@ -1,26 +1,13 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { REGISTER_INTEREST_LEAD, PROJECTS } from '@data/testData';
 
-/**
- * RGI — Register Interest guest lead form.
- * spec: specs/functional-test-design.md § 19
- *
- * The form is public, so these use the plain `page` fixture. Verified gating:
- * only **name + mobile** enable the submit button; email, city, destinations
- * and projects are optional. Bad input disables submit and surfaces
- * "The value is invalid or wrong format" (plus a length message for the mask).
- *
- * Only RGI-03 actually submits — it creates a real lead and is subject to the
- * Turnstile/reCAPTCHA gate, so it asserts the outcome tolerantly and reports a
- * challenge as a documented blocker rather than a failure.
- */
 test.describe('Register Interest', () => {
   test.beforeEach(async ({ registerInterestPage }) => {
     await registerInterestPage.openForProject(PROJECTS.registerInterest);
     await registerInterestPage.expectLoaded();
   });
 
-  test('RGI-01 @P1 the form opens scoped to the originating project', async ({
+  test('TC_01 The form opens scoped to the originating project', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
     page,
   }) => {
@@ -33,19 +20,19 @@ test.describe('Register Interest', () => {
     await expect(registerInterestPage.projectsSelect.first()).toBeVisible();
   });
 
-  test('RGI-02 @P0 submit is disabled while the form is empty', async ({
+  test('TC-02 Submit is disabled while the form is empty', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
   }) => {
     await expect(registerInterestPage.submitButton).toBeDisabled();
   });
 
-  test('RGI-04 @P1 name alone does not enable submit', async ({ registerInterestPage }) => {
+  test('TC-03 Name alone does not enable submit', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ registerInterestPage }) => {
     await registerInterestPage.fillLead({ name: REGISTER_INTEREST_LEAD.name });
 
     await expect(registerInterestPage.submitButton).toBeDisabled();
   });
 
-  test('RGI-02b @P0 name plus a valid mobile enables submit', async ({
+  test('TC-04 Name plus a valid mobile enables submit', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
   }) => {
     await registerInterestPage.fillLead({
@@ -56,7 +43,7 @@ test.describe('Register Interest', () => {
     await expect(registerInterestPage.submitButton).toBeEnabled();
   });
 
-  test('RGI-12 @P2 email is optional', async ({ registerInterestPage }) => {
+  test('TC-05 Email is optional', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ registerInterestPage }) => {
     await registerInterestPage.fillLead({
       name: REGISTER_INTEREST_LEAD.name,
       phone: REGISTER_INTEREST_LEAD.phone,
@@ -66,7 +53,7 @@ test.describe('Register Interest', () => {
     await expect(registerInterestPage.submitButton).toBeEnabled();
   });
 
-  test('RGI-13 @P1 city selection is optional', async ({ registerInterestPage }) => {
+  test('TC-06 City selection is optional', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ registerInterestPage }) => {
     await registerInterestPage.fillLead({
       name: REGISTER_INTEREST_LEAD.name,
       phone: REGISTER_INTEREST_LEAD.phone,
@@ -77,7 +64,7 @@ test.describe('Register Interest', () => {
   });
 
   for (const email of REGISTER_INTEREST_LEAD.invalidEmails) {
-    test(`RGI-11 @P1 invalid email "${email}" blocks submission`, async ({
+    test(`TC-07 Invalid email "${email}" blocks submission`, {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
       registerInterestPage,
     }) => {
       await registerInterestPage.fillLead({
@@ -91,7 +78,7 @@ test.describe('Register Interest', () => {
     });
   }
 
-  test('RGI-10 @P1 a too-short mobile reports its required length', async ({
+  test('TC-08 A too-short mobile reports its required length', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
   }) => {
     await registerInterestPage.fillLead({
@@ -104,7 +91,7 @@ test.describe('Register Interest', () => {
     expect(messages.join(' | ')).toContain(REGISTER_INTEREST_LEAD.errors.tooShort);
   });
 
-  test('RGI-09 @P1 the mobile field enforces the Saudi +966 5 mask', async ({
+  test('TC-09 The mobile field enforces the Saudi +966 5 mask', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
   }) => {
     await registerInterestPage.fillLead({ phone: REGISTER_INTEREST_LEAD.phone });
@@ -113,7 +100,7 @@ test.describe('Register Interest', () => {
     expect(await registerInterestPage.phoneInput.inputValue()).toMatch(/^\+966\s?5/);
   });
 
-  test('RGI-05 @P2 a numeric-only name does not enable submission on its own', async ({
+  test('TC-10 A numeric-only name does not enable submission on its own', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
   }) => {
     await registerInterestPage.fillLead({ name: '1234', phone: '' });
@@ -121,7 +108,7 @@ test.describe('Register Interest', () => {
     await expect(registerInterestPage.submitButton).toBeDisabled();
   });
 
-  test('RGI-06 @P2 an over-long name is accepted or capped without breaking the form', async ({
+  test('TC-11 An over-long name is accepted or capped without breaking the form', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
   }) => {
     const longName = 'ا'.repeat(300);
@@ -136,7 +123,7 @@ test.describe('Register Interest', () => {
     await expect(registerInterestPage.nameInput).toBeVisible();
   });
 
-  test('RGI-15 @P2 Back leaves the form without submitting', async ({
+  test('TC-12 Back leaves the form without submitting', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
     page,
   }) => {
@@ -152,7 +139,7 @@ test.describe('Register Interest', () => {
       .not.toMatch(/\/app\/register-interest/);
   });
 
-  test('RGI-22 @P2 an unknown project id still renders a usable form', async ({
+  test('TC-13 An unknown project id still renders a usable form', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
     page,
   }) => {
@@ -163,7 +150,7 @@ test.describe('Register Interest', () => {
     expect(page.url()).toContain('project_id=99999999');
   });
 
-  test('RGI-03 @P0 submitting a complete lead reaches a terminal state', async ({
+  test('TC-14 Submitting a complete lead reaches a terminal state', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     registerInterestPage,
   }) => {
     await registerInterestPage.fillLead({

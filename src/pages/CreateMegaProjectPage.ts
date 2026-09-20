@@ -1,14 +1,10 @@
 import { expect, Page } from "@playwright/test";
 const path = require("path");
 
-const { CreateMegaProjectObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "Admin", "CreateMegaProjectObjects"),
-);
-const { UnitDetailsObjects } = require(
-  path.join(process.cwd(), "src", "Objects", "UnitDetailsObjects"),
-);
+import { CreateMegaProjectObjects } from '@objects/CreateMegaProjectObjects';
+import { UnitDetailsObjects } from '@objects/UnitDetailsObjects';
 
-class CreateMegaProjectPage {
+export class CreateMegaProjectPage {
   page: Page;
   constructor(page: Page) {
     this.page = page;
@@ -225,4 +221,3 @@ async clickOnSearchButton() {
     await expect(reserveButton).toBeVisible({ timeout: 30000 });
   }
 }
-module.exports = { CreateMegaProjectPage };

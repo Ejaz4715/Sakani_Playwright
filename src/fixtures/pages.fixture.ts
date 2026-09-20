@@ -10,7 +10,7 @@ import { TEST_USER } from '@data/testData';
 
 type Fixtures = {
   homePage: HomePage;
-  loginPage: LoginPageType;
+  loginPage: LoginPage;
   marketplacePage: MarketplacePage;
   myBookingsPage: MyBookingsPage; 
   registerInterestPage: RegisterInterestPage;
@@ -89,7 +89,7 @@ export const test = base.extend<Fixtures>({
   homePage: async ({ page }, use) => {
     await use(new HomePage(page));
   },
-  loginPage: async ({ page }, use) => {
+  loginPage: async ({ page }: { page: Page }, use: (value: LoginPage) => Promise<void>) => {
     await use(new LoginPage(page));
   },
   marketplacePage: async ({ page }, use) => {

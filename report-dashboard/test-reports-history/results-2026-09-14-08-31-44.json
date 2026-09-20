@@ -1,0 +1,460 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "my-bookings.spec.ts"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-14-08-31-44.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests\\account\\my-bookings.spec.ts",
+      "file": "tests/account/my-bookings.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Account - my bookings",
+          "file": "tests/account/my-bookings.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-01 My bookings lists bookings under status tabs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 7,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 46863,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T08:31:45.480Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 7,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--043a7--bookings-under-status-tabs-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--043a7--bookings-under-status-tabs-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--043a7--bookings-under-status-tabs-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-f2f277b8314bacd3f1f7",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 7,
+              "column": 7
+            },
+            {
+              "title": "TC-02 The Active tab filters to active bookings",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 23,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 46382,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T08:32:37.586Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 23,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--990ea--filters-to-active-bookings-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--990ea--filters-to-active-bookings-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--990ea--filters-to-active-bookings-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-85f4d934a5dd4e42b440",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 23,
+              "column": 7
+            },
+            {
+              "title": "TC-03 A booking can be opened from the listing",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 34,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 199622,
+                      "error": {
+                        "message": "TimeoutError: page.waitForURL: Timeout 120000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"commit\"\n============================================================",
+                        "stack": "TimeoutError: page.waitForURL: Timeout 120000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"commit\"\n============================================================\n    at MyBookingsPage.openBookingDetails (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MyBookingsPage.ts:139:21)\n    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts:38:5",
+                        "location": {
+                          "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MyBookingsPage.ts",
+                          "column": 21,
+                          "line": 139
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39msrc\\pages\\MyBookingsPage.ts:139\n\n\u001b[0m \u001b[90m 137 |\u001b[39m   \u001b[36masync\u001b[39m openBookingDetails(index \u001b[33m=\u001b[39m \u001b[35m0\u001b[39m)\u001b[33m:\u001b[39m \u001b[33mPromise\u001b[39m\u001b[33m<\u001b[39m\u001b[36mvoid\u001b[39m\u001b[33m>\u001b[39m {\n \u001b[90m 138 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/View details/i\u001b[39m })\u001b[33m.\u001b[39mnth(index)\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 139 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mwaitForURL(\u001b[35m/view-booking\\/\\d+/\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'commit'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m120\u001b[39m_000 })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 140 |\u001b[39m   }\n \u001b[90m 141 |\u001b[39m }\n \u001b[90m 142 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MyBookingsPage.ts",
+                            "column": 21,
+                            "line": 139
+                          },
+                          "message": "TimeoutError: page.waitForURL: Timeout 120000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"commit\"\n============================================================\n\n\u001b[90m   at \u001b[39msrc\\pages\\MyBookingsPage.ts:139\n\n\u001b[0m \u001b[90m 137 |\u001b[39m   \u001b[36masync\u001b[39m openBookingDetails(index \u001b[33m=\u001b[39m \u001b[35m0\u001b[39m)\u001b[33m:\u001b[39m \u001b[33mPromise\u001b[39m\u001b[33m<\u001b[39m\u001b[36mvoid\u001b[39m\u001b[33m>\u001b[39m {\n \u001b[90m 138 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/View details/i\u001b[39m })\u001b[33m.\u001b[39mnth(index)\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 139 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mwaitForURL(\u001b[35m/view-booking\\/\\d+/\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'commit'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m120\u001b[39m_000 })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 140 |\u001b[39m   }\n \u001b[90m 141 |\u001b[39m }\n \u001b[90m 142 |\u001b[39m\u001b[0m\n\u001b[2m    at MyBookingsPage.openBookingDetails (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MyBookingsPage.ts:139:21)\u001b[22m\n\u001b[2m    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts:38:5\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T08:33:27.673Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 34,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--2ef22--be-opened-from-the-listing-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--2ef22--be-opened-from-the-listing-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--2ef22--be-opened-from-the-listing-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--2ef22--be-opened-from-the-listing-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\MyBookingsPage.ts",
+                        "column": 21,
+                        "line": 139
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-f03501b2137182b04841",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 34,
+              "column": 7
+            },
+            {
+              "title": "TC-04 Account menu exposes every portal area",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 45,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 28869,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://pre-sakani.housingapps.sa/app/authentication/login?lang=en\nCall log:\n\u001b[2m  - navigating to \"https://pre-sakani.housingapps.sa/app/authentication/login?lang=en\", waiting until \"commit\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://pre-sakani.housingapps.sa/app/authentication/login?lang=en\nCall log:\n\u001b[2m  - navigating to \"https://pre-sakani.housingapps.sa/app/authentication/login?lang=en\", waiting until \"commit\"\u001b[22m\n\n    at LoginPage.goto (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\BasePage.ts:46:21)\n    at LoginPage.gotoUntilReady (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\BasePage.ts:55:16)\n    at LoginPage.open (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\UserLoginPage.ts:59:16)\n    at LoginPage.login (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\UserLoginPage.ts:108:16)\n    at Object.authenticatedPage (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\fixtures\\pages.fixture.ts:113:17)",
+                        "location": {
+                          "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\BasePage.ts",
+                          "column": 21,
+                          "line": 46
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39msrc\\pages\\BasePage.ts:46\n\n\u001b[0m \u001b[90m 44 |\u001b[39m \u001b[90m   */\u001b[39m\n \u001b[90m 45 |\u001b[39m   \u001b[36masync\u001b[39m goto(url\u001b[33m:\u001b[39m string \u001b[33m=\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpath)\u001b[33m:\u001b[39m \u001b[33mPromise\u001b[39m\u001b[33m<\u001b[39m\u001b[36mvoid\u001b[39m\u001b[33m>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 46 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgoto(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mwithLang(url)\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'commit'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 47 |\u001b[39m   }\n \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m/**\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\BasePage.ts",
+                            "column": 21,
+                            "line": 46
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://pre-sakani.housingapps.sa/app/authentication/login?lang=en\nCall log:\n\u001b[2m  - navigating to \"https://pre-sakani.housingapps.sa/app/authentication/login?lang=en\", waiting until \"commit\"\u001b[22m\n\n\n\u001b[90m   at \u001b[39msrc\\pages\\BasePage.ts:46\n\n\u001b[0m \u001b[90m 44 |\u001b[39m \u001b[90m   */\u001b[39m\n \u001b[90m 45 |\u001b[39m   \u001b[36masync\u001b[39m goto(url\u001b[33m:\u001b[39m string \u001b[33m=\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpath)\u001b[33m:\u001b[39m \u001b[33mPromise\u001b[39m\u001b[33m<\u001b[39m\u001b[36mvoid\u001b[39m\u001b[33m>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 46 |\u001b[39m     \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgoto(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mwithLang(url)\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'commit'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 47 |\u001b[39m   }\n \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m/**\u001b[39m\u001b[0m\n\u001b[2m    at LoginPage.goto (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\BasePage.ts:46:21)\u001b[22m\n\u001b[2m    at LoginPage.gotoUntilReady (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\BasePage.ts:55:16)\u001b[22m\n\u001b[2m    at LoginPage.open (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\UserLoginPage.ts:59:16)\u001b[22m\n\u001b[2m    at LoginPage.login (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\UserLoginPage.ts:108:16)\u001b[22m\n\u001b[2m    at Object.authenticatedPage (D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\fixtures\\pages.fixture.ts:113:17)\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T08:36:53.337Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 45,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--ac8ce-u-exposes-every-portal-area-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--ac8ce-u-exposes-every-portal-area-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--ac8ce-u-exposes-every-portal-area-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--ac8ce-u-exposes-every-portal-area-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\src\\pages\\BasePage.ts",
+                        "column": 21,
+                        "line": 46
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-ceba05f51dd5b98d3ebd",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 45,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-14T08:31:44.564Z",
+    "duration": 338701.072,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

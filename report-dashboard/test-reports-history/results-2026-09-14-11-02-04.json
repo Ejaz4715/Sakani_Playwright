@@ -1,0 +1,366 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "login-validation.spec.ts"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-14-11-02-04.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests\\auth\\login-validation.spec.ts",
+      "file": "tests/auth/login-validation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Authentication - validation",
+          "file": "tests/auth/login-validation.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-01 Continue is disabled until an identifier is entered",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                        "line": 8,
+                        "column": 9
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 16151,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T11:02:05.348Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                            "line": 8,
+                            "column": 9
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-a4b76-il-an-identifier-is-entered-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-a4b76-il-an-identifier-is-entered-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-a4b76-il-an-identifier-is-entered-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7cd2ad6118079b7480ec-8d82a974c1567eb56890",
+              "file": "tests/auth/login-validation.spec.ts",
+              "line": 8,
+              "column": 9
+            },
+            {
+              "title": "TC-02 Continue enables after entering the national ID",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                        "line": 14,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 15333,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T11:02:22.227Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                            "line": 14,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-4c389-er-entering-the-national-ID-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-4c389-er-entering-the-national-ID-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-4c389-er-entering-the-national-ID-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7cd2ad6118079b7480ec-0d626744940858d9e44a",
+              "file": "tests/auth/login-validation.spec.ts",
+              "line": 14,
+              "column": 7
+            },
+            {
+              "title": "TC-03 guest booking redirects to login and preserves the return url",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                        "line": 19,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 133951,
+                      "error": {
+                        "message": "TimeoutError: page.waitForURL: Timeout 120000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"commit\"\n============================================================",
+                        "stack": "TimeoutError: page.waitForURL: Timeout 120000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"commit\"\n============================================================\n    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts:46:16",
+                        "location": {
+                          "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                          "column": 16,
+                          "line": 46
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 44 |\u001b[39m     \u001b[36mawait\u001b[39m bookButton\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 46 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[35m/\\/app\\/authentication\\/login/\u001b[39m\u001b[33m,\u001b[39m {\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 47 |\u001b[39m       waitUntil\u001b[33m:\u001b[39m \u001b[32m'commit'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 48 |\u001b[39m       timeout\u001b[33m:\u001b[39m \u001b[35m120\u001b[39m_000\u001b[33m,\u001b[39m\n \u001b[90m 49 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                            "column": 16,
+                            "line": 46
+                          },
+                          "message": "TimeoutError: page.waitForURL: Timeout 120000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"commit\"\n============================================================\n\n\u001b[0m \u001b[90m 44 |\u001b[39m     \u001b[36mawait\u001b[39m bookButton\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 46 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[35m/\\/app\\/authentication\\/login/\u001b[39m\u001b[33m,\u001b[39m {\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 47 |\u001b[39m       waitUntil\u001b[33m:\u001b[39m \u001b[32m'commit'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 48 |\u001b[39m       timeout\u001b[33m:\u001b[39m \u001b[35m120\u001b[39m_000\u001b[33m,\u001b[39m\n \u001b[90m 49 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts:46:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T11:02:37.892Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                            "line": 19,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-acbd0-nd-preserves-the-return-url-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-acbd0-nd-preserves-the-return-url-chromium\\video.webm"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-acbd0-nd-preserves-the-return-url-chromium\\test-failed-2.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-acbd0-nd-preserves-the-return-url-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-auth-login-validatio-acbd0-nd-preserves-the-return-url-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\auth\\login-validation.spec.ts",
+                        "column": 16,
+                        "line": 46
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "7cd2ad6118079b7480ec-1dad8b68cadc9510ff00",
+              "file": "tests/auth/login-validation.spec.ts",
+              "line": 19,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-14T11:02:04.915Z",
+    "duration": 168245.786,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "my-bookings.spec.ts"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-14-14-13-38.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests\\account\\my-bookings.spec.ts",
+      "file": "tests/account/my-bookings.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Account - my bookings",
+          "file": "tests/account/my-bookings.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-01 My bookings lists bookings under status tabs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 7,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 43816,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T14:13:38.708Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 7,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--043a7--bookings-under-status-tabs-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--043a7--bookings-under-status-tabs-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--043a7--bookings-under-status-tabs-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-f2f277b8314bacd3f1f7",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 7,
+              "column": 7
+            },
+            {
+              "title": "TC-02 The Active tab filters to active bookings",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 23,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 44403,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T14:14:24.320Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 23,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--990ea--filters-to-active-bookings-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--990ea--filters-to-active-bookings-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--990ea--filters-to-active-bookings-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-85f4d934a5dd4e42b440",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 23,
+              "column": 7
+            },
+            {
+              "title": "TC-03 A booking can be opened from the listing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 34,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 49520,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T14:15:11.030Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 34,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--2ef22--be-opened-from-the-listing-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--2ef22--be-opened-from-the-listing-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--2ef22--be-opened-from-the-listing-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-f03501b2137182b04841",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 34,
+              "column": 7
+            },
+            {
+              "title": "TC-04 Account menu exposes every portal area",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                        "line": 45,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 43640,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T14:16:05.814Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\account\\my-bookings.spec.ts",
+                            "line": 45,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--ac8ce-u-exposes-every-portal-area-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--ac8ce-u-exposes-every-portal-area-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-account-my-bookings--ac8ce-u-exposes-every-portal-area-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0ad4fb477914b0674a4c-ceba05f51dd5b98d3ebd",
+              "file": "tests/account/my-bookings.spec.ts",
+              "line": 45,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-14T14:13:38.289Z",
+    "duration": 197125.947,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

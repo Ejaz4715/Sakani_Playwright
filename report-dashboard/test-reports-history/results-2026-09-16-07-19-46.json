@@ -1,0 +1,506 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "project-and-units.spec.ts"
+    ],
+    "configFile": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\playwright.config.ts",
+    "rootDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "environment": "Pre-Prod",
+      "environments": {
+        "Sakani": "Pre-Prod",
+        "Digitar": "STG",
+        "Sayal": "Pre-Prod"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "environment": "Pre-Prod",
+          "environments": {
+            "Sakani": "Pre-Prod",
+            "Digitar": "STG",
+            "Sayal": "Pre-Prod"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/Playwright Workspace/github_workspaces/Sakani_Playwright",
+        "testIgnore": [
+          "tests/e2e-scenarios/test-suits-e2e/**"
+        ],
+        "testMatch": [
+          "tests/**/*.spec.{js,ts}",
+          "e2e-scenarios/tests/**/*.spec.{js,ts}"
+        ],
+        "timeout": 480000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report-dashboard/test-reports-history/results-2026-09-16-07-19-46.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests\\project\\project-and-units.spec.ts",
+      "file": "tests/project/project-and-units.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "View projects and units",
+          "file": "tests/project/project-and-units.spec.ts",
+          "line": 12,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-01 Project detail renders all business sections About this project, Developer, Payment methods, Facilities, Location, Participating banks, Contact",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                        "line": 13,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 30425,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-16T07:19:47.269Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                            "line": 13,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--1305f-Participating-banks-Contact-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--1305f-Participating-banks-Contact-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--1305f-Participating-banks-Contact-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9cc4015c5f30efb912ff-5d72d6eee19dd1a7bc66",
+              "file": "tests/project/project-and-units.spec.ts",
+              "line": 13,
+              "column": 7
+            },
+            {
+              "title": "TC-02 Unit-model page lists units with filter chips",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                        "line": 36,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 34214,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-16T07:20:18.720Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                            "line": 36,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--6ac9a-sts-units-with-filter-chips-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--6ac9a-sts-units-with-filter-chips-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--6ac9a-sts-units-with-filter-chips-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9cc4015c5f30efb912ff-78969759174f8be14725",
+              "file": "tests/project/project-and-units.spec.ts",
+              "line": 36,
+              "column": 7
+            },
+            {
+              "title": "TC-03 Unit detail shows availability and a booking CTA",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                        "line": 49,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 30794,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-16T07:20:54.324Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                            "line": 49,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--db555-ilability-and-a-booking-CTA-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--db555-ilability-and-a-booking-CTA-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--db555-ilability-and-a-booking-CTA-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9cc4015c5f30efb912ff-6c912b4d4fd5ad5a54c9",
+              "file": "tests/project/project-and-units.spec.ts",
+              "line": 49,
+              "column": 7
+            },
+            {
+              "title": "TC-04 Project -> unit model -> unit navigation chain",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                        "line": 60,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 42504,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-16T07:21:26.087Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                            "line": 60,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--d2390-del---unit-navigation-chain-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--d2390-del---unit-navigation-chain-chromium\\video-1.webm"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--d2390-del---unit-navigation-chain-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--d2390-del---unit-navigation-chain-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9cc4015c5f30efb912ff-95a280f41350dabfa6b9",
+              "file": "tests/project/project-and-units.spec.ts",
+              "line": 60,
+              "column": 7
+            },
+            {
+              "title": "TC-05 Closed project surfaces its bookings-closed state",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 480000,
+                  "annotations": [
+                    {
+                      "product": "Marketplace",
+                      "type": "non-critical",
+                      "location": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                        "line": 79,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 32347,
+                      "error": {
+                        "message": "Error: Fixture project should be non-bookable\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m",
+                        "stack": "Error: Fixture project should be non-bookable\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts:83:69",
+                        "location": {
+                          "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                          "column": 69,
+                          "line": 83
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 81 |\u001b[39m   }) \u001b[33m=>\u001b[39m {\n \u001b[90m 82 |\u001b[39m     \u001b[36mconst\u001b[39m info \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getProject(authenticatedPage\u001b[33m,\u001b[39m \u001b[33mPROJECTS\u001b[39m\u001b[33m.\u001b[39mbookingsClosed)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 83 |\u001b[39m     expect(info\u001b[33m.\u001b[39mbookable\u001b[33m,\u001b[39m \u001b[32m'Fixture project should be non-bookable'\u001b[39m)\u001b[33m.\u001b[39mtoBeFalsy()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 84 |\u001b[39m     \u001b[36mconst\u001b[39m project \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mProjectPage\u001b[39m(authenticatedPage\u001b[33m,\u001b[39m \u001b[33mPROJECTS\u001b[39m\u001b[33m.\u001b[39mbookingsClosed)\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m     \u001b[36mawait\u001b[39m project\u001b[33m.\u001b[39mopen()\u001b[33m;\u001b[39m\n \u001b[90m 86 |\u001b[39m     \u001b[36mawait\u001b[39m project\u001b[33m.\u001b[39mexpectLoaded()\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                            "column": 69,
+                            "line": 83
+                          },
+                          "message": "Error: Fixture project should be non-bookable\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mtrue\u001b[39m\n\n\u001b[0m \u001b[90m 81 |\u001b[39m   }) \u001b[33m=>\u001b[39m {\n \u001b[90m 82 |\u001b[39m     \u001b[36mconst\u001b[39m info \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getProject(authenticatedPage\u001b[33m,\u001b[39m \u001b[33mPROJECTS\u001b[39m\u001b[33m.\u001b[39mbookingsClosed)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 83 |\u001b[39m     expect(info\u001b[33m.\u001b[39mbookable\u001b[33m,\u001b[39m \u001b[32m'Fixture project should be non-bookable'\u001b[39m)\u001b[33m.\u001b[39mtoBeFalsy()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 84 |\u001b[39m     \u001b[36mconst\u001b[39m project \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mProjectPage\u001b[39m(authenticatedPage\u001b[33m,\u001b[39m \u001b[33mPROJECTS\u001b[39m\u001b[33m.\u001b[39mbookingsClosed)\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m     \u001b[36mawait\u001b[39m project\u001b[33m.\u001b[39mopen()\u001b[33m;\u001b[39m\n \u001b[90m 86 |\u001b[39m     \u001b[36mawait\u001b[39m project\u001b[33m.\u001b[39mexpectLoaded()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts:83:69\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-16T07:22:10.182Z",
+                      "annotations": [
+                        {
+                          "product": "Marketplace",
+                          "type": "non-critical",
+                          "location": {
+                            "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                            "line": 79,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--ad789-s-its-bookings-closed-state-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--ad789-s-its-bookings-closed-state-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--ad789-s-its-bookings-closed-state-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\test-results\\tests-project-project-and--ad789-s-its-bookings-closed-state-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Playwright Workspace\\github_workspaces\\Sakani_Playwright\\tests\\project\\project-and-units.spec.ts",
+                        "column": 69,
+                        "line": 83
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9cc4015c5f30efb912ff-e87edcbecb9764d9317a",
+              "file": "tests/project/project-and-units.spec.ts",
+              "line": 79,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-16T07:19:46.832Z",
+    "duration": 176806.79799999998,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
