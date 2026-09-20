@@ -108,295 +108,125 @@ test.describe("Auction booking journey", () => {
       startTime: updatedData.auctionStartTime,
       endTime: updatedData.auctionEndTime,
     });
-  
+
+    const electronicAuctionPage = app.electronicAuctionProjectPage;
+
     // Login to admin portal
     await app.adminProjectPage.login(
       updatedData.adminPortalUrl,
       updatedData.adminUsername,
       updatedData.adminPassword,
     );
-  
+
     // Navigate to the auction project creation page
     await app.adminProjectPage.openAuctionCreation();
-  
+
     // Fill in the auction project details
-    await fillVisible(
-      page.getByRole("textbox", { name: "إسم المشروع" }),
-      projectName,
-    );
-  
-    const combobox = page.getByRole("combobox", { name: "نوع المزاد" });
-  const option = page.getByRole("option", { name: "الكترونية" });
-  
-  while (!(await option.isVisible().catch(() => false))) {
-    await clickVisible(combobox);
-    await page.waitForTimeout(1000);
-  }
-  
-  await clickVisible(option);
-  
-    // await clickVisible(page.getByRole("combobox", { name: "نوع المزاد" }));
-    // await clickVisible(page.getByRole("option", { name: "الكترونية" }));
-    await clickVisible(page.getByRole("combobox", { name: "نوع القطاع" }));
-    await clickVisible(page.getByText("وزارة الإسكان"));
-  
-    await clickVisible(
-      page
-        .locator("//ng-select[@formcontrolname='region_id']")
-        .getByRole("combobox"),
-    );
-    await clickVisible(page.getByText("الرياض"));
-    await clickVisible(page.locator("//input[@id='inputCity']"));
-    await clickVisible(page.getByRole("option", { name: "الرياض", exact: true }));
-  
-    const auctionStartDateInput = page.locator(
-      "//app-gregorian-datepicker[@formcontrolname='start_date']/descendant::input[@placeholder='DD/MM/YYYY']",
-    );
-    const auctionEndDateInput = page.locator(
-      "//app-gregorian-datepicker[@formcontrolname='end_date']/descendant::input[@placeholder='DD/MM/YYYY']",
-    );
-    const auctionStartHourInput = page.locator(
-      "//ngb-timepicker[@formcontrolname='start_time']/descendant::input[@aria-label='Hours']",
-    );
-    const auctionStartMinuteInput = page.locator(
-      "//ngb-timepicker[@formcontrolname='start_time']/descendant::input[@aria-label='Minutes']",
-    );
-    const auctionEndHourInput = page.locator(
-      "//ngb-timepicker[@formcontrolname='end_time']/descendant::input[@aria-label='Hours']",
-    );
-    const auctionEndMinuteInput = page.locator(
-      "//ngb-timepicker[@formcontrolname='end_time']/descendant::input[@aria-label='Minutes']",
-    );
-  
-    await fillVisible(auctionStartDateInput, auctionStartDate);
-    await fillVisible(auctionStartHourInput, auctionStartHour);
-    await fillVisible(auctionStartMinuteInput, auctionStartMinute);
-    await fillVisible(auctionEndDateInput, auctionEndDate);
-    await fillVisible(auctionEndHourInput, auctionEndHour);
-    await fillVisible(auctionEndMinuteInput, auctionEndMinute);
+    await electronicAuctionPage.fillProjectName(projectName);
+    await electronicAuctionPage.selectElectronicAuctionType();
+    await electronicAuctionPage.openHousingSector();
+    await electronicAuctionPage.selectHousingSector();
+    await electronicAuctionPage.openRegion();
+    await electronicAuctionPage.selectRegion();
+    await electronicAuctionPage.openCity();
+    await electronicAuctionPage.selectCity();
+    await electronicAuctionPage.fillAuctionStartDate(auctionStartDate);
+    await electronicAuctionPage.fillAuctionStartHour(auctionStartHour);
+    await electronicAuctionPage.fillAuctionStartMinute(auctionStartMinute);
+    await electronicAuctionPage.fillAuctionEndDate(auctionEndDate);
+    await electronicAuctionPage.fillAuctionEndHour(auctionEndHour);
+    await electronicAuctionPage.fillAuctionEndMinute(auctionEndMinute);
     await page.waitForTimeout(2500);
-    await page.getByRole("button", { name: "حفظ" }).click();
-  
+    await electronicAuctionPage.saveProject();
+
     // Auction media > Enter media details > Save
-    await clickVisible(
-      page.getByRole("tab", { name: "وسائل الإعلام مشروع المزاد ( مسودة )" }),
-    );
-    await fillVisible(
-      page.getByRole("textbox", { name: "عنوان صفحة التفاصيل (باللغة العربية)" }),
-      projectName,
-    );
-    await fillVisible(
-      page.getByRole("textbox", {
-        name: "عنوان صفحة التفاصيل (باللغة الإنجليزية)",
-      }),
-      projectName,
-    );
-    await fillVisible(
-      page.getByRole("textbox", { name: "الاسم (باللغة العربية)" }),
-      projectName,
-    );
-    await fillVisible(
-      page.getByRole("textbox", { name: "الاسم (باللغة الإنجليزية)" }),
-      projectName,
-    );
-    await fillVisible(
-      page.getByRole("textbox", { name: "الوصف (باللغة العربية)" }),
-      "الوصف (باللغة العربية)\nالوصف (باللغة العربية)\nالوصف (باللغة العربية)",
-    );
-    await fillVisible(
-      page.getByRole("textbox", { name: "الوصف (باللغة الإنجليزية)" }),
-      "English auction project description\nEnglish auction project description\nEnglish auction project description",
-    );
-    await fillVisible(page.getByRole("spinbutton", { name: "خط العرض" }), "1.1");
-    await fillVisible(page.getByRole("spinbutton", { name: "خط الطول" }), "1.2");
-    await fillVisible(page.getByRole("spinbutton", { name: "عدد الأصول" }), "10");
-    await clickVisible(page.getByRole("button", { name: "حفظ" }));
+    await electronicAuctionPage.openProjectMedia();
+    await electronicAuctionPage.fillArabicDetailsTitle(projectName);
+    await electronicAuctionPage.fillEnglishDetailsTitle(projectName);
+    await electronicAuctionPage.fillArabicName(projectName);
+    await electronicAuctionPage.fillEnglishName(projectName);
+    await electronicAuctionPage.fillArabicDescription("الوصف (باللغة العربية)\nالوصف (باللغة العربية)\nالوصف (باللغة العربية)");
+    await electronicAuctionPage.fillEnglishDescription("English auction project description\nEnglish auction project description\nEnglish auction project description");
+    await electronicAuctionPage.fillLatitude("1.1");
+    await electronicAuctionPage.fillLongitude("1.2");
+    await electronicAuctionPage.fillAssetCount("10");
+    await electronicAuctionPage.saveProject();
     await page.waitForTimeout(1000);
-    await expect(page.getByText("تم حفظ بيانات الملف بنجاح")).toBeVisible();
-    await clickVisible(page.getByText("تفاصيل المشروع"));
-    await clickVisible(
-      page.getByRole("button", {
-        name: "تقديم طلب موافقة على نشر المحتوى المرفوع",
-      }),
-    );
-    await clickVisible(
-      page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }),
-    );
+    await electronicAuctionPage.expectMediaSaved();
+    await electronicAuctionPage.openProjectDetails();
+    await electronicAuctionPage.submitMediaForApproval();
+    await electronicAuctionPage.approveProjectMedia();
   
     // Auction units > upload unit file and commit
-    await clickVisible(page.getByRole("tab", { name: "الوحدات", exact: true }));
-    await clickVisible(
-      page.locator("#mat-tab-group-1-label-1").getByText("الوحدات"),
-    );
-    await clickVisible(
-      page.locator("//span[normalize-space()='وحدة مزاد جديدة للاستيراد']"),
-    );
+    await electronicAuctionPage.openUnits();
+    await electronicAuctionPage.openUnitsSubTab();
+    await electronicAuctionPage.openNewUnitImport();
     await page.waitForTimeout(2000);
-    await expect(
-      page.getByRole("combobox", { name: "نوع الوحدة السكنية" }),
-    ).toBeVisible({ timeout: 30000 });
-    await clickVisible(
-      page.getByRole("combobox", { name: "نوع الوحدة السكنية" }),
-    );
-    await clickVisible(page.getByRole("option", { name: "شقة" }));
-  
+    await electronicAuctionPage.openUnitType();
+    await electronicAuctionPage.selectApartmentUnitType();
     const unitsImportFilePath = path.join(
       process.cwd(), "src",
       "data",
       "Auction_Units.xlsx",
     );
-    await uploadFile(page.locator("//input[@type='file']"), unitsImportFilePath);
-    await clickVisible(page.getByRole("button", { name: " حفظ" }));
-  
+    await electronicAuctionPage.uploadUnitsFile(unitsImportFilePath);
+    await electronicAuctionPage.saveUnitImport();
     await page.waitForTimeout(5000);
-    await page.reload();
+    await electronicAuctionPage.waitForUnitImportToComplete();
+    await electronicAuctionPage.approveUnitImport();
+    await electronicAuctionPage.confirmUnitImport();
     await page.waitForTimeout(3000);
-    const fileProcessedMessage = page.getByText("تم إكمال الإجراء", {
-      exact: true,
-    });
-    let completedVisible = false;
-  
-    while (!completedVisible) {
-      completedVisible = await fileProcessedMessage
-        .isVisible()
-        .catch(() => false);
-      if (!completedVisible) {
-        await page.reload();
-        await page.waitForTimeout(3000);
-        continue;
-      }
-    }
-    await clickVisible(page.getByRole("button", { name: "اعتماد" }));
-    await clickVisible(page.getByRole("button", { name: "موافق" }));
-    await page.waitForTimeout(3000);
-    await clickVisible(page.getByRole("button", { name: "رجوع" }));
+    await electronicAuctionPage.returnFromUnitImport();
   
     // Unit Models > save
-    await clickVisible(page.getByRole("tab", { name: "نماذج الوحدات" }));
-    await clickVisible(page.getByRole("cell", { name: "model_1" }));
-    await clickVisible(page.getByRole("button", { name: "حفظ" }));
+    await electronicAuctionPage.openUnitModels();
+    await electronicAuctionPage.openApartmentModel();
+    await electronicAuctionPage.saveUnitModel();
   
     // Unit model > Save and approve media
-    await clickVisible(page.getByRole("tab", { name: /المحتوى المرئي/ }));
-    await fillVisible(page.getByRole("spinbutton", { name: "خط العرض" }), "1.1");
-    await fillVisible(page.getByRole("spinbutton", { name: "خط الطول" }), "1.2");
-    await clickVisible(page.getByRole("button", { name: "حفظ" }));
+    await electronicAuctionPage.openUnitVisualMedia();
+    await electronicAuctionPage.fillLatitude("1.1");
+    await electronicAuctionPage.fillLongitude("1.2");
+    await electronicAuctionPage.saveUnitModel();
   
     await page.waitForTimeout(1000);
-    await clickVisible(
-      page.getByRole("button", {
-        name: "تقديم طلب موافقة على نشر المحتوى المرفوع",
-      }),
-    );
+    await electronicAuctionPage.submitUnitMediaForApproval();
     await page.waitForTimeout(1000);
-    await clickVisible(
-      page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }),
-    );
+    await electronicAuctionPage.approveUnitMedia();
     await page.waitForTimeout(1000);
-    await clickVisible(page.getByRole("button", { name: "وحدة النشر" }));
-  
-    let isApprovedModelMedia = false;
-  
-    while (!isApprovedModelMedia) {
-      const tabText = await page
-        .locator(
-          "//div[@role='tab']/descendant::span[contains (text(), 'المحتوى المرئي')]",
-        )
-        .textContent();
-  
-      if (tabText && tabText.includes("تمت الموافقة وتم النشر")) {
-        isApprovedModelMedia = true;
-      } else {
-        await page.reload();
-        await page.waitForTimeout(3000);
-      }
-    }
+    await electronicAuctionPage.publishUnitModel();
+    await electronicAuctionPage.waitForUnitMediaApproval();
   
     // Unit model > Auction legal > Upload documents
-    await clickVisible(page.getByRole("tab", { name: "المزاد قانوني" }));
     await page.waitForTimeout(1000);
     const PDFfilePath = path.join(
       process.cwd(), "src",
       "data",
       "Sample pdf.pdf",
     );
-    await uploadFile(
-      page.locator(
-        "//lib-sakani-upload-files[@formcontrolname='term_and_condition']//input[@type='file']",
-      ),
-      PDFfilePath,
-    );
+    await electronicAuctionPage.openAuctionLegal();
+    await electronicAuctionPage.uploadTerms(PDFfilePath);
     await page.waitForTimeout(2000);
-    await uploadFile(
-      page.locator(
-        "//lib-sakani-upload-files[@formcontrolname='winner_contract']//input[@type='file']",
-      ),
-      PDFfilePath,
-    );
+    await electronicAuctionPage.uploadWinnerContract(PDFfilePath);
     await page.waitForTimeout(2000);
-    await clickVisible(page.getByRole("button", { name: "حفظ" }));
+    await electronicAuctionPage.saveUnitModel();
     await page.waitForTimeout(1000);
-    await expect(page.getByText("AR Model was updated")).toBeVisible();
+    await electronicAuctionPage.expectUnitModelUpdated();
   
     // Unit model > Auction settion > enable fee
-    await clickVisible(page.getByRole("tab", { name: "إعدادات المزاد" }));
-    await clickVisible(page.getByRole("button", { name: "تعديل" }));
-    await clickVisible(
-      page.locator("//ui-switch[@formcontrolname='apply_general_setting']"),
-    );
-    // await clickVisible(page.locator("//ui-switch[@formcontrolname='auction_fee_flag']"));
-    await clickVisible(page.getByRole("button", { name: "تحديث" }));
-    await expect(page.getByText("AR")).toBeVisible();
+    await electronicAuctionPage.openAuctionSettings();
+    await electronicAuctionPage.openSettingsEdit();
+    await electronicAuctionPage.enableGeneralAuctionSetting();
+    await electronicAuctionPage.updateAuctionSettings();
+    await electronicAuctionPage.expectSettingsUpdated();
   
     // Unit model > Publish
-    const publishUnitModelToggle = page.locator(
-      "//label[contains (text(), 'هل تم نشر التصانيف')]/preceding-sibling::button",
-    );
-    await expect(publishUnitModelToggle).toBeVisible({ timeout: 30000 });
-    const isPublishedUnitModel =
-      await publishUnitModelToggle.getAttribute("aria-checked");
-    if (isPublishedUnitModel === "false") {
-      await clickVisible(publishUnitModelToggle);
-      await expect(publishUnitModelToggle).toHaveAttribute(
-        "aria-checked",
-        "true",
-      );
-    } else {
-      await expect(publishUnitModelToggle).toHaveAttribute(
-        "aria-checked",
-        "true",
-      );
-    }
-    await clickVisible(page.locator("a").filter({ hasText: "model_1 - شقة" }));
+    await electronicAuctionPage.publishUnitModelCategories();
+    await electronicAuctionPage.openPublishedUnitModel();
   
     // Wait for media to approve and publish project
-    let isApprovedProjectMedia = false;
-    while (!isApprovedProjectMedia) {
-      const tabText = await page
-        .locator(
-          "//div[@role='tab']/descendant::span[contains (text(), 'وسائل الإعلام مشروع المزاد')]",
-        )
-        .textContent();
-  
-      if (tabText && tabText.includes("تمت الموافقة وتم النشر")) {
-        isApprovedProjectMedia = true;
-      } else {
-        await page.reload();
-        await page.waitForTimeout(3000);
-      }
-    }
-    const publishProjectToggle = page.locator(
-      "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
-    );
-    await expect(publishProjectToggle).toBeVisible({ timeout: 30000 });
-    const isPublishedProject =
-      await publishProjectToggle.getAttribute("aria-checked");
-    if (isPublishedProject === "false") {
-      await clickVisible(publishProjectToggle);
-      await expect(publishProjectToggle).toHaveAttribute("aria-checked", "true");
-    } else {
-      await expect(publishProjectToggle).toHaveAttribute("aria-checked", "true");
-    }
+    await electronicAuctionPage.waitForProjectMediaApproval();
+    await electronicAuctionPage.publishProject();
   });
 
   test("TC-02 - User bids electronic auction and pays fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({ page }) => {

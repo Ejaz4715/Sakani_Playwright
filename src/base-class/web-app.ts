@@ -11,6 +11,7 @@ import { AdminProjectPage } from '@pages/AdminProjectPage';
 import { DeveloperProjectPage } from '@pages/DeveloperProjectPage';
 import { PaymentConfirmationPage } from '@pages/PaymentConfirmationPage';
 import { AuctionPage } from '@pages/AuctionPage';
+import { ElectronicAuctionProjectPage } from '@pages/ElectronicAuctionProjectPage';
 import { CreateMegaProjectPage } from '@pages/CreateMegaProjectPage';
 import { FlexiblePaymentPage } from '@pages/FlexiblePaymentPage';
 import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymentMethodPage';
@@ -29,6 +30,7 @@ export class WebApp {
   bookingCancellationPage: InstanceType<typeof BookingCancellationPage>;
   developerProjectPage: InstanceType<typeof DeveloperProjectPage>;
   auctionPage: InstanceType<typeof AuctionPage>;
+  electronicAuctionProjectPage: InstanceType<typeof ElectronicAuctionProjectPage>;
   adminProjectPage: InstanceType<typeof AdminProjectPage>;
   createMegaProjectPage: InstanceType<typeof CreateMegaProjectPage>;
   flexiblePaymentPage: InstanceType<typeof FlexiblePaymentPage>;
@@ -48,6 +50,7 @@ export class WebApp {
     this.bookingCancellationPage = new BookingCancellationPage(page);
     this.developerProjectPage = new DeveloperProjectPage(page);
     this.auctionPage = new AuctionPage(page);
+    this.electronicAuctionProjectPage = new ElectronicAuctionProjectPage(page);
     this.adminProjectPage = new AdminProjectPage(page);
     this.createMegaProjectPage = new CreateMegaProjectPage (page);
     this.flexiblePaymentPage = new FlexiblePaymentPage (page);
