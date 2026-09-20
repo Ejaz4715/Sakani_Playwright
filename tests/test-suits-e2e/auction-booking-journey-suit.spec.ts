@@ -57,7 +57,7 @@ function writeTestData(data) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 test.describe("Auction booking journey", () => {
-  test("TC-01 Add new electronic auction project", { annotation: [{ product: 'Gov-Support', type: 'critical' }] }, async ({ page }) => {
+  test("TC-01 Add new electronic auction project", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({ page }) => {
     test.setTimeout(180000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -399,7 +399,7 @@ test.describe("Auction booking journey", () => {
     }
   });
 
-  test("TC-02 - User bids electronic auction and pays fee", { annotation: [{ product: 'Gov-Support', type: 'critical' }] }, async ({ page }) => {
+  test("TC-02 - User bids electronic auction and pays fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
