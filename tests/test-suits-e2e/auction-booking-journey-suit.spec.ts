@@ -4,6 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const XLSX = require("xlsx");
 import { WebApp } from "@base-class/web-app";
+import { DataHelper } from '@helpers/DataHelper'
+import { logStep } from '@helpers/LogSteps'
 async function waitForVisible(locator) {
   await expect(locator).toBeVisible({ timeout: 30000 });
   return locator;
@@ -61,8 +63,8 @@ test.describe("Auction booking journey", () => {
     test.setTimeout(180000);
     const testData = readTestData();
     const app = new WebApp(page);
-  
-    // define auction start and end dates and times
+
+    await logStep("Step 01: Define auction start/end date and time");
     const auctionStartDateTime = new Date(Date.now() + 5 * 60 * 1000);
     const auctionEndDateTime = new Date(Date.now() + 9 * 60 * 1000);
     const auctionDate = new Date();
@@ -71,7 +73,7 @@ test.describe("Auction booking journey", () => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const year = date.getFullYear();
-  
+
       return dayFirst
         ? `${day}${separator}${month}${separator}${year}`
         : `${month}${separator}${day}${separator}${year}`;
@@ -100,36 +102,38 @@ test.describe("Auction booking journey", () => {
     updatedData.auctionStartTime = auctionStartTime;
     updatedData.auctionEndTime = auctionEndTime;
     writeTestData(updatedData);
-  
-    // write the auction start and end dates and times to the Auction_Units.xlsx file
+
+    await logStep("Step 02: Write the auction start and end dates and times to the Auction_Units.xlsx file");
     updateAuctionUnitsFile({
       startDate: updatedData.auctionStartDate,
       endDate: updatedData.auctionEndDate,
       startTime: updatedData.auctionStartTime,
       endTime: updatedData.auctionEndTime,
     });
-
     const electronicAuctionPage = app.electronicAuctionProjectPage;
-
-    // Login to admin portal
+    await logStep("Step 03: Login to admin portal");
     await app.adminProjectPage.login(
       updatedData.adminPortalUrl,
       updatedData.adminUsername,
       updatedData.adminPassword,
     );
 
-    // Navigate to the auction project creation page
+    await logStep("Step 04: Navigate to the auction project creation page");
     await app.adminProjectPage.openAuctionCreation();
 
-    // Fill in the auction project details
+    await logStep("Step 04: Fill in the auction project details");
     await electronicAuctionPage.fillProjectName(projectName);
     await electronicAuctionPage.selectElectronicAuctionType();
     await electronicAuctionPage.openHousingSector();
     await electronicAuctionPage.selectHousingSector();
+
+    await logStep("Step 05: Select region and city");
     await electronicAuctionPage.openRegion();
     await electronicAuctionPage.selectRegion();
     await electronicAuctionPage.openCity();
     await electronicAuctionPage.selectCity();
+
+    await logStep("Step 06: Enter date, time and save");
     await electronicAuctionPage.fillAuctionStartDate(auctionStartDate);
     await electronicAuctionPage.fillAuctionStartHour(auctionStartHour);
     await electronicAuctionPage.fillAuctionStartMinute(auctionStartMinute);
@@ -139,7 +143,7 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(2500);
     await electronicAuctionPage.saveProject();
 
-    // Auction media > Enter media details > Save
+    await logStep("Step 07: Upload auction media > Enter media details > Save");
     await electronicAuctionPage.openProjectMedia();
     await electronicAuctionPage.fillArabicDetailsTitle(projectName);
     await electronicAuctionPage.fillEnglishDetailsTitle(projectName);
@@ -156,8 +160,8 @@ test.describe("Auction booking journey", () => {
     await electronicAuctionPage.openProjectDetails();
     await electronicAuctionPage.submitMediaForApproval();
     await electronicAuctionPage.approveProjectMedia();
-  
-    // Auction units > upload unit file and commit
+
+    await logStep("Step 08: Upload auction units file > commit the units");
     await electronicAuctionPage.openUnits();
     await electronicAuctionPage.openUnitsSubTab();
     await electronicAuctionPage.openNewUnitImport();
@@ -177,18 +181,17 @@ test.describe("Auction booking journey", () => {
     await electronicAuctionPage.confirmUnitImport();
     await page.waitForTimeout(3000);
     await electronicAuctionPage.returnFromUnitImport();
-  
-    // Unit Models > save
+
+    await logStep("Step 09: Save unit model");
     await electronicAuctionPage.openUnitModels();
     await electronicAuctionPage.openApartmentModel();
     await electronicAuctionPage.saveUnitModel();
-  
-    // Unit model > Save and approve media
+
+    await logStep("Step 10: Unit model media > Save and approve media");
     await electronicAuctionPage.openUnitVisualMedia();
     await electronicAuctionPage.fillLatitude("1.1");
     await electronicAuctionPage.fillLongitude("1.2");
     await electronicAuctionPage.saveUnitModel();
-  
     await page.waitForTimeout(1000);
     await electronicAuctionPage.submitUnitMediaForApproval();
     await page.waitForTimeout(1000);
@@ -196,8 +199,8 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(1000);
     await electronicAuctionPage.publishUnitModel();
     await electronicAuctionPage.waitForUnitMediaApproval();
-  
-    // Unit model > Auction legal > Upload documents
+
+    await logStep("Step 11: Unit model auction legal > Upload documents > Save");
     await page.waitForTimeout(1000);
     const PDFfilePath = path.join(
       process.cwd(), "src",
@@ -212,19 +215,19 @@ test.describe("Auction booking journey", () => {
     await electronicAuctionPage.saveUnitModel();
     await page.waitForTimeout(1000);
     await electronicAuctionPage.expectUnitModelUpdated();
-  
-    // Unit model > Auction settion > enable fee
+
+    await logStep("Step 12: Auction setting > enable fee > Save");
     await electronicAuctionPage.openAuctionSettings();
     await electronicAuctionPage.openSettingsEdit();
     await electronicAuctionPage.enableGeneralAuctionSetting();
     await electronicAuctionPage.updateAuctionSettings();
     await electronicAuctionPage.expectSettingsUpdated();
-  
-    // Unit model > Publish
+
+    await logStep("Step 13: Pulish unit model");
     await electronicAuctionPage.publishUnitModelCategories();
     await electronicAuctionPage.openPublishedUnitModel();
-  
-    // Wait for media to approve and publish project
+
+    await logStep("Step 14: Publish auction project");
     await electronicAuctionPage.waitForProjectMediaApproval();
     await electronicAuctionPage.publishProject();
   });
@@ -243,20 +246,20 @@ test.describe("Auction booking journey", () => {
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
-  
+
     // search for auction project and navigate to project details page
     await app.marketplaceLandingPage.openSearch();
     await app.marketplaceLandingPage.searchForProject(projectName);
-  
+
     //Navigate to auction unit and join the auction
     await app.auctionPage.openUnit();
     await app.auctionPage.joinElectronicAuction();
-  
+
     //Select mada > Enter payment details
     await app.paymentGatewayPage.fillCardDetails();
     await app.auctionPage.validateCongratulationsMessaeg();
     await app.auctionPage.returnToAuction("العودة إلى وحدة المزاد");
-  
+
     //Validate the auction booking fees is paid
     await app.auctionPage.expectAuctionPaymentPending();
   });
@@ -265,21 +268,21 @@ test.describe("Auction booking journey", () => {
     test.setTimeout(180000);
     const testData = readTestData();
     const app = new WebApp(page);
-  
+
     // define auction start and end dates and times
     // const auctionStartDateTime = new Date(Date.now() + 2 * 60 * 1000);
     // const auctionEndDateTime = new Date(Date.now() + 3 * 60 * 1000);
-  
-  const auctionStartDateTime = new Date(Date.now() + 120 * 60 * 1000);
+
+    const auctionStartDateTime = new Date(Date.now() + 120 * 60 * 1000);
     const auctionEndDateTime = new Date(Date.now() + 240 * 60 * 1000);
-  
+
     const auctionDate = new Date();
     // auctionDate.setDate(auctionDate.getDate() + 1);
     const formatDate = (date, separator, dayFirst = false) => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const year = date.getFullYear();
-  
+
       return dayFirst
         ? `${day}${separator}${month}${separator}${year}`
         : `${month}${separator}${day}${separator}${year}`;
@@ -308,7 +311,7 @@ test.describe("Auction booking journey", () => {
     updatedData.auctionStartTime = auctionStartTime;
     updatedData.auctionEndTime = auctionEndTime;
     writeTestData(updatedData);
-  
+
     // write the auction start and end dates and times to the Auction_Units.xlsx file
     updateAuctionUnitsFile({
       startDate: updatedData.auctionStartDate,
@@ -316,36 +319,36 @@ test.describe("Auction booking journey", () => {
       startTime: updatedData.auctionStartTime,
       endTime: updatedData.auctionEndTime,
     });
-  
+
     // Login to admin portal
     await app.adminProjectPage.login(
       updatedData.adminPortalUrl,
       updatedData.adminUsername,
       updatedData.adminPassword,
     );
-  
+
     // Navigate to the auction project creation page
     await app.adminProjectPage.openAuctionCreation();
-  
+
     // Fill in the auction project details
     await fillVisible(
       page.getByRole("textbox", { name: "إسم المشروع" }),
       projectName,
     );
-  
-  
+
+
     const combobox = page.getByRole("combobox", { name: "نوع المزاد" });
     const option = page.getByRole("option", { name: "هجين" });
-  
+
     while (!(await option.isVisible().catch(() => false))) {
       await clickVisible(combobox);
       await page.waitForTimeout(1000);
     }
     await clickVisible(option);
-  
+
     await clickVisible(page.getByRole("combobox", { name: "نوع القطاع" }));
     await clickVisible(page.getByText("وزارة الإسكان"));
-  
+
     await clickVisible(
       page
         .locator("//ng-select[@formcontrolname='region_id']")
@@ -354,7 +357,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByText("الرياض"));
     await clickVisible(page.locator("//input[@id='inputCity']"));
     await clickVisible(page.getByRole("option", { name: "الرياض", exact: true }));
-  
+
     const auctionStartDateInput = page.locator(
       "//app-gregorian-datepicker[@formcontrolname='start_date']/descendant::input[@placeholder='DD/MM/YYYY']",
     );
@@ -373,16 +376,16 @@ test.describe("Auction booking journey", () => {
     const auctionEndMinuteInput = page.locator(
       "//ngb-timepicker[@formcontrolname='end_time']/descendant::input[@aria-label='Minutes']",
     );
-  
+
     await fillVisible(auctionStartDateInput, auctionStartDate);
     await fillVisible(auctionStartHourInput, auctionStartHour);
     await fillVisible(auctionStartMinuteInput, auctionStartMinute);
     await fillVisible(auctionEndDateInput, auctionEndDate);
     await fillVisible(auctionEndHourInput, auctionEndHour);
     await fillVisible(auctionEndMinuteInput, auctionEndMinute);
-  
+
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
-  
+
     // Auction media > Enter media details > Save
     await clickVisible(
       page.getByRole("tab", { name: "وسائل الإعلام مشروع المزاد ( مسودة )" }),
@@ -428,7 +431,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(
       page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }),
     );
-  
+
     // Auction units > upload unit file and commit
     await clickVisible(page.getByRole("tab", { name: "الوحدات", exact: true }));
     await clickVisible(
@@ -445,7 +448,7 @@ test.describe("Auction booking journey", () => {
       page.getByRole("combobox", { name: "نوع الوحدة السكنية" }),
     );
     await clickVisible(page.getByRole("option", { name: "شقة" }));
-  
+
     const unitsImportFilePath = path.join(
       process.cwd(), "src",
       "data",
@@ -453,7 +456,7 @@ test.describe("Auction booking journey", () => {
     );
     await uploadFile(page.locator("//input[@type='file']"), unitsImportFilePath);
     await clickVisible(page.getByRole("button", { name: " حفظ" }));
-  
+
     const importInProgress = page.getByText("تحت الإجراء ...", { exact: true });
     await expect(importInProgress).toBeVisible({ timeout: 120000 });
     await page.waitForTimeout(5000);
@@ -463,7 +466,7 @@ test.describe("Auction booking journey", () => {
       exact: true,
     });
     let completedVisible = false;
-  
+
     while (!completedVisible) {
       completedVisible = await fileProcessedMessage
         .isVisible()
@@ -478,12 +481,12 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByRole("button", { name: "موافق" }));
     await page.waitForTimeout(3000);
     await clickVisible(page.getByRole("button", { name: "رجوع" }));
-  
+
     // Unit Models > save
     await clickVisible(page.getByRole("tab", { name: "نماذج الوحدات" }));
     await clickVisible(page.getByRole("cell", { name: "model_1" }));
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
-  
+
     // Unit model > Save and approve media
     await clickVisible(page.getByRole("tab", { name: /المحتوى المرئي/ }));
     await page
@@ -493,7 +496,7 @@ test.describe("Auction booking journey", () => {
     await fillVisible(page.getByRole("spinbutton", { name: "خط العرض" }), "1.1");
     await fillVisible(page.getByRole("spinbutton", { name: "خط الطول" }), "1.2");
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
-  
+
     await page.waitForTimeout(1000);
     await clickVisible(
       page.getByRole("button", {
@@ -506,16 +509,16 @@ test.describe("Auction booking journey", () => {
     );
     await page.waitForTimeout(1000);
     await clickVisible(page.getByRole("button", { name: "وحدة النشر" }));
-  
+
     let isApprovedModelMedia = false;
-  
+
     while (!isApprovedModelMedia) {
       const tabText = await page
         .locator(
           "//div[@role='tab']/descendant::span[contains (text(), 'المحتوى المرئي')]",
         )
         .textContent();
-  
+
       if (tabText && tabText.includes("تمت الموافقة وتم النشر")) {
         isApprovedModelMedia = true;
       } else {
@@ -523,7 +526,7 @@ test.describe("Auction booking journey", () => {
         await page.waitForTimeout(3000); // Wait 3 seconds after reload
       }
     }
-  
+
     // Unit model > Auction legal > Upload documents
     await clickVisible(page.getByRole("tab", { name: "المزاد قانوني" }));
     await page.waitForTimeout(1000);
@@ -548,7 +551,7 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(2000);
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
     await expect(page.getByText("AR Model was updated")).toBeVisible();
-  
+
     // Unit model > Publish
     const publishUnitModelToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر التصانيف')]/preceding-sibling::button",
@@ -569,11 +572,11 @@ test.describe("Auction booking journey", () => {
       );
     }
     await clickVisible(page.locator("a").filter({ hasText: "model_1 - شقة" }));
-  
-  
-  
-  await page.pause();
-  
+
+
+
+    await page.pause();
+
     // Publish project
     const publishProjectToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
@@ -621,21 +624,21 @@ test.describe("Auction booking journey", () => {
     test.setTimeout(180000);
     const testData = readTestData();
     const app = new WebApp(page);
-  
+
     // define auction start and end dates and times
     // const auctionStartDateTime = new Date(Date.now() + 2 * 60 * 1000);
     // const auctionEndDateTime = new Date(Date.now() + 3 * 60 * 1000);
-  
-  const auctionStartDateTime = new Date(Date.now() + 120 * 60 * 1000);
+
+    const auctionStartDateTime = new Date(Date.now() + 120 * 60 * 1000);
     const auctionEndDateTime = new Date(Date.now() + 240 * 60 * 1000);
-  
+
     const auctionDate = new Date();
     // auctionDate.setDate(auctionDate.getDate() + 1);
     const formatDate = (date, separator, dayFirst = false) => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const year = date.getFullYear();
-  
+
       return dayFirst
         ? `${day}${separator}${month}${separator}${year}`
         : `${month}${separator}${day}${separator}${year}`;
@@ -664,7 +667,7 @@ test.describe("Auction booking journey", () => {
     updatedData.auctionStartTime = auctionStartTime;
     updatedData.auctionEndTime = auctionEndTime;
     writeTestData(updatedData);
-  
+
     // write the auction start and end dates and times to the Auction_Units.xlsx file
     updateAuctionUnitsFile({
       startDate: updatedData.auctionStartDate,
@@ -672,36 +675,36 @@ test.describe("Auction booking journey", () => {
       startTime: updatedData.auctionStartTime,
       endTime: updatedData.auctionEndTime,
     });
-  
+
     // Login to admin portal
     await app.adminProjectPage.login(
       updatedData.adminPortalUrl,
       updatedData.adminUsername,
       updatedData.adminPassword,
     );
-  
+
     // Navigate to the auction project creation page
     await app.adminProjectPage.openAuctionCreation();
-  
+
     // Fill in the auction project details
     await fillVisible(
       page.getByRole("textbox", { name: "إسم المشروع" }),
       projectName,
     );
-  
-  
+
+
     const combobox = page.getByRole("combobox", { name: "نوع المزاد" });
     const option = page.getByRole("option", { name: "هجين" });
-  
+
     while (!(await option.isVisible().catch(() => false))) {
       await clickVisible(combobox);
       await page.waitForTimeout(1000);
     }
     await clickVisible(option);
-  
+
     await clickVisible(page.getByRole("combobox", { name: "نوع القطاع" }));
     await clickVisible(page.getByText("وزارة الإسكان"));
-  
+
     await clickVisible(
       page
         .locator("//ng-select[@formcontrolname='region_id']")
@@ -710,7 +713,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByText("الرياض"));
     await clickVisible(page.locator("//input[@id='inputCity']"));
     await clickVisible(page.getByRole("option", { name: "الرياض", exact: true }));
-  
+
     const auctionStartDateInput = page.locator(
       "//app-gregorian-datepicker[@formcontrolname='start_date']/descendant::input[@placeholder='DD/MM/YYYY']",
     );
@@ -729,16 +732,16 @@ test.describe("Auction booking journey", () => {
     const auctionEndMinuteInput = page.locator(
       "//ngb-timepicker[@formcontrolname='end_time']/descendant::input[@aria-label='Minutes']",
     );
-  
+
     await fillVisible(auctionStartDateInput, auctionStartDate);
     await fillVisible(auctionStartHourInput, auctionStartHour);
     await fillVisible(auctionStartMinuteInput, auctionStartMinute);
     await fillVisible(auctionEndDateInput, auctionEndDate);
     await fillVisible(auctionEndHourInput, auctionEndHour);
     await fillVisible(auctionEndMinuteInput, auctionEndMinute);
-  
+
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
-  
+
     // Auction media > Enter media details > Save
     await clickVisible(
       page.getByRole("tab", { name: "وسائل الإعلام مشروع المزاد ( مسودة )" }),
@@ -784,7 +787,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(
       page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }),
     );
-  
+
     // Auction units > upload unit file and commit
     await clickVisible(page.getByRole("tab", { name: "الوحدات", exact: true }));
     await clickVisible(
@@ -801,7 +804,7 @@ test.describe("Auction booking journey", () => {
       page.getByRole("combobox", { name: "نوع الوحدة السكنية" }),
     );
     await clickVisible(page.getByRole("option", { name: "شقة" }));
-  
+
     const unitsImportFilePath = path.join(
       process.cwd(), "src",
       "data",
@@ -809,7 +812,7 @@ test.describe("Auction booking journey", () => {
     );
     await uploadFile(page.locator("//input[@type='file']"), unitsImportFilePath);
     await clickVisible(page.getByRole("button", { name: " حفظ" }));
-  
+
     const importInProgress = page.getByText("تحت الإجراء ...", { exact: true });
     await expect(importInProgress).toBeVisible({ timeout: 120000 });
     await page.waitForTimeout(5000);
@@ -819,7 +822,7 @@ test.describe("Auction booking journey", () => {
       exact: true,
     });
     let completedVisible = false;
-  
+
     while (!completedVisible) {
       completedVisible = await fileProcessedMessage
         .isVisible()
@@ -834,12 +837,12 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByRole("button", { name: "موافق" }));
     await page.waitForTimeout(3000);
     await clickVisible(page.getByRole("button", { name: "رجوع" }));
-  
+
     // Unit Models > save
     await clickVisible(page.getByRole("tab", { name: "نماذج الوحدات" }));
     await clickVisible(page.getByRole("cell", { name: "model_1" }));
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
-  
+
     // Unit model > Save and approve media
     await clickVisible(page.getByRole("tab", { name: /المحتوى المرئي/ }));
     await page
@@ -849,7 +852,7 @@ test.describe("Auction booking journey", () => {
     await fillVisible(page.getByRole("spinbutton", { name: "خط العرض" }), "1.1");
     await fillVisible(page.getByRole("spinbutton", { name: "خط الطول" }), "1.2");
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
-  
+
     await page.waitForTimeout(1000);
     await clickVisible(
       page.getByRole("button", {
@@ -862,16 +865,16 @@ test.describe("Auction booking journey", () => {
     );
     await page.waitForTimeout(1000);
     await clickVisible(page.getByRole("button", { name: "وحدة النشر" }));
-  
+
     let isApprovedModelMedia = false;
-  
+
     while (!isApprovedModelMedia) {
       const tabText = await page
         .locator(
           "//div[@role='tab']/descendant::span[contains (text(), 'المحتوى المرئي')]",
         )
         .textContent();
-  
+
       if (tabText && tabText.includes("تمت الموافقة وتم النشر")) {
         isApprovedModelMedia = true;
       } else {
@@ -879,7 +882,7 @@ test.describe("Auction booking journey", () => {
         await page.waitForTimeout(3000); // Wait 3 seconds after reload
       }
     }
-  
+
     // Unit model > Auction legal > Upload documents
     await clickVisible(page.getByRole("tab", { name: "المزاد قانوني" }));
     await page.waitForTimeout(1000);
@@ -904,7 +907,7 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(2000);
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
     await expect(page.getByText("AR Model was updated")).toBeVisible();
-  
+
     // Unit model > Auction settion > enable fee
     await clickVisible(page.getByRole("tab", { name: "إعدادات المزاد" }));
     await clickVisible(page.getByRole("button", { name: "تعديل" }));
@@ -914,7 +917,7 @@ test.describe("Auction booking journey", () => {
     // await clickVisible(page.locator("//ui-switch[@formcontrolname='auction_fee_flag']"));
     await clickVisible(page.getByRole("button", { name: "تحديث" }));
     await expect(page.getByText("AR")).toBeVisible();
-  
+
     // Unit model > Publish
     const publishUnitModelToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر التصانيف')]/preceding-sibling::button",
@@ -935,7 +938,7 @@ test.describe("Auction booking journey", () => {
       );
     }
     await clickVisible(page.locator("a").filter({ hasText: "model_1 - شقة" }));
-  
+
     // Publish project
     const publishProjectToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
@@ -962,7 +965,7 @@ test.describe("Auction booking journey", () => {
     const sakaniUserId = testData.sakaniUserId;
     const userPortalUrl = testData.userPortalUrl;
     const projectName = testData.projectName;
-  
+
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();

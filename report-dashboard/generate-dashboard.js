@@ -380,11 +380,10 @@ const htmlContent = `<!DOCTYPE html>
         <table class="w-full text-left text-sm text-slate-700 table-fixed">
           <thead class="bg-slate-100 text-slate-500 text-xs font-bold border-b border-slate-200">
             <tr>
-              <th class="py-3 px-4 font-bold w-[20%]">Suite</th>
-              <th class="py-3 px-4 font-bold w-[45%]">Test Case</th>
+              <th class="py-3 px-4 font-bold w-[25%]">Suite</th>
+              <th class="py-3 px-4 font-bold w-[50%]">Test Case</th>
               <th class="py-3 px-4 font-bold w-[12%] text-center">Duration</th>
-              <th class="py-3 px-4 font-bold w-[11%] text-center">Status</th>
-              <th class="py-3 px-4 font-bold w-[12%] text-center">Steps</th>
+              <th class="py-3 px-4 font-bold w-[13%] text-center">Status</th>
             </tr>
           </thead>
           <tbody id="testCasesTable" class="divide-y divide-slate-200"></tbody>
@@ -439,20 +438,10 @@ const htmlContent = `<!DOCTYPE html>
       renderDashboard(selectedProductKey);
     }
 
-    function toggleSteps(stepRowId, btn) {
+    function toggleSteps(stepRowId) {
       const stepRow = document.getElementById(stepRowId);
       if (!stepRow) return;
-
-      const isHidden = stepRow.classList.contains('hidden');
-      if (isHidden) {
-        stepRow.classList.remove('hidden');
-        btn.innerText = 'Hide Steps';
-        btn.className = "w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-[#166242] text-white hover:bg-[#125036] transition-all shadow-sm text-center";
-      } else {
-        stepRow.classList.add('hidden');
-        btn.innerText = 'View Steps (' + btn.getAttribute('data-count') + ')';
-        btn.className = "w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm text-center";
-      }
+      stepRow.classList.toggle('hidden');
     }
 
     function setExecutionMode(mode) {
@@ -478,7 +467,7 @@ const htmlContent = `<!DOCTYPE html>
       const data = activeDataMap[targetKey];
 
       if (!data) {
-        document.getElementById("testCasesTable").innerHTML = \`<tr><td colspan="5" class="py-6 text-center text-slate-400 font-medium">No test cases available.</td></tr>\`;
+        document.getElementById("testCasesTable").innerHTML = \`<tr><td colspan="4" class="py-6 text-center text-slate-400 font-medium">No test cases available.</td></tr>\`;
         return;
       }
 
@@ -509,50 +498,51 @@ const htmlContent = `<!DOCTYPE html>
       });
 
       if (filteredSpecs.length === 0) {
-        tableBody.innerHTML = \`<tr><td colspan="5" class="py-6 text-center text-slate-400 font-medium">No test cases found for this status filter.</td></tr>\`;
+        tableBody.innerHTML = \`<tr><td colspan="4" class="py-6 text-center text-slate-400 font-medium">No test cases found for this status filter.</td></tr>\`;
       } else {
         filteredSpecs.forEach(spec => {
           let statusBadgeClass = "bg-amber-100 text-amber-800 border-amber-300";
           if (spec.status === "Passed") statusBadgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
           if (spec.status === "Failed") statusBadgeClass = "bg-rose-100 text-rose-800 border-rose-300";
 
-          const hasSteps = spec.steps && spec.steps.length > 0;
+          const isFailedWithSteps = spec.status === 'Failed' && spec.steps && spec.steps.length > 0;
           const stepRowId = \`steps-\${spec.id}\`;
 
-          const actionCellHtml = hasSteps 
-            ? \`<button data-count="\${spec.steps.length}" onclick="toggleSteps('\${stepRowId}', this)" class="w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm text-center">
-                View Steps (\${spec.steps.length})
-               </button>\`
-            : \`<span class="text-xs text-slate-400 font-medium">No steps</span>\`;
+          const cursorClass = isFailedWithSteps ? "cursor-pointer hover:bg-slate-100/80" : "hover:bg-slate-50";
+          const clickAttr = isFailedWithSteps ? \`onclick="toggleSteps('\${stepRowId}')"\` : "";
 
           const row = \`
-            <tr class="hover:bg-slate-50 transition-colors">
+            <tr \${clickAttr} class="transition-colors \${cursorClass}">
               <td class="py-3.5 px-4 font-mono text-xs text-slate-600 break-words whitespace-normal">\${spec.suite}</td>
-              <td class="py-3.5 px-4 font-medium text-slate-900 break-words whitespace-normal">\${spec.title}</td>
+              <td class="py-3.5 px-4 font-medium text-slate-900 break-words whitespace-normal">
+                <div class="flex items-center gap-2">
+                  <span>\${spec.title}</span>
+                  \${isFailedWithSteps ? \`<span class="text-[10px] font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded px-1.5 py-0.5">Click to view steps</span>\` : ''}
+                </div>
+              </td>
               <td class="py-3.5 px-4 text-slate-600 font-mono text-xs text-center break-words whitespace-normal">\${spec.durationStr}</td>
               <td class="py-3.5 px-4 text-center">
                 <span class="inline-block px-2.5 py-1 text-xs font-semibold border rounded-full \${statusBadgeClass}">
                   \${spec.status}
                 </span>
               </td>
-              <td class="py-3.5 px-4 text-center">\${actionCellHtml}</td>
             </tr>
           \`;
           tableBody.insertAdjacentHTML('beforeend', row);
 
-          if (hasSteps) {
+          if (isFailedWithSteps) {
             const stepsListHtml = spec.steps.map((step, idx) => \`
               <li class="flex items-center justify-between text-xs py-1.5 border-b border-slate-200 last:border-0">
-                <span class="text-slate-800 font-medium break-words whitespace-normal"><strong class="text-emerald-800 font-bold mr-1.5">Step \${idx + 1}:</strong> \${step.title}</span>
+                <span class="text-slate-800 font-medium break-words whitespace-normal"><strong class="text-rose-700 font-bold mr-1.5">Step \${idx + 1}:</strong> \${step.title}</span>
                 <span class="font-mono text-slate-500 text-[11px] ml-2 shrink-0">\${step.durationStr}</span>
               </li>
             \`).join('');
 
             const stepRowHtml = \`
               <tr id="\${stepRowId}" class="hidden bg-slate-100/70 border-b border-slate-200">
-                <td colspan="5" class="py-3 px-6">
+                <td colspan="4" class="py-3 px-6">
                   <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-inner">
-                    <p class="text-xs font-bold text-slate-700 mb-2 pb-1 border-b border-slate-100">Execution Steps</p>
+                    <p class="text-xs font-bold text-rose-700 mb-2 pb-1 border-b border-slate-100">Failed Execution Steps</p>
                     <ul class="space-y-0.5">
                       \${stepsListHtml}
                     </ul>

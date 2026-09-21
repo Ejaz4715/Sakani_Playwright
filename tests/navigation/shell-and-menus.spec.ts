@@ -1,4 +1,5 @@
 import { test, expect } from '@fixtures/pages.fixture';
+import { logStep } from '@helpers/LogSteps';
 
 /**
  * SHL / NVX — global shell chrome and mega-menu routing.
@@ -10,11 +11,12 @@ import { test, expect } from '@fixtures/pages.fixture';
  */
 test.describe('Global shell', () => {
   test('TC-01 Government DGA banner expands', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ homePage, page }) => {
+    await logStep('Step 01: Open the homepage and expand the DGA banner');
     await homePage.open();
     await homePage.expectLoaded();
-
     await page.getByRole('button', { name: /How you know\?|كيف تتحقق/i }).first().click({ force: true });
 
+    await logStep('Step 02: Validate the banner content is visible');
     await expect(
       page.getByText(/Registered on Digital Government Authority|مسجل لدى هيئة الحكومة/i).first(),
     ).toBeVisible({ timeout: 30_000 });
@@ -25,6 +27,7 @@ test.describe('Global shell', () => {
     homePage,
     page,
   }) => {
+    await logStep('Step 01: Open the home page and check for the chat toggle');
     await homePage.open();
     await homePage.expectLoaded();
     const chatToggle = page
@@ -32,12 +35,14 @@ test.describe('Global shell', () => {
       .first();
     const hasChat = await chatToggle.isVisible().catch(() => false);
     test.skip(!hasChat, 'Chat widget not rendered in this environment');
+
+    await logStep('Step 02: Open and confirm the chat does not trap the page');
     await chatToggle.click({ force: true });
-    // The widget must not swallow the page: navigation stays reachable.
     await expect(homePage.header.nav).toBeVisible();
   });
 
   test('TC-03 Every footer link points at a real destination', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ homePage, page }) => {
+    await logStep('Step 01: Open the homepage and collect footer links');
     await homePage.open();
     await homePage.expectLoaded();
     const hrefs = await page.locator('footer a').evaluateAll((links) =>
@@ -70,6 +75,7 @@ test.describe('User Portal Navigation Routing', () => {
     test(`TC-01 Properties for Sale → ${route.label.source} routes correctly`, { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
       homePage,
     }) => {
+      await logStep('Step 01: Open the homepage and inspect the buy menu links');
       await homePage.open();
       await homePage.expectLoaded();
       const hrefs = await homePage.header.megaMenuHrefs(
@@ -89,6 +95,7 @@ test.describe('User Portal Navigation Routing', () => {
     test(`TC-02 Properties for Rent → ${route.label.source} routes correctly`, { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
       homePage,
     }) => {
+      await logStep('Step 01: Open the homepage and inspect the rent menu links');
       await homePage.open();
       await homePage.expectLoaded();
       const hrefs = await homePage.header.megaMenuHrefs(
@@ -103,6 +110,7 @@ test.describe('User Portal Navigation Routing', () => {
   test('TC-03 "Publish your units" points at the external Digitar site', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     homePage,
   }) => {
+    await logStep('Step 01: Open the homepage and inspect the sale menu hrefs');
     await homePage.open();
     await homePage.expectLoaded();
     const hrefs = await homePage.header.megaMenuHrefs(homePage.header.propertiesForSale.first());
@@ -113,6 +121,7 @@ test.describe('User Portal Navigation Routing', () => {
     homePage,
     page,
   }) => {
+    await logStep('Step 01: Open the homepage and inspect footer links for REGA');
     await homePage.open();
     await homePage.expectLoaded();
     const link = page.locator('footer a', { hasText: /Real Estate Indicators|المؤشرات العقارية/i }).first();
@@ -123,6 +132,7 @@ test.describe('User Portal Navigation Routing', () => {
     homePage,
     page,
   }) => {
+    await logStep('Step 01: Open the menu and then click the page body');
     await homePage.open();
     await homePage.expectLoaded();
     await homePage.header.services.first().hover();
@@ -137,6 +147,7 @@ test.describe('User Portal Navigation Routing', () => {
     homePage,
     page,
   }) => {
+    await logStep('Step 01: Open the homepage and collect the services links');
     await homePage.open();
     await homePage.expectLoaded();
     const hrefs = await homePage.header.megaMenuHrefs(homePage.header.services.first());

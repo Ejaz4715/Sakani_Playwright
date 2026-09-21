@@ -1,12 +1,15 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { ProjectPage } from '@pages/ProjectPage';
 import { PROJECTS } from '@data/testData';
+import { logStep } from '@helpers/LogSteps';
 
 test.describe('Project details page', () => {
   test('TC-01 The media gallery control is present', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Verify the media gallery control is present');
     // The hero's action row hydrates after the price heading that `open()`
     // waits on, so this needs an app-readiness timeout rather than the default.
     // The label pluralises with the count: "1 Photo", "11 Photos", "19 Media".
@@ -17,10 +20,12 @@ test.describe('Project details page', () => {
     authenticatedPage,
   }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
 
     const favorite = project.favoriteButton.first();
+    await logStep('Step 02: Toggle the favorite control on and off');
     await expect(favorite).toBeVisible();
 
     await favorite.click({ force: true });
@@ -32,9 +37,11 @@ test.describe('Project details page', () => {
 
   test('TC-03 Share control is available', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
 
+    await logStep('Step 02: Verify the share control is visible');
     await expect(project.shareButton.first()).toBeVisible();
   });
 
@@ -42,8 +49,10 @@ test.describe('Project details page', () => {
     authenticatedPage,
   }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Check the developer link target');
     const href = await project.developerLink.getAttribute('href');
     expect(href ?? '').toMatch(/\/app\/developers\/\w+/);
   });
@@ -52,8 +61,10 @@ test.describe('Project details page', () => {
     authenticatedPage,
   }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Verify the owners association link routes externally');
     const link = project.ownersAssociationLink.first();
     const hasLink = await link.count();
     test.skip(hasLink === 0, 'Project does not expose an Owners Association block');
@@ -103,8 +114,10 @@ test.describe('Project details page', () => {
     authenticatedPage,
   }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookingsClosed);
+    await logStep('Step 01: Open the closed-project detail page');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Confirm the deferred-subsidy badge appears');
     await expect(
       authenticatedPage.getByText(/Applied Deferred Subsidy Contract/i).first(),
     ).toBeVisible({ timeout: 60_000 });
@@ -114,8 +127,10 @@ test.describe('Project details page', () => {
     authenticatedPage,
   }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Check the project content lists the target audience');
     const headings = await project.sectionHeadings();
     expect(headings.join(' | ')).toMatch(/Target audience|الفئة المستهدفة/i);
   });
@@ -124,7 +139,9 @@ test.describe('Project details page', () => {
     authenticatedPage,
   }) => {
     const project = new ProjectPage(authenticatedPage, 99999999);
+    await logStep('Step 01: Open an unknown project ID');
     await project.goto(`/app/offplan-projects/99999999?lang=en`);
+    await logStep('Step 02: Confirm the page remains non-empty instead of rendering a blank shell');
     await expect
       .poll(
         async () => {
@@ -138,8 +155,10 @@ test.describe('Project details page', () => {
 
   test('TC-10 Project is publicly viewable without a session', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page, header }) => {
     const project = new ProjectPage(page, PROJECTS.bookable);
+    await logStep('Step 01: Open the project page without an authenticated session');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Verify the project renders while the session remains unauthenticated');
     // The project renders in the DWE shell, which carries "Back to Sakani"
     // rather than the global header — so the guest state is asserted by the
     // absence of the authenticated user menu, not by a Login button.
@@ -149,16 +168,20 @@ test.describe('Project details page', () => {
 
   test('TC-11 The payment schedule exposes its details', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Confirm the payment schedule content is present');
     const headings = await project.sectionHeadings();
     expect(headings.join(' | ')).toMatch(/Payment schedule|جدول الدفع/i);
   });
 
   test('TC-12 Participating banks are listed', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ authenticatedPage }) => {
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+    await logStep('Step 01: Open the project detail page');
     await project.open();
     await project.expectLoaded();
+    await logStep('Step 02: Scroll to and validate the participating banks section');
     await project.participatingBanksSection.first().scrollIntoViewIfNeeded();
     await expect(project.participatingBanksSection.first()).toBeVisible();
   });

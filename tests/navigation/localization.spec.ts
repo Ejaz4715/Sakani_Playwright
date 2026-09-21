@@ -1,6 +1,7 @@
 import type { Page } from '@playwright/test';
 import { test, expect } from '@fixtures/pages.fixture';
 import { MarketplacePage } from '@pages/MarketplacePage';
+import { logStep } from '@helpers/LogSteps';
 
 /**
  * I18N / A11Y — localisation, RTL and accessibility.
@@ -23,8 +24,11 @@ test.describe('Marketplace Localization', () => {
    * `commit` is the repo-wide convention for exactly this reason.
    */
   test('TC-01 Arabic renders right-to-left', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+    await logStep('Step 01: Load the Arabic marketing page');
     await page.goto('/?lang=ar', { waitUntil: 'commit' });
     await page.locator('body').waitFor({ state: 'attached', timeout: 90_000 });
+
+    await logStep('Step 02: Verify Arabic language and RTL direction are applied');
 
     await expect
       .poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 90_000 })
@@ -38,8 +42,11 @@ test.describe('Marketplace Localization', () => {
   });
 
   test('TC-02 English renders left-to-right', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+    await logStep('Step 01: Load the English marketing page');
     await page.goto('/?lang=en', { waitUntil: 'commit' });
     await page.locator('body').waitFor({ state: 'attached', timeout: 90_000 });
+
+    await logStep('Step 02: Verify English language and LTR direction are applied');
 
     await expect
       .poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 90_000 })
@@ -66,8 +73,11 @@ test.describe('Marketplace Localization', () => {
     page.evaluate(() => document.documentElement?.lang ?? '').catch(() => '');
 
   test('TC-03 Selected language survives navigation', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+    await logStep('Step 01: Start on the Arabic marketing page');
     await page.goto('/?lang=ar', { waitUntil: 'commit' });
     await page.locator('body').waitFor({ state: 'attached', timeout: 90_000 });
+
+    await logStep('Step 02: Navigate to the Arabic marketplace and confirm language persists');
 
     await expect.poll(() => documentLang(page), { timeout: 90_000 }).toMatch(/ar/i);
 
@@ -78,7 +88,10 @@ test.describe('Marketplace Localization', () => {
   });
 
   test('TC-04 Arabic marketplace renders localized content', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+    await logStep('Step 01: Open the Arabic marketplace');
     await page.goto('/app/marketplace?lang=ar', { waitUntil: 'commit' });
+
+    await logStep('Step 02: Confirm Arabic copy is present in the rendered marketplace');
 
     // Deliberately not `MarketplacePage.expectLoaded()` — its readiness anchors
     // are the English toolbar labels, which by definition are absent here.
@@ -97,6 +110,7 @@ test.describe('Marketplace Localization', () => {
 
 test.describe('Marketplace Accessibility', () => {
   test('TC-01 Form fields expose accessible labels', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+    await logStep('Step 01: Open the login page for an accessibility check');
     await page.goto('/app/authentication/login?lang=en', { waitUntil: 'commit' });
     await expect(page.locator('#username')).toBeVisible({ timeout: 150_000 });
     // The identifier field must be programmatically nameable, not placeholder-only.
@@ -112,9 +126,11 @@ test.describe('Marketplace Accessibility', () => {
   });
 
   test('TC-02 Login form is operable by keyboard alone', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+    await logStep('Step 01: Open the login page and focus the username field');
     await page.goto('/app/authentication/login?lang=en', { waitUntil: 'commit' });
     await expect(page.locator('#username')).toBeVisible({ timeout: 150_000 });
     await page.locator('#username').focus();
+    await logStep('Step 02: Type and tab through the form via the keyboard');
     await page.keyboard.type('1000011485');
     expect(await page.locator('#username').inputValue()).toBe('1000011485');
     // The Continue control must be reachable from the field by keyboard.

@@ -15,7 +15,7 @@ function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 test.describe("Mega project journey", () => {
-  test("TC-01 Add new project offplan project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
+  test("TC-01 Add new project offplan project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -327,7 +327,7 @@ test.describe("Mega project journey", () => {
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
 
-  test("TC-02 Create new mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
+  test("TC-02 Create new mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -363,7 +363,7 @@ test.describe("Mega project journey", () => {
     await page.waitForTimeout(10000);
   });
 
-  test("TC-03 Verify non-saudi user can not book offplan unit from the mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
+  test("TC-03 Verify non-saudi user can not book offplan unit from the mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
 
@@ -402,7 +402,7 @@ test.describe("Mega project journey", () => {
     }
   });
 
-  test("TC-04 Admin enables the booking for non-saudi users in the mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
+  test("TC-04 Admin enables the booking for non-saudi users in the mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -423,7 +423,7 @@ test.describe("Mega project journey", () => {
     await page.waitForTimeout(10000);
   });
 
-  test("TC-05 Verify non-saudi user can book offplan unit from mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }: { page: Page }) => {
+  test("TC-05 Verify non-saudi user can book offplan unit from mega project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);

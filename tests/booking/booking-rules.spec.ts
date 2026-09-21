@@ -1,6 +1,7 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { UnitDetailPage } from '@pages/UnitDetailPage';
 import { PROJECTS, API, TEST_USER } from '@data/testData';
+import { logStep } from '@helpers/LogSteps';
 import {
   findBookableNonBeneUnit,
   getProject,
@@ -24,7 +25,9 @@ test.describe('Booking - business rules', () => {
   test("TC-01 A non-bookable project rejects does not allow to user to book a unit", {annotation: [{product: 'Marketplace', type: 'non-critical'} as any]}, async ({ page }) => {
   test.setTimeout(0);
   const app = new WebApp(page);
+      await logStep('Step 01: Open the non-bookable unit detail page');
       await page.goto("https://pre-sakani.housingapps.sa/app/units/174918");
+      await logStep('Step 02: Validate the unavailable-booking message is shown');
       await app.unitDetailsPage.validateUnavailableMessage();
 });
 
@@ -32,6 +35,7 @@ test.describe('Booking - business rules', () => {
     authenticatedPage,
   }) => {
     const page = authenticatedPage;
+    await logStep('Step 01: Read the authenticated profile and available units');
     const me = await getBeneficiary(page);
     expect(me.is_non_beneficiary, 'Fixture account should be a non-beneficiary').toBe(
       TEST_USER.isNonBeneficiary,
@@ -47,6 +51,7 @@ test.describe('Booking - business rules', () => {
       ).toBeGreaterThan(0);
     }
     const bookable = await findBookableNonBeneUnit(page, PROJECTS.bookable);
+    await logStep('Step 02: Confirm the bookable unit belongs to the non-beneficiary segment');
     expect(bookable.targetSegments).toContain('non_bene');
     expect(bookable.bookingStatus).toBe('available');
   });
@@ -54,6 +59,7 @@ test.describe('Booking - business rules', () => {
   test('TC-03 Eligibility status is reflected on the profile',{annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
     authenticatedPage,
   }) => {
+    await logStep('Step 01: Load the authenticated profile and inspect eligibility data');
     const me = await getBeneficiary(authenticatedPage);
     // Drives which products, prices and payment methods the account is offered.
     expect(me.is_non_beneficiary).toBe(true);

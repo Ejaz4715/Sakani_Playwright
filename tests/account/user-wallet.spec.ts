@@ -3,6 +3,8 @@ const { test, expect } = require("@playwright/test");
 const path = require("path");
 import { WebApp } from "@base-class/web-app";
 const fs = require('fs');
+const { logStep } = require('@helpers/LogSteps');
+
 function readTestData() {
   const filePath = path.join(process.cwd(), "src", "data", "test-data.json");
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -14,7 +16,7 @@ test("TC-01 Withdraw funds from wallet", { annotation: [{ product: 'Marketplace'
   const app = new WebApp(page);
   const userPortalUrl = testData.userPortalUrl;
 
-  //Navigate to user portal and login
+  await logStep('Step 01: Open the user portal and log in');
   await app.loginPage.gotoHomePage(userPortalUrl);
   await app.loginPage.acceptCookies();
   await app.loginPage.openLogin();
@@ -23,7 +25,7 @@ test("TC-01 Withdraw funds from wallet", { annotation: [{ product: 'Marketplace'
   await app.loginPage.continueNewUserPopup();
   await app.loginPage.handlePushNotificationPopup();
 
-  //Navigate to my wallet
+  await logStep('Step 02: Open the wallet page and capture balances');
   await app.bookingCancellationPage.clickProfileIcon();
   await page.getByText('محفظة').click();
   const balanceElement = page.locator("(//p[contains(text(), 'الرصيد المتوفر')])[1]/parent::div/descendant::app-sar-currency/child::span");
@@ -33,29 +35,28 @@ test("TC-01 Withdraw funds from wallet", { annotation: [{ product: 'Marketplace'
   const rawReservedBalance = await reservedBalanceElement.textContent();
   const reservedBalanceBeforeWithdraw = rawReservedBalance ? rawReservedBalance.trim() : '';
   
-  //Withdraw funds from wallet
+  await logStep('Step 03: Submit a withdrawal request');
   await page.getByRole('button', { name: 'استرداد' }).click();
   await page.getByRole('spinbutton').fill('1');
   await page.getByRole('button', { name: 'استرداد' }).click();
 
-  //Enter OTP and confirm withdrawal
+  await logStep('Step 04: Confirm the withdrawal with OTP');
   await page.getByRole('textbox').nth(0).fill('1');
   await page.getByRole('textbox').nth(1).fill('2');
   await page.getByRole('textbox').nth(2).fill('3');
   await page.getByRole('textbox').nth(3).fill('4');
   await page.getByRole('button', { name: 'تحقق' }).click();
 
-  //Validate that the withdrawal was successful
+  await logStep('Step 05: Close the success confirmation');
   await page.getByRole('heading', { name: 'تهانينا' }).click();
   await page.getByRole('button', { name: 'إغلاق' }).click();
 
-  //Validate that the balance has been updated after withdrawal
+  await logStep('Step 06: Validate the wallet balances changed after withdrawal');
   const updatedBalanceElement = page.locator("(//p[contains(text(), 'الرصيد المتوفر')])[1]/parent::div/descendant::app-sar-currency/child::span");
   const rawUpdatedBalanceText = await updatedBalanceElement.textContent();
   const balanceAfterWithdraw = rawUpdatedBalanceText ? rawUpdatedBalanceText.trim() : '';
   expect(balanceAfterWithdraw).not.toEqual(balanceBeforewithdraw);
 
-  //Validate that the reserved balance has been updated after withdrawal
   const updatedReservedBalanceElement = page.locator("(//p[contains(text(), 'رصيد محجوز')])[1]/parent::div/descendant::app-sar-currency/child::span");
   const rawUpdatedReservedBalance = await updatedReservedBalanceElement.textContent();
   const reservedBalanceAfterWithdraw = rawUpdatedReservedBalance ? rawUpdatedReservedBalance.trim() : '';

@@ -1,6 +1,7 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { MyBookingsPage } from '@pages/MyBookingsPage';
 import { Header } from '@components/Header';
+import { logStep } from '@helpers/LogSteps';
 
 
 test.describe('Account - my bookings', () => {
@@ -8,12 +9,18 @@ test.describe('Account - my bookings', () => {
     authenticatedPage,
   }) => {
     const myBookings = new MyBookingsPage(authenticatedPage);
+
+    await logStep('Step 01: Open the my bookings page');
     await myBookings.open();
     await myBookings.expectLoaded();
+
+    await logStep('Step 02: Capture the visible status tabs');
     const tabs = await myBookings.tabLabels();
     for (const tab of ['All', 'Active', 'Cancelled', 'Completed', 'Unpaid', 'Ready to sign']) {
       expect(tabs, `Status tab "${tab}" should be present`).toContain(tab);
     }
+
+    await logStep('Step 03: Confirm the fixture account has bookings to list');
     expect(
       await myBookings.hasAnyBooking(),
       'Fixture account should have at least one booking to list',
@@ -22,10 +29,15 @@ test.describe('Account - my bookings', () => {
 
   test('TC-02 The Active tab filters to active bookings', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
     const myBookings = new MyBookingsPage(authenticatedPage);
+
+    await logStep('Step 01: Open the my bookings page');
     await myBookings.open();
     await myBookings.expectLoaded();
+
+    await logStep('Step 02: Select the active tab');
     await myBookings.selectTab(myBookings.tabActive);
-    // Active bookings have a booking date, never a cancellation date.
+
+    await logStep('Step 03: Ensure the active view does not show cancellation dates');
     await expect(
       authenticatedPage.getByText(/Cancellation date|تاريخ الإلغاء/i),
     ).toHaveCount(0);
@@ -33,9 +45,15 @@ test.describe('Account - my bookings', () => {
 
   test('TC-03 A booking can be opened from the listing', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
     const myBookings = new MyBookingsPage(authenticatedPage);
+
+    await logStep('Step 01: Open the bookings list');
     await myBookings.open();
     await myBookings.expectLoaded();
+
+    await logStep('Step 02: Open the first booking details page');
     await myBookings.openBookingDetails(0);
+
+    await logStep('Step 03: Confirm the booking detail page loads');
     await expect(authenticatedPage).toHaveURL(/view-booking\/\d+/);
     await expect(
       authenticatedPage.getByRole('heading', { name: /^Booking\s/i }).first(),
@@ -44,7 +62,11 @@ test.describe('Account - my bookings', () => {
 
   test('TC-04 Account menu exposes every portal area', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
     const header = new Header(authenticatedPage);
+
+    await logStep('Step 01: Open the user menu');
     await header.openUserMenu();
+
+    await logStep('Step 02: Validate the menu exposes all expected areas');
     for (const item of [
       'Profile management',
       'Notifications',

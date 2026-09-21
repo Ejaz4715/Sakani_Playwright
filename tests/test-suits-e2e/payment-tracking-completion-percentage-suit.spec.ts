@@ -134,8 +134,6 @@ test.describe("Payment tracking - completion percentage", () => {
       await expect(azmToggle).toHaveAttribute("aria-checked", "true");
     }
   
-  
-  
     // Partcipating banks
     await expect(page.getByText(/قائمة الجهات التمويلية/i)).toBeVisible({
       timeout: 30000,
