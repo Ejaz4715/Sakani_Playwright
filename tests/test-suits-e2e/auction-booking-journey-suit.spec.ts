@@ -1,35 +1,35 @@
-﻿// @ts-nocheck
-const { test, expect } = require("@playwright/test");
+﻿import { test, expect } from '@playwright/test';
 const fs = require("fs");
 const path = require("path");
 const XLSX = require("xlsx");
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps'
-async function waitForVisible(locator) {
+
+async function waitForVisible(locator: any) {
   await expect(locator).toBeVisible({ timeout: 30000 });
   return locator;
 }
 
-async function clickVisible(locator) {
+async function clickVisible(locator: any) {
   await (await waitForVisible(locator)).click();
 }
 
-async function fillVisible(locator, value) {
+async function fillVisible(locator: any, value: any) {
   await (await waitForVisible(locator)).fill(value);
 }
 
-async function uploadFile(locator, filePath) {
+async function uploadFile(locator: any, filePath: any) {
   await locator.waitFor({ state: "attached", timeout: 30000 });
   await locator.setInputFiles(filePath);
 }
 
-function updateAuctionUnitsFile(data) {
+function updateAuctionUnitsFile(data: any) {
   const workbookPath = path.join(process.cwd(), "src", "data", "Auction_Units.xlsx");
   const workbook = XLSX.readFile(workbookPath);
   const worksheet = workbook.Sheets[workbook.SheetNames[0]];
   const range = XLSX.utils.decode_range(worksheet["!ref"]);
-  const headerColumns = {};
+  const headerColumns: Record<string, number> = {};
   for (let column = range.s.c; column <= range.e.c; column++) {
     const cell = worksheet[XLSX.utils.encode_cell({ r: range.s.r, c: column })];
     const header = String(cell?.v ?? "").trim();
@@ -55,11 +55,11 @@ function readTestData() {
   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
 }
 
-function writeTestData(data) {
+function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 test.describe("Auction booking journey", () => {
-  test("TC-01 Add new electronic auction project", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({ page }) => {
+  test("TC-01 Add new electronic auction project", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(180000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -69,7 +69,7 @@ test.describe("Auction booking journey", () => {
     const auctionEndDateTime = new Date(Date.now() + 9 * 60 * 1000);
     const auctionDate = new Date();
     auctionDate.setDate(auctionDate.getDate() + 1);
-    const formatDate = (date, separator, dayFirst = false) => {
+    const formatDate = (date: any, separator: any, dayFirst = false) => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const year = date.getFullYear();
@@ -78,7 +78,7 @@ test.describe("Auction booking journey", () => {
         ? `${day}${separator}${month}${separator}${year}`
         : `${month}${separator}${day}${separator}${year}`;
     };
-    const formatTime = (date) =>
+    const formatTime = (date: any) =>
       [date.getHours(), date.getMinutes()]
         .map((value) => String(value).padStart(2, "0"))
         .join(":");
@@ -232,7 +232,7 @@ test.describe("Auction booking journey", () => {
     await electronicAuctionPage.publishProject();
   });
 
-  test("TC-02 - User bids electronic auction and pays fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({ page }) => {
+  test("TC-02 - User bids electronic auction and pays fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -264,21 +264,17 @@ test.describe("Auction booking journey", () => {
     await app.auctionPage.expectAuctionPaymentPending();
   });
 
-  test("TC-01 - Add new hybrid auction project", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({ page }) => {
+  test("TC-01 - Add new hybrid auction project", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(180000);
     const testData = readTestData();
     const app = new WebApp(page);
-
-    // define auction start and end dates and times
-    // const auctionStartDateTime = new Date(Date.now() + 2 * 60 * 1000);
-    // const auctionEndDateTime = new Date(Date.now() + 3 * 60 * 1000);
 
     const auctionStartDateTime = new Date(Date.now() + 120 * 60 * 1000);
     const auctionEndDateTime = new Date(Date.now() + 240 * 60 * 1000);
 
     const auctionDate = new Date();
     // auctionDate.setDate(auctionDate.getDate() + 1);
-    const formatDate = (date, separator, dayFirst = false) => {
+    const formatDate = (date: any, separator: any, dayFirst = false) => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const year = date.getFullYear();
@@ -287,7 +283,7 @@ test.describe("Auction booking journey", () => {
         ? `${day}${separator}${month}${separator}${year}`
         : `${month}${separator}${day}${separator}${year}`;
     };
-    const formatTime = (date) =>
+    const formatTime = (date: any) =>
       [date.getHours(), date.getMinutes()]
         .map((value) => String(value).padStart(2, "0"))
         .join(":");
@@ -573,10 +569,6 @@ test.describe("Auction booking journey", () => {
     }
     await clickVisible(page.locator("a").filter({ hasText: "model_1 - شقة" }));
 
-
-
-    await page.pause();
-
     // Publish project
     const publishProjectToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
@@ -594,7 +586,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByText("تفاصيل المشروع"));
   });
 
-  test("TC-02 - User joins hybrid auction and signs contract", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({
+  test("TC-02 - User joins hybrid auction and signs contract", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({
     page,
   }) => {
     test.setTimeout(0);
@@ -620,7 +612,7 @@ test.describe("Auction booking journey", () => {
     await app.auctionPage.expectAuctionSuccess();
   });
 
-  test("TC-03 - Add new hybrid auction project with fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({ page }) => {
+  test("TC-03 - Add new hybrid auction project with fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(180000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -634,7 +626,7 @@ test.describe("Auction booking journey", () => {
 
     const auctionDate = new Date();
     // auctionDate.setDate(auctionDate.getDate() + 1);
-    const formatDate = (date, separator, dayFirst = false) => {
+    const formatDate = (date: any, separator: any, dayFirst = false) => {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const year = date.getFullYear();
@@ -643,7 +635,7 @@ test.describe("Auction booking journey", () => {
         ? `${day}${separator}${month}${separator}${year}`
         : `${month}${separator}${day}${separator}${year}`;
     };
-    const formatTime = (date) =>
+    const formatTime = (date: any) =>
       [date.getHours(), date.getMinutes()]
         .map((value) => String(value).padStart(2, "0"))
         .join(":");
@@ -956,7 +948,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByText("تفاصيل المشروع"));
   });
 
-  test("TC-04 - User joins hybrid auction and pays the fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] }, async ({
+  test("TC-04 - User joins hybrid auction and pays the fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({
     page,
   }) => {
     test.setTimeout(0);
@@ -976,12 +968,6 @@ test.describe("Auction booking journey", () => {
     await app.marketplaceLandingPage.openSearch();
     await app.marketplaceLandingPage.searchForProject(projectName);
     await app.auctionPage.openUnit();
-    // await page.getByRole('button', { name: 'المشاركة في المزاد' }).click();
-    // await page.getByRole('radio', { name: 'متصل' }).check();
-    // await page.getByRole('button', { name: 'تأكيد' }).click();
-    // await page.locator('app-choose-payment-method').filter({ hasText: 'بطاقة ائتمانالدفع باستخدام مدى، فيزا، ماستركارد' }).locator('#id').check();
-    // await page.getByRole('checkbox', { name: 'أؤكد قراءتي وفهمي وموافقتي على الشروط والأحكام' }).check();
-    // await page.getByRole('button', { name: 'تأكيد' }).click();
     await app.auctionPage.joinHybridAuction();
     await app.paymentGatewayPage.fillCardDetails();
     await app.auctionPage.validateCongratulationsMessaeg();

@@ -353,8 +353,9 @@ test.describe("Mega project journey", () => {
     await app.createMegaProjectPage.enterLatitude("10");
     await app.createMegaProjectPage.enterLongitude("10");
     await app.createMegaProjectPage.enterVideoLink("www.test.com");
-    await app.createMegaProjectPage.uploadBannerImage("C:\\Users\\user\\Desktop\\RackMultipart20251223-19-cq6g4a.jpg");
-    await app.createMegaProjectPage.uploadImageGallery("C:\\Users\\user\\Desktop\\RackMultipart20251223-19-cq6g4a.jpg");
+    const filepath = path.join(process.cwd(), "src", "data", "Sample image.jpg");
+    await app.createMegaProjectPage.uploadBannerImage(filepath);
+    await app.createMegaProjectPage.uploadImageGallery(filepath);
     await app.createMegaProjectPage.clickOnAddMegaProject();
     await app.createMegaProjectPage.searchAndSelectProject(testData.projectName);
     await app.createMegaProjectPage.selectSearchedProject(testData.projectName);

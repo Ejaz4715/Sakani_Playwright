@@ -1,5 +1,4 @@
-﻿// @ts-nocheck
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { DateUtils } from "@pages/utils/DateUtils";
 import { WebApp } from "@base-class/web-app";
@@ -12,11 +11,11 @@ function readTestData() {
   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
 }
 
-function writeTestData(data) {
+function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 test.describe("Payment tracking - specified period", () => {
-  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -336,7 +335,7 @@ test.describe("Payment tracking - specified period", () => {
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
 
-  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -352,8 +351,10 @@ test.describe("Payment tracking - specified period", () => {
     await app.developerProjectPage.addPaymentSchedule({
       type: "cash",
       scheduleName: "Cash 22",
-      completionPercentageOneValue: "100",
+      completionPercentageOneValue: "50",
       percentageOneValue: "50",
+      completionPercentageTwoValue: "100",
+      percentageTwoValue: "50"
     });
   
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -361,12 +362,14 @@ test.describe("Payment tracking - specified period", () => {
     await app.developerProjectPage.addPaymentSchedule({
       type: "lending",
       scheduleName: "Lending 22",
-      completionPercentageOneValue: "100",
+      completionPercentageOneValue: "50",
       percentageOneValue: "50",
+      completionPercentageTwoValue: "100",
+      percentageTwoValue: "50"
     });
   });
 
-  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -386,7 +389,7 @@ test.describe("Payment tracking - specified period", () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test("TC-04  Admin enables comprehensive and automation payment", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-04  Admin enables comprehensive and automation payment", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -412,7 +415,7 @@ test.describe("Payment tracking - specified period", () => {
   
   });
 
-  test("TC-02 - Developer adds flexible payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }: { page: Page }) => {
+  test("TC-02 - Developer adds flexible payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }: { page: Page }) => {
       test.setTimeout(0);
       const testData = readTestData();
       const app = new WebApp(page);
@@ -440,7 +443,7 @@ test.describe("Payment tracking - specified period", () => {
   
   });
 
-  test("TC-05 - Book , pay and select payment method", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-05 - Book , pay and select payment method", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -503,7 +506,7 @@ test.describe("Payment tracking - specified period", () => {
   
   // await page.pause();
 
-  test("TC-07  Verify same payment schedle in payment tracking and booking details", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-07  Verify same payment schedle in payment tracking and booking details", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);

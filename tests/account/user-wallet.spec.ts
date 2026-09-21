@@ -1,5 +1,4 @@
-// @ts-nocheck
-const { test, expect } = require("@playwright/test");
+import { test, expect } from '@playwright/test';
 const path = require("path");
 import { WebApp } from "@base-class/web-app";
 const fs = require('fs');
@@ -10,7 +9,7 @@ function readTestData() {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
-test("TC-01 Withdraw funds from wallet", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+test("TC-01 Withdraw funds from wallet", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
   test.setTimeout(0);
   const testData = readTestData();
   const app = new WebApp(page);
@@ -26,7 +25,7 @@ test("TC-01 Withdraw funds from wallet", { annotation: [{ product: 'Marketplace'
   await app.loginPage.handlePushNotificationPopup();
 
   await logStep('Step 02: Open the wallet page and capture balances');
-  await app.bookingCancellationPage.clickProfileIcon();
+  await app.bookingPage.clickProfileIcon();
   await page.getByText('محفظة').click();
   const balanceElement = page.locator("(//p[contains(text(), 'الرصيد المتوفر')])[1]/parent::div/descendant::app-sar-currency/child::span");
   const rawBalanceText = await balanceElement.textContent();

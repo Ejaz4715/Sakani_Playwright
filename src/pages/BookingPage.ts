@@ -2,7 +2,7 @@
 import { expect } from "@playwright/test";
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects'
 
-export class BookingCancellationPage {
+export class BookingPage {
   constructor(page) {
     this.page = page;
   }
@@ -15,7 +15,7 @@ export class BookingCancellationPage {
     await locator.check();
   }
 
-  async openMyBookings() {
+  async openActiveBookings() {
     const userProfileButton = this.page.locator(
       BookingCancellationObjects.userProfileButton,
     );
@@ -31,6 +31,24 @@ export class BookingCancellationPage {
       { name: BookingCancellationObjects.activeBookingsTab.name },
     );
     await this.click(activeBookingsTab);
+  }
+
+    async openCompletedBookings() {
+    const userProfileButton = this.page.locator(
+      BookingCancellationObjects.userProfileButton,
+    );
+    await this.click(userProfileButton);
+
+    const myBookingsLink = this.page.getByText(
+      BookingCancellationObjects.myBookingsLink.text,
+    );
+    await this.click(myBookingsLink);
+
+    const completedBookingsTab = this.page.getByRole(
+      BookingCancellationObjects.completedBookingsTab.role,
+      { name: BookingCancellationObjects.completedBookingsTab.name },
+    );
+    await this.click(completedBookingsTab);
   }
 
   async clickProfileIcon() {

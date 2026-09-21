@@ -1,5 +1,4 @@
-// @ts-nocheck
-const { test, expect } = require("@playwright/test");
+import { test, expect } from '@playwright/test';
 const fs = require("fs");
 const path = require("path");
 import { WebApp } from "@base-class/web-app";
@@ -10,12 +9,12 @@ function readTestData() {
   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
 }
 
-function writeTestData(data) {
+function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 
 test.describe("MOH land booking journey", () => {
-  test("TC-01 - Add new moh land project", { annotation: [{ product: "Gov Support", type: "critical" }] }, async ({ page }) => {
+  test("TC-01 - Add new moh land project", { annotation: [{ product: "Gov Support", type: "critical" }] as any}, async ({ page }) => {
     test.setTimeout(120000);
     const app = new WebApp(page);
     const testData = readTestData();
@@ -190,7 +189,7 @@ test.describe("MOH land booking journey", () => {
     await page.waitForTimeout(3000);
   });
 
-  test("TC-02 - Book moh land", { annotation: [{ product: "Gov Support", type: "critical" }] }, async ({ page }) => {
+  test("TC-02 - Book moh land", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -211,7 +210,7 @@ test.describe("MOH land booking journey", () => {
     await expect(page.getByText("تهانينا!")).toBeVisible();
   });
 
-  test("TC-03 - Cancel moh land booking", { annotation: [{ product: "Gov Support", type: "critical" }] }, async ({ page }) => {
+  test("TC-03 - Cancel moh land booking", { annotation: [{ product: "Gov Support", type: "critical" }] as any}, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -223,8 +222,8 @@ test.describe("MOH land booking journey", () => {
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
-    await app.bookingCancellationPage.openMyBookings();
-    await app.bookingCancellationPage.openBookingDetails();
-    await app.bookingCancellationPage.cancelMohLandBooking();
+    await app.bookingPage.openActiveBookings();
+    await app.bookingPage.openBookingDetails();
+    await app.bookingPage.cancelMohLandBooking();
   });
 });
