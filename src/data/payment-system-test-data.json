@@ -1,14 +1,19 @@
 {
-    "resaleOfUnits":{
-  "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
-  "developerUserId": "1023129537",
-  "projectName": "Automation Project 20260921141445",
-  "userPortalUrl": "https://pre-sakani.housingapps.sa",
-  "sakaniUserId": "1300061022",
-  "sakaniUserIdMoh": "1019075999",
-  "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth",
-  "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
-  "adminPassword": "admin",
-  "bookedUnitCode": "02-01-0169-16-112"
-    }
+  "environments": {
+    "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
+    "userPortalUrl": "https://pre-sakani.housingapps.sa",
+    "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth"
+  },
+  "resale-of-units": {
+    "developerUserId": "1023129537",
+    "projectName": "Automation Project 20260921141445",
+    "sellerUserId": "1300061022",
+    "buyerrUserId": "1019075999",
+    "buyerDOB": "1019075999",
+    "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+    "adminPassword": "admin"
+  },
+  "service3": {},
+  "service4": {},
+  "service5": {}
 }

@@ -6,15 +6,16 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
-import testData from "@data/payment-system-test-data.json";
+import readResaleData from "@data/payment-system-test-data.json";
 
-// const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
+const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
 function readTestData() {
-  return JSON.parse(fs.readFileSync(testData, "utf8"));
+  return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
 }
+
 function writeTestData(data: any) {
-  fs.writeFileSync(testData, JSON.stringify(data, null, 2) + "\n", "utf8");
+  fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 
 test.describe("Resale Of Units - With Known Buyer", () => {
@@ -333,13 +334,6 @@ test.describe("Resale Of Units - With Known Buyer", () => {
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
 
-
-
-
-
-
-
-
   test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
@@ -398,14 +392,14 @@ test.describe("Resale Of Units - With Known Buyer", () => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
-    const sakaniUserId = testData.sakaniUserId;
-    const userPortalUrl = testData.userPortalUrl;
     const projectName = testData.projectName;
+    const seller = readResaleData["resale-of-units"].sellerUserId;
+    const userPortalUrl = readResaleData.environments.userPortalUrl;
 
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
-    await app.loginPage.loginWithNafath(sakaniUserId);
+    await app.loginPage.loginWithNafath(seller);
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
@@ -462,7 +456,7 @@ test.describe("Resale Of Units - With Known Buyer", () => {
     expect(bookedUnitCode).toBeTruthy();
     testData.bookedUnitCode = bookedUnitCode;
     fs.writeFileSync(
-      testDataPath,
+      testData,
       JSON.stringify(testData, null, 2) + "\n",
       "utf8",
     );
@@ -484,9 +478,6 @@ test.describe("Resale Of Units - With Known Buyer", () => {
     await app.developerProjectPage.switchRoleToDeveloper();
     await app.developerProjectPage.confirmBooking(testData.bookedUnitCode);
   });
-
-
-
 
 
      test("TC_07 Admin configures project-level of resale settings", { annotation: [{ product: 'Marketplace', type: 'critical' }]as any }, async ({ page }) => {
@@ -511,4 +502,44 @@ test.describe("Resale Of Units - With Known Buyer", () => {
     await app.resaleOfUnitsPage.clickOnSaveButton();
     await app.resaleOfUnitsPage.verifyTheToastMessage();
   });
+
+
+
+   test("TC-08 - User submit new resale request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test.setTimeout(30000);
+    const testData = readTestData();
+    const app = new WebApp(page);
+    const sakaniUserId = testData.sakaniUserId;
+    const userPortalUrl = testData.userPortalUrl;
+
+    await logStep("Step 01: Open user portal");
+    await app.loginPage.gotoHomePage(userPortalUrl);
+    await app.loginPage.acceptCookies();
+
+    await logStep("Step 02: Log in with Nafath");
+    await app.loginPage.openLogin();
+    await app.loginPage.loginWithNafath(sakaniUserId);
+    await app.loginPage.waitForNafathPromptToDisappear();
+    await app.loginPage.continueNewUserPopup();
+    await app.loginPage.handlePushNotificationPopup();
+
+    await logStep("Step 03: Open active bookings");
+    await app.bookingPage.openActiveBookings();
+    const bookedUnitCode =
+      await app.bookingPage.getBookedUnitCode();
+    expect(bookedUnitCode).toBeTruthy();
+    testData.bookedUnitCode = bookedUnitCode;
+    fs.writeFileSync(
+      testData,
+      JSON.stringify(testData, null, 2) + "\n",
+      "utf8",
+    );
+
+    await logStep("Step 04: Open booking details > Sign the sales contract");
+    await app.bookingPage.openBookingDetails();
+    await app.unitDetailsPage.openSalesContract();
+    await app.unitBookingPage.signSalesContract();
+    await app.unitBookingPage.expectSalesContractSuccess();
+  });
+
 });
