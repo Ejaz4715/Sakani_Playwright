@@ -62,7 +62,7 @@ test.describe("Offplan booking fees refund", () => {
 
       await page.waitForTimeout(2000);
     }
-
+    
     await expect(projectTypeOption).toBeVisible({ timeout: 30000 });
     await projectTypeOption.click();
     await page
