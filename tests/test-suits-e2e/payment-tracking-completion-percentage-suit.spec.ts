@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+﻿
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { DateUtils } from "@pages/utils/DateUtils";
@@ -12,15 +12,15 @@ function readTestData() {
   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
 }
 
-function writeTestData(data) {
+function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 test.describe("Payment tracking - completion percentage", () => {
-  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
-  
+
     const currentDate = DateUtils.getDateISO(600);
     const projectName = `Automation Project ${new Date()
       .toISOString()
@@ -28,7 +28,7 @@ test.describe("Payment tracking - completion percentage", () => {
       .slice(0, 14)}`;
     const updatedData = { ...testData, projectName };
     writeTestData(updatedData);
-  
+
     // Project details
     await app.adminProjectPage.login(
       updatedData.adminPortalUrl,
@@ -48,19 +48,19 @@ test.describe("Payment tracking - completion percentage", () => {
       "مشاريع البيع على الخارطة على أراضي الوزارة",
       { exact: true },
     );
-  
+
     let projectTypeVisible = false;
     for (let attempt = 0; attempt < 5; attempt++) {
       await projectTypeDropdown.click();
       projectTypeVisible = await projectTypeOption.isVisible().catch(() => false);
-  
+
       if (projectTypeVisible) {
         break;
       }
-  
+
       await page.waitForTimeout(2000);
     }
-  
+
     await expect(projectTypeOption).toBeVisible({ timeout: 30000 });
     await projectTypeOption.click();
     await page
@@ -117,10 +117,10 @@ test.describe("Payment tracking - completion percentage", () => {
     await page.getByRole("textbox", { name: "DD/MM/YYYY" }).fill("01/01/2026");
     await page.getByRole("button", { name: "حفظ" }).click();
     const saveSuccessToast = page.locator("//app-toasts").getByText("تم الحفظ بنجاح!");
-    await expect(saveSuccessToast).toBeVisible({ timeout:120000 });
-  
-  
-     // Link with AZM
+    await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
+
+
+    // Link with AZM
     await page.waitForTimeout(3000);
     const azmToggle = page.locator(
       "//label[contains (text(), 'AZM')]/preceding-sibling::button",
@@ -133,7 +133,7 @@ test.describe("Payment tracking - completion percentage", () => {
     } else {
       await expect(azmToggle).toHaveAttribute("aria-checked", "true");
     }
-  
+
     // Partcipating banks
     await expect(page.getByText(/قائمة الجهات التمويلية/i)).toBeVisible({
       timeout: 30000,
@@ -144,7 +144,7 @@ test.describe("Payment tracking - completion percentage", () => {
     ).toBeVisible({ timeout: 30000 });
     await page.getByRole("checkbox", { name: "Select all rows" }).click();
     await page.getByRole("button", { name: "حفظ" }).click();
-  
+
     // Import units
     await page.getByRole("tab", { name: "الوحدات", exact: true }).click();
     await expect(
@@ -165,7 +165,7 @@ test.describe("Payment tracking - completion percentage", () => {
       .locator("//input[@type='file']")
       .setInputFiles(unitsImportFilePath);
     await page.getByRole("button", { name: " حفظ" }).click();
-  
+
     const importInProgress = page.getByText("تحت الإجراء ...", { exact: true });
     await expect(importInProgress).toBeVisible({ timeout: 120000 });
     await page.waitForTimeout(5000);
@@ -174,7 +174,7 @@ test.describe("Payment tracking - completion percentage", () => {
       exact: true,
     });
     let completedVisible = false;
-  
+
     while (!completedVisible) {
       completedVisible = await fileProcessedMessage
         .isVisible()
@@ -189,7 +189,7 @@ test.describe("Payment tracking - completion percentage", () => {
     await page.getByRole("button", { name: "موافق" }).click();
     await page.waitForTimeout(3000);
     await page.getByRole("button", { name: "رجوع" }).click();
-  
+
     // //Upload media
     await page
       .locator("span")
@@ -256,7 +256,7 @@ test.describe("Payment tracking - completion percentage", () => {
     ).toBeVisible({ timeout: 120000 });
     await page.waitForTimeout(1500);
     await page.locator("#save_btn").click();
-  
+
     // // Approve media
     await page.getByRole("tab", { name: "تفاصيل المشروع" }).click();
     await page
@@ -268,7 +268,7 @@ test.describe("Payment tracking - completion percentage", () => {
     await page.getByRole("button", { name: "إبقاء المشروع غير منشور" }).click();
     await page.getByRole("button", { name: "حفظ" }).click();
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
-  
+
     // // Publish unit model
     await page.getByText("نماذج الوحدات").click();
     await page.getByRole("cell", { name: "model_1" }).click();
@@ -283,18 +283,18 @@ test.describe("Payment tracking - completion percentage", () => {
       .click();
     await page.getByRole("button", { name: "وحدة النشر" }).click();
     await page.locator("a").filter({ hasText: "model_1 - شقة" }).click();
-  
+
     // Navigate to project details page
     await page.getByText("تفاصيل المشروع").click();
-  
+
     // Select status to be available
     await page.locator("//mat-select[@formcontrolname='status']").click();
     await page.getByRole("option", { name: "متاح" }).click();
-  
+
     //Save project details
     await page.getByRole("button", { name: "حفظ" }).click();
     // await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
-  
+
     // Check the bookable toggle
     const bookingAvailableToggle = page.locator(
       "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
@@ -314,7 +314,7 @@ test.describe("Payment tracking - completion percentage", () => {
         "true",
       );
     }
-  
+
     // Publish project
     const publishProjectToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
@@ -331,48 +331,52 @@ test.describe("Payment tracking - completion percentage", () => {
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
 
-  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
     const projectName = testData.projectName;
     const developerUserId = testData.developerUserId;
-  
+
     await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
     await app.developerProjectPage.loginDeveloper(developerUserId);
     await app.developerProjectPage.switchRoleToDeveloper();
     await app.developerProjectPage.openProjectBySearch(projectName);
-  
+
     await app.developerProjectPage.openPaymentSchedulesTab();
     await app.developerProjectPage.addPaymentSchedule({
       type: "cash",
       scheduleName: "Cash 22",
-      completionPercentageOneValue: "100",
+      completionPercentageOneValue: "50",
       percentageOneValue: "50",
+      completionPercentageTwoValue: "100",
+      percentageTwoValue: "50"
     });
-  
+
     await app.developerProjectPage.openProjectBySearch(projectName);
     await app.developerProjectPage.openPaymentSchedulesTab();
     await app.developerProjectPage.addPaymentSchedule({
       type: "lending",
       scheduleName: "Lending 22",
-      completionPercentageOneValue: "100",
+      completionPercentageOneValue: "50",
       percentageOneValue: "50",
+      completionPercentageTwoValue: "100",
+      percentageTwoValue: "50"
     });
   });
 
-  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
     const projectName = testData.projectName;
     const developerUserId = testData.developerUserId;
-  
+
     await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
     await app.developerProjectPage.loginDeveloper(developerUserId);
     await app.developerProjectPage.switchRoleToDeveloper();
     await app.developerProjectPage.openProjectBySearch(projectName);
-  
+
     await app.developerProjectPage.openSalesContractsTab();
     await app.developerProjectPage.viewAndApproveSalesContract();
     await app.developerProjectPage.approveUnitSpecification();
@@ -381,17 +385,17 @@ test.describe("Payment tracking - completion percentage", () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test("TC-04  Admin enables comprehensive and automation payment", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-04  Admin enables comprehensive and automation payment", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
-  
+
     await app.adminProjectPage.login(
       testData.adminPortalUrl,
       testData.adminUsername,
       testData.adminPassword,
     );
-  
+
     await app.adminProjectPage.openProjects();
     await page.locator("//input[@formcontrolname='name']").fill(testData.projectName);
     await page.getByRole('button', { name: 'بحث' }).click();
@@ -404,42 +408,42 @@ test.describe("Payment tracking - completion percentage", () => {
     await page.getByRole("button", { name: "حفظ" }).click();
     const saveSuccessToast = page.getByText("تم الحفظ بنجاح!");
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
-  
+
   });
 
-  test("TC-02 - Developer adds flexible payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }: { page: Page }) => {
-      test.setTimeout(0);
-      const testData = readTestData();
-      const app = new WebApp(page);
-      const projectName = testData.projectName;
-      const developerUserId = testData.developerUserId;
-  
-      await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
-      await app.developerProjectPage.loginDeveloper(developerUserId);
-      await app.developerProjectPage.switchRoleToDeveloper();
-      await app.flexiblePaymentPage.clickOnFinancialManagemnt();
-      await app.flexiblePaymentPage.clickOnPaymentSchedules();
-      await app.flexiblePaymentPage.clickOnNewSchedulesButton();
-      await app.flexiblePaymentPage.enterScheduleNameInArabic("Test");
-      await app.flexiblePaymentPage.selectScheduleType("completionPercentage");
-      await app.flexiblePaymentPage.clickOnNextButton();
-      await app.flexiblePaymentPage.fillFirstPaymentPaidPercentage(50);
-      await app.flexiblePaymentPage.fillFirstPaymentCompletionPercentage(20);
-      await app.flexiblePaymentPage.fillSecondPaymentPaidPercentage(30);
-      await app.flexiblePaymentPage.fillSecondPaymentCompletionPercentage(30);
-      await app.flexiblePaymentPage.fillThirdPaymentPaidPercentage(20);
-      await app.flexiblePaymentPage.fillThirdPaymentCompletionPercentage(100);
-      await app.flexiblePaymentPage.clickOnNextButton();
-      await app.flexiblePaymentPage.serachByprojectName(projectName);
-      await app.flexiblePaymentPage.checkOnProjectNameSearchedResult();
-      await app.flexiblePaymentPage.clickOnNextButton();
-      await app.flexiblePaymentPage.clickOnNextButton();
-      await app.flexiblePaymentPage.clickOnConfirmButton();
-      await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
-  
+  test("TC-02 - Developer adds flexible payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }: { page: Page }) => {
+    test.setTimeout(0);
+    const testData = readTestData();
+    const app = new WebApp(page);
+    const projectName = testData.projectName;
+    const developerUserId = testData.developerUserId;
+
+    await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+    await app.developerProjectPage.loginDeveloper(developerUserId);
+    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.flexiblePaymentPage.clickOnFinancialManagemnt();
+    await app.flexiblePaymentPage.clickOnPaymentSchedules();
+    await app.flexiblePaymentPage.clickOnNewSchedulesButton();
+    await app.flexiblePaymentPage.enterScheduleNameInArabic("Test");
+    await app.flexiblePaymentPage.selectScheduleType("completionPercentage");
+    await app.flexiblePaymentPage.clickOnNextButton();
+    await app.flexiblePaymentPage.fillFirstPaymentPaidPercentage(50);
+    await app.flexiblePaymentPage.fillFirstPaymentCompletionPercentage(20);
+    await app.flexiblePaymentPage.fillSecondPaymentPaidPercentage(30);
+    await app.flexiblePaymentPage.fillSecondPaymentCompletionPercentage(30);
+    await app.flexiblePaymentPage.fillThirdPaymentPaidPercentage(20);
+    await app.flexiblePaymentPage.fillThirdPaymentCompletionPercentage(100);
+    await app.flexiblePaymentPage.clickOnNextButton();
+    await app.flexiblePaymentPage.serachByprojectName(projectName);
+    await app.flexiblePaymentPage.checkOnProjectNameSearchedResult();
+    await app.flexiblePaymentPage.clickOnNextButton();
+    await app.flexiblePaymentPage.clickOnNextButton();
+    await app.flexiblePaymentPage.clickOnConfirmButton();
+    await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
+
   });
 
-  test("TC-05 - Book , pay and select payment method", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-05 - Book , pay and select payment method", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -447,7 +451,7 @@ test.describe("Payment tracking - completion percentage", () => {
     const userPortalUrl = testData.userPortalUrl;
     const projectName = testData.projectName;
     const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
-  
+
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
@@ -458,17 +462,17 @@ test.describe("Payment tracking - completion percentage", () => {
     await app.marketplaceLandingPage.openSearch();
     await app.marketplaceLandingPage.searchForProject(projectName);
     await app.projectDetailsPage.openUnitsAndScroll();
-  
+
     const page1Promise = page.waitForEvent("popup");
     await app.marketplaceLandingPage.openResidentialUnit();
     const page1 = await page1Promise;
     const page2Promise = page1.waitForEvent("popup");
-  
+
     {
       const unitApp = new WebApp(page1);
       await unitApp.projectUnitsPage.openUnitInPopup(1);
     }
-  
+
     const page2 = await page2Promise;
     const bookingApp = new WebApp(page2);
 
@@ -479,7 +483,7 @@ test.describe("Payment tracking - completion percentage", () => {
     await bookingApp.paymentGatewayPage.fillCardDetails();
     await bookingApp.paymentConfirmationPage.closePayment();
     await bookingApp.paymentConfirmationPage.expectSuccessMessage();
-  
+
     const unitCodeNew =
       await bookingApp.bookingAndSelectPaymentMethodPage.getUnitCode();
     expect(unitCodeNew).toBeTruthy();
@@ -497,27 +501,27 @@ test.describe("Payment tracking - completion percentage", () => {
     await bookingApp.unitBookingPage.expectSalesContractSuccess();
     await bookingApp.bookingAndSelectPaymentMethodPage.clickOnBookingDetailsButton();
     await bookingApp.page.waitForTimeout(10000);
-  
+
   });
-  
-  test("TC-07  Verify same payment schedle in payment tracking and booking details", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+
+  test("TC-07  Verify same payment schedle in payment tracking and booking details", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
-  
+
     await app.adminProjectPage.login(
       testData.adminPortalUrl,
       testData.adminUsername,
       testData.adminPassword,
     );
-  
+
     await app.adminProjectPage.openProjects();
     await page.locator("//input[@formcontrolname='name']").fill(testData.projectName);
     await page.getByRole('button', { name: 'بحث' }).click();
     await page.getByRole('cell', { name: testData.projectName, exact: true }).click();
     // await page.locator('div').filter({ hasText: testData.projectName }).click();
     await page.waitForTimeout(10000);
-  
+
     await app.paymentTrackingPage.clickOnPaymentTrackingTab();
     await app.paymentTrackingPage.fillUnitCode(testData.unitCodeNew);
     await app.paymentTrackingPage.clickOnSearchButton();

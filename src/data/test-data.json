@@ -1,7 +1,7 @@
 {
   "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
   "developerUserId": "1023129537",
-  "projectName": "Automation Auction 20260921083604",
+  "projectName": "Automation Project 20260921141445",
   "userPortalUrl": "https://pre-sakani.housingapps.sa",
   "sakaniUserId": "1300061022",
   "sakaniUserIdMoh": "1019075999",
@@ -15,6 +15,6 @@
   "auctionEndTime": "11:45",
   "invoice_number": "2609010000000403",
   "viban_number": "SA0001000000000843",
-  "megaProjectName": "Mega Project 20260920145005",
+  "megaProjectName": "Mega Project 20260921141119",
   "unitCodeNew": "01-01-0627-6-102"
 }

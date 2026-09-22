@@ -58,7 +58,9 @@ export class ElectronicAuctionProjectPage {
   }
 
   async selectCity() {
-    const option = this.page.getByRole(ElectronicAuctionProjectObjects.cityOption.role, { name: ElectronicAuctionProjectObjects.cityOption.name, exact: ElectronicAuctionProjectObjects.cityOption.exact });
+    const option = this.page.getByRole(ElectronicAuctionProjectObjects.cityOption.role, {
+       name: ElectronicAuctionProjectObjects.cityOption.name, 
+       exact: ElectronicAuctionProjectObjects.cityOption.exact });
     await expect(option).toBeVisible({ timeout: 30000 });
     await option.click();
   }
@@ -229,12 +231,14 @@ export class ElectronicAuctionProjectPage {
   }
 
   async expectImportInProgress() {
-    const message = this.page.getByText(ElectronicAuctionProjectObjects.importInProgressMessage.name, { exact: true });
+    const message = this.page.getByText(ElectronicAuctionProjectObjects.importInProgressMessage.name, { 
+      exact: true });
     await expect(message).toBeVisible({ timeout: 120000 });
   }
 
   async waitForUnitImportToComplete() {
-    const message = this.page.getByText(ElectronicAuctionProjectObjects.importCompletedMessage.text, { exact: true });
+    const message = this.page.getByText(ElectronicAuctionProjectObjects.importCompletedMessage.text, { 
+      exact: true });
     while (!(await message.isVisible().catch(() => false))) {
       await this.page.reload();
       await this.page.waitForTimeout(3000);

@@ -6,7 +6,7 @@ import { ProjectUnitsPage } from '@pages/ProjectUnitsPage';
 import { UnitDetailsPage } from '@pages/UnitDetailsPage';
 import { UnitBookingPage } from '@pages/UnitBookingPage';
 import { PaymentGatewayPage } from '@pages/PaymentGatewayPage';
-import { BookingCancellationPage } from '@pages/BookingCancellationPage';
+import { BookingPage } from '@pages/BookingPage';
 import { AdminProjectPage } from '@pages/AdminProjectPage';
 import { DeveloperProjectPage } from '@pages/DeveloperProjectPage';
 import { PaymentConfirmationPage } from '@pages/PaymentConfirmationPage';
@@ -29,7 +29,7 @@ export class WebApp {
   unitBookingPage: InstanceType<typeof UnitBookingPage>;
   paymentGatewayPage: InstanceType<typeof PaymentGatewayPage>;
   paymentConfirmationPage: InstanceType<typeof PaymentConfirmationPage>;
-  bookingCancellationPage: InstanceType<typeof BookingCancellationPage>;
+  bookingPage: InstanceType<typeof BookingPage>;
   developerProjectPage: InstanceType<typeof DeveloperProjectPage>;
   auctionPage: InstanceType<typeof AuctionPage>;
   electronicAuctionProjectPage: InstanceType<typeof ElectronicAuctionProjectPage>;
@@ -51,7 +51,7 @@ export class WebApp {
     this.unitBookingPage = new UnitBookingPage(page);
     this.paymentGatewayPage = new PaymentGatewayPage(page);
     this.paymentConfirmationPage = new PaymentConfirmationPage(page);
-    this.bookingCancellationPage = new BookingCancellationPage(page);
+    this.bookingPage = new BookingPage(page);
     this.developerProjectPage = new DeveloperProjectPage(page);
     this.auctionPage = new AuctionPage(page);
     this.electronicAuctionProjectPage = new ElectronicAuctionProjectPage(page);

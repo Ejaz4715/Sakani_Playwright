@@ -1,8 +1,7 @@
-﻿// @ts-nocheck
-const { test, expect } = require("@playwright/test");
+﻿import { test, expect } from "@playwright/test";
 const fs = require("fs");
 const path = require("path");
-const { DateUtils } = require(path.join(process.cwd(), "src", "Pages", "utils", "DateUtils"));
+import { DateUtils } from '@pages/utils/DateUtils'
 import { WebApp } from "@base-class/web-app";
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
@@ -10,11 +9,11 @@ function readTestData() {
   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
 }
 
-function writeTestData(data) {
+function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 test.describe("Offplan MOH land booking journey", () => {
-  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -334,7 +333,7 @@ test.describe("Offplan MOH land booking journey", () => {
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
 
-  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -350,8 +349,10 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.developerProjectPage.addPaymentSchedule({
       type: "cash",
       scheduleName: "Cash 22",
-      completionPercentageOneValue: "100",
+      completionPercentageOneValue: "50",
       percentageOneValue: "50",
+      completionPercentageTwoValue: "100",
+      percentageTwoValue: "50"
     });
 
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -359,12 +360,14 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.developerProjectPage.addPaymentSchedule({
       type: "lending",
       scheduleName: "Lending 22",
-      completionPercentageOneValue: "100",
+      completionPercentageOneValue: "50",
       percentageOneValue: "50",
+      completionPercentageTwoValue: "100",
+      percentageTwoValue: "50"
     });
   });
 
-  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -384,7 +387,7 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test("TC-04 - Book offplan unit", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-04 - Book offplan unit", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -426,5 +429,85 @@ test.describe("Offplan MOH land booking journey", () => {
       await bookingApp.paymentConfirmationPage.expectSuccessMessage();
     }
   });
+
+  test("TC-05 - User signs sales contract", async ({ page }) => {
+    test.setTimeout(30000);
+    const testData = readTestData();
+    const app = new WebApp(page);
+    const sakaniUserId = testData.sakaniUserId;
+    const userPortalUrl = testData.userPortalUrl;
+
+    await test.step("Open user portal", async () => {
+      await app.loginPage.gotoHomePage(userPortalUrl);
+      await app.loginPage.acceptCookies();
+    });
+
+    await test.step("Log in with Nafath", async () => {
+      await app.loginPage.openLogin();
+      await app.loginPage.loginWithNafath(sakaniUserId);
+      await app.loginPage.waitForNafathPromptToDisappear();
+      await app.loginPage.continueNewUserPopup();
+      await app.loginPage.handlePushNotificationPopup();
+    });
+
+    await test.step("Open active bookings", async () => {
+      await app.bookingPage.openActiveBookings();
+    });
+
+    await test.step("Capture booked unit code", async () => {
+      const bookedUnitCode =
+        await app.bookingPage.getBookedUnitCode();
+
+      expect(bookedUnitCode).toBeTruthy();
+      testData.bookedUnitCode = bookedUnitCode;
+      fs.writeFileSync(
+        testDataPath,
+        JSON.stringify(testData, null, 2) + "\n",
+        "utf8",
+      );
+    });
+
+    await test.step("Open booking details", async () => {
+      await app.bookingPage.openBookingDetails();
+    });
+    await app.unitDetailsPage.openSalesContract();
+    await app.unitBookingPage.signSalesContract();
+    await app.unitBookingPage.expectSalesContractSuccess();
+  });
+
+  test("TC-02 - Developer confirms the booking and adds annex", async ({ page }) => {
+    test.setTimeout(0);
+    const testData = readTestData();
+    const app = new WebApp(page);
+    const projectName = testData.projectName;
+    const developerUserId = testData.developerUserId;
+
+    await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+    await app.developerProjectPage.loginDeveloper(developerUserId);
+    await app.developerProjectPage.switchRoleToDeveloper();
+
+    await app.developerProjectPage.confirmBooking(testData.bookedUnitCode);
+
+    await app.developerProjectPage.openProjectBySearch(projectName);
+    await app.developerProjectPage.openSalesContractsTab();
+
+    const unitsImportFilePath = path.join(
+      process.cwd(), "src",
+      "data",
+      "Sample pdf.pdf",
+    );
+    await app.developerProjectPage.openAddAnnexDialog();
+    await app.developerProjectPage.searchUnitByCode(testData.bookedUnitCode);
+    await app.developerProjectPage.selectFirstUnit();
+    await app.developerProjectPage.openSelectedUnitsAnnexDialog();
+    await app.developerProjectPage.uploadAnnexFile(unitsImportFilePath);
+    await app.developerProjectPage.uploadAnnex();
+    await app.developerProjectPage.approveAnnex();
+    await app.developerProjectPage.fillOtp();
+    await app.developerProjectPage.verifyOtp();
+    await app.developerProjectPage.expectAnnexSuccess();
+  });
+
+
 });
 

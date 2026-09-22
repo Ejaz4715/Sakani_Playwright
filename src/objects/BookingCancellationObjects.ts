@@ -2,6 +2,7 @@ export const BookingCancellationObjects = {
   userProfileButton: "//button[@id='profile-dropdown']",
   myBookingsLink: { text: "حجوزاتي" },
   activeBookingsTab: { role: "tab", name: "نشطة" },
+  completedBookingsTab: { role: "tab", name: "مكتملة" },
   bookingDetailsButton: { role: "button", name: "عرض التفاصيل" },
   cancelBookingText: { text: "إلغاء الحجز" },
   continueButton: { role: "button", name: "المتابعة" },

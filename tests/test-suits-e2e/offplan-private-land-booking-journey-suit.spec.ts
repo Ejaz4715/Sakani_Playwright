@@ -1,19 +1,19 @@
-﻿// @ts-nocheck
-const { test, expect } = require("@playwright/test");
+﻿import { test, expect } from "@playwright/test";
 const fs = require("fs");
 const path = require("path");
-const { DateUtils } = require(path.join(process.cwd(), "src", "Pages", "utils", "DateUtils"));
+import { DateUtils } from "@pages/utils/DateUtils";
+import { WebApp } from "@base-class/web-app"; 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
 function readTestData() {
   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
 }
 
-function writeTestData(data) {
+function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 test.describe("Offplan private land booking journey", () => {
-  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
   
@@ -327,7 +327,7 @@ test.describe("Offplan private land booking journey", () => {
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
 
-  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -343,8 +343,10 @@ test.describe("Offplan private land booking journey", () => {
     await app.developerProjectPage.addPaymentSchedule({
       type: "cash",
       scheduleName: "Cash 22",
-      completionPercentageOneValue: "100",
+      completionPercentageOneValue: "50",
       percentageOneValue: "50",
+      completionPercentageTwoValue: "100",
+      percentageTwoValue: "50"
     });
   
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -354,10 +356,12 @@ test.describe("Offplan private land booking journey", () => {
       scheduleName: "Lending 22",
       completionPercentageOneValue: "100",
       percentageOneValue: "50",
+      percentageTwoValue: "50",
+      completionPercentageTwoValue: "100",
     });
   });
 
-  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -377,7 +381,7 @@ test.describe("Offplan private land booking journey", () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test("TC-04 - Book offplan unit", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-04 - Book offplan unit", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -421,7 +425,7 @@ test.describe("Offplan private land booking journey", () => {
     }
   });
 
-  test("TC-05 - User cancels a booking", { annotation: [{ product: 'Marketplace', type: 'critical' }] }, async ({ page }) => {
+  test("TC-05 - User cancels a booking", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -436,10 +440,10 @@ test.describe("Offplan private land booking journey", () => {
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
   
-    await app.bookingCancellationPage.openMyBookings();
-    await app.bookingCancellationPage.openBookingDetails();
-    await app.bookingCancellationPage.cancelBooking();
-    await app.bookingCancellationPage.expectCancellationSuccess();
+    await app.bookingPage.openActiveBookings();
+    await app.bookingPage.openBookingDetails();
+    await app.bookingPage.cancelBooking();
+    await app.bookingPage.expectCancellationSuccess();
   });
 });
 
