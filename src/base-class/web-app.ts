@@ -16,6 +16,8 @@ import { CreateMegaProjectPage } from '@pages/CreateMegaProjectPage';
 import { FlexiblePaymentPage } from '@pages/FlexiblePaymentPage';
 import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymentMethodPage';
 import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
+import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
+import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
 
 export class WebApp {
   page: Page;
@@ -36,6 +38,8 @@ export class WebApp {
   flexiblePaymentPage: InstanceType<typeof FlexiblePaymentPage>;
   bookingAndSelectPaymentMethodPage: InstanceType<typeof BookingAndSelectPaymentMethodPage>;
   paymentTrackingPage: InstanceType<typeof PaymentTrackingPage>;
+  rentalBehavrioPage: InstanceType<typeof RentalBehaviorPage>;
+  resaleOfUnitsPage: InstanceType<typeof ResaleOfUnitsPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -56,5 +60,7 @@ export class WebApp {
     this.flexiblePaymentPage = new FlexiblePaymentPage (page);
     this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
     this.paymentTrackingPage = new PaymentTrackingPage (page);
+    this.rentalBehavrioPage = new RentalBehaviorPage (page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
   }
 }
