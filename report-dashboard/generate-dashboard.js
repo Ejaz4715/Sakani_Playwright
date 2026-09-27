@@ -32,69 +32,18 @@ function formatDuration(ms) {
 
 /**
  * Cleans suite names specifically for the "Suites Scope" card
+ * by replacing hyphens, stripping out the word "suit" or "suite", and capitalizing.
  */
 function formatSuiteScopeName(str) {
   if (!str) return '';
   return str
     .replace(/-/g, ' ')
-    .replace(/\bsuit(e)?\b/gi, '')
+    .replace(/\bsuit(e)?\b/gi, '') // Removes 'suit' or 'suite' case-insensitively
     .toLowerCase()
     .split(' ')
     .filter(word => word.length > 0)
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
-}
-
-/**
- * Extracts attached screenshot path/data from test execution attachments or steps
- */
-function extractScreenshot(lastResult) {
-  if (!lastResult) return null;
-
-  // Check top-level result attachments
-  if (lastResult.attachments && Array.isArray(lastResult.attachments)) {
-    const screenshot = lastResult.attachments.find(att => 
-      att.contentType?.startsWith('image/') || 
-      att.name?.toLowerCase().includes('screenshot') ||
-      att.path?.endsWith('.png') || att.path?.endsWith('.jpg') || att.path?.endsWith('.jpeg')
-    );
-    if (screenshot) {
-      if (screenshot.body) return `data:${screenshot.contentType || 'image/png'};base64,${screenshot.body}`;
-      if (screenshot.path) return getRelativeOrBase64Path(screenshot.path);
-    }
-  }
-
-  // Check step-level attachments if top-level wasn't found
-  if (lastResult.steps && Array.isArray(lastResult.steps)) {
-    for (const step of lastResult.steps) {
-      if (step.attachments && Array.isArray(step.attachments)) {
-        const screenshot = step.attachments.find(att => 
-          att.contentType?.startsWith('image/') || 
-          att.name?.toLowerCase().includes('screenshot') ||
-          att.path?.endsWith('.png') || att.path?.endsWith('.jpg') || att.path?.endsWith('.jpeg')
-        );
-        if (screenshot) {
-          if (screenshot.body) return `data:${screenshot.contentType || 'image/png'};base64,${screenshot.body}`;
-          if (screenshot.path) return getRelativeOrBase64Path(screenshot.path);
-        }
-      }
-    }
-  }
-
-  return null;
-}
-
-function getRelativeOrBase64Path(filePath) {
-  try {
-    if (fs.existsSync(filePath)) {
-      const fileBuffer = fs.readFileSync(filePath);
-      const ext = path.extname(filePath).replace('.', '') || 'png';
-      return `data:image/${ext};base64,${fileBuffer.toString('base64')}`;
-    }
-  } catch (e) {
-    // Fallback to raw string path if file read fails
-  }
-  return filePath;
 }
 
 /**
@@ -114,6 +63,7 @@ function extractAllTests(suites, parentAnnotations = [], inheritedDescribe = '')
     if (suite.specs) {
       for (const spec of suite.specs) {
         const specAnnotations = [...currentAnnotations, ...(spec.annotations || [])];
+        
         let finalSuiteTitle = spec.suiteTitle || currentDescribe || suite.title || 'General Suite';
 
         if (spec.tests && spec.tests.length > 0) {
@@ -199,7 +149,6 @@ allTests.forEach((item, index) => {
   let testDurationMs = 0;
   let steps = [];
   let errorMessage = '';
-  let screenshotUrl = null;
   const lastResult = item.testObj.results?.[item.testObj.results.length - 1];
 
   if (lastResult) {
@@ -212,7 +161,6 @@ allTests.forEach((item, index) => {
       errorMessage = lastResult.error?.message || 
                      (lastResult.errors && lastResult.errors.map(e => e.message).join('\n')) || 
                      'Test execution failed.';
-      screenshotUrl = extractScreenshot(lastResult);
     }
 
     if (lastResult.steps && Array.isArray(lastResult.steps)) {
@@ -226,7 +174,7 @@ allTests.forEach((item, index) => {
 
   rawProcessedSpecs.push({
     id: `tc-${index + 1}`,
-    suite: item.suiteTitle,
+    suite: item.suiteTitle, // Unchanged direct value from results.json for table display
     rawSuiteTitle: item.suiteTitle,
     title: item.specTitle,
     product: productKey,
@@ -236,8 +184,7 @@ allTests.forEach((item, index) => {
     status: status,
     isCritical: isCritical,
     steps: steps,
-    errorMessage: errorMessage,
-    screenshotUrl: screenshotUrl
+    errorMessage: errorMessage
   });
 });
 
@@ -272,6 +219,7 @@ function buildProductData(specsList) {
 
   Object.keys(productData).forEach(key => {
     productData[key].formattedDuration = formatDuration(productData[key].durationMs);
+    // Applies formatSuiteScopeName ONLY for the Suites Scope summary card
     productData[key].suitesList = Array.from(productData[key].suitesSet)
       .map(suiteName => formatSuiteScopeName(suiteName))
       .filter(Boolean)
@@ -601,7 +549,7 @@ const htmlContent = `<!DOCTYPE html>
           if (spec.status === "Failed") statusBadgeClass = "bg-rose-100 text-rose-800 border-rose-300";
 
           const hasSteps = spec.steps && spec.steps.length > 0;
-          const hasDetails = hasSteps || (spec.status === 'Failed' && (spec.errorMessage || spec.screenshotUrl));
+          const hasDetails = hasSteps || (spec.status === 'Failed' && spec.errorMessage);
           const stepRowId = \`steps-\${spec.id}\`;
 
           const actionCellHtml = hasDetails 
@@ -634,21 +582,7 @@ const htmlContent = `<!DOCTYPE html>
               </li>
             \`).join('');
 
-            const screenshotHtml = spec.screenshotUrl ? \`
-              <div class="mt-3">
-                <p class="text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
-                  <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  Failure Screenshot
-                </p>
-                <a href="\${spec.screenshotUrl}" target="_blank" title="Click to view full image">
-                  <img src="\${spec.screenshotUrl}" alt="Failure Screenshot" class="max-w-md w-full h-auto rounded border border-rose-300 shadow-sm hover:opacity-95 transition-opacity cursor-pointer object-contain" />
-                </a>
-              </div>
-            \` : '';
-
-            const failureReasonHtml = spec.status === 'Failed' && (spec.errorMessage || spec.screenshotUrl) ? \`
+            const failureReasonHtml = spec.status === 'Failed' && spec.errorMessage ? \`
               <div class="mb-3 p-3 bg-rose-50 border border-rose-200 rounded-md">
                 <p class="text-xs font-bold text-rose-800 mb-1 flex items-center gap-1">
                   <svg class="w-4 h-4 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -656,8 +590,7 @@ const htmlContent = `<!DOCTYPE html>
                   </svg>
                   Failure Reason
                 </p>
-                \${spec.errorMessage ? \`<pre class="text-xs text-rose-900 font-mono whitespace-pre-wrap break-words bg-rose-100/50 p-2 rounded max-h-60 overflow-y-auto">\${spec.errorMessage}</pre>\` : ''}
-                \${screenshotHtml}
+                <pre class="text-xs text-rose-900 font-mono whitespace-pre-wrap break-words bg-rose-100/50 p-2 rounded max-h-60 overflow-y-auto">\${spec.errorMessage}</pre>
               </div>
             \` : '';
 
