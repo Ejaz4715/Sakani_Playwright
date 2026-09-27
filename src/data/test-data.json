@@ -16,5 +16,11 @@
   "invoice_number": "2609010000000403",
   "viban_number": "SA0001000000000843",
   "megaProjectName": "Mega Project 20260921141119",
-  "unitCodeNew": "01-01-0627-6-102"
+  "unitCodeNew": "01-01-0627-6-102",
+  "services": {
+    "loyalty-sharrai": {
+      "companyName": "Automation Test Company 20260922134716",
+      "dealName": "Automation Test Deal 20260922134716"
+    }
+  }
 }

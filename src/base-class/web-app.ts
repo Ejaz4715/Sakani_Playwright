@@ -1,4 +1,4 @@
-import {type Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
 import { LoginPage } from '@pages/LoginPage';
 import { MarketplaceLandingPage } from '@pages/MarketplaceLandingPage';
 import { ProjectDetailsPage } from '@pages/ProjectDetailsPage';
@@ -18,6 +18,7 @@ import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymen
 import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
 import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
+import { AdminLoyaltyPage } from '@pages/AdminLoyaltyPage'
 
 export class WebApp {
   page: Page;
@@ -40,6 +41,7 @@ export class WebApp {
   paymentTrackingPage: InstanceType<typeof PaymentTrackingPage>;
   rentalBehavrioPage: InstanceType<typeof RentalBehaviorPage>;
   resaleOfUnitsPage: InstanceType<typeof ResaleOfUnitsPage>;
+  adminLoyaltyPage: InstanceType<typeof AdminLoyaltyPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -56,11 +58,12 @@ export class WebApp {
     this.auctionPage = new AuctionPage(page);
     this.electronicAuctionProjectPage = new ElectronicAuctionProjectPage(page);
     this.adminProjectPage = new AdminProjectPage(page);
-    this.createMegaProjectPage = new CreateMegaProjectPage (page);
-    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
-    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
-    this.paymentTrackingPage = new PaymentTrackingPage (page);
-    this.rentalBehavrioPage = new RentalBehaviorPage (page);
-    this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
+    this.createMegaProjectPage = new CreateMegaProjectPage(page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage(page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage(page);
+    this.paymentTrackingPage = new PaymentTrackingPage(page);
+    this.rentalBehavrioPage = new RentalBehaviorPage(page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
+    this.adminLoyaltyPage = new AdminLoyaltyPage(page);
   }
 }
