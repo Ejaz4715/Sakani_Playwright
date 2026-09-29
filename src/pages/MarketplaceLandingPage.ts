@@ -1,10 +1,13 @@
 // @ts-nocheck
+import {ProfileManagementObjects} from "@objects/ProfileManagementObjects";
+
 const path = require("path");
 import {Page} from '@playwright/test';
 import { MarketplaceLandingObjects } from '@objects/MarketplaceLandingObjects'
 
 export class MarketplaceLandingPage {
   page: Page;
+  DEFAULT_TIMEOUT=30_000
   constructor(page: Page) {
     this.page = page;
   }
@@ -42,4 +45,23 @@ export class MarketplaceLandingPage {
     await unit.waitFor({ state: "visible", timeout: 30000 });
     await unit.click();
   }
+
+  async expandProfileDropDownMenu(){
+    await this.page.waitForTimeout(1000)
+     await this.page.locator(MarketplaceLandingObjects.profileDropDown).waitFor({state: "visible",timeout:this.DEFAULT_TIMEOUT});
+     await this.page.locator(MarketplaceLandingObjects.profileDropDown).click();
+     await this.page.waitForTimeout(1000);
+  }
+
+  async openProfileManagement() {
+    await this.expandProfileDropDownMenu();
+    await this.page.locator(MarketplaceLandingObjects.profileManagement).waitFor({state: "visible",timeout:this.DEFAULT_TIMEOUT});
+    await this.page.locator(MarketplaceLandingObjects.profileManagement).click();
+    await this.page.waitForTimeout(1000);
+  }
+
+
+
+
+
 }

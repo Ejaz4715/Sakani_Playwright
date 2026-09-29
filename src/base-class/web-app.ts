@@ -18,6 +18,7 @@ import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymen
 import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
 import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
+import {OffPlanBasketMultipleBookingPage} from "@pages/OffPlanBasketMultipleBooking";
 
 export class WebApp {
   page: Page;
@@ -40,6 +41,7 @@ export class WebApp {
   paymentTrackingPage: InstanceType<typeof PaymentTrackingPage>;
   rentalBehavrioPage: InstanceType<typeof RentalBehaviorPage>;
   resaleOfUnitsPage: InstanceType<typeof ResaleOfUnitsPage>;
+  offPlanBasketMultipleBookingPage: InstanceType<typeof OffPlanBasketMultipleBookingPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -62,5 +64,6 @@ export class WebApp {
     this.paymentTrackingPage = new PaymentTrackingPage (page);
     this.rentalBehavrioPage = new RentalBehaviorPage (page);
     this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
+    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage (page);
   }
 }

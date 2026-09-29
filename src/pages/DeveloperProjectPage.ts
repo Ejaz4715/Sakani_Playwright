@@ -370,6 +370,7 @@ export class DeveloperProjectPage {
     });
     await this.waitForVisible(searchInput);
     await searchInput.fill(unitCode);
+    await this.page.waitForTimeout(30000);
     await this.page.getByText("إظهار التفاصيل").click();
     await this.page.getByRole("tab", { name: "حجوزات" }).click();
     await this.page
@@ -380,4 +381,14 @@ export class DeveloperProjectPage {
     await this.page.getByRole("button", { name: "نعم" }).click();
     await this.page.getByText("تهانينا!").click();
   }
+
+  async isSuccessfulConfirmationMessageVisible(){
+    return  await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
+  }
+
+  async closeConfirmationModal(){
+    await this.page.locator(DeveloperObjects.closeConfirmationModal).click();
+  }
+
+
 }
