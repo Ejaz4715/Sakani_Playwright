@@ -1,6 +1,7 @@
 export const BookingCancellationObjects = {
   userProfileButton: "//button[@id='profile-dropdown']",
-  myBookingsLink: { text: "حجوزاتي" },
+  myBookingsLink: "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'حجوزاتي')]",
+  manageProfile: "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'إدارة الملف الشخصي')]",
   activeBookingsTab: { role: "tab", name: "نشطة" },
   completedBookingsTab: { role: "tab", name: "مكتملة" },
   bookingDetailsButton: { role: "button", name: "عرض التفاصيل" },

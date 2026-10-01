@@ -19,6 +19,7 @@ import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
 import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
 import { AdminLoyaltyPage } from '@pages/AdminLoyaltyPage'
+import { PaymentsAndTransactionsPage } from '@pages/PaymentsAndTransactionsPage';
 
 export class WebApp {
   page: Page;
@@ -42,6 +43,7 @@ export class WebApp {
   rentalBehavrioPage: InstanceType<typeof RentalBehaviorPage>;
   resaleOfUnitsPage: InstanceType<typeof ResaleOfUnitsPage>;
   adminLoyaltyPage: InstanceType<typeof AdminLoyaltyPage>;
+  paymentsAndTransactionsPage: InstanceType<typeof PaymentsAndTransactionsPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -65,5 +67,6 @@ export class WebApp {
     this.rentalBehavrioPage = new RentalBehaviorPage(page);
     this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
     this.adminLoyaltyPage = new AdminLoyaltyPage(page);
+    this.paymentsAndTransactionsPage = new PaymentsAndTransactionsPage(page);
   }
 }

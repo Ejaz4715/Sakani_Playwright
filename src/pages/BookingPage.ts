@@ -33,7 +33,7 @@ export class BookingPage {
     await this.click(activeBookingsTab);
   }
 
-    async openCompletedBookings() {
+  async openCompletedBookings() {
     const userProfileButton = this.page.locator(
       BookingCancellationObjects.userProfileButton,
     );
@@ -56,6 +56,13 @@ export class BookingPage {
       BookingCancellationObjects.userProfileButton,
     );
     await this.click(userProfileButton);
+  }
+  
+  async clickManageProfile() {
+    const manageProfile = this.page.locator(
+      BookingCancellationObjects.manageProfile,
+    );
+    await this.click(manageProfile);
   }
 
   async openBookingDetails() {
