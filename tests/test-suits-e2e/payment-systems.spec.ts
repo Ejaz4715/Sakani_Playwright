@@ -6,6 +6,7 @@ import { DateUtils } from "@pages/utils/DateUtils";
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps'
+import testData from '@data/payment-system-test-data.json'
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
@@ -62,7 +63,7 @@ test.describe("Offplan booking fees refund", () => {
 
       await page.waitForTimeout(2000);
     }
-    
+
     await expect(projectTypeOption).toBeVisible({ timeout: 30000 });
     await projectTypeOption.click();
     await page
@@ -970,8 +971,39 @@ test.describe("Offplan unit booking and fees payment", () => {
 });
 
 test.describe("Payments and transactions", () => {
-  test("TC-01 User preview and download the invoice and receipt", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async () => {
+  test("TC-01 User preview and download the invoice and receipt", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    const app = new WebApp(page);
+    const sakaniUserId = testData['payments-and-transactions'].sakaniUserId;
+    const userPortalUrl = testData.environments.userPortalUrl;
 
+    await logStep('Step 01: Login to the user portal');
+    await app.loginPage.gotoHomePage(userPortalUrl);
+    await app.loginPage.acceptCookies();
+    await app.loginPage.openLogin();
+    await app.loginPage.loginWithNafath(sakaniUserId);
+    await app.loginPage.waitForNafathPromptToDisappear();
+    await app.loginPage.continueNewUserPopup();
+    await app.loginPage.handlePushNotificationPopup();
+    await app.bookingPage.clickProfileIcon();
+    await app.bookingPage.clickManageProfile();
+
+    await logStep('Step 02: Open payments history');
+    await app.paymentsAndTransactionsPage.clickPaymentHistoryLink();
+    
+    await logStep('Step 03: Clear the downloads folder');
+    const downloadDirectory = path.join(process.cwd(), "src", "downloads");
+    await app.paymentsAndTransactionsPage.clearDownloadsFolder(downloadDirectory);
+
+    await logStep('Step 04: Open the invoice preview and capture its PDF > Save pdf in download directory');
+    const pdfResponsePromise = app.paymentsAndTransactionsPage.waitForPdfResponse();
+    await app.paymentsAndTransactionsPage.clickInvoicePreviewButton();
+    const pdfResponse = await pdfResponsePromise;
+    const fileName = 'payment-invoice.pdf';
+    const downloadPath = path.join(downloadDirectory, fileName);
+
+    await logStep('Step 05: Save the invoice and verify it exists');
+    await app.paymentsAndTransactionsPage.savePdfResponse(pdfResponse, downloadPath);
+    await app.paymentsAndTransactionsPage.verifySavedFile(downloadPath, downloadDirectory);
   })
 });
 
@@ -994,8 +1026,6 @@ test.describe("Loyalty sharrai", () => {
 test.describe("Issue an ad license and publish", () => {
 
 });
-
-
 
 test.describe("Electronic auction with fees", () => {
 

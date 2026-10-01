@@ -18,6 +18,8 @@
     "adminPassword": "admin",
     "sakaniUserId": "1019075926"
   },
-  "service4": {},
+  "payments-and-transactions": {
+    "sakaniUserId": "1019075926"
+  },
   "service5": {}
 }
