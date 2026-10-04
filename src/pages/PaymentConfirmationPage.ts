@@ -8,10 +8,12 @@ export class PaymentConfirmationPage {
   }
 
   async click(locator) {
+    await expect (locator).toBeVisible(90000);
     await locator.click();
   }
 
   async check(locator) {
+    await expect (locator).toBeVisible(90000);
     await locator.check();
   }
 

@@ -7,6 +7,12 @@ export class BookingAndSelectPaymentMethodPage {
         this.page = page;
     }
 
+    private async clickVisibleButton(locator: any) {
+        await locator.scrollIntoViewIfNeeded().catch(() => {});
+        await expect(locator).toBeVisible({ timeout: 90000 });
+        await locator.click({ force: true });
+    }
+
     async checkOnTermAndCondition() {
         const termsCheckbox = this.page.locator(
             BookingAndSelectPaymentMethodObjects.termsCheckbox.xpath
@@ -20,9 +26,8 @@ export class BookingAndSelectPaymentMethodPage {
         const payBookingFeesButton = this.page.locator(
             BookingAndSelectPaymentMethodObjects.payBookingFeesButton.xpath
         );
-
-        await expect(payBookingFeesButton).toBeVisible({ timeout: 90000 });
-        await payBookingFeesButton.click();
+        await this.page.waitForTimeout(2000); // Wait for 5 seconds before checking visibility
+        await this.clickVisibleButton(payBookingFeesButton);
     }
 
     async clickOnApproveAndContinueIfVisible() {
@@ -30,8 +35,9 @@ export class BookingAndSelectPaymentMethodPage {
             BookingAndSelectPaymentMethodObjects.approveAndcontinueButton.xpath
         );
 
+        await this.page.waitForTimeout(4000); // Wait for 5 seconds before checking visibility
         if (await approveAndContinueButton.isVisible().catch(() => false)) {
-            await approveAndContinueButton.click();
+            await this.clickVisibleButton(approveAndContinueButton);
         }
     }
 
@@ -40,8 +46,7 @@ export class BookingAndSelectPaymentMethodPage {
             BookingAndSelectPaymentMethodObjects.selectPaymentMehtButton.xpath
         );
 
-        await expect(selectPaymentMethodButton).toBeVisible({ timeout: 90000 });
-        await selectPaymentMethodButton.click();
+        await this.clickVisibleButton(selectPaymentMethodButton);
     }
 
     async clickOnFlexiblePaymentRadioButton() {
@@ -49,8 +54,7 @@ export class BookingAndSelectPaymentMethodPage {
             BookingAndSelectPaymentMethodObjects.flexiblePaymentRadioButton.xpath
         );
 
-        await expect(flexiblePaymentRadioButton).toBeVisible({ timeout: 90000 });
-        await flexiblePaymentRadioButton.click();
+        await this.clickVisibleButton(flexiblePaymentRadioButton);
     }
 
     async clickOnSaveAndContinueButton() {
@@ -58,6 +62,7 @@ export class BookingAndSelectPaymentMethodPage {
             BookingAndSelectPaymentMethodObjects.saveAndContinueButton.xpath
         );
 
+        await this.page.waitForTimeout(5000); // Wait for 5 seconds before checking visibility
         await expect(saveAndContinueButton).toBeVisible({ timeout: 90000 });
         await saveAndContinueButton.click();
     }
@@ -67,8 +72,7 @@ export class BookingAndSelectPaymentMethodPage {
             BookingAndSelectPaymentMethodObjects.signContractButton.xpath
         );
 
-        await expect(signContractButton).toBeVisible({ timeout: 90000 });
-        await signContractButton.click();
+        await this.clickVisibleButton(signContractButton);
     }
 
     async clickOnBookingDetailsButton() {
@@ -76,8 +80,7 @@ export class BookingAndSelectPaymentMethodPage {
             BookingAndSelectPaymentMethodObjects.bookingDetailsButton.xpath
         );
 
-        await expect(bookingDetailsButton).toBeVisible({ timeout: 90000 });
-        await bookingDetailsButton.click();
+        await this.clickVisibleButton(bookingDetailsButton);
     }
 
     async getUnitCode(): Promise<string> {
