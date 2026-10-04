@@ -14,6 +14,11 @@ export const BookingCancellationObjects = {
     role: "heading",
     name: "تم إلغاء الحجز بنجاح!",
   },
+
+  refudedStatus: {
+    xpath: "//app-booking-refund-fee-badge/descendant::div[contains(text(),'المبلغ المسترد')]"
+  },
   bookedUnitCode:
     "//div[text() = 'رمز الوحدة']/following-sibling::div/child::div",
+
 } as const;

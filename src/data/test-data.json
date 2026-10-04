@@ -1,14 +1,14 @@
 {
   "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
   "developerUserId": "1023129537",
-  "projectName": "Automation Project 20260921141445",
+  "projectName": "Automation Project 20261004105043",
   "userPortalUrl": "https://pre-sakani.housingapps.sa",
-  "sakaniUserId": "1300061022",
+  "sakaniUserId": "1107270611",
   "sakaniUserIdMoh": "1019075999",
   "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth",
   "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
   "adminPassword": "admin",
-  "bookedUnitCode": "02-01-0169-16-112",
+  "bookedUnitCode": "01-01-0674-7-103",
   "auctionStartDate": "22-09-2026",
   "auctionEndDate": "22-09-2026",
   "auctionStartTime": "11:41",
@@ -22,5 +22,48 @@
       "companyName": "Automation Test Company 20260928145426",
       "dealName": "Automation Test Deal 20260928145426"
     }
+  },
+  "environments": {
+    "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
+    "userPortalUrl": "https://pre-sakani.housingapps.sa",
+    "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth"
+  },
+  "waiting-list": {
+    "developerUserId": "1023129537",
+    "projectName": "الهفوف - الفايزية - إسكان الجوهرة",
+    "sakaniUserId": "1040192153"
+  },
+  "discount-on-reserved-unit": {
+    "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+    "adminPassword": "admin",
+    "developerUserId": "1023129537",
+    "projectName": "Automation Project Discount 20260930104008",
+    "sakaniUserId": "1107270611",
+    "unitPriceBeforeDiscount": "100000",
+    "unitPriceAfterDiscount": "70000",
+    "bookedUnitCode": "01-01-0693-5-101"
+  },
+  "reissue-price-quotation": {
+    "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+    "adminPassword": "admin",
+    "developerUserId": "1023129537",
+    "projectName": "Automation Project 20260930114509",
+    "sakaniUserId": "1119800005",
+    "bookedUnitCode": "01-01-0694-26-122"
+  },
+  "cash-payment": {
+    "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+    "adminPassword": "admin",
+    "developerUserId": "1023129537",
+    "projectName": "Automation Project 20261004105043",
+    "sakaniUserId": "1441376098",
+    "bookedUnitCode": "01-01-0703-18-114"
+  },
+  "publish-unit": {
+    "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+    "adminPassword": "admin",
+    "developerUserId": "1023129537",
+    "lastAdLicenseCounter": "8986749517",
+    "AdLicenseNumber": "8986749517"
   }
 }

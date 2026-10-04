@@ -1,4 +1,19 @@
 export const PaymentTrackingObjects = {
+    projectSettings: {
+        text: "إعدادات المشاريع"
+    },
+    useGeneralSettingSwitch: {
+        role: "switch", name: "Use General setting for"
+    },
+    paymentCollectionAutomationSwitch: {
+        role: "switch", name: "تفعيل أتمتة تحصيل المدفوعات"
+    },
+    saveButton: {
+        role: "button", name: "حفظ"
+    },
+    saveSuccessToast: {
+        text: "تم الحفظ بنجاح!"
+    },
     paymntTrackingTab: {
         xpath: "//span[contains(text(),'تتبع الدفع')]"
     },
@@ -41,4 +56,6 @@ export const PaymentTrackingObjects = {
     bookingDetailsTab: {
         xpath: "//a[contains(text(),'تفاصيل الحجوزات')]"
     },
+
+    
 } as const
