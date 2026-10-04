@@ -23,7 +23,7 @@ test.describe("MOH land booking journey", () => {
       .toISOString()
       .replace(/[-:T.]/g, "")
       .slice(0, 14);
-    const projectName = `Automation Auction ${timestamp}`;
+    const projectName = `Automation MOH Land ${timestamp}`;
     const updatedData = { ...testData, projectName };
     writeTestData(updatedData);
 

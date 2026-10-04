@@ -8,10 +8,12 @@ export class BookingPage {
   }
 
   async click(locator) {
+    await expect(locator).toBeVisible({ timeout: 90000 })
     await locator.click();
   }
 
   async check(locator) {
+    await expect(locator).toBeVisible({ timeout: 90000 })
     await locator.check();
   }
 
@@ -33,21 +35,24 @@ export class BookingPage {
     await this.click(activeBookingsTab);
   }
 
-    async openCompletedBookings() {
+  async openCompletedBookings() {
     const userProfileButton = this.page.locator(
       BookingCancellationObjects.userProfileButton,
     );
+     await expect(userProfileButton).toBeVisible({ timeout: 90000 });
     await this.click(userProfileButton);
 
     const myBookingsLink = this.page.getByText(
       BookingCancellationObjects.myBookingsLink.text,
     );
+     await expect(myBookingsLink).toBeVisible({ timeout: 90000 });
     await this.click(myBookingsLink);
 
     const completedBookingsTab = this.page.getByRole(
       BookingCancellationObjects.completedBookingsTab.role,
       { name: BookingCancellationObjects.completedBookingsTab.name },
     );
+    await expect(completedBookingsTab).toBeVisible({ timeout: 150000 });
     await this.click(completedBookingsTab);
   }
 
@@ -65,6 +70,13 @@ export class BookingPage {
       })
       .first();
     await this.click(bookingDetailsButton);
+  }
+
+  async verifyTheRefundedStatus(){
+    const refundedStatus = this.page.locator(
+      BookingCancellationObjects.refudedStatus.xpath
+    );
+     await expect(refundedStatus).toBeVisible({ timeout: 5000 });
   }
 
   async getBookedUnitCode() {

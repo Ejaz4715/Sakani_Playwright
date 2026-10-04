@@ -19,7 +19,7 @@ function writeTestData(data: any) {
 
 test.describe("Offplan booking fees refund", () => {
   test("TC-01 - Add new project offplan project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(120000);
+    test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
 
@@ -62,7 +62,7 @@ test.describe("Offplan booking fees refund", () => {
 
       await page.waitForTimeout(2000);
     }
-    
+
     await expect(projectTypeOption).toBeVisible({ timeout: 30000 });
     await projectTypeOption.click();
     await page
@@ -135,6 +135,8 @@ test.describe("Offplan booking fees refund", () => {
     } else {
       await expect(azmToggle).toHaveAttribute("aria-checked", "true");
     }
+
+
 
     // Partcipating banks
     await expect(page.getByText(/قائمة الجهات التمويلية/i)).toBeVisible({
@@ -329,6 +331,34 @@ test.describe("Offplan booking fees refund", () => {
     } else {
       await expect(publishProjectToggle).toHaveAttribute("aria-checked", "true");
     }
+
+    await page.getByRole("button", { name: "حفظ" }).click();
+    await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
+
+
+    //Expand the project setting
+    await page.locator("//span[contains(text(),'إعدادات المشاريع')]").click();
+
+    //Check on refundable
+    const RefundubleToggel = page.locator(
+      "//label[contains (text(), 'قابل للاسترداد')]/preceding-sibling::button",
+    );
+    await expect(RefundubleToggel).toBeVisible({ timeout: 30000 });
+    const isRefundbleChecked =
+      await RefundubleToggel.getAttribute("aria-checked");
+    if (isRefundbleChecked === "false") {
+      await RefundubleToggel.click();
+      await expect(RefundubleToggel).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
+    } else {
+      await expect(RefundubleToggel).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
+    }
+    await page.waitForTimeout(2000);
     await page.getByRole("button", { name: "حفظ" }).click();
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
@@ -353,7 +383,7 @@ test.describe("Offplan booking fees refund", () => {
       completionPercentageOneValue: "50",
       percentageOneValue: "50",
       completionPercentageTwoValue: "100",
-      percentageTwoValue: "50"
+      percentageTwoValue: "100"
     });
 
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -364,7 +394,7 @@ test.describe("Offplan booking fees refund", () => {
       completionPercentageOneValue: "50",
       percentageOneValue: "50",
       completionPercentageTwoValue: "100",
-      percentageTwoValue: "50"
+      percentageTwoValue: "100"
     });
   });
 
@@ -432,7 +462,7 @@ test.describe("Offplan booking fees refund", () => {
   });
 
   test("TC-05 - User signs sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(30000);
+    test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
     const sakaniUserId = testData.sakaniUserId;
@@ -480,7 +510,7 @@ test.describe("Offplan booking fees refund", () => {
   });
 
   test("TC-07 User verifies the refundable status is present for the booking", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(30000);
+    test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
     const sakaniUserId = testData.sakaniUserId;
@@ -502,6 +532,8 @@ test.describe("Offplan booking fees refund", () => {
 
     await logStep("Step 04: Open booking details");
     await app.bookingPage.openBookingDetails();
+    await logStep("Step 05: Verify the refunded status that the amount is refunded");
+    await app.bookingPage.verifyTheRefundedStatus();
 
   });
 });

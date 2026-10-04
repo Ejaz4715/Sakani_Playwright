@@ -8,12 +8,30 @@
     "developerUserId": "1023129537",
     "projectName": "Automation Project 20260921141445",
     "sellerUserId": "1300061022",
-    "buyerrUserId": "1019075999",
-    "buyerDOB": "1019075999",
+    "buyerrUserId": "1300067088",
+    "buyerDOB": "08041414",
+    "requestNumber": "2026-09-24-0002",
     "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
     "adminPassword": "admin"
   },
-  "service3": {},
-  "service4": {},
-  "service5": {}
+  "buy-design": {
+    "only-design": {
+      "userId": "1300065299",
+      "designName": "TestCrew test"
+    },
+    "with-fitting": {
+      "projectName": "Automation Project 20260921141445",
+      "userId": "1330042116",
+      "designName": "TestCrew test",
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin"
+    },
+    "with-fitting-and-building-permit": {
+      "projectName": "Automation Project 20260921141445",
+      "userId": "1300065433",
+      "designName": "TestCrew test",
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin"
+    }
+  }
 }

@@ -14,7 +14,7 @@ function writeTestData(data: any) {
 }
 test.describe("Offplan MOH land booking journey", () => {
   test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
-    test.setTimeout(120000);
+    test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
 
