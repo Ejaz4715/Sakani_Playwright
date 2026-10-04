@@ -26,6 +26,7 @@ cd <repository-folder-name>
 Install all required Node modules, including Playwright, TypeScript, and environment managers:
 ```bash
 npm install
+npm install -D open-cli
 ```
 
 ### 3. Install Playwright Browsers
