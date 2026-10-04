@@ -973,7 +973,7 @@ test.describe("Offplan unit booking and fees payment", () => {
 test.describe("Payments and transactions", () => {
   test("TC-01 User preview and download the invoice and receipt", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
-    const sakaniUserId = testData['payments-and-transactions'].sakaniUserId;
+    const sakaniUserId = testData.services['payments-and-transactions'].sakaniUserId;
     const userPortalUrl = testData.environments.userPortalUrl;
 
     await logStep('Step 01: Login to the user portal');

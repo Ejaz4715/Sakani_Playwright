@@ -11,6 +11,7 @@
     "test:debug": "playwright test --debug",
     "report": "playwright show-report",
     "codegen": "playwright codegen",
+    "clean-reports": "echo 'Cleaning history folder...' && node -e \"fs.rmSync('report-dashboard/test-reports-history', { recursive: true, force: true }); fs.mkdirSync('report-dashboard/test-reports-history', { recursive: true });\"",
     "merge-results": "node report-dashboard/merge-results.js",
     "generate-report": "node report-dashboard/generate-dashboard.js",
     "open-report": "open-cli report-dashboard/dashboard.html",

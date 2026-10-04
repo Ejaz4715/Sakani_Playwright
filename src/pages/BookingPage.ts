@@ -118,7 +118,7 @@ export class BookingPage {
       BookingCancellationObjects.cancellationSuccessHeading.role,
       { name: BookingCancellationObjects.cancellationSuccessHeading.name },
     );
-    await expect(successHeading).toBeVisible();
+    await expect(successHeading, "Cancellation success message is not visible").toBeVisible();
   }
 
   async cancelMohLandBooking(otp = ["1", "2", "3", "4"]) {

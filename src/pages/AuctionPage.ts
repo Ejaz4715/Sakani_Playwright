@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { expect } from '@playwright/test';
-import { AdminObjects } from '@objects/AdminObjects'
+import { expect } from "@playwright/test";
+import { AdminObjects } from "@objects/AdminProjectsObjects";
 
 export class AuctionPage {
   constructor(page) {
@@ -25,18 +25,24 @@ export class AuctionPage {
   }
 
   async joinHybridAuction() {
-  await this.page.getByRole('button', { name: 'المشاركة في المزاد' }).click();
-  await this.page.getByRole('radio', { name: 'متصل' }).check();
-  await this.page.getByRole('button', { name: 'تأكيد' }).click();
-  await this.page.locator('app-choose-payment-method').filter({ hasText: 'بطاقة ائتمانالدفع باستخدام مدى، فيزا، ماستركارد' }).locator('#id').check();
-  await this.page.getByRole('checkbox', { name: 'أؤكد قراءتي وفهمي وموافقتي على الشروط والأحكام' }).check();
-  await this.page.getByRole('button', { name: 'تأكيد' }).click();
+    await this.page.getByRole("button", { name: "المشاركة في المزاد" }).click();
+    await this.page.getByRole("radio", { name: "متصل" }).check();
+    await this.page.getByRole("button", { name: "تأكيد" }).click();
+    await this.page
+      .locator("app-choose-payment-method")
+      .filter({ hasText: "بطاقة ائتمانالدفع باستخدام مدى، فيزا، ماستركارد" })
+      .locator("#id")
+      .check();
+    await this.page
+      .getByRole("checkbox", {
+        name: "أؤكد قراءتي وفهمي وموافقتي على الشروط والأحكام",
+      })
+      .check();
+    await this.page.getByRole("button", { name: "تأكيد" }).click();
   }
 
   async joinHybridAuction() {
-    await this.page
-      .getByRole("button", { name: "تسجيل الدخول للمزاد" })
-      .click();
+    await this.page.getByRole("button", { name: "تسجيل الدخول للمزاد" }).click();
     await this.page.getByRole("radio", { name: "متصل" }).check();
     await this.page.getByRole("button", { name: "تأكيد" }).click();
     await this.acceptTerms();
@@ -59,15 +65,15 @@ export class AuctionPage {
   }
 
   async validateCongratulationsMessaeg() {
-    const congratulationsText = this.page.getByText('تهانينا!', { exact: true });
+    const congratulationsText = this.page.getByText("تهانينا!", {
+      exact: true,
+    });
     await expect(congratulationsText).toBeVisible();
   }
 
   async expectAuctionPaymentPending() {
-  await expect(
-    this.page.getByText(/تم دفع رسوم المزاد.*/)
-  ).toBeVisible();
-}
+    await expect(this.page.getByText(/تم دفع رسوم المزاد.*/)).toBeVisible();
+  }
 
   // async expectAuctionPaymentPending() {
   //   await expect(
