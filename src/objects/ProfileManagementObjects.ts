@@ -17,4 +17,12 @@ export const ProfileManagementObjects = {
     verifyButton: "//button[contains(text(),' تحقق ')]",
     successfulContractSignMessage: "//div[contains(text(),'تمت الموافقة على عقد البيع بنجاح. تفضل بزيارة تفاصيل حجوزاتي للوحدات.')]",
     allProjectsRadioButton: "app-toggle div > input",
+    companies: "//span[contains(text(),'الشركات')]/../..",
+    companyReservations: "//span[contains(text(),'حجوزات الشركة')]/..",
+    companyUnitDetailsButton:"(//button[contains(text(),' عرض التفاصيل ')]/..)[1]",
+    companyPayBillsButton:"//h6[contains(text(),'دفع رسوم الحجز')]",
+    companyActiveBookings: "//a[contains(text(),'نشيط')]",
+    companyUnitCards:"app-booking-card-v5",
+    companyUnitCode:".card-shadow div:nth-child(3) .field-value",
+
 } as const;

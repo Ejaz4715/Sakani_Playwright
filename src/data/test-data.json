@@ -1,10 +1,12 @@
 {
   "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
   "developerUserId": "1023129537",
-  "projectName": "Automation Project 20260929122035",
+  "projectName": "Automation Project 20261005074757",
   "userPortalUrl": "https://pre-sakani.housingapps.sa",
   "sakaniUserId": "1300070834",
   "sakaniUserIdMoh": "1019075999",
+  "companyUser": "1001234342",
+  "companyCR": "7001234342",
   "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth",
   "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
   "adminPassword": "admin",
@@ -18,5 +20,6 @@
   "megaProjectName": "Mega Project 20260921141119",
   "unitCodeNew": "01-01-0627-6-102",
   "unit1Code": "01-01-0687-6-102",
-  "unit2Code": "01-01-0687-5-101"
+  "unit2Code": "01-01-0687-5-101",
+  "companyUnitCode": "01-01-0706-5-101"
 }
