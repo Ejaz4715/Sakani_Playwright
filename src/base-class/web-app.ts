@@ -25,6 +25,8 @@ import { WaitingListPage } from '@pages/WaitinListPage';
 import { DiscountOnReservedUnitsPage } from '@pages/DiscountOnReservedUnitsPage';
 import { CashPaymentPage } from '@pages/CashPaymentPage';
 import { PublishUnitPage } from '@pages/PublishUnitPage';
+import { UnitComparisonPage } from '@pages/UnitComparisonPage';
+import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 
 export class WebApp {
   page: Page;
@@ -54,7 +56,8 @@ export class WebApp {
   discountOnReservedUnitsPage: InstanceType<typeof DiscountOnReservedUnitsPage>;
   cashPaymentPage: InstanceType<typeof CashPaymentPage>;
   publishUnitPage: InstanceType<typeof PublishUnitPage>;
-
+  unitComparisonPage: InstanceType<typeof UnitComparisonPage>;
+  reportTheUnitPage: InstanceType<typeof ReportTheUnitPage>;
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(page);
@@ -78,16 +81,18 @@ export class WebApp {
     this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
     this.adminLoyaltyPage = new AdminLoyaltyPage(page);
     this.paymentsAndTransactionsPage = new PaymentsAndTransactionsPage(page);
-    this.createMegaProjectPage = new CreateMegaProjectPage (page);
-    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
-    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
-    this.paymentTrackingPage = new PaymentTrackingPage (page);
-    this.rentalBehavrioPage = new RentalBehaviorPage (page);
-    this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
-    this.buyDesignPage = new BuyDesignPage (page);
-    this.waitingListPage = new WaitingListPage (page);
-    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage (page);
-    this.cashPaymentPage = new CashPaymentPage (page);
-    this.publishUnitPage = new PublishUnitPage (page);
+    this.createMegaProjectPage = new CreateMegaProjectPage(page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage(page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage(page);
+    this.paymentTrackingPage = new PaymentTrackingPage(page);
+    this.rentalBehavrioPage = new RentalBehaviorPage(page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
+    this.buyDesignPage = new BuyDesignPage(page);
+    this.waitingListPage = new WaitingListPage(page);
+    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage(page);
+    this.cashPaymentPage = new CashPaymentPage(page);
+    this.publishUnitPage = new PublishUnitPage(page);
+    this.unitComparisonPage = new UnitComparisonPage(page);
+    this.reportTheUnitPage = new ReportTheUnitPage(page);
   }
 }
