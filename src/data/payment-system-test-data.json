@@ -14,6 +14,20 @@
     "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
     "adminPassword": "admin"
   },
+  "offPlan-basket-multiple-booking": {
+    "projectName": "Automation Project 20260929122035",
+    "sakaniUserId": "1300070834",
+    "unit1Code": "01-01-0687-6-102",
+    "unit2Code": "01-01-0687-5-101"
+  },
+  "selling-to-companies": {
+    "projectName": "Automation Project 20260929122035",
+    "sakaniUserId": "1300070834",
+    "companyUser": "1001234342",
+    "unit1Code": "01-01-0687-6-102",
+    "unit2Code": "01-01-0687-5-101"
+  },
+  "projectName": "Automation Project 20261001103049"
   "buy-design": {
     "only-design": {
       "userId": "1300065299",
