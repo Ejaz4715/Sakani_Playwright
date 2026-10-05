@@ -370,6 +370,7 @@ export class DeveloperProjectPage {
     });
     await this.waitForVisible(searchInput);
     await searchInput.fill(unitCode);
+    await this.page.waitForTimeout(30000);
     await this.page.getByText("إظهار التفاصيل").click();
     await this.page.getByRole("tab", { name: "حجوزات" }).click();
     await this.page
@@ -380,4 +381,41 @@ export class DeveloperProjectPage {
     await this.page.getByRole("button", { name: "نعم" }).click();
     await this.page.getByText("تهانينا!").click();
   }
+
+  async confirmCompanyBooking(unitCode) {
+    await this.page.locator("a").filter({ hasText: "إدارة الحجوزات" }).click();
+    await this.page.getByRole("link", { name: "حجوزات الشركة" }).click();
+    const searchInput = this.page.getByRole("textbox", {
+      name: "ابحث برمز الوحدة أو رقم الهوية",
+    });
+    await this.waitForVisible(searchInput);
+    await searchInput.fill(unitCode);
+    await this.page.waitForTimeout(10000);
+    await this.page.getByText("إظهار التفاصيل").click();
+    await this.page.getByRole("tab", { name: "حجوزات" }).click();
+    await this.page
+      .getByRole("button", { name: "تأكيد الحجز" })
+      .first()
+      .click();
+    await this.page.getByRole("button", { name: "تأكيد الحجز" }).last().click();
+    await this.page.getByRole("button", { name: "نعم" }).click();
+    await this.page.getByText("تهانينا!").click();
+  }
+
+
+
+  async isSuccessfulConfirmationMessageVisible(){
+    return  await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
+  }
+
+  async closeConfirmationModal(){
+    await this.page.locator(DeveloperObjects.closeConfirmationModal).click();
+  }
+
+  async clickOnCompanies(){
+    await this.page.locator(DeveloperObjects.companiesButton).waitFor({state: "visible"});
+    await this.page.locator(DeveloperObjects.companiesButton).click();
+
+  }
+
 }

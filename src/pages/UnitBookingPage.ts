@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { UnitBookingObjects } from '@objects/UnitBookingObjects';
-import {Page} from '@playwright/test';
+import {expect, Page} from '@playwright/test';
 
 export class UnitBookingPage {
   page: Page;
@@ -57,12 +57,14 @@ export class UnitBookingPage {
   }
 
   async signSalesContract(otp = ["1", "2", "3", "4"]) {
+    await this.page.waitForTimeout(9000);
     await this.page.getByRole("button", { name: "اعتماد" }).click();
     const otpInputs = this.page.getByRole("textbox");
     for (let index = 0; index < otp.length; index++) {
       await otpInputs.nth(index).fill(otp[index]);
     }
     await this.page.getByRole("button", { name: "تحقق", exact: true }).click();
+    await this.page.waitForTimeout(7000);
     await this.page.getByRole("button", { name: "إغلاق" }).click();
   }
 

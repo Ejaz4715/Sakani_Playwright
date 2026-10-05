@@ -5,6 +5,7 @@ const XLSX = require("xlsx");
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps'
+import auctionTestData from '@data/test-data.json'
 
 async function waitForVisible(locator: any) {
   await expect(locator).toBeVisible({ timeout: 30000 });
@@ -58,11 +59,13 @@ function readTestData() {
 function writeTestData(data: any) {
   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
 }
+
 test.describe("Auction booking journey", () => {
   test("TC-01 Add new electronic auction project", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(180000);
-    const testData = readTestData();
     const app = new WebApp(page);
+    const data = auctionTestData.services['auction-journey'];
+    const environment = auctionTestData.environments;
 
     await logStep("Step 01: Define auction start/end date and time");
     const auctionStartDateTime = new Date(Date.now() + 5 * 60 * 1000);
@@ -95,27 +98,26 @@ test.describe("Auction booking journey", () => {
       .replace(/[-:T.]/g, "")
       .slice(0, 14);
     const projectName = `Automation Auction ${timestamp}`;
-    const updatedData = { ...testData, projectName };
-    writeTestData(updatedData);
-    updatedData.auctionStartDate = auctionStartDateForData;
-    updatedData.auctionEndDate = auctionEndDateForData;
-    updatedData.auctionStartTime = auctionStartTime;
-    updatedData.auctionEndTime = auctionEndTime;
-    writeTestData(updatedData);
+    DataHelper.updateServiceData("auction", "projectName", projectName);
+    DataHelper.updateServiceData("auction", "auctionStartDate", auctionStartDateForData);
+    DataHelper.updateServiceData("auction", "auctionEndDate", auctionEndDateForData);
+    DataHelper.updateServiceData("auction", "auctionStartTime", auctionStartTime);
+    DataHelper.updateServiceData("auction", "auctionEndTime", auctionEndTime);
 
     await logStep("Step 02: Write the auction start and end dates and times to the Auction_Units.xlsx file");
     updateAuctionUnitsFile({
-      startDate: updatedData.auctionStartDate,
-      endDate: updatedData.auctionEndDate,
-      startTime: updatedData.auctionStartTime,
-      endTime: updatedData.auctionEndTime,
+      startDate: auctionStartDate,
+      endDate: auctionEndDate,
+      startTime: auctionStartTime,
+      endTime: auctionEndTime,
     });
+
     const electronicAuctionPage = app.electronicAuctionProjectPage;
     await logStep("Step 03: Login to admin portal");
     await app.adminProjectPage.login(
-      updatedData.adminPortalUrl,
-      updatedData.adminUsername,
-      updatedData.adminPassword,
+      environment.adminPortalUrl,
+      data.adminUsername,
+      data.adminPassword,
     );
 
     await logStep("Step 04: Navigate to the auction project creation page");
@@ -234,11 +236,14 @@ test.describe("Auction booking journey", () => {
 
   test("TC-02 - User bids electronic auction and pays fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
+    const data = auctionTestData.services['auction-journey'];
+    const environment = auctionTestData.environments;
+
     const app = new WebApp(page);
-    const sakaniUserId = testData.sakaniUserId;
-    const userPortalUrl = testData.userPortalUrl;
-    const projectName = testData.projectName;
+    const sakaniUserId = data.sakaniUserId;
+    const userPortalUrl = environment.userPortalUrl;
+    const projectName = data.projectName;
+
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
@@ -266,8 +271,10 @@ test.describe("Auction booking journey", () => {
 
   test("TC-01 - Add new hybrid auction project", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({ page }) => {
     test.setTimeout(180000);
-    const testData = readTestData();
     const app = new WebApp(page);
+
+    const data = auctionTestData.services['auction-journey'];
+    const environment = auctionTestData.environments;
 
     const auctionStartDateTime = new Date(Date.now() + 120 * 60 * 1000);
     const auctionEndDateTime = new Date(Date.now() + 240 * 60 * 1000);
@@ -300,6 +307,7 @@ test.describe("Auction booking journey", () => {
       .replace(/[-:T.]/g, "")
       .slice(0, 14);
     const projectName = `Automation Auction ${timestamp}`;
+    const testData = readTestData();
     const updatedData = { ...testData, projectName };
     writeTestData(updatedData);
     updatedData.auctionStartDate = auctionStartDateForData;
@@ -586,15 +594,15 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByText("تفاصيل المشروع"));
   });
 
-  test("TC-02 - User joins hybrid auction and signs contract", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({
-    page,
-  }) => {
+  test("TC-02 - User joins hybrid auction and signs contract", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any}, async ({page, }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const sakaniUserId = testData.sakaniUserId;
-    const userPortalUrl = testData.userPortalUrl;
-    const projectName = testData.projectName;
+    const data = auctionTestData.services['auction-journey'];
+    const environment = auctionTestData.environments;
+    const sakaniUserId = data.sakaniUserId;
+    const userPortalUrl = environment.userPortalUrl;
+    const projectName = data.projectName;
+
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
@@ -948,15 +956,14 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByText("تفاصيل المشروع"));
   });
 
-  test("TC-04 - User joins hybrid auction and pays the fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({
-    page,
-  }) => {
+  test("TC-04 - User joins hybrid auction and pays the fee", { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({page}) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const sakaniUserId = testData.sakaniUserId;
-    const userPortalUrl = testData.userPortalUrl;
-    const projectName = testData.projectName;
+    const data = auctionTestData.services['auction-journey'];
+    const environment = auctionTestData.environments;
+    const sakaniUserId = data.sakaniUserId;
+    const userPortalUrl = environment.userPortalUrl;
+    const projectName = data.projectName;
 
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();

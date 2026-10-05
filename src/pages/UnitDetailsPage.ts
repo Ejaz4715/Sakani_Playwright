@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { UnitDetailsObjects } from '@objects/UnitDetailsObjects'
-import {Page} from '@playwright/test';
+import {expect, Page} from '@playwright/test';
 
 export class UnitDetailsPage {
   page: Page;
@@ -31,8 +31,12 @@ export class UnitDetailsPage {
   async openSalesContract() {
     const contractHeading = this.page.getByRole("heading", {
       name: "توقيع عقد البيع",
+      exact: true,
     });
-    await contractHeading.waitFor({ state: "visible", timeout: 30000 });
+    await expect(contractHeading).toBeVisible({timeout : 12000});
+    // await contractHeading.waitFor({ state: "visible", timeout: 120000 });
+    // await expect(contractHeading).toBeVisible({ timeout: 120000 });
+    await this.page.waitForTimeout(12000);
     await contractHeading.click();
   }
 

@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
 const path = require("path");
 import { WebApp } from "@base-class/web-app";
-import testData from '@data/payment-system-test-data.json';
+import testData from '@data/test-data.json';
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps';
 
-test.describe("MOH land booking journey", () => {
+test.describe("MOH land full booking journey", () => {
   test("TC-01 - Admin adds new Moh land project", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const app = new WebApp(page);
@@ -16,7 +16,7 @@ test.describe("MOH land booking journey", () => {
       .replace(/[-:T.]/g, "")
       .slice(0, 14);
     const projectName = `Automation Moh Land Project ${timestamp}`;
-    DataHelper.updateServiceData("moh-land-booking-journey", "projectName", projectName);
+    DataHelper.updateServiceData("test-data.json", "moh-land-booking-journey", "projectName", projectName);
 
     await logStep("Step 01: Login to admin portal as a super admin");
     await app.adminProjectPage.login(environment.adminPortalUrl, data.adminUsername, data.adminPassword);
@@ -34,7 +34,6 @@ test.describe("MOH land booking journey", () => {
     await app.adminProjectPage.selectSubsidyType("دعم عيني كامل");
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.validateToastMessage();
-
 
     await logStep("Step 06: Import and commit project units");
     await app.adminProjectPage.clickUnitsTab();

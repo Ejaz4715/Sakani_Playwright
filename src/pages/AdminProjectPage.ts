@@ -598,6 +598,12 @@ export class AdminProjectPage {
     await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
     await this.page.getByRole("link", { name: "المشاريع" }).click();
   }
+
+  async openResaleRequests() {
+    await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
+    await this.page.getByRole("link", { name: " طلب إعادة البيع " }).click();
+  }
+
   async clickInternalInventory() {
     await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
   }

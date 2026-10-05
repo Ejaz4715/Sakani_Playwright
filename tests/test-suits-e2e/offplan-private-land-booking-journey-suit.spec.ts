@@ -4,32 +4,36 @@ const path = require("path");
 import { DateUtils } from "@pages/utils/DateUtils";
 import { WebApp } from "@base-class/web-app";
 import { logStep } from "@helpers/LogSteps";
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
+import offplanTestData from '@data/test-data.json';
+import { DataHelper } from "@helpers/DataHelper";
+// const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
-function readTestData() {
-  return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
+// function readTestData() {
+//   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
+// }
 
-function writeTestData(data: any) {
-  fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
+// function writeTestData(data: any) {
+//   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
+// }
+
 test.describe("Offplan private land booking journey", () => {
+
+  //read data from json relative to the service
+  const environment = offplanTestData.environments;
+  const data = offplanTestData.services["offplan-booking"];
+
   test("TC-01 - Admin adds new offplan private land project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
-    const testData = readTestData();
     const app = new WebApp(page);
-
     const currentDate = DateUtils.getDateISO(600);
-    const projectName = `Automation Project ${new Date()
+    const projectName = `Automation Project Offplan ${new Date()
       .toISOString()
       .replace(/[-:T.]/g, "")
       .slice(0, 14)}`;
-    const updatedData = { ...testData, projectName };
-    writeTestData(updatedData);
+    DataHelper.updateServiceData("test-data.json", "offplan-booking", "projectName", projectName);
 
-    // Project details
     await logStep("Step 01: Login to admin portal as a super admin");
-    await app.adminProjectPage.login(updatedData.adminPortalUrl, updatedData.adminUsername, updatedData.adminPassword);
+    await app.adminProjectPage.login(environment.adminPortalUrl, data.adminUsername, data.adminPassword);
 
     await logStep("Step 02: Navigate to add new project");
     await app.adminProjectPage.clickInternalInventory();
@@ -145,13 +149,13 @@ test.describe("Offplan private land booking journey", () => {
     { annotation: [{ product: "Marketplace", type: "critical" }] as any },
     async ({ page }) => {
       test.setTimeout(0);
-      const testData = readTestData();
       const app = new WebApp(page);
-      const projectName = testData.projectName;
-      const developerUserId = testData.developerUserId;
+      const projectName = data.projectName;
+      const developerUserId = data.developerUserId;
+      const sapaPortalUrl = environment.sapaPortalUrl;
 
       await logStep("Step 01: Login as developer to sapa portal and open the project");
-      await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+      await app.developerProjectPage.gotoAuth(sapaPortalUrl);
       await app.developerProjectPage.loginDeveloper(developerUserId);
       await app.developerProjectPage.switchRoleToDeveloper();
 
@@ -188,13 +192,14 @@ test.describe("Offplan private land booking journey", () => {
     { annotation: [{ product: "Marketplace", type: "critical" }] as any },
     async ({ page }) => {
       test.setTimeout(0);
-      const testData = readTestData();
       const app = new WebApp(page);
-      const projectName = testData.projectName;
-      const developerUserId = testData.developerUserId;
+      const projectName = data.projectName;
+      const developerUserId = data.developerUserId;
+      const sapaPortalUrl = environment.sapaPortalUrl;
+
 
       await logStep("Step 01: Login as developer to sapa portal and open the project");
-      await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+      await app.developerProjectPage.gotoAuth(sapaPortalUrl);
       await app.developerProjectPage.loginDeveloper(developerUserId);
       await app.developerProjectPage.switchRoleToDeveloper();
 
@@ -215,11 +220,10 @@ test.describe("Offplan private land booking journey", () => {
 
   test("TC-04 - User books unit (Offplan Private Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const sakaniUserId = testData.sakaniUserId;
-    const userPortalUrl = testData.userPortalUrl;
-    const projectName = testData.projectName;
+    const sakaniUserId = data.sakaniUserId;
+    const userPortalUrl = environment.userPortalUrl;
+    const projectName = data.projectName;
 
     await logStep("Step 01: Open the user portal and login");
     await app.loginPage.gotoHomePage(userPortalUrl);
@@ -262,10 +266,9 @@ test.describe("Offplan private land booking journey", () => {
 
   test("TC-05 - User cancels a booking", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const sakaniUserId = testData.sakaniUserId;
-    const userPortalUrl = testData.userPortalUrl;
+    const sakaniUserId = data.sakaniUserId;
+    const userPortalUrl = environment.userPortalUrl;
 
     await logStep("Step 01: Open user portal");
     await app.loginPage.gotoHomePage(userPortalUrl);

@@ -5,28 +5,24 @@
     "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth"
   },
   "services": {
-    "resale-of-units": {
-      "developerUserId": "1023129537",
-      "projectName": "Automation Project 20260921141445",
-      "sellerUserId": "1300061022",
-      "buyerrUserId": "1019075999",
-      "buyerDOB": "1019075999",
-      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
-      "adminPassword": "admin"
+    "offPlan-basket-multiple-booking": {
+      "projectName": "Automation Project 20260929122035",
+      "sakaniUserId": "1300070834",
+      "unit1Code": "01-01-0687-6-102",
+      "unit2Code": "01-01-0687-5-101"
     },
-    "loyalty-sharrai": {
-      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
-      "adminPassword": "admin",
-      "sakaniUserId": "1019075926"
+    "selling-to-companies": {
+      "projectName": "Automation Project 20260929122035",
+      "sakaniUserId": "1300070834",
+      "companyUser": "1001234342",
+      "unit1Code": "01-01-0687-6-102",
+      "unit2Code": "01-01-0687-5-101"
     },
-    "payments-and-transactions": {
-      "sakaniUserId": "1019075926"
+    "service5": {
+      "payments-and-transactions": {
+        "sakaniUserId": "1019075926"
+      }
     },
-    "moh-land-booking-journey": {
-      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
-      "adminPassword": "admin",
-      "sakaniUserIdMoh": "1019075999",
-      "projectName": ""
-    }
+    "projectName": "Automation Project 20261001103049"
   }
 }

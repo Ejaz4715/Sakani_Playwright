@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
-const fs = require("fs");
 const path = require("path");
-const XLSX = require("xlsx");
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps'
-import testdata from '@data/payment-system-test-data.json';
+import testdata from '@data/test-data.json';
 import { DateUtils } from '@pages/utils/DateUtils';
+
 test('test', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any}, async ({ page }) => {
   test.setTimeout(0)
   const app = new WebApp(page);
@@ -24,8 +23,8 @@ test('test', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any
   const companyName = `Automation Test Company ${new Date().toISOString().replace(/[-:T.]/g, "").slice(0, 14)}`;
   const dealName = `Automation Test Deal ${new Date().toISOString().replace(/[-:T.]/g, "").slice(0, 14)}`;
 
-  DataHelper.updateServiceData("loyalty-sharrai", "companyName", companyName);
-  DataHelper.updateServiceData("loyalty-sharrai", "dealName", dealName);
+  DataHelper.updateServiceData("test-data.json", "loyalty-sharrai", "companyName", companyName);
+  DataHelper.updateServiceData("test-data.json", "loyalty-sharrai", "dealName", dealName);
 
   await logStep("Step 02: Navigate to add new partner");
   await app.adminLoyaltyPage.clickLoyaltyProgram();

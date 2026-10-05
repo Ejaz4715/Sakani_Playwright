@@ -1,37 +1,29 @@
 ﻿import { test, expect } from "@playwright/test";
-const fs = require("fs");
 const path = require("path");
 import { DateUtils } from "@pages/utils/DateUtils";
 import { WebApp } from "@base-class/web-app";
 import { logStep } from "@helpers/LogSteps";
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
+import offplanTestData from '@data/test-data.json';
+import { DataHelper } from "@helpers/DataHelper";
 
-function readTestData() {
-  return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
-
-function writeTestData(data: any) {
-  fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
 test.describe("Offplan MOH land booking journey", () => {
-  test(
-    "TC-01 - Admin creates new offplan Moh land project",
-    { annotation: [{ product: "Marketplace", type: "critical" }] as any },
-    async ({ page }) => {
-      test.setTimeout(120000);
-      const testData = readTestData();
-      const app = new WebApp(page);
 
+  //read data from json relative to the service
+  const environment = offplanTestData.environments;
+  const data = offplanTestData.services["offplan-booking"];
+
+  test("TC-01 Admin creates new offplan Moh land project", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
+      test.setTimeout(120000);
+      const app = new WebApp(page);
       const currentDate = DateUtils.getDateISO(600);
-      const projectName = `Automation Project ${new Date()
+      const projectName = `Automation Project Offplan ${new Date()
         .toISOString()
         .replace(/[-:T.]/g, "")
         .slice(0, 14)}`;
-      const updatedData = { ...testData, projectName };
-      writeTestData(updatedData);
+      DataHelper.updateServiceData("test-data.json", "offplan-booking", "projectName", projectName);
 
       await logStep("Step 01: Login to admin portal as a super admin");
-      await app.adminProjectPage.login(updatedData.adminPortalUrl, updatedData.adminUsername, updatedData.adminPassword);
+      await app.adminProjectPage.login(environment.adminPortalUrl, data.adminUsername, data.adminPassword);
 
       await logStep("Step 02: Navigate to add new project");
       await app.adminProjectPage.clickInternalInventory();
@@ -144,18 +136,15 @@ test.describe("Offplan MOH land booking journey", () => {
     },
   );
 
-  test(
-    "TC-02 - Developer adds cash and lending payment schedules to the project (Offplan Moh Land)",
-    { annotation: [{ product: "Marketplace", type: "critical" }] as any },
-    async ({ page }) => {
+  test("TC-02 Developer adds cash and lending payment schedules to the project (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
       test.setTimeout(0);
-      const testData = readTestData();
       const app = new WebApp(page);
-      const projectName = testData.projectName;
-      const developerUserId = testData.developerUserId;
+      const projectName = data.projectName;
+      const developerUserId = data.developerUserId;
+      const sapaPortalUrl = environment.sapaPortalUrl;
 
       await logStep("Step 01: Login as developer to sapa portal and open the project");
-      await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+      await app.developerProjectPage.gotoAuth(sapaPortalUrl);
       await app.developerProjectPage.loginDeveloper(developerUserId);
       await app.developerProjectPage.switchRoleToDeveloper();
 
@@ -187,18 +176,15 @@ test.describe("Offplan MOH land booking journey", () => {
     },
   );
 
-  test(
-    "TC-03 - Developer approves sales contract of project (Offplan Moh Land)",
-    { annotation: [{ product: "Marketplace", type: "critical" }] as any },
-    async ({ page }) => {
+  test("TC-03 Developer approves sales contract of project (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
       test.setTimeout(0);
-      const testData = readTestData();
       const app = new WebApp(page);
-      const projectName = testData.projectName;
-      const developerUserId = testData.developerUserId;
+      const projectName = data.projectName;
+      const developerUserId = data.developerUserId;
+      const sapaPortalUrl = environment.sapaPortalUrl;
 
       await logStep("Step 01: Login as developer to sapa portal and open the project");
-      await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+      await app.developerProjectPage.gotoAuth(sapaPortalUrl);
       await app.developerProjectPage.loginDeveloper(developerUserId);
       await app.developerProjectPage.switchRoleToDeveloper();
 
@@ -217,13 +203,12 @@ test.describe("Offplan MOH land booking journey", () => {
     },
   );
 
-  test("TC-04 - User books unit (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
+  test("TC-04 User books unit (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const sakaniUserId = testData.sakaniUserId;
-    const userPortalUrl = testData.userPortalUrl;
-    const projectName = testData.projectName;
+    const sakaniUserId = data.sakaniUserId;
+    const userPortalUrl = environment.userPortalUrl;
+    const projectName = data.projectName;
 
     await logStep("Step 01: Open the user portal and login");
     await app.loginPage.gotoHomePage(userPortalUrl);
@@ -264,15 +249,11 @@ test.describe("Offplan MOH land booking journey", () => {
     }
   });
 
-  test(
-    "TC-05 - User signs sales contract of booked unit (Offplan Moh Land)",
-    { annotation: [{ product: "Marketplace", type: "critical" }] as any },
-    async ({ page }) => {
+  test("TC-05 User signs sales contract of booked unit (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
       test.setTimeout(30000);
-      const testData = readTestData();
       const app = new WebApp(page);
-      const sakaniUserId = testData.sakaniUserId;
-      const userPortalUrl = testData.userPortalUrl;
+      const sakaniUserId = data.sakaniUserId;
+      const userPortalUrl = environment.userPortalUrl;
 
       await logStep("Step 01: Open user portal");
       await app.loginPage.gotoHomePage(userPortalUrl);
@@ -291,8 +272,7 @@ test.describe("Offplan MOH land booking journey", () => {
       await logStep("Step 04: Capture booked unit code and save to test data");
       const bookedUnitCode = await app.bookingPage.getBookedUnitCode();
       expect(bookedUnitCode).toBeTruthy();
-      testData.bookedUnitCode = bookedUnitCode;
-      fs.writeFileSync(testDataPath, JSON.stringify(testData, null, 2) + "\n", "utf8");
+      DataHelper.updateServiceData("offplan-booking", "bookedUnitCode", bookedUnitCode);
 
       await logStep("Step 05: Open booking details");
       await app.bookingPage.openBookingDetails();
@@ -304,23 +284,21 @@ test.describe("Offplan MOH land booking journey", () => {
     },
   );
 
-  test(
-    "TC-02 - Developer confirms the booking and adds annex (Offplan Moh Land)",
-    { annotation: [{ product: "Marketplace", type: "critical" }] as any },
-    async ({ page }) => {
+  test("TC-06 Developer confirms the booking and adds annex (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
       test.setTimeout(0);
-      const testData = readTestData();
       const app = new WebApp(page);
-      const projectName = testData.projectName;
-      const developerUserId = testData.developerUserId;
+      const projectName = data.projectName;
+      const developerUserId = data.developerUserId;
+      const sapaPortalUrl = environment.sapaPortalUrl;
+      const bookedUnitCode = data.bookedUnitCode;
 
       await logStep("Step 01: Login as developer to sapa portal");
-      await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+      await app.developerProjectPage.gotoAuth(sapaPortalUrl);
       await app.developerProjectPage.loginDeveloper(developerUserId);
       await app.developerProjectPage.switchRoleToDeveloper();
 
       await logStep("Step 02: Confirm the booking");
-      await app.developerProjectPage.confirmBooking(testData.bookedUnitCode);
+      await app.developerProjectPage.confirmBooking(bookedUnitCode);
 
       await logStep("Step 03: Navigate to add annex page");
       await app.developerProjectPage.openProjectBySearch(projectName);
@@ -329,7 +307,7 @@ test.describe("Offplan MOH land booking journey", () => {
 
       await logStep("Step 04: Add annex to the booked unit");
       await app.developerProjectPage.openAddAnnexDialog();
-      await app.developerProjectPage.searchUnitByCode(testData.bookedUnitCode);
+      await app.developerProjectPage.searchUnitByCode(bookedUnitCode);
       await app.developerProjectPage.selectFirstUnit();
       await app.developerProjectPage.openSelectedUnitsAnnexDialog();
       await app.developerProjectPage.uploadAnnexFile(unitsImportFilePath);
