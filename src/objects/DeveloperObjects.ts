@@ -47,4 +47,7 @@ export const DeveloperObjects = {
   percentageZero: "#percentage_0",
   completionPercentageOne: "#completion_percentage_1",
   percentageOne: "#percentage_1",
+  successfulBookingConfirmationMessage:"//p[contains(text(),' تم تأكيد الحجز بنجاح!')]",
+  closeConfirmationModal: "app-sapa-modal button[title='Close']",
+  companiesButton:"//a[contains(text(),'شركات')]"
 } as const;
