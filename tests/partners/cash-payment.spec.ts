@@ -6,55 +6,61 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
+import testDataCashPayment from "@data/test-data.json";
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
-function readTestData() {
-    return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
+// function readTestData() {
+//     return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
+// }
 
-function writeTestData(data: any) {
-    fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
+// function writeTestData(data: any) {
+//     fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
+// }
 
-function updateCashPaymentTestData(key: string, value: string) {
-    const testData = readTestData();
-    testData["cash-payment"] = {
-        ...testData["cash-payment"],
-        [key]: value,
-    };
-    writeTestData(testData);
-}
-
+// function updateCashPaymentTestData(key: string, value: string) {
+//     const testData = readTestData();
+//     testData.services["cash-payment"] = {
+//         ...testData.services["cash-payment"],
+//         [key]: value,
+//     };
+//     writeTestData(testData);
+// }
 
 test.describe("Cash Payment", () => {
 
     //tc1 add project
     test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-        test.setTimeout(0);
-        const testData = readTestData();
+        test.setTimeout(0);        
         const app = new WebApp(page);
+        const environments = testDataCashPayment.environments;
+        const data = testDataCashPayment.services["cash-payment"];
 
         const currentDate = DateUtils.getDateISO(600);
         const projectName = `Automation Project ${new Date()
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        const updatedData = {
-            ...testData,
-            projectName,
-            "cash-payment": {
-                ...testData["cash-payment"],
-                projectName,
-            },
-        };
-        writeTestData(updatedData);
+        // const updatedData = {
+        //     ...testData,
+        //     projectName,
+        //     services: {
+        //         ...testData.services,
+        //         "cash-payment": {
+        //             ...testData.services["cash-payment"],
+        //             projectName,
+        //         },
+        //     },
+        // };
+        // writeTestData(updatedData);
+
+        DataHelper.updateServiceData("cash-payment", "projectName", projectName);
 
         // Project details
         await app.adminProjectPage.login(
-            updatedData.adminPortalUrl,
-            updatedData.adminUsername,
-            updatedData.adminPassword,
+            environments.adminPortalUrl,
+            data.adminUsername,
+            data.adminPassword,
         );
         await app.adminProjectPage.openProjectCreation();
         await page
@@ -368,12 +374,13 @@ test.describe("Cash Payment", () => {
 
     test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const cashPaymentData = testData["cash-payment"];
+        const data = testDataCashPayment.services["cash-payment"];
+        const environments = testDataCashPayment.environments;
+        // const cashPaymentData = testData.services["cash-payment"];
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
-        const projectName = cashPaymentData.projectName;
-        const developerUserId = cashPaymentData.developerUserId;
+        const sapaUrl = environments.sapaPortalUrl;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
 
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -404,12 +411,13 @@ test.describe("Cash Payment", () => {
 
     test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const cashPaymentData = testData["cash-payment"];
+        const data = testDataCashPayment.services["cash-payment"];
+        const environments = testDataCashPayment.environments;
+        // const cashPaymentData = testData.services["cash-payment"];
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
-        const projectName = cashPaymentData.projectName;
-        const developerUserId = cashPaymentData.developerUserId;
+        const sapaUrl = environments.sapaPortalUrl;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -427,14 +435,15 @@ test.describe("Cash Payment", () => {
 
     test("TC-04  Admin enables comprehensive", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-
-        const cashPaymentData = testData["cash-payment"];
+        // const testData = readTestData();
+        const data = testDataCashPayment.services["cash-payment"];
+        const environments = testDataCashPayment.environments;
+        // const cashPaymentData = testData.services["cash-payment"];
         const app = new WebApp(page);
-        const adminUrl = testData.environments.adminPortalUrl;
-        const adminUsername = cashPaymentData.adminUsername;
-        const adminPassword = cashPaymentData.adminPassword;
-        const projectName = cashPaymentData.projectName;
+        const adminUrl = environments.adminPortalUrl;
+        const adminUsername = data.adminUsername;
+        const adminPassword = data.adminPassword;
+        const projectName = data.projectName;
 
 
         await app.adminProjectPage.login(
@@ -447,8 +456,8 @@ test.describe("Cash Payment", () => {
 
         await app.resaleOfUnitsPage.fillProjectName(projectName);
         await app.resaleOfUnitsPage.clickProjectSearchButton();
-        await app.resaleOfUnitsPage.clickSearchedProjectResult(testData.projectName);
-        // await page.locator('div').filter({ hasText: testData.projectName }).click();
+        await app.resaleOfUnitsPage.clickSearchedProjectResult(data.projectName);
+        // await page.locator('div').filter({ hasText: data.projectName }).click();
         await page.waitForTimeout(10000);
         await app.paymentTrackingPage.clickOnProjectSettings();
         await app.paymentTrackingPage.clickOnUseGeneralSettingSwitch();
@@ -459,12 +468,13 @@ test.describe("Cash Payment", () => {
 
     test("TC-05 - User books and pays the fees", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const cashPaymentData = testData["cash-payment"];
+        const data = testDataCashPayment.services["cash-payment"];
+        const environments = testDataCashPayment.environments;
+        // const cashPaymentData = testData.services["cash-payment"];
         const app = new WebApp(page);
-        const userPortalUrl = testData.environments.userPortalUrl;
-        const userID = cashPaymentData.sakaniUserId;
-        const projectName = cashPaymentData.projectName;
+        const userPortalUrl = environments.userPortalUrl;
+        const userID = data.sakaniUserId;
+        const projectName = data.projectName;
 
         await logStep("Step 01: Navigate to user portal > Login");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -510,11 +520,11 @@ test.describe("Cash Payment", () => {
 
     test("TC-06 - User selects payment schedule and signs sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const cashPaymentData = testData["cash-payment"];
+        const data = testDataCashPayment.services["cash-payment"];
+        const environments = testDataCashPayment.environments;
         const app = new WebApp(page);
-        const userPortalUrl = testData.environments.userPortalUrl;
-        const userID = cashPaymentData.sakaniUserId;
+        const userPortalUrl = environments.userPortalUrl;
+        const userID = data.sakaniUserId;
 
         await logStep("Step 01: Login to user protal");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -529,7 +539,8 @@ test.describe("Cash Payment", () => {
         const bookedUnitCode =
             await app.bookingPage.getBookedUnitCode();
         expect(bookedUnitCode).toBeTruthy();
-        updateCashPaymentTestData("bookedUnitCode", bookedUnitCode);
+        DataHelper.updateServiceData("cash-payment", "bookedUnitCode", bookedUnitCode);
+        // updateCashPaymentTestData("bookedUnitCode", bookedUnitCode);
         await logStep("Step 03: Sign the sale contract > Verify the success message");
         await app.bookingPage.openBookingDetails();
         await app.bookingAndSelectPaymentMethodPage.clickOnSelectPaymentMethodButton();
@@ -544,12 +555,12 @@ test.describe("Cash Payment", () => {
 
     test("TC-07 - Developer documents the cash payment", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const cashPaymentData = testData["cash-payment"];
+        const data = testDataCashPayment.services["cash-payment"];
+        const environments = testDataCashPayment.environments;
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
-        const developerUserId = cashPaymentData.developerUserId;
-        const userID = cashPaymentData.sakaniUserId;
+        const sapaUrl = environments.sapaPortalUrl;
+        const developerUserId = data.developerUserId;
+        const userID = data.sakaniUserId;
 
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);

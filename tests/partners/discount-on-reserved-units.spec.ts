@@ -6,6 +6,7 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
+import testDataDiscountOfUnit from "@data/test-data.json";
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
@@ -19,8 +20,8 @@ function writeTestData(data: any) {
 
 function updateDiscountTestData(key: string, value: string) {
     const testData = readTestData();
-    testData["discount-on-reserved-unit"] = {
-        ...testData["discount-on-reserved-unit"],
+    testData.services["discount-on-reserved-unit"] = {
+        ...testData.services["discount-on-reserved-unit"],
         [key]: value,
     };
     writeTestData(testData);
@@ -33,27 +34,31 @@ test.describe("Discount On Reserved Units", () => {
         test.setTimeout(0);
         const testData = readTestData();
         const app = new WebApp(page);
-
+        const environments = testDataDiscountOfUnit.environments;
+        const data = testDataDiscountOfUnit.services["discount-on-reserved-unit"];
         const currentDate = DateUtils.getDateISO(600);
         const projectName = `Automation Project Discount ${new Date()
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        const updatedData = {
-            ...testData,
-            projectName,
-            "discount-on-reserved-unit": {
-                ...testData["discount-on-reserved-unit"],
-                projectName,
-            },
-        };
-        writeTestData(updatedData);
+        // const updatedData = {
+        //     ...testData,
+        //     projectName,
+        //     services: {
+        //         ...testData.services,
+        //         "discount-on-reserved-unit": {
+        //             ...testData.services["discount-on-reserved-unit"],
+        //             projectName,
+        //         },
+        //     },
+        // };
+        //  writeTestData(updatedData);
 
         // Project details
         await app.adminProjectPage.login(
-            updatedData.adminPortalUrl,
-            updatedData.adminUsername,
-            updatedData.adminPassword,
+            environments.adminPortalUrl,
+            data.adminUsername,
+            data.adminPassword,
         );
         await app.adminProjectPage.openProjectCreation();
         await page
@@ -368,14 +373,14 @@ test.describe("Discount On Reserved Units", () => {
 
 
 
-test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const discountData = testData["discount-on-reserved-unit"];
+        const data = testDataDiscountOfUnit.services["discount-on-reserved-unit"];
+        const environments = testDataDiscountOfUnit.environments;
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
-        const projectName = discountData.projectName;
-        const developerUserId = discountData.developerUserId;
+        const sapaUrl = environments.sapaPortalUrl;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -395,13 +400,13 @@ test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Mar
 
     test("TC-03 - Developer discounts the price on reserved unit", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const discountData = testData["discount-on-reserved-unit"];
+        const data = testDataDiscountOfUnit.services["discount-on-reserved-unit"];
+        const environments = testDataDiscountOfUnit.environments;
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
-        const projectName = discountData.projectName;
-        const developerUserId = discountData.developerUserId;
-        const userID = discountData.sakaniUserId;
+        const sapaUrl = environments.sapaPortalUrl;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
+        const userID = data.sakaniUserId;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -438,11 +443,12 @@ test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Mar
 
     test("TC-04 - User pay the booking fees", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const discountData = testData["discount-on-reserved-unit"];
+        const data = testDataDiscountOfUnit.services["discount-on-reserved-unit"];
+        const environments = testDataDiscountOfUnit.environments;
         const app = new WebApp(page);
-        const userPortalUrl = testData.environments.userPortalUrl;
-        const userID = discountData.sakaniUserId;
+        const userPortalUrl = environments.userPortalUrl;
+        const userID = data.sakaniUserId;
+
 
         await logStep("Step 01: Navigate to sakani user > Login");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -472,11 +478,11 @@ test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Mar
 
     test("TC-05 - User signs sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const discountData = testData["discount-on-reserved-unit"];
+        const data = testDataDiscountOfUnit.services["discount-on-reserved-unit"];
+        const environments = testDataDiscountOfUnit.environments;
         const app = new WebApp(page);
-        const userPortalUrl = testData.environments.userPortalUrl;
-        const userID = discountData.sakaniUserId;
+        const userPortalUrl = environments.userPortalUrl;
+        const userID = data.sakaniUserId;
 
         await logStep("Step 01: Login to user protal");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -503,12 +509,13 @@ test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Mar
 
     test("TC-06 - Developer download price quotation and verify the discounted amount", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const discountData = testData["discount-on-reserved-unit"];
+        const data = testDataDiscountOfUnit.services["discount-on-reserved-unit"];
+        const environments = testDataDiscountOfUnit.environments;
+
         const app = new WebApp(page);
-        const unitCode = discountData.bookedUnitCode;
-        const developerUserId = discountData.developerUserId;
-        const sapaUrl = testData.environments.sapaPortalUrl;
+        const unitCode = data.bookedUnitCode;
+        const developerUserId = data.developerUserId;
+        const sapaUrl = environments.sapaPortalUrl;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -524,10 +531,9 @@ test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Mar
         const downloadedPdfPath = await app.discountOnReservedUnitsPage.clickOnDownloadIcon();
         await app.discountOnReservedUnitsPage.verifyTheUnitAmountSameAfterDiscount(
             downloadedPdfPath,
-            discountData.unitPriceAfterDiscount,
+            data.unitPriceAfterDiscount,
         );
 
     });
 
 });
-
