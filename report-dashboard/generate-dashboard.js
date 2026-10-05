@@ -30,39 +30,55 @@ function formatDuration(ms) {
   return `${(ms / 1000).toFixed(2)}s`;
 }
 
-function getCleanFileName(filePath) {
-  if (!filePath) return 'Default Suite';
-  return path.basename(filePath).replace(/\.(spec|test)\.[jt]sx?$/i, '').replace(/\.[jt]sx?$/i, '');
+/**
+ * Cleans suite names specifically for the "Suites Scope" card
+ * by replacing hyphens, stripping out the word "suit" or "suite", and capitalizing.
+ */
+function formatSuiteScopeName(str) {
+  if (!str) return '';
+  return str
+    .replace(/-/g, ' ')
+    .replace(/\bsuit(e)?\b/gi, '') // Removes 'suit' or 'suite' case-insensitively
+    .toLowerCase()
+    .split(' ')
+    .filter(word => word.length > 0)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
-function extractAllTests(suites, parentAnnotations = [], parentSuiteTitle = '') {
+/**
+ * Traverses Playwright JSON results and resolves suite titles correctly.
+ */
+function extractAllTests(suites, parentAnnotations = [], inheritedDescribe = '') {
   let testItems = [];
 
   for (const suite of suites) {
     const currentAnnotations = [...parentAnnotations, ...(suite.annotations || [])];
-    const fileName = getCleanFileName(suite.file);
-    let currentSuiteTitle = suite.title && suite.title !== suite.file ? suite.title : (parentSuiteTitle || fileName);
+
+    let currentDescribe = inheritedDescribe;
+    if (suite.title) {
+      currentDescribe = suite.title;
+    }
 
     if (suite.specs) {
       for (const spec of suite.specs) {
         const specAnnotations = [...currentAnnotations, ...(spec.annotations || [])];
-        const displaySuite = spec.suiteTitle || (suite.title && suite.title !== spec.file ? suite.title : currentSuiteTitle);
+        
+        let finalSuiteTitle = spec.suiteTitle || currentDescribe || suite.title || 'General Suite';
 
         if (spec.tests && spec.tests.length > 0) {
           for (const test of spec.tests) {
             testItems.push({
-              suiteTitle: displaySuite,
+              suiteTitle: finalSuiteTitle,
               specTitle: spec.title,
-              specFile: spec.file || suite.file || '',
               testObj: test,
               annotations: [...specAnnotations, ...(test.annotations || [])]
             });
           }
         } else {
           testItems.push({
-            suiteTitle: displaySuite,
+            suiteTitle: finalSuiteTitle,
             specTitle: spec.title,
-            specFile: spec.file || suite.file || '',
             testObj: { status: spec.ok ? 'passed' : 'skipped', results: [] },
             annotations: specAnnotations
           });
@@ -70,8 +86,10 @@ function extractAllTests(suites, parentAnnotations = [], parentSuiteTitle = '') 
       }
     }
 
-    if (suite.suites) {
-      testItems = testItems.concat(extractAllTests(suite.suites, currentAnnotations, currentSuiteTitle));
+    if (suite.suites && suite.suites.length > 0) {
+      testItems = testItems.concat(
+        extractAllTests(suite.suites, currentAnnotations, currentDescribe)
+      );
     }
   }
 
@@ -130,6 +148,7 @@ allTests.forEach((item, index) => {
   let status = 'Skipped';
   let testDurationMs = 0;
   let steps = [];
+  let errorMessage = '';
   const lastResult = item.testObj.results?.[item.testObj.results.length - 1];
 
   if (lastResult) {
@@ -138,11 +157,15 @@ allTests.forEach((item, index) => {
     else if (lastResult.status === 'failed' || lastResult.status === 'timedOut') status = 'Failed';
     else if (lastResult.status === 'skipped') status = 'Skipped';
 
+    if (status === 'Failed') {
+      errorMessage = lastResult.error?.message || 
+                     (lastResult.errors && lastResult.errors.map(e => e.message).join('\n')) || 
+                     'Test execution failed.';
+    }
+
     if (lastResult.steps && Array.isArray(lastResult.steps)) {
       steps = lastResult.steps.map(step => ({
-        title: step.title,
-        durationMs: step.duration || 0,
-        durationStr: formatDuration(step.duration || 0)
+        title: step.title
       }));
     }
   } else if (item.testObj.status === 'passed') {
@@ -151,16 +174,17 @@ allTests.forEach((item, index) => {
 
   rawProcessedSpecs.push({
     id: `tc-${index + 1}`,
-    suite: item.suiteTitle,
+    suite: item.suiteTitle, // Unchanged direct value from results.json for table display
+    rawSuiteTitle: item.suiteTitle,
     title: item.specTitle,
     product: productKey,
     environment: environmentKey,
-    file: item.specFile,
     durationMs: testDurationMs,
     durationStr: formatDuration(testDurationMs),
     status: status,
     isCritical: isCritical,
-    steps: steps
+    steps: steps,
+    errorMessage: errorMessage
   });
 });
 
@@ -186,7 +210,7 @@ function buildProductData(specsList) {
 
     productData[pKey].total += 1;
     productData[pKey].durationMs += spec.durationMs;
-    if (spec.suite) productData[pKey].suitesSet.add(spec.suite);
+    if (spec.rawSuiteTitle) productData[pKey].suitesSet.add(spec.rawSuiteTitle);
     if (spec.status === 'Passed') productData[pKey].passed += 1;
     else if (spec.status === 'Failed') productData[pKey].failed += 1;
     else productData[pKey].skipped += 1;
@@ -195,7 +219,11 @@ function buildProductData(specsList) {
 
   Object.keys(productData).forEach(key => {
     productData[key].formattedDuration = formatDuration(productData[key].durationMs);
-    productData[key].suitesList = Array.from(productData[key].suitesSet).join(', ') || 'N/A';
+    // Applies formatSuiteScopeName ONLY for the Suites Scope summary card
+    productData[key].suitesList = Array.from(productData[key].suitesSet)
+      .map(suiteName => formatSuiteScopeName(suiteName))
+      .filter(Boolean)
+      .join(', ') || 'N/A';
   });
 
   return productData;
@@ -247,11 +275,11 @@ const htmlContent = `<!DOCTYPE html>
         <h1 class="text-2xl font-bold tracking-wide" style="color: #166242;">Sakani Automation Test Dashboard</h1>
       </div>
 
-      <!-- Single Button Pill Product Filter -->
+      <!-- Product Filter Dropdown -->
       <div class="relative inline-block text-left w-full sm:w-auto min-w-[220px]" id="productDropdownContainer">
         <button id="productDropdownBtn" onclick="toggleDropdown('productDropdownMenu')" class="w-full bg-[#166242] hover:bg-[#125036] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm flex items-center justify-between gap-2.5">
           <div class="flex items-center gap-2 truncate">
-            <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
             </svg>
             <span class="truncate">Product: <strong id="productDropdownSelected" class="font-bold">${Object.keys(healthCheckData)[0] || 'Sakani'}</strong></span>
@@ -352,11 +380,11 @@ const htmlContent = `<!DOCTYPE html>
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
         <h2 class="text-base font-bold" style="color: #166242;">Test Cases (<span id="tableTagTitle">-</span>)</h2>
         
-        <!-- Single Button Pill Status Filter -->
+        <!-- Status Filter Dropdown -->
         <div class="relative inline-block text-left w-full sm:w-auto min-w-[180px]" id="statusDropdownContainer">
           <button id="statusDropdownBtn" onclick="toggleDropdown('statusDropdownMenu')" class="w-full bg-[#166242] hover:bg-[#125036] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm flex items-center justify-between gap-2.5">
             <div class="flex items-center gap-2 truncate">
-              <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
               </svg>
               <span class="truncate">Status: <strong id="statusDropdownSelected" class="font-bold">All</strong></span>
@@ -380,10 +408,11 @@ const htmlContent = `<!DOCTYPE html>
         <table class="w-full text-left text-sm text-slate-700 table-fixed">
           <thead class="bg-slate-100 text-slate-500 text-xs font-bold border-b border-slate-200">
             <tr>
-              <th class="py-3 px-4 font-bold w-[25%]">Suite</th>
-              <th class="py-3 px-4 font-bold w-[50%]">Test Case</th>
-              <th class="py-3 px-4 font-bold w-[12%] text-center">Duration</th>
-              <th class="py-3 px-4 font-bold w-[13%] text-center">Status</th>
+              <th class="py-3 px-4 font-bold w-[25%]">Suite Name</th>
+              <th class="py-3 px-4 font-bold w-[40%]">Test Case</th>
+              <th class="py-3 px-4 font-bold w-[11%] text-center">Duration</th>
+              <th class="py-3 px-4 font-bold w-[11%] text-center">Status</th>
+              <th class="py-3 px-4 font-bold w-[13%] text-center">Test Steps</th>
             </tr>
           </thead>
           <tbody id="testCasesTable" class="divide-y divide-slate-200"></tbody>
@@ -427,6 +456,10 @@ const htmlContent = `<!DOCTYPE html>
     function selectProductOption(key) {
       selectedProductKey = key;
       document.getElementById('productDropdownSelected').innerText = key;
+      
+      currentStatusFilter = 'all';
+      document.getElementById('statusDropdownSelected').innerText = 'All';
+
       closeAllDropdowns();
       renderDashboard(selectedProductKey);
     }
@@ -438,10 +471,20 @@ const htmlContent = `<!DOCTYPE html>
       renderDashboard(selectedProductKey);
     }
 
-    function toggleSteps(stepRowId) {
+    function toggleSteps(stepRowId, btn) {
       const stepRow = document.getElementById(stepRowId);
       if (!stepRow) return;
-      stepRow.classList.toggle('hidden');
+
+      const isHidden = stepRow.classList.contains('hidden');
+      if (isHidden) {
+        stepRow.classList.remove('hidden');
+        btn.innerText = 'Hide steps';
+        btn.className = "w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-[#166242] text-white hover:bg-[#125036] transition-all shadow-sm text-center";
+      } else {
+        stepRow.classList.add('hidden');
+        btn.innerText = 'Show steps';
+        btn.className = "w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm text-center";
+      }
     }
 
     function setExecutionMode(mode) {
@@ -467,7 +510,7 @@ const htmlContent = `<!DOCTYPE html>
       const data = activeDataMap[targetKey];
 
       if (!data) {
-        document.getElementById("testCasesTable").innerHTML = \`<tr><td colspan="4" class="py-6 text-center text-slate-400 font-medium">No test cases available.</td></tr>\`;
+        document.getElementById("testCasesTable").innerHTML = \`<tr><td colspan="5" class="py-6 text-center text-slate-400 font-medium">No test cases available.</td></tr>\`;
         return;
       }
 
@@ -498,54 +541,70 @@ const htmlContent = `<!DOCTYPE html>
       });
 
       if (filteredSpecs.length === 0) {
-        tableBody.innerHTML = \`<tr><td colspan="4" class="py-6 text-center text-slate-400 font-medium">No test cases found for this status filter.</td></tr>\`;
+        tableBody.innerHTML = \`<tr><td colspan="5" class="py-6 text-center text-slate-400 font-medium">No test cases found for this status filter.</td></tr>\`;
       } else {
         filteredSpecs.forEach(spec => {
           let statusBadgeClass = "bg-amber-100 text-amber-800 border-amber-300";
           if (spec.status === "Passed") statusBadgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
           if (spec.status === "Failed") statusBadgeClass = "bg-rose-100 text-rose-800 border-rose-300";
 
-          const isFailedWithSteps = spec.status === 'Failed' && spec.steps && spec.steps.length > 0;
+          const hasSteps = spec.steps && spec.steps.length > 0;
+          const hasDetails = hasSteps || (spec.status === 'Failed' && spec.errorMessage);
           const stepRowId = \`steps-\${spec.id}\`;
 
-          const cursorClass = isFailedWithSteps ? "cursor-pointer hover:bg-slate-100/80" : "hover:bg-slate-50";
-          const clickAttr = isFailedWithSteps ? \`onclick="toggleSteps('\${stepRowId}')"\` : "";
+          const actionCellHtml = hasDetails 
+            ? \`<button onclick="toggleSteps('\${stepRowId}', this)" class="w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm text-center">
+                Show steps
+               </button>\`
+            : \`<span class="text-xs text-slate-400 font-medium">No details</span>\`;
 
           const row = \`
-            <tr \${clickAttr} class="transition-colors \${cursorClass}">
+            <tr class="hover:bg-slate-50 transition-colors">
               <td class="py-3.5 px-4 font-mono text-xs text-slate-600 break-words whitespace-normal">\${spec.suite}</td>
-              <td class="py-3.5 px-4 font-medium text-slate-900 break-words whitespace-normal">
-                <div class="flex items-center gap-2">
-                  <span>\${spec.title}</span>
-                  \${isFailedWithSteps ? \`<span class="text-[10px] font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded px-1.5 py-0.5">Click to view steps</span>\` : ''}
-                </div>
-              </td>
+              <td class="py-3.5 px-4 font-medium text-slate-900 break-words whitespace-normal">\${spec.title}</td>
               <td class="py-3.5 px-4 text-slate-600 font-mono text-xs text-center break-words whitespace-normal">\${spec.durationStr}</td>
               <td class="py-3.5 px-4 text-center">
                 <span class="inline-block px-2.5 py-1 text-xs font-semibold border rounded-full \${statusBadgeClass}">
                   \${spec.status}
                 </span>
               </td>
+              <td class="py-3.5 px-4 text-center">\${actionCellHtml}</td>
             </tr>
           \`;
           tableBody.insertAdjacentHTML('beforeend', row);
 
-          if (isFailedWithSteps) {
+          if (hasDetails) {
             const stepsListHtml = spec.steps.map((step, idx) => \`
-              <li class="flex items-center justify-between text-xs py-1.5 border-b border-slate-200 last:border-0">
-                <span class="text-slate-800 font-medium break-words whitespace-normal"><strong class="text-rose-700 font-bold mr-1.5">Step \${idx + 1}:</strong> \${step.title}</span>
-                <span class="font-mono text-slate-500 text-[11px] ml-2 shrink-0">\${step.durationStr}</span>
+              <li class="py-1.5 border-b border-slate-200 last:border-0">
+                <span class="text-slate-800 font-medium break-words whitespace-normal">
+                  <strong class="text-emerald-800 font-bold mr-1.5">Step \${idx + 1}:</strong> \${step.title}
+                </span>
               </li>
             \`).join('');
 
+            const failureReasonHtml = spec.status === 'Failed' && spec.errorMessage ? \`
+              <div class="mb-3 p-3 bg-rose-50 border border-rose-200 rounded-md">
+                <p class="text-xs font-bold text-rose-800 mb-1 flex items-center gap-1">
+                  <svg class="w-4 h-4 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Failure Reason
+                </p>
+                <pre class="text-xs text-rose-900 font-mono whitespace-pre-wrap break-words bg-rose-100/50 p-2 rounded max-h-60 overflow-y-auto">\${spec.errorMessage}</pre>
+              </div>
+            \` : '';
+
             const stepRowHtml = \`
               <tr id="\${stepRowId}" class="hidden bg-slate-100/70 border-b border-slate-200">
-                <td colspan="4" class="py-3 px-6">
+                <td colspan="5" class="py-3 px-6">
                   <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-inner">
-                    <p class="text-xs font-bold text-rose-700 mb-2 pb-1 border-b border-slate-100">Failed Execution Steps</p>
-                    <ul class="space-y-0.5">
-                      \${stepsListHtml}
-                    </ul>
+                    \${failureReasonHtml}
+                    \${hasSteps ? \`
+                      <p class="text-xs font-bold text-slate-700 mb-2 pb-1 border-b border-slate-100">Execution Steps</p>
+                      <ul class="space-y-0.5">
+                        \${stepsListHtml}
+                      </ul>
+                    \` : ''}
                   </div>
                 </td>
               </tr>

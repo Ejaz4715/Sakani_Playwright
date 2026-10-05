@@ -83,7 +83,7 @@ test.describe('Login identifier validation and session rules', () => {
     expect(await privacy.getAttribute('href')).toBeTruthy();
   });
 
-  test('TC08 - Losing the Nafath modal returns to the identifier step', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({
+  test('TC-08 - Losing the Nafath modal returns to the identifier step', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({
     loginPage,
     page,
   }) => {

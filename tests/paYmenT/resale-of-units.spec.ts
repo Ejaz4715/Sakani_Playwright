@@ -19,7 +19,7 @@ function writeTestData(data: any) {
 }
 
 test.describe("Resale Of Units - With Known Buyer", () => {
- test("TC-01 - Add new project offplan project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test("TC-01 - Add new project offplan project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
@@ -480,17 +480,17 @@ test.describe("Resale Of Units - With Known Buyer", () => {
   });
 
 
-     test("TC_07 Admin configures project-level of resale settings", { annotation: [{ product: 'Marketplace', type: 'critical' }]as any }, async ({ page }) => {
+  test("TC_07 Admin configures project-level of resale settings", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const testData = readTestData();
     const app = new WebApp(page);
-  
+
     await app.adminProjectPage.login(
       testData.adminPortalUrl,
       testData.adminUsername,
       testData.adminPassword,
     );
-  
+
     await app.adminProjectPage.openProjects();
     await page.locator("//input[@formcontrolname='name']").fill(testData.projectName);
     await page.getByRole('button', { name: 'بحث' }).click();
@@ -505,7 +505,7 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
 
 
-   test("TC-08 - User submit new resale request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test("TC-08 - User submit new resale request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(30000);
     const testData = readTestData();
     const app = new WebApp(page);

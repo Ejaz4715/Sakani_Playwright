@@ -1,4 +1,26 @@
 ﻿export class DateUtils {
+
+  /* @param {number} offsetDays - Days to add/subtract (default: 0)
+   * @param {string} format - Target format string using YYYY, MM, DD (default: "YYYY-MM-DD")
+   */
+  static getDateWithOffsetAndFormat(offsetDays = 0, format = "YYYY-MM-DD") {
+    const date = new Date();
+    date.setDate(date.getDate() + offsetDays);
+
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return format
+      .replace("YYYY", year)
+      .replace("MM", month)
+      .replace("DD", day);
+  }
+
+  static getDate(format = "YYYY-MM-DD") {
+    return DateUtils.getDateWithOffsetAndFormat(0, format);
+  }
+
   static getDateISO(offsetDays = 0) {
     const date = new Date();
     date.setDate(date.getDate() + offsetDays);

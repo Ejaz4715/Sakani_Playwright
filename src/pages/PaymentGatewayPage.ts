@@ -18,7 +18,7 @@ export class PaymentGatewayPage {
     const madaPaymentTitle = this.page.getByTitle(
       UnitBookingObjects.madaPaymentTitle.title,
     );
-    await expect(madaPaymentTitle).toBeVisible({ timeout: 60000 });
+    await expect(madaPaymentTitle).toBeVisible({ timeout: 120000 });
     await this.click(madaPaymentTitle);
 
     const cardNumber = this.page

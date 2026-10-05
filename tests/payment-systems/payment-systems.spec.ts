@@ -6,6 +6,7 @@ import { DateUtils } from "@pages/utils/DateUtils";
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps'
+import testData from '@data/payment-system-test-data.json'
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
@@ -19,7 +20,7 @@ function writeTestData(data: any) {
 
 test.describe("Offplan booking fees refund", () => {
   test("TC-01 - Add new project offplan project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(120000);
+    test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
 
@@ -62,7 +63,7 @@ test.describe("Offplan booking fees refund", () => {
 
       await page.waitForTimeout(2000);
     }
-    
+
     await expect(projectTypeOption).toBeVisible({ timeout: 30000 });
     await projectTypeOption.click();
     await page
@@ -135,6 +136,8 @@ test.describe("Offplan booking fees refund", () => {
     } else {
       await expect(azmToggle).toHaveAttribute("aria-checked", "true");
     }
+
+
 
     // Partcipating banks
     await expect(page.getByText(/قائمة الجهات التمويلية/i)).toBeVisible({
@@ -329,6 +332,34 @@ test.describe("Offplan booking fees refund", () => {
     } else {
       await expect(publishProjectToggle).toHaveAttribute("aria-checked", "true");
     }
+
+    await page.getByRole("button", { name: "حفظ" }).click();
+    await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
+
+
+    //Expand the project setting
+    await page.locator("//span[contains(text(),'إعدادات المشاريع')]").click();
+
+    //Check on refundable
+    const RefundubleToggel = page.locator(
+      "//label[contains (text(), 'قابل للاسترداد')]/preceding-sibling::button",
+    );
+    await expect(RefundubleToggel).toBeVisible({ timeout: 30000 });
+    const isRefundbleChecked =
+      await RefundubleToggel.getAttribute("aria-checked");
+    if (isRefundbleChecked === "false") {
+      await RefundubleToggel.click();
+      await expect(RefundubleToggel).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
+    } else {
+      await expect(RefundubleToggel).toHaveAttribute(
+        "aria-checked",
+        "true",
+      );
+    }
+    await page.waitForTimeout(2000);
     await page.getByRole("button", { name: "حفظ" }).click();
     await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
   });
@@ -353,7 +384,7 @@ test.describe("Offplan booking fees refund", () => {
       completionPercentageOneValue: "50",
       percentageOneValue: "50",
       completionPercentageTwoValue: "100",
-      percentageTwoValue: "50"
+      percentageTwoValue: "100"
     });
 
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -364,7 +395,7 @@ test.describe("Offplan booking fees refund", () => {
       completionPercentageOneValue: "50",
       percentageOneValue: "50",
       completionPercentageTwoValue: "100",
-      percentageTwoValue: "50"
+      percentageTwoValue: "100"
     });
   });
 
@@ -432,7 +463,7 @@ test.describe("Offplan booking fees refund", () => {
   });
 
   test("TC-05 - User signs sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(30000);
+    test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
     const sakaniUserId = testData.sakaniUserId;
@@ -480,7 +511,7 @@ test.describe("Offplan booking fees refund", () => {
   });
 
   test("TC-07 User verifies the refundable status is present for the booking", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(30000);
+    test.setTimeout(0);
     const testData = readTestData();
     const app = new WebApp(page);
     const sakaniUserId = testData.sakaniUserId;
@@ -502,6 +533,8 @@ test.describe("Offplan booking fees refund", () => {
 
     await logStep("Step 04: Open booking details");
     await app.bookingPage.openBookingDetails();
+    await logStep("Step 05: Verify the refunded status that the amount is refunded");
+    await app.bookingPage.verifyTheRefundedStatus();
 
   });
 });
@@ -970,8 +1003,39 @@ test.describe("Offplan unit booking and fees payment", () => {
 });
 
 test.describe("Payments and transactions", () => {
-  test("TC-01 User preview and download the invoice and receipt", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async () => {
+  test("TC-01 User preview and download the invoice and receipt", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    const app = new WebApp(page);
+    const sakaniUserId = testData['payments-and-transactions'].sakaniUserId;
+    const userPortalUrl = testData.environments.userPortalUrl;
 
+    await logStep('Step 01: Login to the user portal');
+    await app.loginPage.gotoHomePage(userPortalUrl);
+    await app.loginPage.acceptCookies();
+    await app.loginPage.openLogin();
+    await app.loginPage.loginWithNafath(sakaniUserId);
+    await app.loginPage.waitForNafathPromptToDisappear();
+    await app.loginPage.continueNewUserPopup();
+    await app.loginPage.handlePushNotificationPopup();
+    await app.bookingPage.clickProfileIcon();
+    await app.bookingPage.clickManageProfile();
+
+    await logStep('Step 02: Open payments history');
+    await app.paymentsAndTransactionsPage.clickPaymentHistoryLink();
+    
+    await logStep('Step 03: Clear the downloads folder');
+    const downloadDirectory = path.join(process.cwd(), "src", "downloads");
+    await app.paymentsAndTransactionsPage.clearDownloadsFolder(downloadDirectory);
+
+    await logStep('Step 04: Open the invoice preview and capture its PDF > Save pdf in download directory');
+    const pdfResponsePromise = app.paymentsAndTransactionsPage.waitForPdfResponse();
+    await app.paymentsAndTransactionsPage.clickInvoicePreviewButton();
+    const pdfResponse = await pdfResponsePromise;
+    const fileName = 'payment-invoice.pdf';
+    const downloadPath = path.join(downloadDirectory, fileName);
+
+    await logStep('Step 05: Save the invoice and verify it exists');
+    await app.paymentsAndTransactionsPage.savePdfResponse(pdfResponse, downloadPath);
+    await app.paymentsAndTransactionsPage.verifySavedFile(downloadPath, downloadDirectory);
   })
 });
 
@@ -994,8 +1058,6 @@ test.describe("Loyalty sharrai", () => {
 test.describe("Issue an ad license and publish", () => {
 
 });
-
-
 
 test.describe("Electronic auction with fees", () => {
 

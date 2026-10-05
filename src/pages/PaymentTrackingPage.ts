@@ -7,6 +7,53 @@ export class PaymentTrackingPage {
         this.page = page;
     }
 
+    async clickOnProjectSettings() {
+        const projectSettings = this.page.getByText(
+            PaymentTrackingObjects.projectSettings.text
+        );
+
+        await expect(projectSettings).toBeVisible({ timeout: 90000 });
+        await projectSettings.click();
+    }
+
+    async clickOnUseGeneralSettingSwitch() {
+        const useGeneralSettingSwitch = this.page.getByRole(
+            PaymentTrackingObjects.useGeneralSettingSwitch.role,
+            { name: PaymentTrackingObjects.useGeneralSettingSwitch.name }
+        );
+
+        await expect(useGeneralSettingSwitch).toBeVisible({ timeout: 90000 });
+        await useGeneralSettingSwitch.click();
+    }
+
+    async clickOnPaymentCollectionAutomationSwitch() {
+        const paymentCollectionAutomationSwitch = this.page.getByRole(
+            PaymentTrackingObjects.paymentCollectionAutomationSwitch.role,
+            { name: PaymentTrackingObjects.paymentCollectionAutomationSwitch.name }
+        );
+
+        await expect(paymentCollectionAutomationSwitch).toBeVisible({ timeout: 90000 });
+        await paymentCollectionAutomationSwitch.click();
+    }
+
+    async clickOnSaveButton() {
+        const saveButton = this.page.getByRole(
+            PaymentTrackingObjects.saveButton.role,
+            { name: PaymentTrackingObjects.saveButton.name }
+        );
+
+        await expect(saveButton).toBeVisible({ timeout: 90000 });
+        await saveButton.click();
+    }
+
+    async verifySaveSuccessToast() {
+        const saveSuccessToast = this.page.getByText(
+            PaymentTrackingObjects.saveSuccessToast.text
+        );
+
+        await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
+    }
+
     async clickOnPaymentTrackingTab() {
         const paymentTrackingTab = this.page.locator(
             PaymentTrackingObjects.paymntTrackingTab.xpath

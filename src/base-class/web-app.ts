@@ -1,4 +1,4 @@
-import {type Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
 import { LoginPage } from '@pages/LoginPage';
 import { MarketplaceLandingPage } from '@pages/MarketplaceLandingPage';
 import { ProjectDetailsPage } from '@pages/ProjectDetailsPage';
@@ -19,6 +19,13 @@ import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
 import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
 import {OffPlanBasketMultipleBookingPage} from "@pages/OffPlanBasketMultipleBooking";
+import { AdminLoyaltyPage } from '@pages/AdminLoyaltyPage'
+import { PaymentsAndTransactionsPage } from '@pages/PaymentsAndTransactionsPage';
+import { BuyDesignPage } from '@pages/BuyDesignPage';
+import { WaitingListPage } from '@pages/WaitinListPage';
+import { DiscountOnReservedUnitsPage } from '@pages/DiscountOnReservedUnitsPage';
+import { CashPaymentPage } from '@pages/CashPaymentPage';
+import { PublishUnitPage } from '@pages/PublishUnitPage';
 
 export class WebApp {
   page: Page;
@@ -42,6 +49,13 @@ export class WebApp {
   rentalBehavrioPage: InstanceType<typeof RentalBehaviorPage>;
   resaleOfUnitsPage: InstanceType<typeof ResaleOfUnitsPage>;
   offPlanBasketMultipleBookingPage: InstanceType<typeof OffPlanBasketMultipleBookingPage>;
+  adminLoyaltyPage: InstanceType<typeof AdminLoyaltyPage>;
+  paymentsAndTransactionsPage: InstanceType<typeof PaymentsAndTransactionsPage>;
+  buyDesignPage: InstanceType<typeof BuyDesignPage>;
+  waitingListPage: InstanceType<typeof WaitingListPage>;
+  discountOnReservedUnitsPage: InstanceType<typeof DiscountOnReservedUnitsPage>;
+  cashPaymentPage: InstanceType<typeof CashPaymentPage>;
+  publishUnitPage: InstanceType<typeof PublishUnitPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -58,6 +72,14 @@ export class WebApp {
     this.auctionPage = new AuctionPage(page);
     this.electronicAuctionProjectPage = new ElectronicAuctionProjectPage(page);
     this.adminProjectPage = new AdminProjectPage(page);
+    this.createMegaProjectPage = new CreateMegaProjectPage(page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage(page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage(page);
+    this.paymentTrackingPage = new PaymentTrackingPage(page);
+    this.rentalBehavrioPage = new RentalBehaviorPage(page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
+    this.adminLoyaltyPage = new AdminLoyaltyPage(page);
+    this.paymentsAndTransactionsPage = new PaymentsAndTransactionsPage(page);
     this.createMegaProjectPage = new CreateMegaProjectPage (page);
     this.flexiblePaymentPage = new FlexiblePaymentPage (page);
     this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
@@ -65,5 +87,10 @@ export class WebApp {
     this.rentalBehavrioPage = new RentalBehaviorPage (page);
     this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
     this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage (page);
+    this.buyDesignPage = new BuyDesignPage (page);
+    this.waitingListPage = new WaitingListPage (page);
+    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage (page);
+    this.cashPaymentPage = new CashPaymentPage (page);
+    this.publishUnitPage = new PublishUnitPage (page);
   }
 }
