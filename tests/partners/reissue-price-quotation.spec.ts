@@ -6,6 +6,7 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
+import testDataReissuePriceQuotation from "@data/test-data.json";
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
@@ -19,8 +20,8 @@ function writeTestData(data: any) {
 
 function updateReissuePriceQuotationTestData(key: string, value: string) {
     const testData = readTestData();
-    testData["reissue-price-quotation"] = {
-        ...testData["reissue-price-quotation"],
+    testData.services["reissue-price-quotation"] = {
+        ...testData.services["reissue-price-quotation"],
         [key]: value,
     };
     writeTestData(testData);
@@ -33,27 +34,31 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
         test.setTimeout(0);
         const testData = readTestData();
         const app = new WebApp(page);
-
+ const environments = testDataReissuePriceQuotation.environments;
+        const data = testDataReissuePriceQuotation.services["reissue-price-quotation"];
         const currentDate = DateUtils.getDateISO(600);
         const projectName = `Automation Project ${new Date()
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        const updatedData = {
-            ...testData,
-            projectName,
-            "reissue-price-quotation": {
-                ...testData["reissue-price-quotation"],
-                projectName,
-            },
-        };
-        writeTestData(updatedData);
+        // const updatedData = {
+        //     ...testData,
+        //     projectName,
+        //     services: {
+        //         ...testData.services,
+        //         "reissue-price-quotation": {
+        //             ...testData.services["reissue-price-quotation"],
+        //             projectName,
+        //         },
+        //     },
+        // };
+        // writeTestData(updatedData);
 
         // Project details
         await app.adminProjectPage.login(
-            updatedData.adminPortalUrl,
-            updatedData.adminUsername,
-            updatedData.adminPassword,
+            environments.adminPortalUrl,
+            data.adminUsername,
+            data.adminPassword,
         );
         await app.adminProjectPage.openProjectCreation();
         await page
@@ -370,12 +375,14 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
 
     test("TC-02 - Developer approves sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const reissueData = testData["reissue-price-quotation"];
+        const data = testDataReissuePriceQuotation.services["reissue-price-quotation"];
+        const environments = testDataReissuePriceQuotation.environments;
+        // const testData = readTestData();
+        // const reissueData = testData.services["reissue-price-quotation"];
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
-        const projectName = reissueData.projectName;
-        const developerUserId = reissueData.developerUserId;
+        const sapaUrl = environments.sapaPortalUrl;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -396,12 +403,14 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
 
     test("TC-03 - User books offplan unit and pay the fees", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const reissueData = testData["reissue-price-quotation"];;
+        // const testData = readTestData();
+        // const reissueData = testData.services["reissue-price-quotation"];;
+        const data = testDataReissuePriceQuotation.services["reissue-price-quotation"];
+        const environments = testDataReissuePriceQuotation.environments;
         const app = new WebApp(page);
-        const userPortalUrl = testData.environments.userPortalUrl;
-        const userID = reissueData.sakaniUserId;
-        const projectName = reissueData.projectName;
+        const userPortalUrl = environments.userPortalUrl;
+        const userID = data.sakaniUserId;
+        const projectName = data.projectName;
 
         await logStep("Step 01: Navigate to user portal > Login");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -446,11 +455,13 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
 
     test("TC-04 - User signs sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const reissueData = testData["reissue-price-quotation"];
+        // const testData = readTestData();
+        // const reissueData = testData.services["reissue-price-quotation"];
+        const data = testDataReissuePriceQuotation.services["reissue-price-quotation"];
+        const environments = testDataReissuePriceQuotation.environments;
         const app = new WebApp(page);
-        const userPortalUrl = testData.environments.userPortalUrl;
-        const userID = reissueData.sakaniUserId;
+        const userPortalUrl = environments.userPortalUrl;
+        const userID = data.sakaniUserId;
 
         await logStep("Step 01: Login to user protal");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -477,7 +488,7 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
     //  test("TC-05 - Developer extend price quotation", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     //     test.setTimeout(0);
     //     const testData = readTestData();
-    //     const reissueData = testData["reissue-price-quotation"];
+    //     const reissueData = testData.services["reissue-price-quotation"];
     //     const app = new WebApp(page);
     //     const unitCode = reissueData.bookedUnitCode;
     //     const developerUserId = reissueData.developerUserId;
@@ -501,12 +512,14 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
 
     test("TC-05 - Developer reissue price quotation", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const reissueData = testData["reissue-price-quotation"];
+        // const testData = readTestData();
+        // const reissueData = testData.services["reissue-price-quotation"];
+        const data = testDataReissuePriceQuotation.services["reissue-price-quotation"];
+        const environments = testDataReissuePriceQuotation.environments;
         const app = new WebApp(page);
-        const unitCode = reissueData.bookedUnitCode;
-        const developerUserId = reissueData.developerUserId;
-        const sapaUrl = testData.environments.sapaPortalUrl;
+        const unitCode = data.bookedUnitCode;
+        const developerUserId = data.developerUserId;
+        const sapaUrl = environments.sapaPortalUrl;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -525,12 +538,14 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
     });
     test("TC-06 - Developer cancel the booking", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const reissueData = testData["reissue-price-quotation"];
+        // const testData = readTestData();
+        // const reissueData = testData.services["reissue-price-quotation"];
+        const data = testDataReissuePriceQuotation.services["reissue-price-quotation"];
+        const environments = testDataReissuePriceQuotation.environments;
         const app = new WebApp(page);
-        const unitCode = reissueData.bookedUnitCode;
-        const developerUserId = reissueData.developerUserId;
-        const sapaUrl = testData.environments.sapaPortalUrl;
+        const unitCode = data.bookedUnitCode;
+        const developerUserId = data.developerUserId;
+        const sapaUrl = environments.sapaPortalUrl;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -557,4 +572,3 @@ test.describe("Reissue Price Quotation For The Beneficiaries", () => {
 
 
 });
-
