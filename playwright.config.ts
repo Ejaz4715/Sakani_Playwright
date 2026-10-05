@@ -6,6 +6,7 @@ dotenv.config();
 const timestamp = new Date().toISOString().replace(/[:T]/g, '-').replace(/\..+/, '');
 
 export default defineConfig({
+  maxFailures: 1,
   preserveOutput: 'always',
   testDir: './', 
   testMatch: [

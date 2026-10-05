@@ -17,8 +17,12 @@
   "viban_number": "SA0001000000000843",
   "megaProjectName": "Mega Project 20260921141119",
   "unitCodeNew": "01-01-0627-6-102",
-  "unitPriceBeforeDiscount": "100000",
-  "unitPriceAfterDiscount": "70000",
+  "services": {
+    "loyalty-sharrai": {
+      "companyName": "Automation Test Company 20260928145426",
+      "dealName": "Automation Test Deal 20260928145426"
+    }
+  },
   "environments": {
     "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
     "userPortalUrl": "https://pre-sakani.housingapps.sa",

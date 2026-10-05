@@ -29,11 +29,12 @@ export class AdminProjectPage {
     await this.page.getByRole("link", { name: "المشاريع" }).click();
   }
 
-   async openResaleRequests() {
+  async openResaleRequests() {
     await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
     await this.page.getByRole("link", { name: " طلب إعادة البيع " }).click();
   }
-    async clickInternalInventory() {
+
+  async clickInternalInventory() {
     await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
   }
 

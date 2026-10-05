@@ -1,7 +1,7 @@
 export const BookingCancellationObjects = {
   userProfileButton: "//button[@id='profile-dropdown']",
-  myBookingsLink: { text: "حجوزاتي" },
-
+  myBookingsLink: "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'حجوزاتي')]",
+  manageProfile: "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'إدارة الملف الشخصي')]",
   activeBookingsTab: { role: "tab", name: "نشطة" },
   completedBookingsTab: { role: "tab", name: "مكتملة" },
   bookingDetailsButton: { role: "button", name: "عرض التفاصيل" },
@@ -15,11 +15,10 @@ export const BookingCancellationObjects = {
     name: "تم إلغاء الحجز بنجاح!",
   },
 
-  refudedStatus:{
-    xpath:"//app-booking-refund-fee-badge/descendant::div[contains(text(),'المبلغ المسترد')]"
+  refudedStatus: {
+    xpath: "//app-booking-refund-fee-badge/descendant::div[contains(text(),'المبلغ المسترد')]"
   },
   bookedUnitCode:
     "//div[text() = 'رمز الوحدة']/following-sibling::div/child::div",
-
 
 } as const;

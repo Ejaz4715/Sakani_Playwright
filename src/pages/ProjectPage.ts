@@ -1,5 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage, APP_READY_TIMEOUT } from './BasePage';
+import { TIMEOUT } from 'node:dns';
 
 /**
  * Off-plan project detail — `/app/offplan-projects/<id>`
@@ -23,7 +24,8 @@ export class ProjectPage extends BasePage {
   readonly shareButton: Locator;
   readonly mediaButton: Locator;
   readonly view360Button: Locator;
-  readonly registerInterestLink: Locator;
+  readonly registerInterestForm: Locator;
+  readonly registerInterestButton: Locator;
   readonly viewUnitsButton: Locator;
   readonly developerLink: Locator;
   readonly ownersAssociationLink: Locator;
@@ -50,9 +52,10 @@ export class ProjectPage extends BasePage {
     this.mediaButton = page.getByRole('button', { name: /\d+\s*(Media|Photos?)|وسائط|صور/i });
     this.view360Button = page.getByRole('button', { name: /360 view/i });
     // Rendered as a link on some projects and a button on others.
-    this.registerInterestLink = page
-      .getByRole('link', { name: /Register Interest|سجل اهتمامك/i })
-      .or(page.getByRole('button', { name: /Register Interest|سجل اهتمامك/i }));
+    this.registerInterestButton = page
+      .locator("//span[normalize-space()='Register Interest']");
+    this.registerInterestForm = page
+      .locator("//app-dx-preference-form-submission-tpl | //p[normalize-space()='Preference form']");
     this.viewUnitsButton = page.getByRole('button', { name: /View units|عرض الوحدات/i });
     this.developerLink = page.locator('a[href*="/app/developers/"]').first();
     this.ownersAssociationLink = page.locator('a[href*="mullak.housing.gov.sa"]');
@@ -138,5 +141,11 @@ export class ProjectPage extends BasePage {
     const popup = this.page.context().waitForEvent('page', { timeout: 60_000 });
     await this.unitModelCards.nth(index).click({ force: true });
     return popup;
+  }
+
+  async clickRegisterInterestButton(): Promise<void> {
+    const button = this.registerInterestButton;
+    await expect(button).toBeVisible({ timeout: 90_000 });
+    await button.click();
   }
 }

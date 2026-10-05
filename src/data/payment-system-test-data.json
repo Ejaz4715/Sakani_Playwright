@@ -33,5 +33,14 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin"
     }
-  }
+  },
+  "loyalty-sharrai": {
+    "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+    "adminPassword": "admin",
+    "sakaniUserId": "1019075926"
+  },
+  "payments-and-transactions": {
+    "sakaniUserId": "1019075926"
+  },
+  "service5": {}
 }
