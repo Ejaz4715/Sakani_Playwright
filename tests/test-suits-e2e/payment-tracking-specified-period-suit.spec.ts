@@ -423,7 +423,7 @@ test.describe("Payment tracking - specified period", () => {
     await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
     await app.developerProjectPage.loginDeveloper(developerUserId);
     await app.developerProjectPage.switchRoleToDeveloper();
-    await app.flexiblePaymentPage.clickOnFinancialManagemnt();
+    await app.flexiblePaymentPage.clickOnFinancialManagement();
     await app.flexiblePaymentPage.clickOnPaymentSchedules();
     await app.flexiblePaymentPage.clickOnNewSchedulesButton();
     await app.flexiblePaymentPage.enterScheduleNameInArabic("Test");
