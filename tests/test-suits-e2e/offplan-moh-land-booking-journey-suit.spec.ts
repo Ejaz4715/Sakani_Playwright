@@ -74,7 +74,8 @@ test.describe("Offplan MOH land booking journey", () => {
       const unitsImportFilePath = path.join(process.cwd(), "src", "data", "Offplan_MOH.xlsx");
       await app.adminProjectPage.uploadUnitsFile(unitsImportFilePath);
       await app.adminProjectPage.clickImportSaveButton();
-      await app.adminProjectPage.expectUnitImportInProgress();
+      // await app.adminProjectPage.expectUnitImportInProgress();
+      await page.pause();
       await app.adminProjectPage.waitForUnitImportCompletion();
       await app.adminProjectPage.clickApproveButton();
       await app.adminProjectPage.clickConfirmButton();

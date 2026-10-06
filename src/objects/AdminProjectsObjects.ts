@@ -78,7 +78,7 @@ export const AdminObjects = {
   //   },
 
   async bankOption(text: string) {
-    return `//mat-option/child::span[normalize-space() ='${text}']`;
+    return `//div[@role = 'option']/descendant::span[normalize-space() ='${text}']`;
   },
   deductionPercentageField: "//input[@formcontrolname='deduct_percentage']",
   deedIssueCityArabic: {
@@ -131,10 +131,7 @@ export const AdminObjects = {
     role: "button",
     name: " حفظ",
   },
-  importInProgressMessage: {
-    text: "تحت الإجراء ...",
-    exact: true,
-  },
+  importInProgressMessage: "//div[text() = 'الرمز المرجعي للعملية']",
   importCompleteMessage: {
     text: "تم إكمال الإجراء",
     exact: true,

@@ -6,15 +6,6 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from "@helpers/LogSteps";
 import offplanTestData from '@data/test-data.json';
 import { DataHelper } from "@helpers/DataHelper";
-// const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
-
-// function readTestData() {
-//   return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-// }
-
-// function writeTestData(data: any) {
-//   fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-// }
 
 test.describe("Offplan private land booking journey", () => {
 

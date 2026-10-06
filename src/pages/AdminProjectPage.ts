@@ -292,17 +292,16 @@ export class AdminProjectPage {
 
   async expectUnitImportInProgress() {
     await expect(
-      this.page.getByText(AdminObjects.importInProgressMessage.text, {
-        exact: AdminObjects.importInProgressMessage.exact,
-      }),
+      this.page.getByText(AdminObjects.importInProgressMessage),
     ).toBeVisible({ timeout: 120000 });
   }
 
   async waitForUnitImportCompletion() {
-    await this.page.waitForTimeout(7000);
+    await this.page.waitForTimeout(12000);
     let completed = false;
     while (!completed) {
       await this.page.reload();
+      await this.page.waitForTimeout(3000);
       completed = await this.page
         .getByText(AdminObjects.importCompleteMessage.text, {
           exact: AdminObjects.importCompleteMessage.exact,

@@ -123,19 +123,19 @@ test.describe("Auction booking journey", () => {
     await logStep("Step 04: Navigate to the auction project creation page");
     await app.adminProjectPage.openAuctionCreation();
 
-    await logStep("Step 04: Fill in the auction project details");
+    await logStep("Step 05: Fill in the auction project details");
     await electronicAuctionPage.fillProjectName(projectName);
     await electronicAuctionPage.selectElectronicAuctionType();
     await electronicAuctionPage.openHousingSector();
     await electronicAuctionPage.selectHousingSector();
 
-    await logStep("Step 05: Select region and city");
+    await logStep("Step 06: Select region and city");
     await electronicAuctionPage.openRegion();
     await electronicAuctionPage.selectRegion();
     await electronicAuctionPage.openCity();
     await electronicAuctionPage.selectCity();
 
-    await logStep("Step 06: Enter date, time and save");
+    await logStep("Step 07: Enter date, time and save");
     await electronicAuctionPage.fillAuctionStartDate(auctionStartDate);
     await electronicAuctionPage.fillAuctionStartHour(auctionStartHour);
     await electronicAuctionPage.fillAuctionStartMinute(auctionStartMinute);
@@ -145,7 +145,7 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(2500);
     await electronicAuctionPage.saveProject();
 
-    await logStep("Step 07: Upload auction media > Enter media details > Save");
+    await logStep("Step 08: Upload auction media > Enter media details > Save");
     await electronicAuctionPage.openProjectMedia();
     await electronicAuctionPage.fillArabicDetailsTitle(projectName);
     await electronicAuctionPage.fillEnglishDetailsTitle(projectName);
@@ -163,7 +163,7 @@ test.describe("Auction booking journey", () => {
     await electronicAuctionPage.submitMediaForApproval();
     await electronicAuctionPage.approveProjectMedia();
 
-    await logStep("Step 08: Upload auction units file > commit the units");
+    await logStep("Step 09: Upload auction units file > commit the units");
     await electronicAuctionPage.openUnits();
     await electronicAuctionPage.openUnitsSubTab();
     await electronicAuctionPage.openNewUnitImport();
@@ -184,12 +184,12 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(3000);
     await electronicAuctionPage.returnFromUnitImport();
 
-    await logStep("Step 09: Save unit model");
+    await logStep("Step 10: Save unit model");
     await electronicAuctionPage.openUnitModels();
     await electronicAuctionPage.openApartmentModel();
     await electronicAuctionPage.saveUnitModel();
 
-    await logStep("Step 10: Unit model media > Save and approve media");
+    await logStep("Step 11: Unit model media > Save and approve media");
     await electronicAuctionPage.openUnitVisualMedia();
     await electronicAuctionPage.fillLatitude("1.1");
     await electronicAuctionPage.fillLongitude("1.2");
@@ -202,7 +202,7 @@ test.describe("Auction booking journey", () => {
     await electronicAuctionPage.publishUnitModel();
     await electronicAuctionPage.waitForUnitMediaApproval();
 
-    await logStep("Step 11: Unit model auction legal > Upload documents > Save");
+    await logStep("Step 12: Unit model auction legal > Upload documents > Save");
     await page.waitForTimeout(1000);
     const PDFfilePath = path.join(
       process.cwd(), "src",
@@ -218,18 +218,18 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(1000);
     await electronicAuctionPage.expectUnitModelUpdated();
 
-    await logStep("Step 12: Auction setting > enable fee > Save");
+    await logStep("Step 13: Auction setting > enable fee > Save");
     await electronicAuctionPage.openAuctionSettings();
     await electronicAuctionPage.openSettingsEdit();
     await electronicAuctionPage.enableGeneralAuctionSetting();
     await electronicAuctionPage.updateAuctionSettings();
     await electronicAuctionPage.expectSettingsUpdated();
 
-    await logStep("Step 13: Pulish unit model");
+    await logStep("Step 14: Publish unit model");
     await electronicAuctionPage.publishUnitModelCategories();
     await electronicAuctionPage.openPublishedUnitModel();
 
-    await logStep("Step 14: Publish auction project");
+    await logStep("Step 15: Publish auction project");
     await electronicAuctionPage.waitForProjectMediaApproval();
     await electronicAuctionPage.publishProject();
   });
@@ -244,6 +244,7 @@ test.describe("Auction booking journey", () => {
     const userPortalUrl = environment.userPortalUrl;
     const projectName = data.projectName;
 
+    await logStep("Step 01: Log in to the Sakani user portal");
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
@@ -252,20 +253,19 @@ test.describe("Auction booking journey", () => {
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
 
-    // search for auction project and navigate to project details page
+    await logStep("Step 02: Search for the auction project");
     await app.marketplaceLandingPage.openSearch();
     await app.marketplaceLandingPage.searchForProject(projectName);
 
-    //Navigate to auction unit and join the auction
+    await logStep("Step 03: Open the auction unit and join the electronic auction");
     await app.auctionPage.openUnit();
     await app.auctionPage.joinElectronicAuction();
 
-    //Select mada > Enter payment details
+    await logStep("Step 04: Pay the auction fee and verify the payment status");
     await app.paymentGatewayPage.fillCardDetails();
     await app.auctionPage.validateCongratulationsMessaeg();
     await app.auctionPage.returnToAuction("العودة إلى وحدة المزاد");
 
-    //Validate the auction booking fees is paid
     await app.auctionPage.expectAuctionPaymentPending();
   });
 
@@ -276,6 +276,7 @@ test.describe("Auction booking journey", () => {
     const data = auctionTestData.services['auction-journey'];
     const environment = auctionTestData.environments;
 
+    await logStep("Step 01: Define the hybrid auction schedule and project data");
     const auctionStartDateTime = new Date(Date.now() + 120 * 60 * 1000);
     const auctionEndDateTime = new Date(Date.now() + 240 * 60 * 1000);
 
@@ -316,7 +317,7 @@ test.describe("Auction booking journey", () => {
     updatedData.auctionEndTime = auctionEndTime;
     writeTestData(updatedData);
 
-    // write the auction start and end dates and times to the Auction_Units.xlsx file
+    await logStep("Step 02: Write the auction schedule to the units workbook");
     updateAuctionUnitsFile({
       startDate: updatedData.auctionStartDate,
       endDate: updatedData.auctionEndDate,
@@ -324,17 +325,17 @@ test.describe("Auction booking journey", () => {
       endTime: updatedData.auctionEndTime,
     });
 
-    // Login to admin portal
+    await logStep("Step 03: Log in to the admin portal");
     await app.adminProjectPage.login(
       updatedData.adminPortalUrl,
       updatedData.adminUsername,
       updatedData.adminPassword,
     );
 
-    // Navigate to the auction project creation page
+    await logStep("Step 04: Open the auction project creation page");
     await app.adminProjectPage.openAuctionCreation();
 
-    // Fill in the auction project details
+    await logStep("Step 05: Enter project details and select the hybrid auction type");
     await fillVisible(
       page.getByRole("textbox", { name: "إسم المشروع" }),
       projectName,
@@ -353,6 +354,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByRole("combobox", { name: "نوع القطاع" }));
     await clickVisible(page.getByText("وزارة الإسكان"));
 
+    await logStep("Step 06: Select the project region and city");
     await clickVisible(
       page
         .locator("//ng-select[@formcontrolname='region_id']")
@@ -381,6 +383,7 @@ test.describe("Auction booking journey", () => {
       "//ngb-timepicker[@formcontrolname='end_time']/descendant::input[@aria-label='Minutes']",
     );
 
+    await logStep("Step 07: Set the auction start and end date and time, then save");
     await fillVisible(auctionStartDateInput, auctionStartDate);
     await fillVisible(auctionStartHourInput, auctionStartHour);
     await fillVisible(auctionStartMinuteInput, auctionStartMinute);
@@ -390,7 +393,7 @@ test.describe("Auction booking journey", () => {
 
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
 
-    // Auction media > Enter media details > Save
+    await logStep("Step 08: Enter auction media details and submit them for approval");
     await clickVisible(
       page.getByRole("tab", { name: "وسائل الإعلام مشروع المزاد ( مسودة )" }),
     );
@@ -436,7 +439,7 @@ test.describe("Auction booking journey", () => {
       page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }),
     );
 
-    // Auction units > upload unit file and commit
+    await logStep("Step 09: Upload the auction units file and commit the units");
     await clickVisible(page.getByRole("tab", { name: "الوحدات", exact: true }));
     await clickVisible(
       page.locator("#mat-tab-group-1-label-1").getByText("الوحدات"),
@@ -486,12 +489,12 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(3000);
     await clickVisible(page.getByRole("button", { name: "رجوع" }));
 
-    // Unit Models > save
+    await logStep("Step 10: Save the imported unit model");
     await clickVisible(page.getByRole("tab", { name: "نماذج الوحدات" }));
     await clickVisible(page.getByRole("cell", { name: "model_1" }));
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
 
-    // Unit model > Save and approve media
+    await logStep("Step 11: Save and approve the unit model media");
     await clickVisible(page.getByRole("tab", { name: /المحتوى المرئي/ }));
     await page
       .getByRole("textbox", { name: "رابط الفيديو المباشر" })
@@ -531,7 +534,7 @@ test.describe("Auction booking journey", () => {
       }
     }
 
-    // Unit model > Auction legal > Upload documents
+    await logStep("Step 12: Upload and save the auction legal documents");
     await clickVisible(page.getByRole("tab", { name: "المزاد قانوني" }));
     await page.waitForTimeout(1000);
     const PDFfilePath = path.join(
@@ -556,7 +559,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
     await expect(page.getByText("AR Model was updated")).toBeVisible();
 
-    // Unit model > Publish
+    await logStep("Step 13: Publish the unit model");
     const publishUnitModelToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر التصانيف')]/preceding-sibling::button",
     );
@@ -577,7 +580,7 @@ test.describe("Auction booking journey", () => {
     }
     await clickVisible(page.locator("a").filter({ hasText: "model_1 - شقة" }));
 
-    // Publish project
+    await logStep("Step 14: Publish the auction project");
     const publishProjectToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
     );
@@ -603,6 +606,7 @@ test.describe("Auction booking journey", () => {
     const userPortalUrl = environment.userPortalUrl;
     const projectName = data.projectName;
 
+    await logStep("Step 01: Log in to the Sakani user portal");
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
@@ -610,13 +614,20 @@ test.describe("Auction booking journey", () => {
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
+    await logStep("Step 02: Search for the hybrid auction project");
     await app.marketplaceLandingPage.openSearch();
     await app.marketplaceLandingPage.searchForProject(projectName);
+
+    await logStep("Step 03: Join the hybrid auction");
     await app.auctionPage.openUnit();
     await app.auctionPage.joinHybridAuction();
+
+    await logStep("Step 04: Open and approve the winner contract");
     await app.auctionPage.returnToAuction("العودة الى المزاد");
     await app.auctionPage.waitForWinnerAndOpenContract();
     await app.auctionPage.approveContract();
+
+    await logStep("Step 05: Verify the auction completes successfully");
     await app.auctionPage.expectAuctionSuccess();
   });
 
@@ -625,7 +636,7 @@ test.describe("Auction booking journey", () => {
     const testData = readTestData();
     const app = new WebApp(page);
 
-    // define auction start and end dates and times
+    await logStep("Step 01: Define the hybrid auction schedule and project data");
     // const auctionStartDateTime = new Date(Date.now() + 2 * 60 * 1000);
     // const auctionEndDateTime = new Date(Date.now() + 3 * 60 * 1000);
 
@@ -668,7 +679,7 @@ test.describe("Auction booking journey", () => {
     updatedData.auctionEndTime = auctionEndTime;
     writeTestData(updatedData);
 
-    // write the auction start and end dates and times to the Auction_Units.xlsx file
+    await logStep("Step 02: Write the auction schedule to the units workbook");
     updateAuctionUnitsFile({
       startDate: updatedData.auctionStartDate,
       endDate: updatedData.auctionEndDate,
@@ -676,17 +687,17 @@ test.describe("Auction booking journey", () => {
       endTime: updatedData.auctionEndTime,
     });
 
-    // Login to admin portal
+    await logStep("Step 03: Log in to the admin portal");
     await app.adminProjectPage.login(
       updatedData.adminPortalUrl,
       updatedData.adminUsername,
       updatedData.adminPassword,
     );
 
-    // Navigate to the auction project creation page
+    await logStep("Step 04: Open the auction project creation page");
     await app.adminProjectPage.openAuctionCreation();
 
-    // Fill in the auction project details
+    await logStep("Step 05: Enter project details and select the hybrid auction type");
     await fillVisible(
       page.getByRole("textbox", { name: "إسم المشروع" }),
       projectName,
@@ -705,6 +716,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByRole("combobox", { name: "نوع القطاع" }));
     await clickVisible(page.getByText("وزارة الإسكان"));
 
+    await logStep("Step 06: Select the project region and city");
     await clickVisible(
       page
         .locator("//ng-select[@formcontrolname='region_id']")
@@ -733,6 +745,7 @@ test.describe("Auction booking journey", () => {
       "//ngb-timepicker[@formcontrolname='end_time']/descendant::input[@aria-label='Minutes']",
     );
 
+    await logStep("Step 07: Set the auction start and end date and time, then save");
     await fillVisible(auctionStartDateInput, auctionStartDate);
     await fillVisible(auctionStartHourInput, auctionStartHour);
     await fillVisible(auctionStartMinuteInput, auctionStartMinute);
@@ -742,7 +755,7 @@ test.describe("Auction booking journey", () => {
 
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
 
-    // Auction media > Enter media details > Save
+    await logStep("Step 08: Enter auction media details and submit them for approval");
     await clickVisible(
       page.getByRole("tab", { name: "وسائل الإعلام مشروع المزاد ( مسودة )" }),
     );
@@ -788,7 +801,7 @@ test.describe("Auction booking journey", () => {
       page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }),
     );
 
-    // Auction units > upload unit file and commit
+    await logStep("Step 09: Upload the auction units file and commit the units");
     await clickVisible(page.getByRole("tab", { name: "الوحدات", exact: true }));
     await clickVisible(
       page.locator("#mat-tab-group-1-label-1").getByText("الوحدات"),
@@ -838,12 +851,12 @@ test.describe("Auction booking journey", () => {
     await page.waitForTimeout(3000);
     await clickVisible(page.getByRole("button", { name: "رجوع" }));
 
-    // Unit Models > save
+    await logStep("Step 10: Save the imported unit model");
     await clickVisible(page.getByRole("tab", { name: "نماذج الوحدات" }));
     await clickVisible(page.getByRole("cell", { name: "model_1" }));
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
 
-    // Unit model > Save and approve media
+    await logStep("Step 11: Save and approve the unit model media");
     await clickVisible(page.getByRole("tab", { name: /المحتوى المرئي/ }));
     await page
       .getByRole("textbox", { name: "رابط الفيديو المباشر" })
@@ -883,7 +896,7 @@ test.describe("Auction booking journey", () => {
       }
     }
 
-    // Unit model > Auction legal > Upload documents
+    await logStep("Step 12: Upload and save the auction legal documents");
     await clickVisible(page.getByRole("tab", { name: "المزاد قانوني" }));
     await page.waitForTimeout(1000);
     const PDFfilePath = path.join(
@@ -908,7 +921,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByRole("button", { name: "حفظ" }));
     await expect(page.getByText("AR Model was updated")).toBeVisible();
 
-    // Unit model > Auction settion > enable fee
+    await logStep("Step 13: Enable the auction fee and save auction settings");
     await clickVisible(page.getByRole("tab", { name: "إعدادات المزاد" }));
     await clickVisible(page.getByRole("button", { name: "تعديل" }));
     await clickVisible(
@@ -918,7 +931,7 @@ test.describe("Auction booking journey", () => {
     await clickVisible(page.getByRole("button", { name: "تحديث" }));
     await expect(page.getByText("AR")).toBeVisible();
 
-    // Unit model > Publish
+    await logStep("Step 14: Publish the unit model");
     const publishUnitModelToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر التصانيف')]/preceding-sibling::button",
     );
@@ -939,7 +952,7 @@ test.describe("Auction booking journey", () => {
     }
     await clickVisible(page.locator("a").filter({ hasText: "model_1 - شقة" }));
 
-    // Publish project
+    await logStep("Step 15: Publish the auction project");
     const publishProjectToggle = page.locator(
       "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
     );
@@ -965,6 +978,7 @@ test.describe("Auction booking journey", () => {
     const userPortalUrl = environment.userPortalUrl;
     const projectName = data.projectName;
 
+    await logStep("Step 01: Log in to the Sakani user portal");
     await app.loginPage.gotoHomePage(userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
@@ -972,14 +986,20 @@ test.describe("Auction booking journey", () => {
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
+    await logStep("Step 02: Search for the hybrid auction project");
     await app.marketplaceLandingPage.openSearch();
     await app.marketplaceLandingPage.searchForProject(projectName);
+
+    await logStep("Step 03: Join the hybrid auction");
     await app.auctionPage.openUnit();
     await app.auctionPage.joinHybridAuction();
+
+    await logStep("Step 04: Pay the auction fee");
     await app.paymentGatewayPage.fillCardDetails();
     await app.auctionPage.validateCongratulationsMessaeg();
     await app.auctionPage.returnToAuction("العودة إلى وحدة المزاد");
+
+    await logStep("Step 05: Verify the auction payment status");
     await app.auctionPage.expectAuctionPaymentPending();
   });
 });
-
