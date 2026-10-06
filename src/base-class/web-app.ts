@@ -28,6 +28,8 @@ import { CashPaymentPage } from '@pages/CashPaymentPage';
 import { PublishUnitPage } from '@pages/PublishUnitPage';
 import { UnitComparisonPage } from '@pages/UnitComparisonPage';
 import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
+import { SortingPage } from '@pages/SortingPage';
+import { FiltersPage } from '@pages/FiltersPage';
 
 export class WebApp {
   page: Page;
@@ -60,6 +62,9 @@ export class WebApp {
   publishUnitPage: InstanceType<typeof PublishUnitPage>;
   unitComparisonPage: InstanceType<typeof UnitComparisonPage>;
   reportTheUnitPage: InstanceType<typeof ReportTheUnitPage>;
+  sortingPage: InstanceType<typeof SortingPage>;
+  filtersPage: InstanceType<typeof FiltersPage>;
+
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(page);
@@ -91,5 +96,7 @@ export class WebApp {
     this.publishUnitPage = new PublishUnitPage(page);
     this.unitComparisonPage = new UnitComparisonPage(page);
     this.reportTheUnitPage = new ReportTheUnitPage(page);
+    this.sortingPage = new SortingPage(page);
+    this.filtersPage = new FiltersPage(page);
   }
 }

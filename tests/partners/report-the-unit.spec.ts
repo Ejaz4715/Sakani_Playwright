@@ -17,11 +17,9 @@ test.describe("Report The Unit", () => {
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
-
     await logStep("Step 02: Select rental units > Open a unit");
     await app.reportTheUnitPage.selectRentalProperty();
     const unitPage = await app.reportTheUnitPage.openFirstMarketUnit();
-
     await logStep("Step 03: Report the unit > Verify report submitted successfully");
     const unitApp = new WebApp(unitPage);
     await unitApp.reportTheUnitPage.clickReportUnitLink();

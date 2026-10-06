@@ -167,6 +167,7 @@ export class PublishUnitPage {
         const dataAccuracyDisclaimerCheckbox = this.page.locator(
             PublishUnitObjects.dataAccuracyDisclaimerCheckbox.xpath,
         );
+        await this.page.waitForTimeout(3000); // Wait for 3 seconds to ensure the checkbox is visible
         await expect(dataAccuracyDisclaimerCheckbox).toBeVisible({ timeout: 90000 });
         await dataAccuracyDisclaimerCheckbox.click();
     }

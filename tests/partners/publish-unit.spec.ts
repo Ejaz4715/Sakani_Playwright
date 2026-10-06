@@ -6,7 +6,6 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
-import testDataPublishUnit from "@data/test-data.json";
 import { PublishUnitObjects } from "@objects/PublishUnitObjects";
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
@@ -85,7 +84,7 @@ test.describe("Publish Unit", () => {
         await app.publishUnitPage.clickOnStartButton();
         await app.publishUnitPage.clickOnSingleUnitOption();
         await app.publishUnitPage.clickOnNextButton();
-        await app.publishUnitPage.fillAdLicenseNumberInputfield(publishUnitData.AdLicenseNumber);
+        await app.publishUnitPage.fillAdLicenseNumberInputfield(timestamp);
         await app.publishUnitPage.selectAdvertiserIdType();
         await app.publishUnitPage.fillAdvertiserIdNumberInputfield(advertiserId);
         await app.publishUnitPage.clickOnContinueButton();
@@ -105,9 +104,9 @@ test.describe("Publish Unit", () => {
 
     test("TC-02  Admin approves publish unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        // const testData = readTestData();
-        const data = testDataPublishUnit.services["publish-unit"];
-        const environments = testDataPublishUnit.environments;
+        const testData = readTestData();
+        const data = testData.services["publish-unit"];
+        const environments = testData.environments;
         // const publishUnitData = testData.services["publish-unit"];
         const app = new WebApp(page);
         const adminUrl = environments.adminPortalUrl;
@@ -137,8 +136,9 @@ test.describe("Publish Unit", () => {
 
     test("TC-03 - Developer verify the request is finished", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const data = testDataPublishUnit.services["publish-unit"];
-        const environments = testDataPublishUnit.environments;
+        const testData = readTestData();
+        const data = testData.services["publish-unit"];
+        const environments = testData.environments;
         const app = new WebApp(page);
         const sapaUrl = environments.sapaPortalUrl;
         const developerUserId = data.developerUserId;
