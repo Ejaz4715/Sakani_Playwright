@@ -2,6 +2,8 @@ import {expect, test} from '@fixtures/pages.fixture';
 import {WebApp} from "@base-class/web-app";
 import {DateUtils} from "@pages/utils/DateUtils";
 import {Locator, Page} from "@playwright/test";
+import {DataHelper} from "@helpers/DataHelper";
+import {logStep} from "@helpers/LogSteps";
 
 
 const fs = require("fs");
@@ -9,42 +11,21 @@ const path = require("path");
 
 const DEFAULT_TIMEOUT = 30_000;
 const LONG_TIMEOUT = 90_000;
-const KEY = "selling-to-companies";
 
 async function waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
     await locator.waitFor({state: 'visible', timeout});
     await locator.click();
 }
 
-async function waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
-    await locator.waitFor({state: 'visible', timeout});
-    await locator.fill(value);
-}
+const SERVICE = "selling-to-companies";
 
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
-
-function readTestData() {
-    return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
-
-
-function writeTestData(data: any) {
-    fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2), "utf8");
-}
-function updateSellingToCompanies({newFields}: { newFields: any }) {
-    const data = readTestData();
-
-    if (!data[KEY]) throw new Error(`"${KEY}" not found in test-data.json`);
-
-    data[KEY] = {...data[KEY], ...newFields};
-
-    writeTestData(data);
-    return data[KEY];
-}
+// Read fresh from disk on every call so values written by earlier tests are picked up
+const readServiceData = () => DataHelper.readData().services[SERVICE];
+const readEnvironments = () => DataHelper.readData().environments;
+const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 const unitCheckbox = (page: Page, row: number) =>
     page.locator(`//datatable-row-wrapper[${row}]/datatable-body-row/div[3]/datatable-body-cell/div/div/app-sapa-checkbox-v2/div/div/input/..`);
-
 
 test.describe('Selling to companies', () => {
     let companyUnitCode:string;
@@ -54,7 +35,8 @@ test.describe('Selling to companies', () => {
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
 
         const currentDate = DateUtils.getDateISO(600);
@@ -62,15 +44,18 @@ test.describe('Selling to companies', () => {
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        const updatedData = {...testData, projectName};
-        writeTestData(updatedData);
+        writeServiceData("projectName", projectName);
 
         // Project details
+
+        await logStep("Step 01: Navigate to admin portal > Login");
         await app.adminProjectPage.login(
-            updatedData.adminPortalUrl,
-            updatedData.adminUsername,
-            updatedData.adminPassword,
+            environments.adminPortalUrl,
+            data.adminUsername,
+            data.adminPassword,
         );
+
+        await logStep("Step 02: Create new project > Fill project details > Save");
         await app.adminProjectPage.openProjectCreation();
         await page
             .locator("form-field-component")
@@ -156,6 +141,7 @@ test.describe('Selling to companies', () => {
         await expect(saveSuccessToast).toBeVisible({timeout: 120000});
 
 
+        await logStep("Step 03: Link the project with AZM");
         // Link with AZM
         await page.waitForTimeout(3000);
         const azmToggle = page.locator(
@@ -171,6 +157,7 @@ test.describe('Selling to companies', () => {
         }
 
 
+        await logStep("Step 04: Select the participating banks");
         // Partcipating banks
         await expect(page.getByText(/قائمة الجهات التمويلية/i)).toBeVisible({
             timeout: 30000,
@@ -182,6 +169,7 @@ test.describe('Selling to companies', () => {
         await page.getByRole("checkbox", {name: "Select all rows"}).click();
         await page.getByRole("button", {name: "حفظ"}).click();
 
+        await logStep("Step 05: Import the project units > Approve the import");
         // Import units
         await page.getByRole("tab", {name: "الوحدات", exact: true}).click();
         await expect(
@@ -228,6 +216,7 @@ test.describe('Selling to companies', () => {
         await page.waitForTimeout(3000);
         await page.getByRole("button", {name: "رجوع"}).click();
 
+        await logStep("Step 06: Upload the project media");
         // //Upload media
         await page
             .locator("span")
@@ -298,6 +287,7 @@ test.describe('Selling to companies', () => {
         await page.locator("#save_btn").click();
 
 
+        await logStep("Step 07: Approve the uploaded media");
         // // Approve media
         await page.getByRole("tab", {name: "تفاصيل المشروع"}).click();
         await page.waitForTimeout(20000);
@@ -311,6 +301,7 @@ test.describe('Selling to companies', () => {
         await page.getByRole("button", {name: "حفظ"}).click();
         await expect(saveSuccessToast).toBeVisible({timeout: 120000});
 
+        await logStep("Step 08: Publish the unit model");
         // // Publish unit model
         await page.getByText("نماذج الوحدات").click();
         await page.getByRole("cell", {name: "model_1"}).click();
@@ -331,6 +322,7 @@ test.describe('Selling to companies', () => {
 
         await page.waitForTimeout(10000);
 
+        await logStep("Step 09: Set project as available and bookable > Publish the project");
         // Navigate to project details page
         await page.getByText("تفاصيل المشروع").click();
 
@@ -397,16 +389,21 @@ test.describe('Selling to companies', () => {
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await logStep("Step 01: Navigate to partners portal > Login as developer");
+        await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
+
+        await logStep("Step 02: Search for the project > Open it");
         await app.developerProjectPage.openProjectBySearch(projectName);
 
+        await logStep("Step 03: Open payment schedules > Add cash payment schedule");
         await app.developerProjectPage.openPaymentSchedulesTab();
         await app.developerProjectPage.addPaymentSchedule({
             type: "cash",
@@ -424,16 +421,21 @@ test.describe('Selling to companies', () => {
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await logStep("Step 01: Navigate to partners portal > Login as developer");
+        await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
+
+        await logStep("Step 02: Search for the project > Open it");
         await app.developerProjectPage.openProjectBySearch(projectName);
 
+        await logStep("Step 03: Open companies sales contracts > Approve the sales contract");
         await app.developerProjectPage.openSalesContractsTab();
         await app.developerProjectPage.clickOnCompanies();
         await app.developerProjectPage.viewAndApproveSalesContract();
@@ -442,73 +444,60 @@ test.describe('Selling to companies', () => {
         await app.developerProjectPage.verifyOtp();
     });
 
-    test("TC-04 - Developer | create new booking for a company user", {
+    test("TC-04 - Developer create new booking for a company user", {
         annotation: [{
             product: 'Marketplace',
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const developerUserId = data.developerUserId;
+        const projectName = data.projectName;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await logStep("Step 01: Navigate to partners portal > Login as developer");
+        await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
 
-        await waitAndClick(page.locator("//span[contains(text(),' إدارة الحجوزات')]/../.."));
-        await waitAndClick(page.locator("//span[contains(text(),'حجوزات الشركة')]/../.."));
-
-        await waitAndClick(page.locator("//span[contains(text(),' حجز جديد ')]/.."), LONG_TIMEOUT);
-
-        await waitAndFill(page.locator("//h5[contains(text(),' البحث عن شركة')]/../..//input"), testData.companyCR);
-        await waitAndClick(page.locator("//button[contains(text(),'بحث')]"));
-        const nextButton = page.locator("//button[contains(text(), 'التالي')]");
-        await nextButton.click();
-        await waitAndFill(page.locator("//h5[contains(text(),'ممثل الشركة')]/../..//input"), testData.companyUser);
-        await waitAndClick(page.locator("//button[contains(text(),'بحث')]"));
-        await expect(nextButton).toBeEnabled({timeout: DEFAULT_TIMEOUT});
-        await nextButton.click();
-
-        await page.waitForTimeout(3000);
-
-        await page.locator("(//input[@aria-autocomplete='list'])[1]").fill(projectName);
-
-        await page.waitForTimeout(2000);
-
-        await page.locator("div[role='listbox'] span").click();
+        await logStep("Step 02: Start new booking for a company user > Search by ID and CR");
+        await app.developerProjectPage.bookUnitsForCompanies(data.companyUser,data.companyCR,projectName);
 
         await page.waitForTimeout(10000);
+
+        await logStep("Step 03: Select the unit > Keep booking");
         await waitAndClick(unitCheckbox(page, 1));
 
-        await expect(nextButton).toBeEnabled({timeout: DEFAULT_TIMEOUT});
-        await nextButton.click();
-        await waitAndClick(page.locator("//button[contains(text(),' مواصلة الحجز')]"));
+        await app.developerProjectPage.clickOnNextButton();
+        await app.developerProjectPage.clickOnKeepBooking();
 
+        await logStep("Step 04: Select the bank");
         // Select the bank
-        await waitAndClick(page.locator("app-bank-list-dropdown-control input[role='combobox']"));
-        await waitAndClick(page.locator("//span[contains(text(),'CRM Bank Test')]"));
-        await nextButton.click();
+        await app.developerProjectPage.clickOnBankDropdown();
+        await app.developerProjectPage.selectCRMBank();
+        await app.developerProjectPage.clickOnNextButton();
         await page.waitForTimeout(1000);
 
-        await waitAndClick(page.locator("//span[contains(text(),'تأكيد')]/.."), DEFAULT_TIMEOUT);
+        await logStep("Step 05: Confirm the booking > Verify company booking is confirmed");
+        await app.developerProjectPage.confirmBookingForCompanies();
 
-        await expect(page.locator("//button[contains(text(),'عرض التفاصيل')]"))
-            .toBeVisible({timeout: DEFAULT_TIMEOUT});
+         expect(await app.developerProjectPage.isCompanyBookingConfirmed()).toBe(true);
     });
 
-    test("TC-05 - User | Pays the invoices for all units", {
+    test("TC-05 - User pays the invoices for all units", {
         annotation: [{
             product: 'Marketplace',
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const companyUserId = testData.companyUser;
-        const userPortalUrl = testData.userPortalUrl;
+        const companyUserId = data.companyUser;
+        const userPortalUrl = environments.userPortalUrl;
 
+        await logStep("Step 01: Navigate to user portal > Login as company user");
         await app.loginPage.gotoHomePage(userPortalUrl);
         //await app.loginPage.acceptCookies();
         await app.loginPage.openLogin();
@@ -517,6 +506,7 @@ test.describe('Selling to companies', () => {
         await app.loginPage.continueNewUserPopup();
         await app.loginPage.handlePushNotificationPopup();
 
+        await logStep("Step 02: Navigate to companies > Company reservations > Active bookings > Not billed");
         await app.marketplaceLandingPage.openProfileManagement();
         await app.offPlanBasketMultipleBookingPage.clickOnCompanies();
         await app.offPlanBasketMultipleBookingPage.clickOnCompanyReservations();
@@ -524,11 +514,13 @@ test.describe('Selling to companies', () => {
         await app.offPlanBasketMultipleBookingPage.clickOnNotBilled();
         await page.waitForTimeout(2000);
 
+        await logStep("Step 03: Save the company unit code to test data");
         // add the unit codes to json
         companyUnitCode = await app.offPlanBasketMultipleBookingPage.getCompanyUnitCode();
 
-        writeTestData({ ...testData, companyUnitCode });
+        writeServiceData("companyUnitCode", companyUnitCode);
 
+        await logStep("Step 04: Show booking details > Pay the reservation fees");
         await app.offPlanBasketMultipleBookingPage.clickOnShowDetails();
         await page.waitForTimeout(2000)
         await app.offPlanBasketMultipleBookingPage.clickOnCompanyReservationFeesPayment();
@@ -536,12 +528,14 @@ test.describe('Selling to companies', () => {
         await page.waitForTimeout(2000);
     });
 
-    test("TC-06 - User | Signs sale contract for all units", async ({page}) => {
-        const testData = readTestData();
+    test("TC-06 - User signs sale contract for all units", async ({page}) => {
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const companyUserId = testData.companyUser;
-        const userPortalUrl = testData.userPortalUrl;
+        const companyUserId = data.companyUser;
+        const userPortalUrl = environments.userPortalUrl;
 
+        await logStep("Step 01: Navigate to user portal > Login as company user");
         await app.loginPage.gotoHomePage(userPortalUrl);
         //await app.loginPage.acceptCookies();
         await app.loginPage.openLogin();
@@ -550,15 +544,18 @@ test.describe('Selling to companies', () => {
         //await app.loginPage.continueNewUserPopup();
         //await app.loginPage.handlePushNotificationPopup();
 
+        await logStep("Step 02: Navigate to companies > Company reservations > Active bookings > Ready for sign");
         await app.marketplaceLandingPage.openProfileManagement();
         await app.offPlanBasketMultipleBookingPage.clickOnCompanies();
         await app.offPlanBasketMultipleBookingPage.clickOnCompanyReservations();
         await app.offPlanBasketMultipleBookingPage.clickOnCompanyActiveBookings();
         await app.offPlanBasketMultipleBookingPage.clickOnReadyForSign();
 
+        await logStep("Step 03: Select the unit > Continue");
         await app.offPlanBasketMultipleBookingPage.clickOnUnit1CheckBox();
         await app.offPlanBasketMultipleBookingPage.clickOnContinue();
 
+        await logStep("Step 04: Agree on the sale contract > Verify OTP > Verify contract is signed");
         await app.offPlanBasketMultipleBookingPage.clickOnProjectCheckBox();
         await app.offPlanBasketMultipleBookingPage.clickOnAgreeOnAll();
 
@@ -571,16 +568,19 @@ test.describe('Selling to companies', () => {
         ).toBe(true);
     });
 
-    test("TC-07 - Developer | Confirms the bookings for companies", async ({page}) => {
-        const testData = readTestData();
+    test("TC-07 - Developer confirms the bookings for companies", async ({page}) => {
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const developerUserId = testData.developerUserId;
+        const developerUserId = data.developerUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await logStep("Step 01: Navigate to partners portal > Login as developer");
+        await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
 
-        await app.developerProjectPage.confirmCompanyBooking(readTestData().companyUnitCode);
+        await logStep("Step 02: Confirm the company booking > Verify success message");
+        await app.developerProjectPage.confirmCompanyBooking(data.companyUnitCode);
         await expect.poll(
             () => app.developerProjectPage.isSuccessfulConfirmationMessageVisible(),
             { timeout: LONG_TIMEOUT }
