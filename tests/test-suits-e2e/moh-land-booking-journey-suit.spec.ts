@@ -96,9 +96,9 @@ test.describe("MOH land full booking journey", () => {
     await app.adminProjectPage.clickPublishUnitButton();
     await app.adminProjectPage.clickUnitModelLink();
 
-    await logStep("Step 11: Set project availability");
+    await logStep("Step 11: Set project open for booking");
     await app.adminProjectPage.clickProjectDetailsText();
-    await app.adminProjectPage.selectProjectStatus("متاح");
+    await app.adminProjectPage.enableAvailableForBookingToggle();
     await app.adminProjectPage.clickSaveButton();
 
     await logStep("Step 12: Publish the project and validate the toast message");
@@ -114,7 +114,6 @@ test.describe("MOH land full booking journey", () => {
     const app = new WebApp(page);
     const data = testData.services['moh-land-booking-journey'];
     const environment = testData.environments;
-
     await logStep("Step 01: Open user portal");
     await app.loginPage.gotoHomePage(environment.userPortalUrl);
     await app.loginPage.acceptCookies();
@@ -166,5 +165,25 @@ test.describe("MOH land full booking journey", () => {
 
     await logStep("Step 06: Cancel the booking");
     await app.bookingPage.cancelMohLandBooking();
+  });
+
+
+  test("TC-0555", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
+
+    const data = testData.services['moh-land-booking-journey'];
+    const environment = testData.environments;
+
+    DataHelper.updateServiceData("moh-land-booking-journey","Name","1111111111");
+
+    const name = testData.services['moh-land-booking-journey'].Name;
+
+    console.log("The name is ---------" + name)
+  });
+
+
+  test("TC-0666", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
+    const name = testData.services['moh-land-booking-journey'].Name;
+
+    console.log("The name is ---------" + name)
   });
 });

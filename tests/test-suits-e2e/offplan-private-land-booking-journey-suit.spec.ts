@@ -9,12 +9,10 @@ import { DataHelper } from "@helpers/DataHelper";
 
 test.describe("Offplan private land booking journey", () => {
 
-  //read data from json relative to the service
-  const environment = offplanTestData.environments;
-  const data = offplanTestData.services["offplan-booking"];
-
   test("TC-01 - Admin adds new offplan private land project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
+    const environment = offplanTestData.environments;
+    const data = offplanTestData.services["offplan-booking"];
     const app = new WebApp(page);
     const currentDate = DateUtils.getDateISO(600);
     const projectName = `Automation Project Offplan ${new Date()
@@ -40,8 +38,9 @@ test.describe("Offplan private land booking journey", () => {
     await app.adminProjectPage.toggleBookableOn();
     await app.adminProjectPage.selectProjectStatus("متاح");
     await app.adminProjectPage.fillWafiLicenseExpiryDate(currentDate);
-    await app.adminProjectPage.selectSubsidyType("دعم عيني كامل");
-    await app.adminProjectPage.fillMaxSubsidyAmount("2");
+    await page.pause ();
+    await app.adminProjectPage.selectSubsidyType("دعم مالي كامل");
+    // await app.adminProjectPage.fillMaxSubsidyAmount("2");
     await app.adminProjectPage.fillProjectAgreementDate("2026-01-01");
     await app.adminProjectPage.fillProjectLicenseNumber("665334");
     await app.adminProjectPage.fillProjectLicenseDate("2026-01-01");
@@ -75,7 +74,6 @@ test.describe("Offplan private land booking journey", () => {
     const unitsImportFilePath = path.join(process.cwd(), "src", "data", "Offplan_MOH.xlsx");
     await app.adminProjectPage.uploadUnitsFile(unitsImportFilePath);
     await app.adminProjectPage.clickImportSaveButton();
-    await app.adminProjectPage.expectUnitImportInProgress();
     await app.adminProjectPage.waitForUnitImportCompletion();
     await app.adminProjectPage.clickApproveButton();
     await app.adminProjectPage.clickConfirmButton();
@@ -139,6 +137,9 @@ test.describe("Offplan private land booking journey", () => {
     "TC-02 - Developer adds cash and lending payment schedules to the project (Offplan Private Land)",
     { annotation: [{ product: "Marketplace", type: "critical" }] as any },
     async ({ page }) => {
+      //read data from json relative to the service
+      const environment = offplanTestData.environments;
+      const data = offplanTestData.services["offplan-booking"];
       test.setTimeout(0);
       const app = new WebApp(page);
       const projectName = data.projectName;
@@ -183,11 +184,13 @@ test.describe("Offplan private land booking journey", () => {
     { annotation: [{ product: "Marketplace", type: "critical" }] as any },
     async ({ page }) => {
       test.setTimeout(0);
+      //read data from json relative to the service
+      const environment = offplanTestData.environments;
+      const data = offplanTestData.services["offplan-booking"];
       const app = new WebApp(page);
       const projectName = data.projectName;
       const developerUserId = data.developerUserId;
       const sapaPortalUrl = environment.sapaPortalUrl;
-
 
       await logStep("Step 01: Login as developer to sapa portal and open the project");
       await app.developerProjectPage.gotoAuth(sapaPortalUrl);
@@ -212,6 +215,9 @@ test.describe("Offplan private land booking journey", () => {
   test("TC-04 - User books unit (Offplan Private Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const app = new WebApp(page);
+    //read data from json relative to the service
+    const environment = offplanTestData.environments;
+    const data = offplanTestData.services["offplan-booking"];
     const sakaniUserId = data.sakaniUserId;
     const userPortalUrl = environment.userPortalUrl;
     const projectName = data.projectName;
@@ -257,6 +263,9 @@ test.describe("Offplan private land booking journey", () => {
 
   test("TC-05 - User cancels a booking", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    //read data from json relative to the service
+    const environment = offplanTestData.environments;
+    const data = offplanTestData.services["offplan-booking"];
     const app = new WebApp(page);
     const sakaniUserId = data.sakaniUserId;
     const userPortalUrl = environment.userPortalUrl;

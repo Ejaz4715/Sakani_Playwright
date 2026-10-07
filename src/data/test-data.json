@@ -1,7 +1,6 @@
 {
   "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
   "developerUserId": "1023129537",
-  "projectName": "Automation Auction 20261006095719",
   "userPortalUrl": "https://pre-sakani.housingapps.sa",
   "sakaniUserId": "1300061022",
   "sakaniUserIdd": "1300070834",
@@ -25,7 +24,7 @@
   },
   "services": {
     "offplan-booking": {
-      "projectName": "Automation Project Offplan 20261006111303",
+      "projectName": "Automation Project Offplan 20261006143505",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
@@ -46,7 +45,8 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserIdMoh": "1019075999",
-      "projectName": "Automation Moh Land Project 20261006065206"
+      "projectName": "Automation Moh Land Project 20261006145616",
+      "Name": "qqqqqqqqq"
     },
     "loyalty-sharrai": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",

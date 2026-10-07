@@ -43,11 +43,11 @@ export const DeveloperObjects = {
   approvalSuccessMessage:
     "عزيزي الشريك، لقد قمت بإضافة الملحق وتوقيع العقد بنجاح",
   approvalModal: "app-sapa-modal",
-  completionPercentageZero: "#completion_percentage_0",
-  percentageZero: "#percentage_0",
-  completionPercentageOne: "#completion_percentage_1",
-  percentageOne: "#percentage_1",
-  successfulBookingConfirmationMessage:"//p[contains(text(),' تم تأكيد الحجز بنجاح!')]",
+  completionPercentageOne: "#completion_percentage_0",
+  percentageOne: "#percentage_0",
+  completionPercentageTwo: "#completion_percentage_1",
+  percentageTwo: "#percentage_1",
+  successfulBookingConfirmationMessage: "//p[contains(text(),' تم تأكيد الحجز بنجاح!')]",
   closeConfirmationModal: "app-sapa-modal button[title='Close']",
-  companiesButton:"//a[contains(text(),'شركات')]"
+  companiesButton: "//a[contains(text(),'شركات')]"
 } as const;

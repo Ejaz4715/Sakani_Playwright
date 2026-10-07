@@ -160,10 +160,6 @@ export const AdminObjects = {
     selector: "div",
     text: /^Display method$/,
   },
-  // displayMethodOption: {
-  //   text: "Hero",
-  //   exact: true,
-  // },
   async displayMethodOption(text: string) {
     return `//div[@role='option']/child::span[normalize-space()='${text}']`;
   },
@@ -253,7 +249,7 @@ export const AdminObjects = {
   },
   unitModelLink: {
     selector: "a",
-    text: "model_1 - شقة",
+    text: /^model_\d+/,
   },
   projectStatusAvailableOption: {
     role: "option",

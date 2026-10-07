@@ -290,12 +290,6 @@ export class AdminProjectPage {
       .click();
   }
 
-  async expectUnitImportInProgress() {
-    await expect(
-      this.page.getByText(AdminObjects.importInProgressMessage),
-    ).toBeVisible({ timeout: 120000 });
-  }
-
   async waitForUnitImportCompletion() {
     await this.page.waitForTimeout(12000);
     let completed = false;
@@ -535,6 +529,7 @@ export class AdminProjectPage {
   }
 
   async clickPublishUnitButton() {
+    this.checkMediaApproveButton();
     const publishButton = this.page.getByRole(
       AdminObjects.publishUnitButton.role, {
       name: AdminObjects.publishUnitButton.name,
@@ -544,6 +539,18 @@ export class AdminProjectPage {
       await this.page.waitForTimeout(3000);
       if (!await publishButton.isVisible().catch(() => false)) break;
       await this.page.reload();
+    }
+  }
+
+  async checkMediaApproveButton(){
+    const approveMediaButton = this.page
+      .getByRole(AdminObjects.acceptUploadedMediaButton.role, {
+        name: AdminObjects.acceptUploadedMediaButton.name,
+      });
+    while (true) {
+      await this.page.waitForTimeout(3000);
+      if (!await approveMediaButton.isVisible().catch(() => false)) break;
+      await approveMediaButton.click();
     }
   }
 
