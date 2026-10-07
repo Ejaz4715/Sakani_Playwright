@@ -21,4 +21,7 @@ export const BookingCancellationObjects = {
   bookedUnitCode:
     "//div[text() = 'رمز الوحدة']/following-sibling::div/child::div",
 
+    viewPriceQuotationButton:{
+      xpath:"//div[text()='عرض السعر']/parent::div//following-sibling::app-pdf-viewer/descendant::span"
+    },
 } as const;

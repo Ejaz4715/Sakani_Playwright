@@ -11,7 +11,7 @@
       "adminPassword": "admin",
       "developerUserId": "1023129537",
       "sakaniUserId": "1300061022",
-      "bookedUnitCode": "01-01-0674-7-103"
+      "bookedUnitCode": "01-01-0655-16-112"
     },
     "auction-journey": {
       "projectName": "",
@@ -118,6 +118,16 @@
     },
     "report-the-unit": {
       "sakaniUserId": "1441376098"
+    },
+    "update-participated-bank": {
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834"
+    },
+    "completion-rate-management": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834"
     }
   }
 }
