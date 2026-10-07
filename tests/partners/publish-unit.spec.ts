@@ -6,6 +6,7 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
+import testDataReportTheUnit from "@data/test-data.json";
 import { PublishUnitObjects } from "@objects/PublishUnitObjects";
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
@@ -21,8 +22,8 @@ function writeTestData(data: any) {
 
 function updatePublishUnitTestData(key: string, value: string) {
     const testData = readTestData();
-    testData.services["publish-unit"] = {
-        ...testData.services["publish-unit"],
+    testDataReportTheUnit.services["publish-unit"] = {
+        ...testDataReportTheUnit.services["publish-unit"],
         [key]: value,
     };
     writeTestData(testData);
@@ -32,8 +33,8 @@ function updatePublishUnitTestData(key: string, value: string) {
 test.describe("Publish Unit", () => {
     test("TC-01 - Developer broker publish new unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const publishUnitData = testData.services["publish-unit"];
+        const testDataReportTheUnit = readTestData();
+        const publishUnitData = testDataReportTheUnit.services["publish-unit"];
 
         const timestamp = new Date()
             .toISOString()
@@ -70,7 +71,7 @@ test.describe("Publish Unit", () => {
         // };
         // writeTestData(updatedData);
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
+        const sapaUrl = testDataReportTheUnit.environments.sapaPortalUrl;
         const developerUserId = publishUnitData.developerUserId;
         const advertiserId = publishUnitData.advertiserId;
         await logStep("Step 01: Navigate to partners portal > Login");
@@ -104,9 +105,9 @@ test.describe("Publish Unit", () => {
 
     test("TC-02  Admin approves publish unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const data = testData.services["publish-unit"];
-        const environments = testData.environments;
+        const testDataReportTheUnit = readTestData();
+        const data = testDataReportTheUnit.services["publish-unit"];
+        const environments = testDataReportTheUnit.environments;
         // const publishUnitData = testData.services["publish-unit"];
         const app = new WebApp(page);
         const adminUrl = environments.adminPortalUrl;
@@ -136,9 +137,9 @@ test.describe("Publish Unit", () => {
 
     test("TC-03 - Developer verify the request is finished", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const data = testData.services["publish-unit"];
-        const environments = testData.environments;
+        const testDataReportTheUnit = readTestData();
+        const data = testDataReportTheUnit.services["publish-unit"];
+        const environments = testDataReportTheUnit.environments;
         const app = new WebApp(page);
         const sapaUrl = environments.sapaPortalUrl;
         const developerUserId = data.developerUserId;
