@@ -1,5 +1,8 @@
 // @ts-nocheck
 import { expect } from "@playwright/test";
+import { mkdir, readdir, unlink, readFile } from "node:fs/promises";
+import path from "node:path";
+import { PDFParse } from "pdf-parse";
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects'
 
 export class BookingPage {
@@ -155,4 +158,45 @@ export class BookingPage {
       .getByRole("heading", { name: "تم إلغاء الحجز بنجاح!" })
       .click();
   }
+
+  //click on view of price quotation
+async clickOnViewOfProcequotationButton() {
+        const viewPriceQuotationButton = this.page.locator(
+            BookingCancellationObjects.viewPriceQuotationButton.xpath
+        );
+
+        await expect(viewPriceQuotationButton).toBeVisible({ timeout: 90000 });
+        await viewPriceQuotationButton.click();
+    }
+
+    async verifyPriceQuotationContainsRequiredSections(pdfPath: string) {
+      const parser = new PDFParse({ data: await readFile(pdfPath) });
+      try {
+        const { text } = await parser.getText();
+        const normalizeText = (value: string): string =>
+          value
+            .replace(/[\u200E\u200F\u202A-\u202E\u2066-\u2069]/g, "")
+            .replace(/[أإآؤئ]/g, "ا")
+            .replace(/\s+/g, " ");
+        const normalizedText = normalizeText(text);
+        const requiredSections = [
+          "معلومات قيمة الوحدة",
+          "معلومات المطور العقاري",
+          "معلومات الإقرار",
+        ];
+
+        for (const section of requiredSections) {
+          const normalizedSection = normalizeText(section);
+          const reversedSection = [...normalizedSection].reverse().join("");
+          expect(
+            normalizedText.includes(normalizedSection) ||
+              normalizedText.includes(reversedSection),
+            `Price quotation PDF is missing the "${section}" section`,
+          ).toBe(true);
+        }
+      } finally {
+        await parser.destroy();
+      }
+    }
+
 }

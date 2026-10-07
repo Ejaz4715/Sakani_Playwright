@@ -156,6 +156,17 @@
       "developerUserId": "1023129537",
       "unitWithoutSalesChannels": "02-01-0146-11-10003",
       "userId": "1300070834"
+      "sakaniUserId": "1441376098"
+    },
+    "update-participated-bank": {
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834"
+    },
+    "completion-rate-management": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834"
     }
   }
 }
