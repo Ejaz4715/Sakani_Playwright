@@ -167,6 +167,7 @@ export class PublishUnitPage {
         const dataAccuracyDisclaimerCheckbox = this.page.locator(
             PublishUnitObjects.dataAccuracyDisclaimerCheckbox.xpath,
         );
+        await this.page.waitForTimeout(3000); // Wait for 3 seconds to ensure the checkbox is visible
         await expect(dataAccuracyDisclaimerCheckbox).toBeVisible({ timeout: 90000 });
         await dataAccuracyDisclaimerCheckbox.click();
     }
@@ -201,6 +202,14 @@ export class PublishUnitPage {
         await expect(adLicenseNumberToSearchInputfield).toHaveValue(adLicenseNumber);
     }
 
+     async clickOnSearchButton() {
+        const searchButton = this.page.getByRole(
+            PublishUnitObjects.searchButton.role,
+            { name: PublishUnitObjects.searchButton.name },
+        );
+        await expect(searchButton).toBeVisible({ timeout: 90000 });
+        await searchButton.click();
+    }
     async verifyAdLicenseStatus(expectedStatus: string) {
         const adLicenseStatus = this.page.locator(
             PublishUnitObjects.adLicenseStatus.xpath,
@@ -304,6 +313,41 @@ export class PublishUnitPage {
         await expect(adminAdLicenseNumberInputfield).toBeVisible({ timeout: 90000 });
         await adminAdLicenseNumberInputfield.fill(adLicenseNumber);
         await expect(adminAdLicenseNumberInputfield).toHaveValue(adLicenseNumber);
+    }
+
+    async clickOnAdLicenseNumberResultCell(value: string | number) {
+        const resultCell = PublishUnitObjects.adLicenseNumberResultCell(value);
+        const adLicenseNumberResultCell = this.page.getByRole(
+            resultCell.role,
+            { name: resultCell.name, exact: true },
+        );
+        await expect(adLicenseNumberResultCell).toBeVisible({ timeout: 90000 });
+        await adLicenseNumberResultCell.click();
+    }
+
+    async clickOnViewPublishUnitLink() {
+        const viewPublishUnitLink = this.page.getByRole(
+            PublishUnitObjects.viewPublishUnitLink.role,
+            { name: PublishUnitObjects.viewPublishUnitLink.name },
+        );
+        await expect(viewPublishUnitLink).toBeVisible({ timeout: 90000 });
+        await viewPublishUnitLink.click();
+    }
+
+    async clickOnAcceptButton() {
+        const acceptButton = this.page.getByRole(
+            PublishUnitObjects.acceptButton.role,
+            { name: PublishUnitObjects.acceptButton.name },
+        );
+        await expect(acceptButton).toBeVisible({ timeout: 90000 });
+        await acceptButton.click();
+    }
+
+    async verifyPublishUnitApprovalSuccessMessage() {
+        const successMessage = this.page.getByText(
+            PublishUnitObjects.publishUnitApprovalSuccessMessage,
+        );
+        await expect(successMessage).toBeVisible({ timeout: 90000 });
     }
 
 }

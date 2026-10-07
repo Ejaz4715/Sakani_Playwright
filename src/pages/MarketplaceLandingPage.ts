@@ -1,8 +1,7 @@
 // @ts-nocheck
 import {ProfileManagementObjects} from "@objects/ProfileManagementObjects";
-
 const path = require("path");
-import {Page} from '@playwright/test';
+import { Page } from '@playwright/test';
 import { MarketplaceLandingObjects } from '@objects/MarketplaceLandingObjects'
 
 export class MarketplaceLandingPage {
@@ -59,9 +58,4 @@ export class MarketplaceLandingPage {
     await this.page.locator(MarketplaceLandingObjects.profileManagement).click();
     await this.page.waitForTimeout(1000);
   }
-
-
-
-
-
 }

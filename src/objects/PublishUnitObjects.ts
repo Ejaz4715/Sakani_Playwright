@@ -90,6 +90,11 @@ export const PublishUnitObjects = {
     adLicenseNumberToSearchInputfield: {
         xpath: "//label[contains(text(),' رقم ترخيص الإعلان')]/parent::app-sapa-label/following-sibling::div/input",
     },
+
+     searchButton: {
+        role: "button",
+        name: "بحث",
+    },
     adLicenseStatus: {
         xpath: "(//datatable-body-cell/div/div)[5]",
     },
@@ -112,9 +117,9 @@ export const PublishUnitObjects = {
         role: "textbox",
         name: "رقم ترخيص الإعلان",
     },
-    adLicenseNumberResultCell: (name: string) => ({
+    adLicenseNumberResultCell: (name: string | number) => ({
         role: "cell" as const,
-        name,
+        name: String(name),
     }),
     viewPublishUnitLink: {
         role: "link",

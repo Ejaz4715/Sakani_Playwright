@@ -166,24 +166,4 @@ test.describe("MOH land full booking journey", () => {
     await logStep("Step 06: Cancel the booking");
     await app.bookingPage.cancelMohLandBooking();
   });
-
-
-  test("TC-0555", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
-
-    const data = testData.services['moh-land-booking-journey'];
-    const environment = testData.environments;
-
-    DataHelper.updateServiceData("moh-land-booking-journey","Name","1111111111");
-
-    const name = testData.services['moh-land-booking-journey'].Name;
-
-    console.log("The name is ---------" + name)
-  });
-
-
-  test("TC-0666", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
-    const name = testData.services['moh-land-booking-journey'].Name;
-
-    console.log("The name is ---------" + name)
-  });
 });

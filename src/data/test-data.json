@@ -1,22 +1,4 @@
 {
-  "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
-  "developerUserId": "1023129537",
-  "userPortalUrl": "https://pre-sakani.housingapps.sa",
-  "sakaniUserId": "1300061022",
-  "sakaniUserIdd": "1300070834",
-  "companyUser": "1001234342",
-  "companyCR": "7001234342",
-  "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth",
-  "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
-  "adminPassword": "admin",
-  "bookedUnitCode": "01-01-0674-7-103",
-  "invoice_number": "2609010000000403",
-  "viban_number": "SA0001000000000843",
-  "megaProjectName": "Mega Project 20260921141119",
-  "unitCodeNew": "01-01-0627-6-102",
-  "unit1Code": "01-01-0687-6-102",
-  "unit2Code": "01-01-0687-5-101",
-  "companyUnitCode": "01-01-0706-5-101",
   "environments": {
     "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
     "userPortalUrl": "https://pre-sakani.housingapps.sa",
@@ -129,10 +111,13 @@
       "auctionEndDate": "07-10-2026",
       "auctionStartTime": "12:57",
       "auctionEndTime": "13:01"
+    },
+    "unit-comparison": {
+      "projectName": "Automation Project 20261004105043",
+      "sakaniUserId": "1607143630"
+    },
+    "report-the-unit": {
+      "sakaniUserId": "1441376098"
     }
-  },
-  "auctionStartDate": "06-10-2026",
-  "auctionEndDate": "06-10-2026",
-  "auctionStartTime": "14:57",
-  "auctionEndTime": "16:57"
+  }
 }
