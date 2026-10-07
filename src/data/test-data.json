@@ -22,13 +22,11 @@
   "unit1Code": "01-01-0687-6-102",
   "unit2Code": "01-01-0687-5-101",
   "companyUnitCode": "01-01-0706-5-101",
-
   "environments": {
     "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
     "userPortalUrl": "https://pre-sakani.housingapps.sa",
     "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth"
   },
-  
   "services": {
     "loyalty-sharrai": {
       "companyName": "Automation Test Company 20260928145426",
@@ -70,8 +68,14 @@
       "adminPassword": "admin",
       "developerUserId": "1023129537",
       "advertiserId": "1023129537",
-      "lastAdLicenseCounter": 8986749517,
-      "AdLicenseNumber": "20261005083936"
+      "AdLicenseNumber": "20261006073815"
+    },
+    "unit-comparison": {
+      "projectName": "Automation Project 20261004105043",
+      "sakaniUserId": "1607143630"
+    },
+    "report-the-unit": {
+      "sakaniUserId": "1441376098"
     }
   }
 }

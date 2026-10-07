@@ -507,7 +507,5 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.developerProjectPage.verifyOtp();
     await app.developerProjectPage.expectAnnexSuccess();
   });
-
-
 });
 

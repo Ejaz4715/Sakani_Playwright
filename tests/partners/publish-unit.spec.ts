@@ -6,7 +6,7 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
-import testDataPublishUnit from "@data/test-data.json";
+import testDataReportTheUnit from "@data/test-data.json";
 import { PublishUnitObjects } from "@objects/PublishUnitObjects";
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
@@ -22,8 +22,8 @@ function writeTestData(data: any) {
 
 function updatePublishUnitTestData(key: string, value: string) {
     const testData = readTestData();
-    testData.services["publish-unit"] = {
-        ...testData.services["publish-unit"],
+    testDataReportTheUnit.services["publish-unit"] = {
+        ...testDataReportTheUnit.services["publish-unit"],
         [key]: value,
     };
     writeTestData(testData);
@@ -33,15 +33,15 @@ function updatePublishUnitTestData(key: string, value: string) {
 test.describe("Publish Unit", () => {
     test("TC-01 - Developer broker publish new unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const publishUnitData = testData.services["publish-unit"];
+        const testDataReportTheUnit = readTestData();
+        const publishUnitData = testDataReportTheUnit.services["publish-unit"];
 
-    const timestamp = new Date()
-      .toISOString()
-      .replace(/[-:T.]/g, "")
-      .slice(0, 14);
+        const timestamp = new Date()
+            .toISOString()
+            .replace(/[-:T.]/g, "")
+            .slice(0, 14);
 
-      DataHelper.updateServiceData("publish-unit", "AdLicenseNumber", timestamp);
+        DataHelper.updateServiceData("publish-unit", "AdLicenseNumber", timestamp);
         // testDataPublishUnit.services["publish-unit"].adminUsername = publishUnitData;
         // const savedLicenseNumber = String(publishUnitData.AdLicenseNumber ?? "");
         // const savedNumber = Number(
@@ -67,11 +67,11 @@ test.describe("Publish Unit", () => {
         //         lastAdLicenseCounter: nextCounter,
         //         AdLicenseNumber,
         //       },
-            // },
+        // },
         // };
         // writeTestData(updatedData);
         const app = new WebApp(page);
-        const sapaUrl = testData.environments.sapaPortalUrl;
+        const sapaUrl = testDataReportTheUnit.environments.sapaPortalUrl;
         const developerUserId = publishUnitData.developerUserId;
         const advertiserId = publishUnitData.advertiserId;
         await logStep("Step 01: Navigate to partners portal > Login");
@@ -85,7 +85,7 @@ test.describe("Publish Unit", () => {
         await app.publishUnitPage.clickOnStartButton();
         await app.publishUnitPage.clickOnSingleUnitOption();
         await app.publishUnitPage.clickOnNextButton();
-        await app.publishUnitPage.fillAdLicenseNumberInputfield(publishUnitData.AdLicenseNumber);
+        await app.publishUnitPage.fillAdLicenseNumberInputfield(timestamp);
         await app.publishUnitPage.selectAdvertiserIdType();
         await app.publishUnitPage.fillAdvertiserIdNumberInputfield(advertiserId);
         await app.publishUnitPage.clickOnContinueButton();
@@ -105,45 +105,55 @@ test.describe("Publish Unit", () => {
 
     test("TC-02  Admin approves publish unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        // const testData = readTestData();
-        const data = testDataPublishUnit.services["publish-unit"];
-        const environments = testDataPublishUnit.environments;
+        const testDataReportTheUnit = readTestData();
+        const data = testDataReportTheUnit.services["publish-unit"];
+        const environments = testDataReportTheUnit.environments;
         // const publishUnitData = testData.services["publish-unit"];
         const app = new WebApp(page);
         const adminUrl = environments.adminPortalUrl;
         const adminUsername = data.adminUsername;
         const adminPassword = data.adminPassword;
         const adLicenseNumber = data.AdLicenseNumber;
-
+        await logStep("Step 01: Navigate to admin platform > Login");
 
         await app.adminProjectPage.login(
             adminUrl,
             adminUsername,
             adminPassword,
         );
+        await logStep("Step 02: Navigate publish unit requests page");
+        await app.publishUnitPage.clickOnExternalInventoryLink();
+        await app.publishUnitPage.clickOnReadyMarketUnitsLink();
+        await app.publishUnitPage.clickOnRequestTab();
+        await logStep("Step 03: Search for the ad license number > View publish unit request");
+        await app.publishUnitPage.fillAdminAdLicenseNumberInputfield(adLicenseNumber);
+        await app.publishUnitPage.clickOnAdLicenseNumberResultCell(adLicenseNumber);
+        await app.publishUnitPage.clickOnViewPublishUnitLink();
+        await logStep("Step 04: > Approve the request > Verify approval success message");
+        await app.publishUnitPage.clickOnAcceptButton();
+        await app.publishUnitPage.verifyPublishUnitApprovalSuccessMessage();
+    });
 
 
-
-
-
-
-
-
-       
-
-
-  await page.locator('a').filter({ hasText: 'المخزون الخارجي' }).click();
-
-  await page.getByRole('link', { name: 'وحدات جاهزة من السوق' }).click({
-  });
-  await page.getByRole('tab', { name: 'الطلب' }).click();
-  const licenseNumberToSearch = '654444';
-  await page.getByRole('textbox', { name: 'رقم ترخيص الإعلان' }).fill(licenseNumberToSearch);
-  const resultCell = PublishUnitObjects.adLicenseNumberResultCell(licenseNumberToSearch);
-  await page.getByRole(resultCell.role, { name: resultCell.name }).click();
-  await page.getByRole('link', { name: 'عرض' }).click();
-  await page.getByRole('button', { name: 'قبول' }).click();
-  await expect(page.getByText('تم الموافقة على هذه الوحدة بنجاح')).toBeVisible();
-
+    test("TC-03 - Developer verify the request is finished", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+        test.setTimeout(0);
+        const testDataReportTheUnit = readTestData();
+        const data = testDataReportTheUnit.services["publish-unit"];
+        const environments = testDataReportTheUnit.environments;
+        const app = new WebApp(page);
+        const sapaUrl = environments.sapaPortalUrl;
+        const developerUserId = data.developerUserId;
+        const adLicenseNumber = data.AdLicenseNumber;
+        await logStep("Step 01: Navigate to partners portal > Login");
+        await app.developerProjectPage.gotoAuth(sapaUrl);
+        await app.developerProjectPage.loginDeveloper(developerUserId);
+        await app.publishUnitPage.switchRoleToDeveloperBroker();
+        await logStep("Step 02: Navigate to publish unit page > Search for approved request by ad license number");
+        await app.publishUnitPage.clickOnServicesLink();
+        await app.publishUnitPage.clickOnManagePublishButton();
+        await app.publishUnitPage.fillAdLicenseNumberToSearchInputfield(adLicenseNumber);
+        await app.publishUnitPage.clickOnSearchButton();
+        await logStep("Step 03: Verify the request status is finished");
+        await app.publishUnitPage.verifyAdLicenseStatus("منتهي");
     });
 });

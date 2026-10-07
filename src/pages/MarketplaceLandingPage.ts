@@ -2,7 +2,7 @@
 import {ProfileManagementObjects} from "@objects/ProfileManagementObjects";
 
 const path = require("path");
-import {Page} from '@playwright/test';
+import { Page } from '@playwright/test';
 import { MarketplaceLandingObjects } from '@objects/MarketplaceLandingObjects'
 
 export class MarketplaceLandingPage {
