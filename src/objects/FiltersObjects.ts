@@ -15,6 +15,12 @@ export const FiltersObjects = {
         name: "مسح",
     },
 
+
+    searchButton: {
+        role: "button",
+        name: "بحث",
+    },
+
     //Price
     minimumPriceInputfield: {
         xpath: "//label[text()='سعر الحد الأدنى']/following-sibling::input"
@@ -100,12 +106,12 @@ export const FiltersObjects = {
     },
 
 
-    landRadio: {
+    landsRadio: {
         role: "radio",
         name: "أراضي",
     },
 
-    landValue: {
+    landsValue: {
         xpath: "//span[text()='أراضي']/preceding-sibling::input"
     },
 
@@ -125,8 +131,8 @@ export const FiltersObjects = {
         role: "checkbox",
         name: "متاح للحجز",
     },
-availableForBookingValue: {
-       xpath:"//span[text()='متاح للحجز']/preceding-sibling::input"
+    availableForBookingValue: {
+        xpath: "//span[text()='متاح للحجز']/preceding-sibling::input"
     },
 
 
@@ -136,8 +142,8 @@ availableForBookingValue: {
     },
 
 
-availableSoonValue: {
-        xpath:"//span[text()='متاح قريباً']/preceding-sibling::input"
+    availableSoonValue: {
+        xpath: "//span[text()='متاح قريباً']/preceding-sibling::input"
     },
 
     lastUnitsRemainingCheckbox: {
@@ -146,7 +152,7 @@ availableSoonValue: {
     },
 
     lastUnitsRemainingValue: {
-       xpath:"//span[text()='متبقي آخر الوحدات']/preceding-sibling::input"
+        xpath: "//span[text()='متبقي آخر الوحدات']/preceding-sibling::input"
     },
 
     // Property type
@@ -154,29 +160,63 @@ availableSoonValue: {
         role: "checkbox",
         name: "شقة",
     },
+    apartmentValue: {
+        xpath: "//span[text()='شقة']/preceding-sibling::input"
+    },
 
-    
     townhouseCheckbox: {
         role: "checkbox",
         name: "تاون هاوس",
     },
+
+    townhouseValue: {
+        xpath: "//span[text()='تاون هاوس']/preceding-sibling::input"
+    },
+
     villaCheckbox: {
         role: "checkbox",
         name: "فيلا",
     },
+
+    villaValue: {
+        xpath: "//span[text()='فيلا']/preceding-sibling::input"
+    },
+
     landCheckbox: {
         role: "checkbox",
         name: "أرض",
     },
+
+    landValue: {
+        xpath: "//span[text()='أرض']/preceding-sibling::input"
+    },
+
+    floorCheckbox: {
+        role: "checkbox",
+        name: "دور",
+    },
+
+    floorValue: {
+        xpath: "//span[text()='دور']/preceding-sibling::input"
+    },
+
 
     buildingCheckbox: {
         role: "checkbox",
         name: "عمارة",
     },
 
+    buildingValue: {
+        xpath: "//span[text()='عمارة']/preceding-sibling::input"
+    },
+
     otherCheckbox: {
         role: "checkbox",
         name: "أخرى",
+    },
+
+    otherValue: {
+        xpath: "//span[text()='أخرى']/preceding-sibling::input"
     },
 
 
@@ -185,27 +225,35 @@ availableSoonValue: {
 
     //Rooms
     oneRoomCheckbox: {
-        role: "checkbox",
-        name: "1",
-        exact: true,
+        xpath:"//app-chip-input[@formcontrolname='num_of_rooms']/descendant::span[text()='1']"
     },
+    oneRoomValue: {
+        xpath: "(//span[text()='1']/preceding-sibling::input)[1]"
+    },
+
+
     twoRoomsCheckbox: {
-        role: "checkbox",
-        name: "2",
-        exact: true,
+        xpath:"//app-chip-input[@formcontrolname='num_of_rooms']/descendant::span[text()='2']"
+    },
+
+    twoRoomsValue: {
+        xpath: "(//span[text()='2']/preceding-sibling::input)[1]"
     },
 
     //Bathrooms
     oneBathroomCheckbox: {
-        role: "checkbox",
-        name: "1",
-        exact: true,
-    },
-    twoBathroomsCheckbox: {
-        role: "checkbox",
-        name: "2",
-        exact: true,
+       xpath:"//app-chip-input[@formcontrolname='num_of_bath_rooms']/descendant::span[text()='1']"
     },
 
+
+    oneBathroomValue: {
+        xpath: "(//span[text()='1']/preceding-sibling::input)[2]"
+    },
+    twoBathroomsCheckbox: {
+        xpath:"//app-chip-input[@formcontrolname='num_of_bath_rooms']/descendant::span[text()='2']"
+    },
+    twoBathroomsValue: {
+        xpath: "(//span[text()='2']/preceding-sibling::input)[2]"
+    },
 
 } as const;

@@ -30,6 +30,7 @@ import { UnitComparisonPage } from '@pages/UnitComparisonPage';
 import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
+import { TagsPage } from '@pages/TagsPage';
 
 export class WebApp {
   page: Page;
@@ -64,6 +65,7 @@ export class WebApp {
   reportTheUnitPage: InstanceType<typeof ReportTheUnitPage>;
   sortingPage: InstanceType<typeof SortingPage>;
   filtersPage: InstanceType<typeof FiltersPage>;
+  tagsPage: InstanceType<typeof TagsPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -98,5 +100,6 @@ export class WebApp {
     this.reportTheUnitPage = new ReportTheUnitPage(page);
     this.sortingPage = new SortingPage(page);
     this.filtersPage = new FiltersPage(page);
+    this.tagsPage = new TagsPage(page);
   }
 }

@@ -128,5 +128,13 @@ export class FiltersPage {
         await expect(button).toBeVisible({ timeout: 90000 });
         await button.click();
     }
+    async clickOnSearchButton() {
+        const button = this.page.getByRole(
+            FiltersObjects.searchButton.role,
+            { name: FiltersObjects.searchButton.name },
+        );
+        await expect(button).toBeVisible({ timeout: 90000 });
+        await button.click();
+    }
 
 }
