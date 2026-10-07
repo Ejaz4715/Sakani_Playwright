@@ -41,7 +41,7 @@ export class UnitBookingPage {
       .check();
   }
 
-  async signMohLandBooking(otp = ["1", "2", "3", "4"]) {
+  async signMohLandBookingContract(otp = ["1", "2", "3", "4"]) {
     await this.page
       .getByRole("checkbox", {
         name: "لقد قرأت وفهمت الشروط والأحكام الخاصة بالعقد *",

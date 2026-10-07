@@ -23,8 +23,8 @@ export class BookingPage {
     );
     await this.click(userProfileButton);
 
-    const myBookingsLink = this.page.getByText(
-      BookingCancellationObjects.myBookingsLink.text,
+    const myBookingsLink = this.page.locator(
+      BookingCancellationObjects.myBookingsLink,
     );
     await this.click(myBookingsLink);
 
@@ -42,8 +42,8 @@ export class BookingPage {
      await expect(userProfileButton).toBeVisible({ timeout: 90000 });
     await this.click(userProfileButton);
 
-    const myBookingsLink = this.page.getByText(
-      BookingCancellationObjects.myBookingsLink.text,
+    const myBookingsLink = this.page.locator(
+      BookingCancellationObjects.myBookingsLink,
     );
      await expect(myBookingsLink).toBeVisible({ timeout: 90000 });
     await this.click(myBookingsLink);
@@ -130,7 +130,7 @@ export class BookingPage {
       BookingCancellationObjects.cancellationSuccessHeading.role,
       { name: BookingCancellationObjects.cancellationSuccessHeading.name },
     );
-    await expect(successHeading).toBeVisible();
+    await expect(successHeading, "Cancellation success message is not visible").toBeVisible();
   }
 
   async cancelMohLandBooking(otp = ["1", "2", "3", "4"]) {

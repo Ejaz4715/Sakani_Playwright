@@ -6,15 +6,11 @@ dotenv.config();
 const timestamp = new Date().toISOString().replace(/[:T]/g, '-').replace(/\..+/, '');
 
 export default defineConfig({
-  maxFailures: 1,
   preserveOutput: 'always',
   testDir: './', 
   testMatch: [
     'tests/**/*.spec.{js,ts}',
     'e2e-scenarios/tests/**/*.spec.{js,ts}'
-  ],
-  testIgnore: [
-    /tests[\\/]e2e-scenarios[\\/]test-suits-e2e[\\/](?!(?:moh-land|auction|offplan-moh-land|offplan-private-land)-booking-journey-suit\.spec\.ts$|mega-project-suit\.spec\.ts$|payment-tracking-(?:completion-percentage|specified-period)-suit\.spec\.ts$)/,
   ],
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
@@ -69,17 +65,5 @@ export default defineConfig({
         deviceScaleFactor: undefined,
       },
     },
-    ...(process.env.ALL_BROWSERS
-      ? [
-          {
-            name: 'firefox',
-            use: { ...devices['Desktop Firefox'], viewport: { width: 1440, height: 900 } },
-          },
-          {
-            name: 'webkit',
-            use: { ...devices['Desktop Safari'], viewport: { width: 1440, height: 900 } },
-          },
-        ]
-      : []),
   ],
 });

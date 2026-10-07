@@ -4,8 +4,6 @@ import {DateUtils} from "@pages/utils/DateUtils";
 
 const fs = require("fs");
 const path = require("path");
-const XLSX = require("xlsx");
-
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
 function readTestData() {
@@ -718,5 +716,4 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             { timeout: LONG_TIMEOUT }
         ).toBe(true);
     });
-
 });

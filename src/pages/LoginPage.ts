@@ -1,25 +1,20 @@
-// @ts-nocheck
-const path = require("path");
 import { LoginObjects } from '@objects/LoginObjects'
-
-const testData = require(
-  path.join(process.cwd(), "src","data", "test-data.json"),
-);
-
+import { expect, Page } from "@playwright/test";
 export class LoginPage {
-  constructor(page) {
-    this.page = page;
-  }
+    page: Page;
+    constructor(page: Page) {
+        this.page = page;
+    }
 
-  async click(locator) {
+  async click(locator: any) {
     await locator.click();
   }
 
-  async check(locator) {
+  async check(locator: any) {
     await locator.check();
   }
 
-  async gotoHomePage(url = testData.userPortalUrl) {
+  async gotoHomePage(url: string) {
     await this.page.goto(url);
   }
 
@@ -48,7 +43,7 @@ export class LoginPage {
     await this.click(continueWithNafathButton);
   }
 
-  async loginWithNafath(nationalId) {
+  async loginWithNafath(nationalId: string) {
     const nafathInput = this.page.getByRole(LoginObjects.nafathIdInput.role, {
       name: LoginObjects.nafathIdInput.name,
     });

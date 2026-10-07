@@ -318,18 +318,6 @@ export class DeveloperProjectPage {
     await this.waitForVisible(scheduleNameInput);
     await scheduleNameInput.fill(scheduleName);
 
-    const completionPercentageZero = this.page
-      .locator(DeveloperObjects.completionPercentageZero)
-      .getByRole("textbox", { name: "مثال: 15٪" });
-    await this.waitForVisible(completionPercentageZero);
-    await completionPercentageZero.fill("50");
-
-    const percentageZero = this.page
-      .locator(DeveloperObjects.percentageZero)
-      .getByRole("textbox", { name: "مثال: 15٪" });
-    await this.waitForVisible(percentageZero);
-    await percentageZero.fill("50");
-
     const completionPercentageOne = this.page
       .locator(DeveloperObjects.completionPercentageOne)
       .getByRole("textbox", { name: "مثال: 15٪" });
@@ -341,6 +329,18 @@ export class DeveloperProjectPage {
       .getByRole("textbox", { name: "مثال: 15٪" });
     await this.waitForVisible(percentageOne);
     await percentageOne.fill(percentageOneValue);
+
+    const completionPercentagetwo = this.page
+      .locator(DeveloperObjects.completionPercentageTwo)
+      .getByRole("textbox", { name: "مثال: 15٪" });
+    await this.waitForVisible(completionPercentagetwo);
+    await completionPercentagetwo.fill(completionPercentageTwoValue);
+
+    const percentageTwo = this.page
+      .locator(DeveloperObjects.percentageTwo)
+      .getByRole("textbox", { name: "مثال: 15٪" });
+    await this.waitForVisible(percentageTwo);
+    await percentageTwo.fill(percentageTwoValue);
 
     const normalConfirmButton = this.page.getByRole(
       DeveloperObjects.confirmButton.role,
