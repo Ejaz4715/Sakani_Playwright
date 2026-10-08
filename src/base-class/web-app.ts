@@ -71,7 +71,6 @@ export class WebApp {
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
-  updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
 
   constructor(page: Page) {
     this.page = page;
