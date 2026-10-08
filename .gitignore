@@ -19,3 +19,7 @@ certs/
 .playwright-mcp/
 certs/
 .env
+
+# Excel Files
+Offplan_MOH.xlsx
+Offplan_MOH 2.xlsx

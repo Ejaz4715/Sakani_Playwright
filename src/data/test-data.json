@@ -143,8 +143,11 @@
       "sakaniUserId": "1607143630"
     },
     "report-the-unit": {
-      "sakaniUserId": "1441376098"
+      "sakaniUserId": "1441376098",
       "deliveryUnitCode": "01-01-0720-5-101"
+    },
+    "stamp-management": {
+      "developerUserId": "1023129537"
     }
   }
 }
