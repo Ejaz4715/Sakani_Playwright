@@ -1,5 +1,3 @@
-
-
 import { test, expect, Page } from "@playwright/test";
 const fs = require("fs");
 const path = require("path");
@@ -12,11 +10,11 @@ import testData from "@data/test-data.json";
 
 const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
-test.describe("Completion Rate Management", () => {
-    test("TC-01  Admin enables completion percentage", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+test.describe("Update Participated Bank", () => {
+       test("TC-01 Admin update the banks to be hidden", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         // const testData = readTestData();
-        const data = testData.services["completion-rate-management"];
+        const data = testData.services["update-participated-bank"];
         const environments = testData.environments;
         const app = new WebApp(page);
         const adminUrl = environments.adminPortalUrl;
@@ -38,17 +36,23 @@ test.describe("Completion Rate Management", () => {
         await app.resaleOfUnitsPage.clickSearchedProjectResult(data.projectName);
         // await page.locator('div').filter({ hasText: data.projectName }).click();
         await page.waitForTimeout(10000);
-        await app.adminProjectPage.clickCompletionPercentageSwitch(true);
-        await app.paymentTrackingPage.clickOnSaveButton();
+
+        await logStep("Step 05: Unselect participating banks > Save and verify");
+        await app.adminProjectPage.expectFinancingEntitiesVisible();
+        await app.adminProjectPage.clickFinancingEntities();
+        await app.adminProjectPage.expectSelectAllRowsVisible();
+        await app.adminProjectPage.clickSelectAllRowsForBankClassState(false);
+         await app.paymentTrackingPage.clickOnSaveButton();
+        await app.adminProjectPage.clickProjectDetailsTab();
+         await app.paymentTrackingPage.clickOnSaveButton();
         await app.paymentTrackingPage.verifySaveSuccessToast();
     });
 
-
-    test("TC-02 Verify the completion percentage is present", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
+    test("TC-02 Verify the banks are hidden", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
         const environment = testData.environments;
-        const data = testData.services["completion-rate-management"];
+        const data = testData.services["update-participated-bank"];
         const app = new WebApp(page);
         const sakaniUserId = data.sakaniUserId;
         const userPortalUrl = environment.userPortalUrl;
@@ -82,15 +86,15 @@ test.describe("Completion Rate Management", () => {
             let bookingPage = page2;
             let bookingApp = new WebApp(bookingPage);
 
-            await logStep("Step 04: Verify the completion percentage is present");
-            await bookingApp.bookingPage.verifyCompletionPercentageProgressIsVisible(true);
+            await logStep("Step 04: Verify the banks are not present");
+            await bookingApp.bookingPage.verifyTheAvialabilityOfTheBanks(true);
         }
     });
 
-    test("TC-03  Admin disables completion percentage", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+       test("TC-03 Admin update the banks to be present", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         // const testData = readTestData();
-        const data = testData.services["completion-rate-management"];
+        const data = testData.services["update-participated-bank"];
         const environments = testData.environments;
         const app = new WebApp(page);
         const adminUrl = environments.adminPortalUrl;
@@ -112,16 +116,23 @@ test.describe("Completion Rate Management", () => {
         await app.resaleOfUnitsPage.clickSearchedProjectResult(data.projectName);
         // await page.locator('div').filter({ hasText: data.projectName }).click();
         await page.waitForTimeout(10000);
-        await app.adminProjectPage.clickCompletionPercentageSwitch(false);
-        await app.paymentTrackingPage.clickOnSaveButton();
+
+        await logStep("Step 05: Unselect participating banks > Save and verify");
+        await app.adminProjectPage.expectFinancingEntitiesVisible();
+        await app.adminProjectPage.clickFinancingEntities();
+        await app.adminProjectPage.expectSelectAllRowsVisible();
+        await app.adminProjectPage.clickSelectAllRowsForBankClassState(true);
+         await app.paymentTrackingPage.clickOnSaveButton();
+        await app.adminProjectPage.clickProjectDetailsTab();
+         await app.paymentTrackingPage.clickOnSaveButton();
         await app.paymentTrackingPage.verifySaveSuccessToast();
     });
 
-    test("TC-04 Verify the completion percentage is hidden", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
+    test("TC-04 Verify the banks are present", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
         const environment = testData.environments;
-        const data = testData.services["completion-rate-management"];
+        const data = testData.services["update-participated-bank"];
         const app = new WebApp(page);
         const sakaniUserId = data.sakaniUserId;
         const userPortalUrl = environment.userPortalUrl;
@@ -155,8 +166,8 @@ test.describe("Completion Rate Management", () => {
             let bookingPage = page2;
             let bookingApp = new WebApp(bookingPage);
 
-            await logStep("Step 04: Verify the completion percentage is hidden");
-            await bookingApp.bookingPage.verifyCompletionPercentageProgressIsVisible(false);
+            await logStep("Step 04: Verify the banks are present");
+            await bookingApp.bookingPage.verifyTheAvialabilityOfTheBanks(false);
         }
     });
 });

@@ -89,6 +89,8 @@ export class BookingPage {
      await expect(refundedStatus).toBeVisible({ timeout: 5000 });
   }
 
+
+
   async getBookedUnitCode() {
     const unitCode = this.page.locator(
       "(//div[text() = 'رمز الوحدة']/following-sibling::div/child::div)[1]",
@@ -169,7 +171,9 @@ async clickOnViewOfProcequotationButton() {
         await viewPriceQuotationButton.click();
     }
 
-    async verifyPriceQuotationContainsRequiredSections(pdfPath: string) {
+  
+
+  async verifyPriceQuotationContainsRequiredSections(pdfPath: string) {
       const parser = new PDFParse({ data: await readFile(pdfPath) });
       try {
         const { text } = await parser.getText();
@@ -198,5 +202,67 @@ async clickOnViewOfProcequotationButton() {
         await parser.destroy();
       }
     }
+
+
+     async verifyCompletionPercentageProgressIsVisible(shouldBeVisible: boolean) {
+    const completionPercentageProgress = this.page.locator(
+      BookingCancellationObjects.compeltiopnPercentageProgress.xpath,
+    );
+    if (shouldBeVisible) {
+      await expect(completionPercentageProgress).toBeVisible();
+    } else {
+      await expect(completionPercentageProgress).toBeHidden();
+    }
+  }
+  async verifyTheAvialabilityOfTheBanks(shouldBeVisible: boolean) {
+    const noBanksAvailableMessage = this.page.locator(
+      BookingCancellationObjects.noBanksAvailableMessage.xpath,
+    );
+    if (shouldBeVisible) {
+      await expect(noBanksAvailableMessage).toBeVisible();
+    } else {
+      await expect(noBanksAvailableMessage).toBeHidden();
+    }
+  }
+
+  async verifyElementVisibility(
+    elementObject: { readonly xpath: string },
+    shouldBeVisible: boolean,
+  ) {
+    const element = this.page.locator(elementObject.xpath);
+    if (shouldBeVisible) {
+      await expect(element).toBeVisible();
+    } else {
+      await expect(element).toBeHidden();
+    }
+  }
+
+async clickBrochureButton() {
+    const brochureButton = this.page.locator(
+      BookingCancellationObjects.brochureButton.xpath,
+    );
+    await this.click(brochureButton);
+  }
+
+
+  async clickCloseBrochureButton() {
+    const closebrochureButton = this.page.locator(
+      BookingCancellationObjects.closebrochureButton.xpath,
+    );
+    await this.click(closebrochureButton);
+  }
+
+  async clickMasterplanButton() {
+    const masterplanButton = this.page.locator(
+      BookingCancellationObjects.masterplanButton.xpath,
+    );
+    await this.click(masterplanButton);
+  }
+ async clickCloseMasterplanButton() {
+    const closemasterplanButton = this.page.locator(
+      BookingCancellationObjects.closemasterplanButton.xpath,
+    );
+    await this.click(closemasterplanButton);
+  }
 
 }

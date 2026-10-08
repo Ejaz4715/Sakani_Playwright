@@ -81,6 +81,7 @@ export class AdminProjectPage {
       .click();
   }
 
+
   async selectProjectStatus(status: string) {
     await this.page.locator(AdminObjects.statusDropdown).click();
     const projectStatusOption = await AdminObjects.projectStatusOption(status);
@@ -227,6 +228,8 @@ export class AdminProjectPage {
       })
       .click();
   }
+
+
 
   async clickUnitsTab() {
     await this.page
@@ -633,4 +636,52 @@ export class AdminProjectPage {
       timeout: 120000,
     });
   }
+
+  async clickCompletionPercentageSwitch(shouldBeChecked: boolean) {
+    const completionPercentageSwitch = this.page.getByRole(
+      AdminObjects.completionPercentageSwitch.role,
+      { name: AdminObjects.completionPercentageSwitch.name },
+    );
+
+     const completionPercentageValue = this.page.locator(
+      AdminObjects.completionPercentageValue.xpath
+    );
+
+    await expect(completionPercentageValue).toBeVisible();
+    const isChecked =
+      (await completionPercentageValue.getAttribute("aria-checked")) === "true";
+    if (isChecked !== shouldBeChecked) {
+      await completionPercentageSwitch.click();
+    }
+    await expect(completionPercentageValue).toHaveAttribute(
+      "aria-checked",
+      String(shouldBeChecked),
+    );
+  }
+
+  async clickSelectAllRowsForBankClassState(shouldNotContainActive: boolean) {
+    const bankRows = this.page.locator(AdminObjects.banksCheckboxesValue.xpath);
+    await expect(bankRows.first()).toBeVisible({ timeout: 30000 });
+    const rowCount = await bankRows.count();
+
+    for (let index = 0; index < rowCount; index++) {
+      const rowClass = await bankRows.nth(index).getAttribute("class");
+      const isActive = rowClass?.split(/\s+/).includes("active") ?? false;
+
+      if (shouldNotContainActive && !isActive) {
+        await this.expectSelectAllRowsVisible();
+        await this.clickSelectAllRows();
+        return;
+      }
+
+      if (!shouldNotContainActive && isActive) {
+        await this.expectSelectAllRowsVisible();
+        await this.clickSelectAllRows();
+        await this.clickSelectAllRows();
+        return;
+      }
+    }
+  }
+  
+
 }
