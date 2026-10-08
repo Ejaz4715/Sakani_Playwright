@@ -92,13 +92,13 @@
       "projectName": "Automation Project 20261006110013",
       "companyUser": "1001234342",
       "companyCR": "7001234342",
-      "companyUnitCode": "01-01-0714-5-101"
+      "companyUnitCode": "01-01-0702-7-103"
     },
     "unit-delivery": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project 20261005115204",
+      "projectName": "Automation Project 20261007095117",
       "sakaniUserId": "1300070834",
       "deliveryUnitCode": "01-01-0709-6-102"
     },
@@ -144,6 +144,7 @@
     },
     "report-the-unit": {
       "sakaniUserId": "1441376098"
+      "deliveryUnitCode": "01-01-0720-5-101"
     }
   }
 }
