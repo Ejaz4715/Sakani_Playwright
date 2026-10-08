@@ -109,6 +109,10 @@ export const AdminObjects = {
     role: "checkbox",
     name: "Select all rows",
   },
+
+   banksCheckboxesValue:{
+      xpath:"//datatable-body-row"
+    },
   unitsTab: {
     role: "tab",
     name: "الوحدات",
@@ -263,6 +267,11 @@ export const AdminObjects = {
      completionPercentageSwitch: {
         role: "switch", name: "إظهار نسبة الإنجاز"
     },
+
+ completionPercentageValue: {
+        xpath:"//mat-slide-toggle[@formcontrolname='completion_percentage_visible']/descendant::button"
+    },
+
 
   bookingAvailableToggle: "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
   projectPublishedToggle: "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
