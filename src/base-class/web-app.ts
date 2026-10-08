@@ -32,6 +32,7 @@ import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
+import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 
 export class WebApp {
   page: Page;
@@ -69,6 +70,8 @@ export class WebApp {
   sortingPage: InstanceType<typeof SortingPage>;
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
+  updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
+  updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -104,6 +107,7 @@ export class WebApp {
     this.sortingPage = new SortingPage(page);
     this.filtersPage = new FiltersPage(page);
     this.tagsPage = new TagsPage(page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
     this.createMegaProjectPage = new CreateMegaProjectPage (page);
     this.flexiblePaymentPage = new FlexiblePaymentPage (page);
     this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
@@ -117,5 +121,6 @@ export class WebApp {
     this.cashPaymentPage = new CashPaymentPage (page);
     this.publishUnitPage = new PublishUnitPage (page);
     this.unitsDeliveryPage = new UnitsDeliveryPage (page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
   }
 }

@@ -144,7 +144,13 @@
     },
     "report-the-unit": {
       "sakaniUserId": "1441376098"
-      "deliveryUnitCode": "01-01-0720-5-101"
+    },
+    "update-unit": {
+          "projectName": "Automation Project P_003",
+          "projectCode": "02-01-0149",
+          "availableUnitCode": "02-01-0149-5-101",
+          "bookedUnitCode": "02-01-0149-6-102",
+          "developerUserId": "1023129537"
     }
   }
 }
