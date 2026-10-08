@@ -11,7 +11,7 @@
       "adminPassword": "admin",
       "developerUserId": "1023129537",
       "sakaniUserId": "1300061022",
-      "bookedUnitCode": "01-01-0674-7-103"
+      "bookedUnitCode": "01-01-0655-16-112"
     },
     "auction-journey": {
       "projectName": "",
@@ -74,7 +74,7 @@
       "developerUserId": "1023129537",
       "advertiserId": "1023129537",
       "lastAdLicenseCounter": 8986749517,
-      "AdLicenseNumber": "20261005083936"
+      "AdLicenseNumber": "20261008132633"
     },
     "offPlan-basket-multiple-booking": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
@@ -145,6 +145,25 @@
     "report-the-unit": {
       "sakaniUserId": "1441376098"
     },
+   "update-participated-bank": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834"
+    },
+    "completion-rate-management": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834"
+    },
+    "view-project-unit-readymade": {
+      "projectName": "readymade private land",
+      "sakaniUserId": "1441376098"
+    },
+    "card-details": {
+      "projectName": "Automation Project P_003",
+      "sakaniUserId": "1441376098"
     "update-unit": {
           "projectName": "Automation Project P_003",
           "projectCode": "02-01-0149",

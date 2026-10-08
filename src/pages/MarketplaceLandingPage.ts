@@ -1,7 +1,7 @@
 // @ts-nocheck
 import {ProfileManagementObjects} from "@objects/ProfileManagementObjects";
 const path = require("path");
-import { Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { MarketplaceLandingObjects } from '@objects/MarketplaceLandingObjects'
 
 export class MarketplaceLandingPage {
@@ -35,10 +35,40 @@ export class MarketplaceLandingPage {
     await searchInput.fill(projectName);
     const projectResult = this.page
       .locator(MarketplaceLandingObjects.projectResultModal)
-      .getByText(projectName, { exact: true });
+      .getByText(projectName, { exact: true })
     await this.click(projectResult);
   }
 
+  async clickSearchedResultIfTextMatches(expectedText: string) {
+     const searchInput = this.page.getByRole(
+      MarketplaceLandingObjects.searchInput.role,
+      { name: MarketplaceLandingObjects.searchInput.name },
+    );
+    await searchInput.fill(expectedText);
+    const searchedResult = this.page.locator(
+      MarketplaceLandingObjects.searchedResutl.xpath,
+    );
+    await expect(searchedResult).toHaveText(expectedText);
+    await searchedResult.click();
+  }
+
+
+
+
+
+
+
+
+
+
+  async openReadyMadeUniy() {
+        const readyMadeUnitCard = this.page.locator(
+            MarketplaceLandingObjects.readyMadeUnitCard.xpath
+        ).first();
+
+        await expect(readyMadeUnitCard).toBeVisible({ timeout: 90000 });
+        await readyMadeUnitCard.click();
+    }
   async openResidentialUnit() {
     const unit = this.page.locator("//app-marketplace-project-card-template/descendant::span[text() ='SAR']").first();
     await unit.waitFor({ state: "visible", timeout: 30000 });
