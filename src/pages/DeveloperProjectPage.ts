@@ -45,6 +45,7 @@ export class DeveloperProjectPage {
         exact: DeveloperObjects.continueButton.exact,
       },
     );
+    await this.page.waitForTimeout(3500);
     await this.waitForVisible(continueButton);
     await continueButton.click();
 
