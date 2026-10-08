@@ -76,6 +76,32 @@
       "lastAdLicenseCounter": 8986749517,
       "AdLicenseNumber": "20261005083936"
     },
+    "offPlan-basket-multiple-booking": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "developerUserId": "1023129537",
+      "projectName": "Automation Project 20261006094237",
+      "sakaniUserId": "1300070834",
+      "unit1Code": "01-01-0713-6-102",
+      "unit2Code": "01-01-0713-5-101"
+    },
+    "selling-to-companies": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "developerUserId": "1023129537",
+      "projectName": "Automation Project 20261006110013",
+      "companyUser": "1001234342",
+      "companyCR": "7001234342",
+      "companyUnitCode": "01-01-0702-7-103"
+    },
+    "unit-delivery": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "developerUserId": "1023129537",
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834",
+      "deliveryUnitCode": "01-01-0709-6-102"
+    },
     "payments-and-transactions": {
       "sakaniUserId": "1019075926"
     },
@@ -118,6 +144,7 @@
     },
     "report-the-unit": {
       "sakaniUserId": "1441376098"
+      "deliveryUnitCode": "01-01-0720-5-101"
     }
   }
 }

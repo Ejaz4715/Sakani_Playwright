@@ -567,7 +567,7 @@ test.describe("Cash Payment", () => {
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
         await logStep("Step 02: Open financial management > cash payment");
-        await app.flexiblePaymentPage.clickOnFinancialManagemnt();
+        await app.flexiblePaymentPage.clickOnFinancialManagement();
         await app.cashPaymentPage.clickOnCashPaymentLink();
         await logStep("Step 03: Search for ID number > Verify cash payment is documented successfully");
         await app.cashPaymentPage.selectCustomerType();
