@@ -71,6 +71,7 @@ export class WebApp {
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
+  updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -106,6 +107,7 @@ export class WebApp {
     this.sortingPage = new SortingPage(page);
     this.filtersPage = new FiltersPage(page);
     this.tagsPage = new TagsPage(page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
     this.createMegaProjectPage = new CreateMegaProjectPage (page);
     this.flexiblePaymentPage = new FlexiblePaymentPage (page);
     this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
