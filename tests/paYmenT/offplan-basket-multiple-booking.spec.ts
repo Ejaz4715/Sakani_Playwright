@@ -1,18 +1,16 @@
 import {expect, Locator, Page, test} from "@playwright/test";
 import {WebApp} from "@base-class/web-app";
 import {DateUtils} from "@pages/utils/DateUtils";
+import {DataHelper} from "@helpers/DataHelper";
+import {logStep} from "@helpers/LogSteps";
 
-const fs = require("fs");
 const path = require("path");
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
 
-function readTestData() {
-    return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
+const SERVICE = "offPlan-basket-multiple-booking";
 
-function writeTestData(data: any) {
-    fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
+const readServiceData = () => DataHelper.readData().services[SERVICE];
+const readEnvironments = () => DataHelper.readData().environments;
+const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 const DEFAULT_TIMEOUT = 30_000;
 const LONG_TIMEOUT = 90_000;
@@ -40,7 +38,8 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
 
         const currentDate = DateUtils.getDateISO(600);
@@ -48,15 +47,19 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        const updatedData = {...testData, projectName};
-        writeTestData(updatedData);
+        writeServiceData("projectName", projectName);
+
 
         // Project details
+
+        await logStep("Step 01: Navigate to admin portal > Login");
         await app.adminProjectPage.login(
-            updatedData.adminPortalUrl,
-            updatedData.adminUsername,
-            updatedData.adminPassword,
+            environments.adminPortalUrl,
+            data.adminUsername,
+            data.adminPassword,
         );
+
+        await logStep("Step 02: Create new project > Fill project details > Save");
         await app.adminProjectPage.openProjectCreation();
         await page
             .locator("form-field-component")
@@ -142,6 +145,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await expect(saveSuccessToast).toBeVisible({timeout: 120000});
 
 
+        await logStep("Step 03: Link the project with AZM");
         // Link with AZM
         await page.waitForTimeout(3000);
         const azmToggle = page.locator(
@@ -157,6 +161,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         }
 
 
+        await logStep("Step 04: Select the participating banks");
         // Partcipating banks
         await expect(page.getByText(/قائمة الجهات التمويلية/i)).toBeVisible({
             timeout: 30000,
@@ -168,6 +173,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await page.getByRole("checkbox", {name: "Select all rows"}).click();
         await page.getByRole("button", {name: "حفظ"}).click();
 
+        await logStep("Step 05: Import the project units > Approve the import");
         // Import units
         await page.getByRole("tab", {name: "الوحدات", exact: true}).click();
         await expect(
@@ -214,6 +220,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await page.waitForTimeout(3000);
         await page.getByRole("button", {name: "رجوع"}).click();
 
+        await logStep("Step 06: Upload the project media");
         // //Upload media
         await page
             .locator("span")
@@ -284,6 +291,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await page.locator("#save_btn").click();
 
 
+        await logStep("Step 07: Approve the uploaded media");
         // // Approve media
         await page.getByRole("tab", {name: "تفاصيل المشروع"}).click();
         await page.waitForTimeout(20000);
@@ -297,6 +305,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await page.getByRole("button", {name: "حفظ"}).click();
         await expect(saveSuccessToast).toBeVisible({timeout: 120000});
 
+        await logStep("Step 08: Publish the unit model");
         // // Publish unit model
         await page.getByText("نماذج الوحدات").click();
         await page.getByRole("cell", {name: "model_1"}).click();
@@ -317,6 +326,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
 
         await page.waitForTimeout(10000);
 
+        await logStep("Step 09: Set project as available and bookable > Publish the project");
         // Navigate to project details page
         await page.getByText("تفاصيل المشروع").click();
 
@@ -367,6 +377,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
 
         await page.getByText("تفاصيل المشروع").click();
 
+        await logStep("Step 10: Activate multiple units booking for non-beneficiary > Verify setting is saved");
         // TC_02_Admin | Verify Activate multiple units booking for non-beneficiary settings
         // Project settings
         await page.keyboard.press('PageDown');
@@ -394,16 +405,21 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await logStep("Step 01: Navigate to partners portal > Login as developer");
+        await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
+
+        await logStep("Step 02: Search for the project > Open it");
         await app.developerProjectPage.openProjectBySearch(projectName);
 
+        await logStep("Step 03: Approve the sales contract > Verify approval success message");
         await app.developerProjectPage.openSalesContractsTab();
         await app.developerProjectPage.viewAndApproveSalesContract();
         await app.developerProjectPage.approveUnitSpecification();
@@ -412,207 +428,38 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await app.developerProjectPage.verifyApprovalSuccessMessage();
     });
 
-    /*test("TC-03 - Developer | Books multiple units", {
-        annotation: [{
-            product: 'Marketplace',
-            type: 'critical'
-        }] as any
-    }, async ({page}) => {
-        const testData = readTestData();
-        const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
-
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
-        await app.developerProjectPage.loginDeveloper(developerUserId);
-        await app.developerProjectPage.switchRoleToDeveloper();
-
-        await page.locator("//span[contains(text(),' إدارة الحجوزات')]/../..").click();
-        await page.locator("//span[contains(text(),'الحجوزات الفردية')]/../..").click();
-        await page.waitForTimeout(10000);
-
-        await page.locator("//span[contains(text(),' حجز جديد ')]/..").waitFor({ state: 'visible' }).click();
-
-        await page.locator("//label[contains(text(),' رقم الهوية ')]/../..//input").fill("1300070834");
-
-        await page.locator("//button[contains(text(),' بحث ')]").click();
-
-        await page.locator("//button[contains(text(), 'التالي')]").click();
-
-        await page.waitForTimeout(10000);
-
-        await page.locator("(//input[@aria-autocomplete='list'])[1]").fill(projectName);
-
-        await page.waitForTimeout(1000);
-
-        await page.locator("div[role='listbox'] span").click();
-
-        await page.waitForTimeout(10000);
-
-        await page.locator("//datatable-row-wrapper[1]/datatable-body-row/div[3]/datatable-body-cell/div/div/app-sapa-checkbox-v2/div/div/input/..").click();
-
-        await page.locator("//datatable-row-wrapper[2]/datatable-body-row/div[3]/datatable-body-cell/div/div/app-sapa-checkbox-v2/div/div/input/..").click();
-
-        await page.locator("//button[contains(text(), 'التالي')]").click();
-        await page.waitForTimeout(10000);
-        await page.locator("//button[contains(text(), ' تأكيد ')]").click();
-        await page.waitForTimeout(60000);
-        await expect(page.locator("//button[contains(text(),' عرض قوائم الحجز )]")).toBeVisible();
-
-    });
-
-    test("TC-04 - User | Pays the invoices for all units", {
-        annotation: [{
-            product: 'Marketplace',
-            type: 'critical'
-        }] as any
-    }, async ({page}) => {
-        const testData = readTestData();
-        const app = new WebApp(page);
-        const sakaniUserId = testData.sakaniUserId;
-        const userPortalUrl = testData.userPortalUrl;
-
-        await app.loginPage.gotoHomePage(userPortalUrl);
-        await app.loginPage.acceptCookies();
-        await app.loginPage.openLogin();
-        await app.loginPage.loginWithNafath(sakaniUserId);
-        await app.loginPage.waitForNafathPromptToDisappear();
-        await app.loginPage.continueNewUserPopup();
-        await app.loginPage.handlePushNotificationPopup();
-
-        await page.waitForTimeout(10000);
-        await app.marketplaceLandingPage.openProfileManagement();
-        await page.waitForTimeout(10000);
-        await app.offPlanBasketMultipleBookingPage.clickMyActivities();
-        await page.waitForTimeout(1000);
-        await app.offPlanBasketMultipleBookingPage.clickOnBookings();
-        await page.waitForTimeout(60000);
-        await app.offPlanBasketMultipleBookingPage.clickOnActiveBooking();
-        await app.offPlanBasketMultipleBookingPage.clickOnNoBilled();
-
-        // add the unit codes to json
-        unit1Code = await app.offPlanBasketMultipleBookingPage.getUnit1Code();
-        unit2Code = await app.offPlanBasketMultipleBookingPage.getUnit2Code();
-
-        writeTestData({...testData, unit1Code});
-        writeTestData({...testData, unit2Code});
-
-        await page.waitForTimeout(10000);
-        await app.offPlanBasketMultipleBookingPage.clickOnUnit1CheckBox();
-        await app.offPlanBasketMultipleBookingPage.clickOnUnit2CheckBox();
-        await page.waitForTimeout(10000);
-        await app.offPlanBasketMultipleBookingPage.clickOnPayBills();
-        await page.waitForTimeout(30000);
-        await app.paymentGatewayPage.fillCardDetails();
-        await page.waitForTimeout(60000);
-        expect(await app.offPlanBasketMultipleBookingPage.isSuccessfulPayment()).toBe(true);
-    });
-
-    test("TC-05 - User | Signs sale contract for all units", async ({page}) => {
-        const testData = readTestData();
-        const app = new WebApp(page);
-        const sakaniUserId = testData.sakaniUserId;
-        const userPortalUrl = testData.userPortalUrl;
-
-        await app.loginPage.gotoHomePage(userPortalUrl);
-        await app.loginPage.acceptCookies();
-        await app.loginPage.openLogin();
-        await app.loginPage.loginWithNafath(sakaniUserId);
-        await app.loginPage.waitForNafathPromptToDisappear();
-        await app.loginPage.continueNewUserPopup();
-        await app.loginPage.handlePushNotificationPopup();
-
-        await app.marketplaceLandingPage.openProfileManagement();
-        await app.offPlanBasketMultipleBookingPage.clickMyActivities();
-        await page.waitForTimeout(60000);
-        await app.offPlanBasketMultipleBookingPage.clickOnBookings();
-        await page.waitForTimeout(1000);
-        await app.offPlanBasketMultipleBookingPage.clickOnActiveBooking();
-        await page.waitForTimeout(1000);
-        await app.offPlanBasketMultipleBookingPage.clickOnReadyForSign();
-        await page.waitForTimeout(1000);
-
-        await app.offPlanBasketMultipleBookingPage.clickOnUnit1CheckBox();
-        await app.offPlanBasketMultipleBookingPage.clickOnUnit2CheckBox();
-        await app.offPlanBasketMultipleBookingPage.clickOnContinue();
-        await page.waitForTimeout(2000);
-
-        await app.offPlanBasketMultipleBookingPage.clickOnAllProjectUnitsToApprove();
-        await app.offPlanBasketMultipleBookingPage.clickOnAgreeOnAll();
-        await page.waitForTimeout(2000);
-
-        await app.offPlanBasketMultipleBookingPage.typeVerifyOtpCode();
-        await app.offPlanBasketMultipleBookingPage.clickOnVerify();
-        await page.waitForTimeout(30000);
-        expect(await app.offPlanBasketMultipleBookingPage.isSuccessfulContractSignMessage()).toBe(true);
-    });
-
-    test("TC-06 - Developer | Confirms the bookings", async ({page}) => {
-        const testData = readTestData();
-        const app = new WebApp(page);
-        const developerUserId = testData.developerUserId;
-
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
-        await app.developerProjectPage.loginDeveloper(developerUserId);
-        await app.developerProjectPage.switchRoleToDeveloper();
-
-        await page.waitForTimeout(3000);
-        await app.developerProjectPage.confirmBooking(unit1Code);
-        expect(await app.developerProjectPage.isSuccessfulConfirmationMessageVisible()).toBe(true);
-
-        await app.developerProjectPage.closeConfirmationModal();
-
-        await app.developerProjectPage.switchRoleToDeveloper();
-        await app.developerProjectPage.confirmBooking(unit2Code);
-        expect(await app.developerProjectPage.isSuccessfulConfirmationMessageVisible()).toBe(true);
-    });*/
-
     test("TC-03 - Developer | Books multiple units", {
         annotation: [{
             product: 'Marketplace',
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const projectName = data.projectName;
+        const nationalId = data.sakaniUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        const developerUserId = data.developerUserId;
+
+        await logStep("Step 01: Navigate to partners portal > Login as developer");
+        await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
 
-        await waitAndClick(page.locator("//span[contains(text(),' إدارة الحجوزات')]/../.."));
-        await waitAndClick(page.locator("//span[contains(text(),'الحجوزات الفردية')]/../.."));
-
-        await waitAndClick(page.locator("//span[contains(text(),' حجز جديد ')]/.."), LONG_TIMEOUT);
-
-        await waitAndFill(page.locator("//label[contains(text(),' رقم الهوية ')]/../..//input"), "1300070834");
-        await waitAndClick(page.locator("//button[contains(text(),' بحث ')]"));
-
-        const nextButton = page.locator("//button[contains(text(), 'التالي')]");
-        await expect(nextButton).toBeEnabled({ timeout: DEFAULT_TIMEOUT });
-        await nextButton.click();
-
-        await page.waitForTimeout(3000);
-
-        await page.locator("(//input[@aria-autocomplete='list'])[1]").fill(projectName);
-
-        await page.waitForTimeout(2000);
-
-        await page.locator("div[role='listbox'] span").click();
-
+        await logStep("Step 02: Start new booking > Search customer by ID > Select the project");
+        await app.developerProjectPage.bookUnitsForCustomers(nationalId,projectName);
         await page.waitForTimeout(10000);
+
+        await logStep("Step 03: Select multiple units");
         await waitAndClick(unitCheckbox(page, 1));
         await waitAndClick(unitCheckbox(page, 2));
 
-        await expect(nextButton).toBeEnabled({ timeout: DEFAULT_TIMEOUT });
-        await nextButton.click();
+        await logStep("Step 04: Confirm the booking > Verify booking list is visible");
+        await app.developerProjectPage.clickOnNextButton();
+        await app.developerProjectPage.clickOnConfirmationButton();
 
-        await waitAndClick(page.locator("//button[contains(text(), ' تأكيد ')]"), LONG_TIMEOUT);
-
-        await expect(page.locator("//button[contains(text(),'عرض قوائم الحجز')]"))
-            .toBeVisible({ timeout: LONG_TIMEOUT });
+        expect(await app.developerProjectPage.isBookingListButtonVisible()).toBe(true);
     });
 
     test("TC-04 - User | Pays the invoices for all units", {
@@ -621,11 +468,13 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             type: 'critical'
         }] as any
     }, async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const sakaniUserId = testData.sakaniUserId;
-        const userPortalUrl = testData.userPortalUrl;
+        const sakaniUserId = data.sakaniUserId;
+        const userPortalUrl = environments.userPortalUrl;
 
+        await logStep("Step 01: Navigate to user portal > Login");
         await app.loginPage.gotoHomePage(userPortalUrl);
         await app.loginPage.acceptCookies();
         await app.loginPage.openLogin();
@@ -634,17 +483,21 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await app.loginPage.continueNewUserPopup();
         await app.loginPage.handlePushNotificationPopup();
 
+        await logStep("Step 02: Navigate to my activities > Active bookings > Not billed");
         await app.marketplaceLandingPage.openProfileManagement();
         await app.offPlanBasketMultipleBookingPage.clickMyActivities();
         await app.offPlanBasketMultipleBookingPage.clickOnBookings();
         await app.offPlanBasketMultipleBookingPage.clickOnActiveBooking();
         await app.offPlanBasketMultipleBookingPage.clickOnNotBilled();
 
+        await logStep("Step 03: Save the booked unit codes to test data");
         // add the unit codes to json
         unit1Code = await app.offPlanBasketMultipleBookingPage.getUnit1Code();
         unit2Code = await app.offPlanBasketMultipleBookingPage.getUnit2Code();
-        writeTestData({ ...testData, unit1Code, unit2Code });
+        writeServiceData("unit1Code", unit1Code);
+        writeServiceData("unit2Code", unit2Code);
 
+        await logStep("Step 04: Select all units > Pay the invoices > Verify payment is successful");
         await app.offPlanBasketMultipleBookingPage.clickOnUnit1CheckBox();
         await app.offPlanBasketMultipleBookingPage.clickOnUnit2CheckBox();
         await app.offPlanBasketMultipleBookingPage.clickOnPayBills();
@@ -657,11 +510,13 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
     });
 
     test("TC-05 - User | Signs sale contract for all units", async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const sakaniUserId = testData.sakaniUserId;
-        const userPortalUrl = testData.userPortalUrl;
+        const sakaniUserId = data.sakaniUserId;
+        const userPortalUrl = environments.userPortalUrl;
 
+        await logStep("Step 01: Navigate to user portal > Login");
         await app.loginPage.gotoHomePage(userPortalUrl);
         await app.loginPage.acceptCookies();
         await app.loginPage.openLogin();
@@ -670,16 +525,19 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await app.loginPage.continueNewUserPopup();
         await app.loginPage.handlePushNotificationPopup();
 
+        await logStep("Step 02: Navigate to my activities > Active bookings > Ready for sign");
         await app.marketplaceLandingPage.openProfileManagement();
         await app.offPlanBasketMultipleBookingPage.clickMyActivities();
         await app.offPlanBasketMultipleBookingPage.clickOnBookings();
         await app.offPlanBasketMultipleBookingPage.clickOnActiveBooking();
         await app.offPlanBasketMultipleBookingPage.clickOnReadyForSign();
 
+        await logStep("Step 03: Select all units > Continue");
         await app.offPlanBasketMultipleBookingPage.clickOnUnit1CheckBox();
         await app.offPlanBasketMultipleBookingPage.clickOnUnit2CheckBox();
         await app.offPlanBasketMultipleBookingPage.clickOnContinue();
 
+        await logStep("Step 04: Agree on the sale contract > Verify OTP > Verify contract is signed");
         await app.offPlanBasketMultipleBookingPage.clickOnProjectCheckBox();
         await app.offPlanBasketMultipleBookingPage.clickOnAgreeOnAll();
 
@@ -693,24 +551,28 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
     });
 
     test("TC-06 - Developer | Confirms the bookings", async ({page}) => {
-        const testData = readTestData();
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
-        const developerUserId = testData.developerUserId;
+        const developerUserId = data.developerUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await logStep("Step 01: Navigate to partners portal > Login as developer");
+        await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
 
-        await app.developerProjectPage.confirmBooking(readTestData().unit1Code);
+        await logStep("Step 02: Confirm the first unit booking > Verify success message");
+        await app.developerProjectPage.confirmBooking(data.unit1Code);
         await expect.poll(
             () => app.developerProjectPage.isSuccessfulConfirmationMessageVisible(),
             { timeout: LONG_TIMEOUT }
         ).toBe(true);
 
+        await logStep("Step 03: Confirm the second unit booking > Verify success message");
         await app.developerProjectPage.closeConfirmationModal();
 
         await app.developerProjectPage.switchRoleToDeveloper();
-        await app.developerProjectPage.confirmBooking(readTestData().unit2Code);
+        await app.developerProjectPage.confirmBooking(data.unit2Code);
         await expect.poll(
             () => app.developerProjectPage.isSuccessfulConfirmationMessageVisible(),
             { timeout: LONG_TIMEOUT }

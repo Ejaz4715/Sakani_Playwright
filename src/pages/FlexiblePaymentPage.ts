@@ -2,13 +2,14 @@ import { expect, Page } from "@playwright/test";
 import { FlexiblePaymentObjects } from '@objects/FlexiblePaymentObjects';
 import { BookingAndSelectPaymentMethodObjects } from '@objects/BookingAndSelectPaymentMethodObjects';
 
+let DEFAULT_TIMEOUT=30_000
 export class FlexiblePaymentPage {
     page: Page;
     constructor(page: Page) {
         this.page = page;
     }
 
-    async clickOnFinancialManagemnt() {
+    async clickOnFinancialManagement() {
         const finacialManagemnt = this.page.locator(
             FlexiblePaymentObjects.finacialManagemnt.xpath
         );
@@ -194,6 +195,54 @@ export class FlexiblePaymentPage {
         await expect(planPeriodInputfield).toBeVisible({ timeout: 90000 });
         await planPeriodInputfield.fill(value);
     }
+
+    async clickOnCashPayment() {
+        await this.page.locator(FlexiblePaymentObjects.payCash.css).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.payCash.css).click();
+    }
+
+    async clickOnCustomerDropdownMenu() {
+        await this.page.locator(FlexiblePaymentObjects.customerTypeDropdown.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.customerTypeDropdown.xpath).click();
+    }
+
+    async selectIndividualCustomersType() {
+        await this.page.locator(FlexiblePaymentObjects.individualCustomersType.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.individualCustomersType.xpath).click();
+    }
+
+
+    async fillNationalIdentity(nationalIdentity:string) {
+        await this.page.locator(FlexiblePaymentObjects.nationalIdentityField.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.nationalIdentityField.xpath).fill(nationalIdentity);
+
+    }
+
+    async clickOnSearch() {
+        await this.page.locator(FlexiblePaymentObjects.searchButton.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.searchButton.xpath).click();
+    }
+
+    async viewTheBookedUnitDetails() {
+        await this.page.locator(FlexiblePaymentObjects.bookedUnitDetailsIcon.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.bookedUnitDetailsIcon.xpath).click();
+    }
+
+    async confirmTheCashPayment() {
+        await this.page.locator(FlexiblePaymentObjects.cashPaymentConfirmationButton.xpath).waitFor({
+            state: "visible",
+            timeout: DEFAULT_TIMEOUT
+        });
+        await this.page.locator(FlexiblePaymentObjects.cashPaymentConfirmationButton.xpath).click();
+
+        await this.page.locator(FlexiblePaymentObjects.cashPaymentPopUpAcceptButton.xpath).waitFor({
+            state: "visible",
+            timeout: DEFAULT_TIMEOUT
+        });
+        await this.page.locator(FlexiblePaymentObjects.cashPaymentPopUpAcceptButton.xpath).click();
+    }
+
+
 }
 
 // module.exports = { FlexiblePaymentPage };

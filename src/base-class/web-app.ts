@@ -26,11 +26,13 @@ import { WaitingListPage } from '@pages/WaitinListPage';
 import { DiscountOnReservedUnitsPage } from '@pages/DiscountOnReservedUnitsPage';
 import { CashPaymentPage } from '@pages/CashPaymentPage';
 import { PublishUnitPage } from '@pages/PublishUnitPage';
+import {UnitsDeliveryPage} from "@pages/UnitsDeliveryPage";
 import { UnitComparisonPage } from '@pages/UnitComparisonPage';
 import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
+import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 
 export class WebApp {
   page: Page;
@@ -61,11 +63,15 @@ export class WebApp {
   discountOnReservedUnitsPage: InstanceType<typeof DiscountOnReservedUnitsPage>;
   cashPaymentPage: InstanceType<typeof CashPaymentPage>;
   publishUnitPage: InstanceType<typeof PublishUnitPage>;
+  unitsDeliveryPage: InstanceType<typeof UnitsDeliveryPage>;
+
   unitComparisonPage: InstanceType<typeof UnitComparisonPage>;
   reportTheUnitPage: InstanceType<typeof ReportTheUnitPage>;
   sortingPage: InstanceType<typeof SortingPage>;
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
+  updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
+  updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -101,5 +107,20 @@ export class WebApp {
     this.sortingPage = new SortingPage(page);
     this.filtersPage = new FiltersPage(page);
     this.tagsPage = new TagsPage(page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
+    this.createMegaProjectPage = new CreateMegaProjectPage (page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
+    this.paymentTrackingPage = new PaymentTrackingPage (page);
+    this.rentalBehavrioPage = new RentalBehaviorPage (page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
+    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage (page);
+    this.buyDesignPage = new BuyDesignPage (page);
+    this.waitingListPage = new WaitingListPage (page);
+    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage (page);
+    this.cashPaymentPage = new CashPaymentPage (page);
+    this.publishUnitPage = new PublishUnitPage (page);
+    this.unitsDeliveryPage = new UnitsDeliveryPage (page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
   }
 }

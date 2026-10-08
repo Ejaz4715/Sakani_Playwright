@@ -61,5 +61,14 @@ export const FlexiblePaymentObjects = {
     },
     planPeriodInputfield: {
         xpath: "//app-sapa-number-input-v2[@formcontrolname='schedule_period']/descendant::input"
-    }
+    },
+    payCash:{css:"a[href$='cash-payment']"},
+    customerTypeDropdown:{xpath:"//div[contains(text(),'حدد نوع العميل')]/../../.."},
+    individualCustomersType:{xpath:"//span[contains(text(),'أفراد')]/.."},
+    nationalIdentityField:{xpath:"//label[contains(text(),' رقم الهوية الوطنية')]/../..//input"},
+    searchButton:{xpath:"(//span[contains(text(),'بحث')]/..)[1]"},
+    bookedUnitDetailsIcon:{xpath:"(//span[contains(@class, 'icon-password-show')])[1]"},
+    cashPaymentConfirmationButton:{xpath:"//button[contains(text(), 'توثيق الدفع نقداً')]"},
+    cashPaymentPopUpAcceptButton:{xpath:"//button[contains(text(),'نعم ')]"},
+
 } as const

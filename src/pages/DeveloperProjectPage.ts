@@ -2,6 +2,10 @@
 import { Page, expect, Locator } from "@playwright/test";
 const path = require("path");
 import { DeveloperObjects } from '@objects/DeveloperObjects'
+import {DevelopersPage} from "@pages/DevelopersPage";
+import * as timers from "node:timers";
+const DEFAULT_TIMEOUT= 30_000;
+const LONG_TIMEOUT= 90_000;
 
 const testData = require(
   path.join(process.cwd(), "src", "data", "test-data.json"),
@@ -45,6 +49,7 @@ export class DeveloperProjectPage {
         exact: DeveloperObjects.continueButton.exact,
       },
     );
+    await this.page.waitForTimeout(3500);
     await this.waitForVisible(continueButton);
     await continueButton.click();
 
@@ -402,8 +407,6 @@ export class DeveloperProjectPage {
     await this.page.getByText("تهانينا!").click();
   }
 
-
-
   async isSuccessfulConfirmationMessageVisible(){
     return  await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
   }
@@ -416,6 +419,102 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.companiesButton).waitFor({state: "visible"});
     await this.page.locator(DeveloperObjects.companiesButton).click();
 
+  }
+
+  async  waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
+    await locator.waitFor({ state: 'visible', timeout });
+    await locator.click();
+  }
+
+  async  waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
+    await locator.waitFor({ state: 'visible', timeout });
+    await locator.fill(value);
+  }
+
+  async bookUnitsForCustomers(nationalIdentity:string,projectName:string){
+    await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
+
+    await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
+
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
+
+    const searchButton = this.page.getByRole(
+        DeveloperObjects.searchButton.role,
+        { name: DeveloperObjects.searchButton.name },
+    );
+    await this.waitForVisible(searchButton);
+    await searchButton.click();
+
+    const nextButton = this.page.locator(DeveloperObjects.nextButton);
+    await expect(nextButton).toBeEnabled({ timeout: DEFAULT_TIMEOUT });
+    await nextButton.click();
+
+    await this.page.waitForTimeout(3000);
+    await this.page.locator(DeveloperObjects.projectNameField).fill(projectName);
+    await this.page.waitForTimeout(2000);
+    await this.page.locator(DeveloperObjects.projectNameOptionSelector).click();
+  }
+
+  async bookUnitsForCompanies(companyUserId:string,companyCR:string,projectName:string){
+    await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton));
+    await this.waitAndFill(this.page.locator(DeveloperObjects.companyCRField), companyCR);
+    const searchButton = this.page.getByRole(
+        DeveloperObjects.searchButton.role,
+        { name: DeveloperObjects.searchButton.name },
+    );
+    await this.waitForVisible(searchButton);
+    await searchButton.click();
+    await this.waitAndClick(this.page.locator(DeveloperObjects.nextButton));
+    await this.waitAndFill(this.page.locator(DeveloperObjects.companyUserId), companyUserId);
+    await searchButton.click();
+    await this.waitAndClick(this.page.locator(DeveloperObjects.nextButton));
+
+    await this.page.waitForTimeout(3000);
+    await this.page.locator(DeveloperObjects.projectNameField).fill(projectName);
+    await this.page.waitForTimeout(2000);
+    await this.page.locator(DeveloperObjects.projectNameOptionSelector).click();
+  }
+
+  async clickOnNextButton() {
+    await this.waitAndClick(this.page.locator(DeveloperObjects.nextButton));
+  }
+
+  async clickOnKeepBooking() {
+    await this.waitAndClick(this.page.locator(DeveloperObjects.continueBookingButton));
+  }
+
+  async clickOnBankDropdown() {
+    await this.waitAndClick(this.page.locator(DeveloperObjects.bankSelector));
+  }
+
+  async selectCRMBank(){
+    await this.waitAndClick(this.page.locator(DeveloperObjects.crmBankSelector));
+  }
+
+  async confirmBookingForCompanies(){
+    await this.waitAndClick(this.page.locator(DeveloperObjects.confirmCompanyBooking));
+  }
+
+  async isCompanyBookingConfirmed(){
+    await this.page.locator(DeveloperObjects.showBookingDetailsButton).waitFor({state: 'visible',timeout: 30000});
+    return await this.page.locator(DeveloperObjects.showBookingDetailsButton).isVisible();
+  }
+
+  async clickOnConfirmationButton() {
+    const confirmButton = this.page.getByRole(
+        DeveloperObjects.confirmButton.role,
+        { name: DeveloperObjects.confirmButton.name },
+    );
+    await confirmButton.waitFor({state: 'visible',timeout: DEFAULT_TIMEOUT});
+    await confirmButton.click();
+  }
+
+  async isBookingListButtonVisible(){
+    await this.page.locator(DeveloperObjects.bookingListButton).waitFor({state: 'visible',timeout:90000});
+    return await this.page.locator(DeveloperObjects.bookingListButton).isVisible();
   }
 
 }
