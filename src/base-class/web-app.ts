@@ -78,7 +78,6 @@ export class WebApp {
   salesChannelTargetAudiencePage: InstanceType<typeof SalesChannel_TargetAudiencePage>
 
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
-  updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
 
   constructor(page: Page) {
     this.page = page;
