@@ -37,16 +37,16 @@ export class DevelopersPage extends BasePage {
     this.noResultsMessage = page.getByText(/No results were found for your search|لم يتم العثور على نتائج/i);
   }
 
-  async open(): Promise<void> {
+  async open() {
     await this.gotoUntilReady(this.searchInput);
   }
 
-  async expectLoaded(): Promise<void> {
+  async expectLoaded() {
     await expect(this.searchInput).toBeVisible({ timeout: APP_READY_TIMEOUT });
   }
 
   /** Wait for the directory to render at least one developer. */
-  async waitForResults(timeout = 60_000): Promise<void> {
+  async waitForResults(timeout = 60_000) {
     await expect
       .poll(async () => this.developerCards.count(), {
         timeout,
@@ -55,12 +55,12 @@ export class DevelopersPage extends BasePage {
       .toBeGreaterThan(0);
   }
 
-  async developerCount(): Promise<number> {
+  async developerCount(){
     return this.developerCards.count();
   }
 
   /** Open a developer's profile by clicking its card. */
-  async openDeveloper(index = 0): Promise<void> {
+  async openDeveloper(index = 0) {
     await this.developerCards.nth(index).click({ force: true });
     await this.page.waitForURL(/\/app\/developers\/\w+/, {
       waitUntil: 'commit',

@@ -27,8 +27,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserIdMoh": "1019075999",
-      "projectName": "Automation Moh Land Project 20261006145616",
-      "Name": "qqqqqqqqq"
+      "projectName": "Automation Moh Land Project 20261006145616"
     },
     "loyalty-sharrai": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
@@ -170,9 +169,11 @@
       "projectCode": "02-01-0149",
       "availableUnitCode": "02-01-0149-5-101",
       "bookedUnitCode": "02-01-0149-6-102",
-      "developerUserId": "1023129537"
+      "developerUserId": "1023129537",
+      "unitCodeUpdatePrice": "02-01-0149-8-104",
+      "exsitingPrice": "28008",
+      "updatedPrice": 28010
     },
-
     "list-of-real-estate-brokers-and-developers": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
@@ -180,13 +181,11 @@
       "sakaniUserId": "1300070834",
       "developerName": "شركة الضاحية المثالية للتطوير والاستثمار العقاري"
     },
-
-     "secure-payment-schedules": {
+    "secure-payment-schedules": {
       "projectName": "Automation Project Offplan 20261006143505",
       "sakaniUserId": "1300070834"
     },
-
-     "readymade": {
+    "readymade": {
       "projectName": "Ready MOH 001",
       "sakaniUserId": "1441376098"
     }
