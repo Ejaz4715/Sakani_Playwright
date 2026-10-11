@@ -4,6 +4,7 @@ import { mkdir, readdir, unlink, readFile } from "node:fs/promises";
 import path from "node:path";
 import { PDFParse } from "pdf-parse";
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects'
+import { TIMEOUT } from "node:dns";
 
 export class BookingPage {
   constructor(page) {
@@ -263,6 +264,73 @@ async clickBrochureButton() {
       BookingCancellationObjects.closemasterplanButton.xpath,
     );
     await this.click(closemasterplanButton);
+  }
+ async clickOnDeveloperNameSection() {
+    const developerNameSection = this.page.locator(
+      BookingCancellationObjects.developerNameSection.xpath,
+    );
+    await this.click(developerNameSection);
+  }
+
+ async clickOnViewDetailsButton() {
+    const viewDetailsButton = this.page.locator(
+      BookingCancellationObjects.viewDetailsButton.xpath,
+    );
+    await this.click(viewDetailsButton);
+  }
+
+
+
+  async selectPropertyType() {
+    const propertyTypeDropdown = this.page.locator(
+      BookingCancellationObjects.propertyTypeDropdownButton.xpath,
+    );
+    await this.click(propertyTypeDropdown);
+
+    const propertyTypeOption = this.page.getByRole(
+      BookingCancellationObjects.propertyTypeOption.role,
+      { name: BookingCancellationObjects.propertyTypeOption.name },
+    );
+    await this.click(propertyTypeOption);
+  }
+
+  async selectConstructionStatus() {
+    const constructionStatusDropdown = this.page.locator(
+      BookingCancellationObjects.constructionStatusDropdownButton.xpath,
+    );
+    await this.click(constructionStatusDropdown);
+
+    const constructionStatusOption = this.page.getByRole(
+      BookingCancellationObjects.constructionStatusOption.role,
+      { name: BookingCancellationObjects.constructionStatusOption.name },
+    );
+    await this.click(constructionStatusOption);
+  }
+
+ 
+
+  async clickUnitResultCard() {
+        const unitResultCard = this.page.locator(
+            BookingCancellationObjects.unitResultCard.xpath
+        );
+        await expect(unitResultCard).toBeVisible({ timeout: 120000 });
+        await unitResultCard.click();
+    }
+
+ async clickOnSaveButton() {
+    const saveButton = this.page.getByRole(
+      BookingCancellationObjects.saveButton.role,
+      { name: BookingCancellationObjects.saveButton.name },
+    );
+    await this.click(saveButton);
+  }
+  
+async clickOnRegisterOfInterest() {
+    const registerOfInterest = this.page.getByRole(
+      BookingCancellationObjects.registerOfInterest.role,
+      { name: BookingCancellationObjects.registerOfInterest.name },
+    );
+    await this.click(registerOfInterest);
   }
 
 }

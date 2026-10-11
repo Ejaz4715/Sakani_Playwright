@@ -1,6 +1,3 @@
-
-
-
 import { test, expect, Page } from "@playwright/test";
 const fs = require("fs");
 const path = require("path");
