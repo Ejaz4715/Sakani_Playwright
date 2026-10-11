@@ -189,11 +189,14 @@
       "deliveryUnitCode": "01-01-0720-5-101"
     },
     "update-unit": {
-          "projectName": "Automation Project P_003",
-          "projectCode": "02-01-0149",
-          "availableUnitCode": "02-01-0149-5-101",
-          "bookedUnitCode": "02-01-0149-6-102",
-          "developerUserId": "1023129537"
+      "projectName": "Automation Project P_003",
+      "projectCode": "02-01-0149",
+      "availableUnitCode": "02-01-0149-5-101",
+      "bookedUnitCode": "02-01-0149-6-102",
+      "developerUserId": "1023129537",
+      "unitCodeUpdatePrice": "02-01-0149-8-104",
+      "exsitingPrice": "28008",
+      "updatedPrice": 28010
     }
   }
 }

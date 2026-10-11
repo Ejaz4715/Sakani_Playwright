@@ -3,11 +3,16 @@ export const DeveloperObjects = {
     role: "textbox",
     name: "أدخل معرفك أو رقم هاتفك أو بريدك الإلكتروني",
   },
+  nafathModel: "//app-nafath-login-modal",
   continueButton: { role: "button", name: "المتابعة", exact: true },
   profileIcon: ".svg-icon.svg-icon-v2-24.icon-profile-white-v2",
   switchRoleButton: { role: "button", name: "التبديل إلى" },
   developerRoleText: "شركة تطوير عقارية",
   menuIcon: ".svg-icon.svg-icon-v2-24.icon-menu-v2",
+  verifyOTPButton: {role: "button", name: "تحقق" },
+  otpDigitInput: { role: "spinbutton", name: "X" },
+  confirmAndContinueButton: { role: "button", name: "تأكيد ومتابعة" },
+  goToDashboardButton: { role: "button", name: "انتقل إلى لوحة المعلومات" },
   projectsLink: { role: "link", name: "المشاريع" },
   projectFilter:
     "//label[contains (text(), 'بحث بواسطة')]/ancestor::app-sapa-dropdown/descendant::ng-select",
@@ -67,6 +72,7 @@ export const DeveloperObjects = {
   crmBankSelector:"//span[contains(text(),'CRM Bank Test')]",
   confirmCompanyBooking:"//span[contains(text(),'تأكيد')]/..",
   showBookingDetailsButton:"//button[contains(text(),'عرض التفاصيل')]",
+  cancelButtonOnPopUp: { role: 'button', name: 'إلغاء' }
   showFirstProjectDetails:"datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
   unitCodeTextfield:".input-icon-container input",
 } as const;

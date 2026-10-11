@@ -28,7 +28,7 @@ test.describe("Update unit status (active/inactive) from partners", () => {
         await app.updateUnitsPage.clickUnitDetailsTab();
         await app.updateUnitsPage.selectUnitCodeSearchCriteria();
         await app.updateUnitsPage.fillUnitCode(unitCode);
-        await app.updateUnitsPage.clickSearchButton();
+        await app.updateUnitsPage.clickSearchUnitButton();
         const unitStatusArOld = await app.updateUnitsPage.getUnitStatus();
         let unitStatusArNew;
         let unitStatusEng;
@@ -76,7 +76,7 @@ test.describe("Update unit status (active/inactive) from partners", () => {
         await app.updateUnitsPage.clickUnitDetailsTab();
         await app.updateUnitsPage.selectUnitCodeSearchCriteria();
         await app.updateUnitsPage.fillUnitCode(unitCode);
-        await app.updateUnitsPage.clickSearchButton();
+        await app.updateUnitsPage.clickSearchUnitButton();
 
         await logStep("Step 09: Validate the unit status has been changed");
         await app.updateUnitsPage.expectUnitStatus(unitStatusArNew);
@@ -103,7 +103,7 @@ test.describe("Update unit status (active/inactive) from partners", () => {
         await app.updateUnitsPage.clickUnitDetailsTab();
         await app.updateUnitsPage.selectUnitCodeSearchCriteria();
         await app.updateUnitsPage.fillUnitCode(unitCode);
-        await app.updateUnitsPage.clickSearchButton();
+        await app.updateUnitsPage.clickSearchUnitButton();
         await app.updateUnitsPage.vrifyTheUnitStatusIsBooked("محجوز");
         const unitStatusArOld = await app.updateUnitsPage.getUnitStatus();
         let unitStatusArNew;

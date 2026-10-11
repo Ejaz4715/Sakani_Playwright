@@ -7,9 +7,6 @@ import * as timers from "node:timers";
 const DEFAULT_TIMEOUT= 30_000;
 const LONG_TIMEOUT= 90_000;
 
-const testData = require(
-  path.join(process.cwd(), "src", "data", "test-data.json"),
-);
 
 export class DeveloperProjectPage {
   page: Page;
@@ -34,7 +31,7 @@ export class DeveloperProjectPage {
     await this.page.goto(url);
   }
 
-  async loginDeveloper(nationalId = testData.developerUserId) {
+  async loginDeveloper(nationalId: string) {
     const usernameInput = this.page.getByRole(
       DeveloperObjects.usernameInput.role,
       { name: DeveloperObjects.usernameInput.name },
@@ -49,19 +46,18 @@ export class DeveloperProjectPage {
         exact: DeveloperObjects.continueButton.exact,
       },
     );
-    await this.page.waitForTimeout(3500);
     await this.waitForVisible(continueButton);
     await continueButton.click();
 
     const nafathModal = this.page.locator("//app-nafath-login-modal");
-
     await nafathModal
       .waitFor({ state: "visible", timeout: 10000 })
-      .catch(() => {});
-    await nafathModal
-      .waitFor({ state: "hidden", timeout: 15000 })
-      .catch(() => {});
+      .catch(() => { });
 
+    while (await nafathModal.isVisible().catch(() => false)) {
+      await this.page.waitForTimeout(3000);
+    }
+    await this.page.waitForTimeout(3000);
     const verificationButton = this.page.getByRole("button", { name: "تحقق" });
     if (
       await verificationButton.isVisible({ timeout: 15000 }).catch(() => false)
@@ -78,7 +74,7 @@ export class DeveloperProjectPage {
     }
     const profileIcon = this.page.locator(DeveloperObjects.profileIcon);
     await this.waitForVisible(profileIcon);
-    await this.page.waitForTimeout(3000); // Wait for 3 seconds to ensure the page is fully loaded
+    await this.page.waitForTimeout(3000);
     const cancelButton = this.page.getByRole("button", { name: "إلغاء" });
     await this.clickIfVisible(cancelButton.first());
   }
