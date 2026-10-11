@@ -6,28 +6,32 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
-import testDataReportTheUnit from "@data/test-data.json";
 import { PublishUnitObjects } from "@objects/PublishUnitObjects";
 
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
+
+const SERVICE = "publish-unit";
+
+const readServiceData = () => DataHelper.readData().services[SERVICE];
+const readEnvironments = () => DataHelper.readData().environments;
+const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 const filePath = path.join(process.cwd(), "src", "data", "Sample image.jpg");
 
 
 test.describe("Publish Unit", () => {
     test("TC-01 - Developer broker publish new unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const publishUnitData = testDataReportTheUnit.services["publish-unit"];
-
+        const data = readServiceData();
+        const environments = readEnvironments();
         const timestamp = new Date()
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14);
 
-      DataHelper.updateServiceData("publish-unit", "AdLicenseNumber", timestamp);
+        DataHelper.updateServiceData("publish-unit", "AdLicenseNumber", timestamp);
         const app = new WebApp(page);
-        const sapaUrl = testDataReportTheUnit.environments.sapaPortalUrl;
-        const developerUserId = publishUnitData.developerUserId;
-        const advertiserId = publishUnitData.advertiserId;
+        const sapaUrl = environments.sapaPortalUrl;
+        const developerUserId = data.developerUserId;
+        const advertiserId = data.advertiserId;
         await logStep("Step 01: Navigate to partners portal > Login");
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -57,10 +61,10 @@ test.describe("Publish Unit", () => {
     });
 
 
-    test("TC-02  Admin approves publish unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-02 - Admin approves publish unit request", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const data = testDataReportTheUnit.services["publish-unit"];
-        const environments = testDataReportTheUnit.environments;
+        const data = readServiceData();
+        const environments = readEnvironments();
         // const publishUnitData = testData.services["publish-unit"];
         const app = new WebApp(page);
         const adminUrl = environments.adminPortalUrl;
@@ -90,8 +94,8 @@ test.describe("Publish Unit", () => {
 
     test("TC-03 - Developer verify the request is finished", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const data = testDataReportTheUnit.services["publish-unit"];
-        const environments = testDataReportTheUnit.environments;
+        const data = readServiceData();
+        const environments = readEnvironments();
         const app = new WebApp(page);
         const sapaUrl = environments.sapaPortalUrl;
         const developerUserId = data.developerUserId;
