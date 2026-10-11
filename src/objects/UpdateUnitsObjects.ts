@@ -47,4 +47,38 @@ export const UpdateUnitsObjects = {
     role: "button",
     name: "نعم",
   },
+  unitPricesFields: ".sar-currency",
+  downloadUnitPricesButton: {
+    role: "button",
+    name: "تحميل أسعار الوحدات",
+  },
+  updateUnitPricesButton: {
+    role: "button",
+    name: "تحديث أسعار الوحدات",
+  },
+  updateUnitPricesFileInput: "#file",
+  updatePricesButton: {
+    role: "button",
+    name: "تحديث",
+  },
+  priceAnalysisDetailsContainer: "app-project-update-unit-prices-detail",
+  priceAnalysisDetailsText: "معلومات التحليل",
+  confirmUnitPriceUpdateButton: {
+    role: "button",
+    name: "تأكيد",
+  },
+  unitPriceWorkbook: {
+    sheetName: "Project Units Prices",
+    unitCodeColumn: "Product Code|Product Number",
+    marketPriceColumn: "Market Price",
+    priceColumns: [
+      "Market Price",
+      "MOH Price",
+      "MOH Price Base Land  Price",
+      "MOH Price Base Building Price",
+      "Building Market Price",
+      "Land Market Price",
+    ],
+  },
+
 } as const;

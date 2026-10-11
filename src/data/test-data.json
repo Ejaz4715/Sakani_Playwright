@@ -145,7 +145,7 @@
     "report-the-unit": {
       "sakaniUserId": "1441376098"
     },
-   "update-participated-bank": {
+    "update-participated-bank": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "projectName": "Automation Project 20261007095117",
@@ -166,11 +166,14 @@
       "sakaniUserId": "1441376098"
     },
     "update-unit": {
-          "projectName": "Automation Project P_003",
-          "projectCode": "02-01-0149",
-          "availableUnitCode": "02-01-0149-5-101",
-          "bookedUnitCode": "02-01-0149-6-102",
-          "developerUserId": "1023129537"
+      "projectName": "Automation Project P_003",
+      "projectCode": "02-01-0149",
+      "availableUnitCode": "02-01-0149-5-101",
+      "bookedUnitCode": "02-01-0149-6-102",
+      "developerUserId": "1023129537",
+      "unitCodeUpdatePrice": "02-01-0149-8-104",
+      "exsitingPrice": "28008",
+      "updatedPrice": 28010
     }
   }
 }

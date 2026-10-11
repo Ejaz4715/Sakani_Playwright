@@ -33,6 +33,7 @@ import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
 import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
+import { PartnersLoginPage } from '@pages/PartnersLoginPage'
 
 export class WebApp {
   page: Page;
@@ -64,13 +65,13 @@ export class WebApp {
   cashPaymentPage: InstanceType<typeof CashPaymentPage>;
   publishUnitPage: InstanceType<typeof PublishUnitPage>;
   unitsDeliveryPage: InstanceType<typeof UnitsDeliveryPage>;
-
   unitComparisonPage: InstanceType<typeof UnitComparisonPage>;
   reportTheUnitPage: InstanceType<typeof ReportTheUnitPage>;
   sortingPage: InstanceType<typeof SortingPage>;
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
+  partnersLoginPage: InstanceType<typeof PartnersLoginPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -121,5 +122,6 @@ export class WebApp {
     this.publishUnitPage = new PublishUnitPage (page);
     this.unitsDeliveryPage = new UnitsDeliveryPage (page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
+    this.partnersLoginPage = new PartnersLoginPage(page);
   }
 }

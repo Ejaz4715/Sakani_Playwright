@@ -19,3 +19,5 @@ certs/
 .playwright-mcp/
 certs/
 .env
+src/downloads/*
+!src/downloads/.gitkeep
