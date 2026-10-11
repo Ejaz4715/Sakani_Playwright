@@ -28,6 +28,8 @@ export class AdminProjectPage {
     await this.page.getByRole("link", { name: "المشاريع" }).click();
   }
 
+
+
   async clickAddNewProjectButton() {
     await this.page.getByRole("button", { name: "إضافة مشروع جديد" }).click();
   }
@@ -545,7 +547,7 @@ export class AdminProjectPage {
     }
   }
 
-  async checkMediaApproveButton(){
+  async checkMediaApproveButton() {
     const approveMediaButton = this.page
       .getByRole(AdminObjects.acceptUploadedMediaButton.role, {
         name: AdminObjects.acceptUploadedMediaButton.name,
@@ -643,7 +645,7 @@ export class AdminProjectPage {
       { name: AdminObjects.completionPercentageSwitch.name },
     );
 
-     const completionPercentageValue = this.page.locator(
+    const completionPercentageValue = this.page.locator(
       AdminObjects.completionPercentageValue.xpath
     );
 
@@ -682,6 +684,63 @@ export class AdminProjectPage {
       }
     }
   }
-  
+  async clickPartnerLink() {
+    await this.page
+      .locator(AdminObjects.partnerLink.selector)
+      .filter({ hasText: AdminObjects.partnerLink.hasText })
+      .click();
+  }
+  async fillDeveloperName(developerName: string) {
+    const developerNameInputfield = this.page.locator(
+      AdminObjects.devloperNameInputField.xpath
+    );
+    await this.page.waitForTimeout(2000);
+    await expect(developerNameInputfield).toBeVisible({ timeout: 90000 });
+    await developerNameInputfield.fill(developerName);
+    await this.page.waitForTimeout(2000);
+    await developerNameInputfield.press("Enter");
+  }
 
+  async clickOnDeveloperNameResult(value: string | number) {
+    const developerNameResult = this.page
+      .locator(AdminObjects.devloperNameResult.xpath)
+      .getByText(String(value), { exact: true });
+    await expect(developerNameResult).toBeVisible({ timeout: 90000 });
+    await developerNameResult.click();
+  }
+
+  async verifyDeveloperInformationPageText(expectedText: string) {
+    await expect(this.page.locator(AdminObjects.developerInformationPage.xpath)).toHaveText(expectedText);
+  }
+  async fillDeveloperPhoneNumber(developerPhoneNumber: string) {
+    const developerPhoneNumberInputfiled = this.page.locator(
+      AdminObjects.developerPhoneNumberInputfiled.xpath
+    );
+
+    await expect(developerPhoneNumberInputfiled).toBeVisible({ timeout: 90000 });
+    await developerPhoneNumberInputfiled.fill(developerPhoneNumber);
+  }
+
+
+  async clickDeveloperContactInfoSwitch(shouldBeChecked: boolean) {
+    const developarContactInofSwitch = this.page.getByRole(
+      AdminObjects.developarContactInofSwitch.role,
+      { name: AdminObjects.developarContactInofSwitch.name },
+    );
+
+    const developarContactInofValue = this.page.locator(
+      AdminObjects.developarContactInofValue.xpath
+    );
+
+    await expect(developarContactInofValue).toBeVisible();
+    const isChecked =
+      (await developarContactInofValue.getAttribute("aria-checked")) === "true";
+    if (isChecked !== shouldBeChecked) {
+      await developarContactInofSwitch.click();
+    }
+    await expect(developarContactInofValue).toHaveAttribute(
+      "aria-checked",
+      String(shouldBeChecked),
+    );
+  }
 }

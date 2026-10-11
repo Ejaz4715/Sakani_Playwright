@@ -135,4 +135,58 @@ xpath:"(//app-modal//span[contains(@class,'svg-icon')])[3]"
 
 
 
+//Admin - list or real estate brokers and developers
+developerNameSection:{
+  xpath:"//app-developer-tpl"
+},
+
+developerInfoPage:{
+  xpath:"//app-dx-partner-info-section"
+},
+//Secure payment schedule
+viewDetailsButton:{
+  xpath:"//button[contains(text(), 'عرض التفاصيل')]"
+},
+paymentDetailsPopup:{
+  xpath:"//app-flexible-payment-schedule-details-dialog"
+},
+
+onlineLinding:{
+  xpath:"(//span[contains(text(), 'التمويل العقاري الإلكتروني')])[1]"
+},
+
+
+//Marketplace units
+registerOfInterest:{
+  xpath:"//span[text()='سجل الإهتمام']"
+},
+
+propertyTypeDropdownButton:{
+  xpath:"//div[text()='نوع العقار']"
+},
+propertyTypeOption:{
+  role:"option", name:"شقة"
+},
+
+constructionStatusDropdownButton:{
+  xpath:"//div[text()='تحت الإنشاء']"
+},
+
+constructionStatusOption:{
+  role:"option", name:"وحدات جاهزة"
+},
+saveButton:{
+  role:"button", name:" حفظ "
+},
+
+unitResultCard:{
+  xpath:"//app-marketplace-project-card-template"
+},
+unitResultDetailsPage:{
+  xpath:"//app-property-dx-page"
+},
+
+
+
+
 } as const;

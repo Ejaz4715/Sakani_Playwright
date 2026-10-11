@@ -311,6 +311,7 @@ export class PublishUnitPage {
             { name: PublishUnitObjects.adminAdLicenseNumberInputfield.name },
         );
         await expect(adminAdLicenseNumberInputfield).toBeVisible({ timeout: 90000 });
+        await this.page.waitForTimeout(5000);
         await adminAdLicenseNumberInputfield.fill(adLicenseNumber);
         await expect(adminAdLicenseNumberInputfield).toHaveValue(adLicenseNumber);
     }
