@@ -54,7 +54,7 @@ export const FlexiblePaymentObjects = {
         role: "button", name: 'تأكيد'
     },
     successfulMessage: {
-        xpath: "//span[contains(text(),'تم إنشاء جدول الدفع بنجاح')]"
+        xpath: "//span[contains(text(), 'جدول الدفع بنجاح')]"
     },
     scheduleSearchInputfield: {
         xpath: "//input[@placeholder='البحث بعنوان جدول الدفعات']"
@@ -64,6 +64,9 @@ export const FlexiblePaymentObjects = {
     },
     deleteScheduleButton: {
         role: "button", name: 'حذف'
+    },
+    editScheduleButton: {
+        role: "button", name: 'تحديث'
     },
     scheduleDeletedMessage: {
         text: 'تم حذف جدول الدفعات بنجاح'
@@ -100,5 +103,14 @@ export const FlexiblePaymentObjects = {
     },
     cashPaymentPopUpAcceptButton: {
         xpath: "//button[contains(text(),'نعم ')]"
+    },
+    benefitPercenatgeInput: {
+        xpath: "//input[@placeholder='مثال: 10%']"
+    },
+    goToDetailsButton: {
+        xpath: "//button[normalize-space() = 'الانتقال إلى التفاصيل']"
+    },
+    benefitPercenategValue: {
+        xpath: "//span[normalize-space() = 'نسبة الفائدة']/following-sibling::span"
     },
 } as const
