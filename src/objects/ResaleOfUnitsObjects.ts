@@ -1,5 +1,4 @@
 export const ResaleOfUnitsObjects = {
-
     //Admin
     projectNameInputfield: {
         xpath: "//input[@formcontrolname='name']"
@@ -31,8 +30,6 @@ export const ResaleOfUnitsObjects = {
     toastMessage: {
         text: "تم تحديث إعدادات إعادة البيع بنجاح"
     },
-
-
     requestNumberInputfieldِAdmin: {
         xpath: "//input[@formcontrolname='reference_number']"
     },
@@ -42,38 +39,32 @@ export const ResaleOfUnitsObjects = {
     searchedResult: {
         xpath: "(//datatable-body-cell[2])[1]"
     },
-
     addBuyerButton: {
         role: "button", name: " إضافة مشتري "
     },
     buyerIDInputfield: {
         xpath: "//input[@formcontrolname='buyer_national_id_number']"
     },
-    buyerDobInputfieldButton:{
-        xpath:"//input[@placeholder='YYYY/MM/DD']"
+    buyerDobInputfieldButton: {
+        xpath: "//input[@placeholder='YYYY/MM/DD']"
     },
-
     verifyFromBuyerButton: {
         xpath: "//button[text()=' التحقق من المشتري ']"
     },
     buyerSourceDropdownList: {
         xpath: "//app-nsar-dropdown[@formcontrolname='buyer_source']/descendant::ng-select"
     },
-
     buyerSourceOption: {
         role: "option", name: "البائع"
     },
-saveBuyerButton:{
-    xpath:"//button[text()=' وفر على المشتري ']"
-},
-toastMessageBuyer: {
+    saveBuyerButton: {
+        xpath: "//button[text()=' وفر على المشتري ']"
+    },
+    toastMessageBuyer: {
         text: "تم إضافة المشتري بنجاح"
     },
 
-
-
     //User
-
     resaleOfUnitsButton: {
         xpath: "//span[contains(text(),'إعادة بيع الوحدة على الخارطة')]"
     },
@@ -113,19 +104,15 @@ toastMessageBuyer: {
     paymentMethodOption: {
         role: "option", name: "كاش"
     },
-
-
     priceAmountInpufield: {
         xpath: "//input[@formcontrolname='price_amount']"
     },
-
     priceAmountPercentageInputfield: {
         xpath: "//input[@formcontrolname='paid_amount_percentage']"
     },
     complectionPercentageInputfield: {
         xpath: "//input[@formcontrolname='completion_percentage']"
     },
-
     statusDropdownList: {
         xpath: "(//ng-select)[5]"
     },
@@ -161,7 +148,6 @@ toastMessageBuyer: {
     viewDetailsButton: {
         role: "button", name: "عرض التفاصيل"
     },
-
     approveButton: {
         role: "button", name: "إعتماد"
     },
@@ -171,13 +157,15 @@ toastMessageBuyer: {
     toastMessagePartener: {
         xpath: "//span[contains(text(),'تمت الموافقة على الطلب بنجاح')]"
     },
-
-    resaleRequestsButton: { text: "طلبات إعادة البيع" },
+    resaleRequestsButton: {
+        text: "طلبات إعادة البيع"
+    },
     buyingRequestSwitchTab: {
         text: "طلبات الشراء"
     },
-
-    waitingtoSignContractTab: { role: "tab", name: "بانتظار توقيع العقد" },
+    waitingtoSignContractTab: {
+        role: "tab", name: "بانتظار توقيع العقد"
+    },
     confirmBookingButton: {
         role: "button", name: "تأكيد الحجز"
     },
@@ -187,9 +175,7 @@ toastMessageBuyer: {
     viewButton: {
         role: "button", name: "عرض"
     },
-
     waiverFeesSuccessfullyPaidMessage: {
         text: "تم دفع مبلغ التنازل بنجاح وتم إنشاء حجز جديد!"
-    }
-
+    },
 } as const

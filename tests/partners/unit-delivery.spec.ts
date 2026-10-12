@@ -625,16 +625,23 @@ test.describe("Unit Delivery Partner/Marketplace", () => {
         await app.loginPage.continueNewUserPopup();
         await app.loginPage.handlePushNotificationPopup();
 
+        await logStep("Step 02: Navigate to my activities > Units delivery > Pending units");
         await app.marketplaceLandingPage.openProfileManagement();
         await app.offPlanBasketMultipleBookingPage.clickMyActivities();
         await app.unitsDeliveryPage.clickOnUnitDeliveryFromSakani();
         await app.unitsDeliveryPage.clickOnPendingUnitsForDelivery();
+
+        await logStep("Step 03: Show the delivery unit details > Confirm the unit delivery");
         await app.unitsDeliveryPage.clickOnShowDeliveryUnitModel();
         await app.unitsDeliveryPage.clickUnitDeliveryConfirmationFromSakani();
+
+        await logStep("Step 04: Agree on unit state, terms and conditions and delivery");
         await app.unitsDeliveryPage.agreeOnUnitDeliveryState();
         await app.unitsDeliveryPage.agreeOnTermsAndConditions();
         await app.unitsDeliveryPage.agreeOnUnitDelivery();
         await page.waitForTimeout(5000);
+
+        await logStep("Step 05: Verify OTP > Verify unit is delivered and accepted");
         await app.unitsDeliveryPage.typeVerifyOtpCode();
         await app.unitsDeliveryPage.clickOnVerify();
 

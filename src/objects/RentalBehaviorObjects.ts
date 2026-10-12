@@ -1,7 +1,4 @@
-export const RentalBehaviroObjects ={
-    rentalBehaviorButton:{
-        
-    }
-
-
+export const RentalBehaviroObjects = {
+    rentalBehaviorButton: {
+    },
 } as const

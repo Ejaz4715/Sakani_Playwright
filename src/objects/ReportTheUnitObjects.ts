@@ -3,12 +3,13 @@ export const ReportTheUnitObjects = {
     xpath: "//app-dx-marketplace-switcher",
 
   },
- 
   rentalPurposeOption: {
-   xpath:"//div[@role='listbox']/descendant::span[contains(text(),'عقارات للإيجار')]"
+    xpath: "//div[@role='listbox']/descendant::span[contains(text(),'عقارات للإيجار')]"
   },
-  marketUnitCard: "app-marketplace-market-unit-card",
-  reportUnitLink: "الإبلاغ على الوحدة",
+  marketUnitCard:
+    "app-marketplace-market-unit-card",
+  reportUnitLink:
+    "الإبلاغ على الوحدة",
   reportCategoryDropdown: {
     role: "combobox",
     value: "1: 1",

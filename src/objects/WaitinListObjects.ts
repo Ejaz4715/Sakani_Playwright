@@ -27,23 +27,21 @@ export const WaitinListObjects = {
 		role: "button", name: "تأكيد"
 	},
 	confirmButtonPopup: {
-		xpath:"(//button[contains(text(),'تأكيد')])[1]"
+		xpath: "(//button[contains(text(),'تأكيد')])[1]"
 	},
 	registrationSuccessMessage: {
 		text: "تم تأكيد التسجيل في قائمة الانتظار بنجاح"
 	},
 
-
-    //User
-
-    userProfile:{
-        text:"إدارة الملف الشخصي"
-    },
+	//User
+	userProfile: {
+		text: "إدارة الملف الشخصي"
+	},
 	myActivities: {
 		text: "أنشطتي"
 	},
 	registeredWaitingList: {
-		 text: "قائمة الانتظار المسجل بها"
+		text: "قائمة الانتظار المسجل بها"
 	},
 	activeTab: {
 		role: "tab", name: "نشطة"
@@ -56,5 +54,5 @@ export const WaitinListObjects = {
 	},
 	noActiveWaitingListProjectsMessage: {
 		role: "heading", name: "ليس لديك أي مشروع ذو اشتراك نشط في قائمة الانتظار الخاصة بك"
-	}
+	},
 } as const

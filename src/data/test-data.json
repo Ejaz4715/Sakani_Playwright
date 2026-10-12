@@ -91,7 +91,7 @@
       "projectName": "Automation Project 20261006110013",
       "companyUser": "1001234342",
       "companyCR": "7001234342",
-      "companyUnitCode": "01-01-0702-7-103"
+      "companyUnitCode": "01-01-0714-5-101"
     },
     "unit-delivery": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
@@ -142,6 +142,14 @@
       "sakaniUserId": "1607143630"
     },
     "report-the-unit": {
+      "sakaniUserId": "1441376098",
+      "deliveryUnitCode": "01-01-0720-5-101"
+    },
+    "stamp-management": {
+      "developerUserId": "1023129537"
+    },
+    "dashboard-view": {
+      "developerUserId": "1023129537",
       "sakaniUserId": "1441376098"
     },
     "update-participated-bank": {
@@ -164,6 +172,21 @@
       "projectName": "Automation Project P_003",
       "sakaniUserId": "1441376098"
     },
+    "list-of-real-estate-brokers-and-developers": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "projectName": "Automation Project 20261007095117",
+      "sakaniUserId": "1300070834",
+      "developerName": "شركة الضاحية المثالية للتطوير والاستثمار العقاري"
+    },
+    "secure-payment-schedules": {
+      "projectName": "Automation Project Offplan 20261006143505",
+      "sakaniUserId": "1300070834"
+    },
+    "readymade": {
+      "projectName": "Ready MOH 001",
+      "sakaniUserId": "1441376098"
+    },
     "update-unit": {
       "projectName": "Automation Project P_003",
       "projectCode": "02-01-0149",
@@ -180,16 +203,10 @@
       "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261012104113",
       "scheduleTitleEn": "Automation Flexible Payment Schedule 20261012104113"
     },
-    "list-of-real-estate-brokers-and-developers": {
-      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
-      "adminPassword": "admin",
-      "projectName": "Automation Project 20261007095117",
-      "sakaniUserId": "1300070834",
-      "developerName": "شركة الضاحية المثالية للتطوير والاستثمار العقاري"
-    },
-    "secure-payment-schedules": {
-      "projectName": "Automation Project Offplan 20261006143505",
-      "sakaniUserId": "1300070834"
+    "sales-channels-target-audience-unit-issuance": {
+      "developerUserId": "1023129537",
+      "unitWithoutSalesChannels": "02-01-0146-11-10003",
+      "userId": "1300070834"
     }
   }
 }

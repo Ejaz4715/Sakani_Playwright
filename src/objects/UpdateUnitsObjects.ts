@@ -3,7 +3,8 @@ export const UpdateUnitsObjects = {
     role: "tab",
     name: "تفاصيل الوحدات",
   },
-  unitSearchCriteria: "//label[normalize-space() = 'بحث بواسطة']/ancestor::app-sapa-dropdown/descendant::ng-select",
+  unitSearchCriteria:
+    "//label[normalize-space() = 'بحث بواسطة']/ancestor::app-sapa-dropdown/descendant::ng-select",
   optionsList: {
     role: "listbox",
     name: "Options List",
@@ -18,7 +19,8 @@ export const UpdateUnitsObjects = {
     role: "button",
     name: "بحث",
   },
-  unitRows: "datatable-body-row",
+  unitRows:
+    "datatable-body-row",
   updateUnitStatusLink: {
     role: "link",
     name: "تحديث حالة الوحدات",
@@ -27,12 +29,14 @@ export const UpdateUnitsObjects = {
     role: "button",
     name: "إطلاق تجريبي",
   },
-  uploadInput: "//input[@type='file']",
+  uploadInput:
+    "//input[@type='file']",
   analyzeFileButton: {
     role: "button",
     name: "تحليل الملف",
   },
-  firstAnalysisResult: "(//datatable-body-row[1]//datatable-body-cell[4]//span)[1]",
+  firstAnalysisResult:
+    "(//datatable-body-row[1]//datatable-body-cell[4]//span)[1]",
   approveButton: {
     role: "button",
     name: "أعتماد",
@@ -40,14 +44,18 @@ export const UpdateUnitsObjects = {
   confirmationDialog: {
     role: "dialog",
   },
-  approvalSuccessMessage: "تم إعتماد الوحدات بنجاح",
-  successCheckmark: ".icon-checkmark",
-  UpdaterejectedMessage: "//div[contains (text(), 'Unit should not be booked')]",
+  approvalSuccessMessage:
+    "تم إعتماد الوحدات بنجاح",
+  successCheckmark:
+    ".icon-checkmark",
+  UpdaterejectedMessage:
+    "//div[contains (text(), 'Unit should not be booked')]",
   confirmYesButton: {
     role: "button",
     name: "نعم",
   },
-  unitPricesFields: ".sar-currency",
+  unitPricesFields:
+    ".sar-currency",
   downloadUnitPricesButton: {
     role: "button",
     name: "تحميل أسعار الوحدات",
@@ -56,20 +64,23 @@ export const UpdateUnitsObjects = {
     role: "button",
     name: "تحديث أسعار الوحدات",
   },
-  updateUnitPricesFileInput: "#file",
+  updateUnitPricesFileInput:
+    "#file",
   updatePricesButton: {
     role: "button",
     name: "تحديث",
   },
-  priceAnalysisDetailsContainer: "app-project-update-unit-prices-detail",
-  priceAnalysisDetailsText: "معلومات التحليل",
+  priceAnalysisDetailsContainer:
+    "app-project-update-unit-prices-detail",
+  priceAnalysisDetailsText:
+    "معلومات التحليل",
   confirmUnitPriceUpdateButton: {
     role: "button",
     name: "تأكيد",
   },
   unitPriceWorkbook: {
-    sheetName: "Project Units Prices",
-    unitCodeColumn: "Product Code|Product Number",
+    sheetName:"Project Units Prices",
+    unitCodeColumn:"Product Code|Product Number",
     marketPriceColumn: "Market Price",
     priceColumns: [
       "Market Price",
@@ -80,5 +91,4 @@ export const UpdateUnitsObjects = {
       "Land Market Price",
     ],
   },
-
 } as const;

@@ -18,7 +18,7 @@ import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymen
 import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
 import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
-import {OffPlanBasketMultipleBookingPage} from "@pages/OffPlanBasketMultipleBooking";
+import { OffPlanBasketMultipleBookingPage } from "@pages/OffPlanBasketMultipleBooking";
 import { AdminLoyaltyPage } from '@pages/AdminLoyaltyPage'
 import { PaymentsAndTransactionsPage } from '@pages/PaymentsAndTransactionsPage';
 import { BuyDesignPage } from '@pages/BuyDesignPage';
@@ -26,14 +26,17 @@ import { WaitingListPage } from '@pages/WaitinListPage';
 import { DiscountOnReservedUnitsPage } from '@pages/DiscountOnReservedUnitsPage';
 import { CashPaymentPage } from '@pages/CashPaymentPage';
 import { PublishUnitPage } from '@pages/PublishUnitPage';
-import {UnitsDeliveryPage} from "@pages/UnitsDeliveryPage";
+import { UnitsDeliveryPage } from "@pages/UnitsDeliveryPage";
 import { UnitComparisonPage } from '@pages/UnitComparisonPage';
 import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
-import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { PartnersLoginPage } from '@pages/PartnersLoginPage'
+import { StampManagementPage } from "@pages/StampManagementPage";
+import { DashboardViewPage } from "@pages/DashboardPageView";
+import { SalesChannel_TargetAudiencePage } from "@pages/SalesChannel_TargetAudiencePage";
+import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 
 export class WebApp {
   page: Page;
@@ -70,8 +73,11 @@ export class WebApp {
   sortingPage: InstanceType<typeof SortingPage>;
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
+  dashboardViewPage: InstanceType<typeof DashboardViewPage>
+  salesChannelTargetAudiencePage: InstanceType<typeof SalesChannel_TargetAudiencePage>
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
   partnersLoginPage: InstanceType<typeof PartnersLoginPage>;
+  stampManagementPage: InstanceType<typeof StampManagementPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -107,6 +113,26 @@ export class WebApp {
     this.sortingPage = new SortingPage(page);
     this.filtersPage = new FiltersPage(page);
     this.tagsPage = new TagsPage(page);
+    this.createMegaProjectPage = new CreateMegaProjectPage(page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage(page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage(page);
+    this.paymentTrackingPage = new PaymentTrackingPage(page);
+    this.rentalBehavrioPage = new RentalBehaviorPage(page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
+    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage(page);
+    this.buyDesignPage = new BuyDesignPage(page);
+    this.waitingListPage = new WaitingListPage(page);
+    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage(page);
+    this.cashPaymentPage = new CashPaymentPage(page);
+    this.publishUnitPage = new PublishUnitPage(page);
+    this.unitsDeliveryPage = new UnitsDeliveryPage(page);
+    this.stampManagementPage = new StampManagementPage(page);
+    this.dashboardViewPage = new DashboardViewPage(page);
+    this.salesChannelTargetAudiencePage = new SalesChannel_TargetAudiencePage(page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
+    this.partnersLoginPage = new PartnersLoginPage(page);
+    this.stampManagementPage = new StampManagementPage(page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
     this.createMegaProjectPage = new CreateMegaProjectPage (page);
     this.flexiblePaymentPage = new FlexiblePaymentPage (page);
