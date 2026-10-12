@@ -273,11 +273,45 @@ export const AdminObjects = {
     },
 
 
+     //Admin - list or real estate brokers and developers
+    partnerLink: {
+        selector: "a",
+        hasText: "شريك",
+    },
+    realEstateDevelopersLink: {
+        role: "link",
+        name: "شركات التطوير العقارية",
+    },
+
+    devloperNameInputField:{
+      xpath:"//input[@placeholder='اسم المطور']"
+    },
+
+
+     devloperNameResult:{
+        xpath:"//datatable-body-cell[2]"
+    },
+
+    developerInformationPage:{
+      xpath:"//app-page-header/descendant::p"
+    },
+
+ developarContactInofSwitch: {
+        role: "switch", name: "إظهار معلومات الاتصال"
+    },
+developarContactInofValue: {
+       xpath:"//mat-slide-toggle[@formcontrolname='show_contact_information']/descendant::button"
+    },
+    
+
+    developerPhoneNumberInputfiled:{
+      xpath:"//app-phone-input/descendant::input"
+    },
   bookingAvailableToggle: "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
   projectPublishedToggle: "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
   rightTabArrow: "//mat-icon[contains (text(), 'chevron_right')]"
 
   
   
-
+   
 } as const;
