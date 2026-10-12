@@ -75,4 +75,7 @@ export const DeveloperObjects = {
   cancelButtonOnPopUp: { role: 'button', name: 'إلغاء' }
   showFirstProjectDetails:"datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
   unitCodeTextfield:".input-icon-container input",
+  cancelButtonOnPopUp: { role: 'button', name: 'إلغاء' },
+  showFirstProjectDetails:"datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
+  unitCodeTextfield:".input-icon-container input",
 } as const;

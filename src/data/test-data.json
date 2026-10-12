@@ -242,6 +242,14 @@
     },
     "stamp-management": {
       "developerUserId": "1023129537"
+    },
+    "dashboard-view": {
+      "developerUserId": "1023129537"
+    },
+    "sales-channels-target-audience-unit-issuance": {
+      "developerUserId": "1023129537",
+      "unitWithoutSalesChannels": "02-01-0146-11-10003",
+      "userId": "1300070834"
     }
   }
 }
