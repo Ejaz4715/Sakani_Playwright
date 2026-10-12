@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a548ffed-c5d2-41be-b4e1-84e590bbb817" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PRESENTATION_OVERVIEW.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/stamp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/update_unit_status.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/downloads/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/AdminProjectsObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/DashboardViewObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/FiltersObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/ReportTheUnitObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/SalesChannels_TargetAudienceObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/SortingObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/StampManagementObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/TagsObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/UnitComparisonObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/UnitsDeliveryObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/objects/UpdateUnitsObjects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/DashboardPageView.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/FiltersPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/PartnersLoginPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/ReportTheUnitPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/SalesChannel_TargetAudiencePage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/SortingPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/StampManagementPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/TagsPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/UnitComparisonPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/UnitsDeliveryPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/UpdateUnitsPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/utils/ExcelUtils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/partners/dashboard-view.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/partners/sales-channels-target-audience-unit-issuance.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/partners/stamp-management.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/partners/unit-delivery.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/payment-systems/payments-and-transactions.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/add-or-update-units.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/card-details.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/completion-rate-managment.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/flexible-payment-schedule.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/list-of-real-estate-brokers-and-developers.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/marketplace-units.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/price-quotation.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/publish-unit.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/readymade-booking.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/report-the-unit.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/secure-payment-schedules.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/sorting-filters-tags.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/unit-comparison.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/update-participated-bank.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/update-unit-price.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/update-unit-status.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test-suits-e2e/view-project-unit-readymade.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playwright.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/playwright.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/base-class/web-app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/base-class/web-app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/Auction_Units.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Auction_Units.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/downloads/a55794ca-63d4-4425-bc09-8e8a71836e8f.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/payment-system-test-data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/test-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/test-data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/downloads/payment-invoice.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/downloads/price_quotation-16528.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/DataHelper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/DataHelper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/AdminObjects.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/BookingAndSelectPaymentMethodObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/BookingAndSelectPaymentMethodObjects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/BookingCancellationObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/BookingCancellationObjects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/DeveloperObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/DeveloperObjects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/FlexiblePaymentObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/FlexiblePaymentObjects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/MarketplaceLandingObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/MarketplaceLandingObjects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects/PublishUnitObjects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/PublishUnitObjects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AdminProjectPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AdminProjectPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AuctionPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AuctionPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/BookingPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/BookingPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/DeveloperProjectPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DeveloperProjectPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/DevelopersPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DevelopersPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/FlexiblePaymentPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/FlexiblePaymentPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/LoginPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LoginPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MarketplaceLandingPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MarketplaceLandingPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PublishUnitPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PublishUnitPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ResaleOfUnitsPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ResaleOfUnitsPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UnitBookingPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UnitBookingPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/utils/CommonMethods.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/utils/CommonMethods.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Sharrai.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/payment-systems/loyalty-sharrai.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/account/user-wallet.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/paYmenT/resale-of-units.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/partners/cash-payment.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/cash-payment.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/partners/discount-on-reserved-units.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/discount-on-reserved-units.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/partners/publish-unit.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/partners/reissue-price-quotation.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/reissue-price-quotation.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/partners/selling-to-comapnies.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/partners/selling-to-comapnies.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/partners/waiting-list.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/waiting-list.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/payment-systems/buy-design.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/payment-systems/buy-design.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/payment-systems/payment-systems.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/payment-systems/payment-systems.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/payment-systems/resale-of-units.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/payment-systems/resale-of-units.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test-suits-e2e/auction-booking-journey-suit.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/auction-booking-journey-suit.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test-suits-e2e/moh-land-booking-journey-suit.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/moh-land-booking-journey-suit.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test-suits-e2e/offplan-moh-land-booking-journey-suit.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/offplan-moh-land-booking-journey-suit.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test-suits-e2e/offplan-private-land-booking-journey-suit.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/offplan-private-land-booking-journey-suit.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test-suits-e2e/payment-tracking-specified-period-suit.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-suits-e2e/payment-tracking-specified-period-suit.spec.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Ejaz4715"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Ejaz4715/Sakani_Playwright.git",
+    "accountId": "a486349f-33fb-405c-a721-2581dc7ebce4"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="3KaqRQBEPpZURS5kNfAyPEBn2It" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging temp",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a548ffed-c5d2-41be-b4e1-84e590bbb817" name="Changes" comment="" />
+      <created>1791806020063</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1791806020063</updated>
+    </task>
+    <servers />
+  </component>
+</project>

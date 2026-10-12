@@ -11,17 +11,14 @@ export const CashPaymentObjects = {
     },
     customerTypeDropdown: {
         xpath: "//div[contains(text(),'حدد نوع العميل')]/ancestor::ng-select",
-        
     },
     customerTypeOption: {
         role: "option",
         name: "أفراد"
     },
-
-    iDNumberInputfield:{
-        xpath:"//input[@type='number']"
+    iDNumberInputfield: {
+        xpath: "//input[@type='number']"
     },
-
     searchButton: {
         role: "button",
         name: "بحث"

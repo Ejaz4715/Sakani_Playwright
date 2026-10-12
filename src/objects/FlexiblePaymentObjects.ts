@@ -11,6 +11,9 @@ export const FlexiblePaymentObjects = {
     scheduleNameInArabicInputfield: {
         xpath: "(//app-sapa-label-v2/following-sibling::div/input)[1]"
     },
+    scheduleNameInEnglishInputfield: {
+        xpath: "//input[@placeholder='خطة مرنة لمدة عامين']"
+    },
     scheduleTypeDropdownList: {
         xpath: "//app-sapa-dropdown-v2[@formcontrolname='schedule_type']/descendant::ng-select"
     },
@@ -53,6 +56,18 @@ export const FlexiblePaymentObjects = {
     successfulMessage: {
         xpath: "//span[contains(text(),'تم إنشاء جدول الدفع بنجاح')]"
     },
+    scheduleSearchInputfield: {
+        xpath: "//input[@placeholder='البحث بعنوان جدول الدفعات']"
+    },
+    scheduleDetailsButton: {
+        role: "button", name: 'عرض التفاصيل'
+    },
+    deleteScheduleButton: {
+        role: "button", name: 'حذف'
+    },
+    scheduleDeletedMessage: {
+        text: 'تم حذف جدول الدفعات بنجاح'
+    },
     planTypeDropdownList: {
         xpath: "//app-sapa-dropdown-v2[@formcontrolname='schedule_template']"
     },
@@ -61,5 +76,29 @@ export const FlexiblePaymentObjects = {
     },
     planPeriodInputfield: {
         xpath: "//app-sapa-number-input-v2[@formcontrolname='schedule_period']/descendant::input"
-    }
+    },
+    payCash: {
+        css: "a[href$='cash-payment']"
+    },
+    customerTypeDropdown: {
+        xpath: "//div[contains(text(),'حدد نوع العميل')]/../../.."
+    },
+    individualCustomersType: {
+        xpath: "//span[contains(text(),'أفراد')]/.."
+    },
+    nationalIdentityField: {
+        xpath: "//label[contains(text(),' رقم الهوية الوطنية')]/../..//input"
+    },
+    searchButton: {
+        xpath: "(//span[contains(text(),'بحث')]/..)[1]"
+    },
+    bookedUnitDetailsIcon: {
+        xpath: "(//span[contains(@class, 'icon-password-show')])[1]"
+    },
+    cashPaymentConfirmationButton: {
+        xpath: "//button[contains(text(), 'توثيق الدفع نقداً')]"
+    },
+    cashPaymentPopUpAcceptButton: {
+        xpath: "//button[contains(text(),'نعم ')]"
+    },
 } as const

@@ -1,229 +1,169 @@
 import { test, expect } from '@playwright/test';
-const fs = require("fs");
 const path = require("path");
 import { WebApp } from "@base-class/web-app";
+import testData from '@data/test-data.json';
+import { DataHelper } from '@helpers/DataHelper'
+import { logStep } from '@helpers/LogSteps';
 
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
-
-function readTestData() {
-  return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
-
-function writeTestData(data: any) {
-  fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
-
-test.describe("MOH land booking journey", () => {
-  test("TC-01 - Add new moh land project", { annotation: [{ product: "Gov Support", type: "critical" }] as any}, async ({ page }) => {
+test.describe("MOH land full booking journey", () => {
+  test("TC-01 - Admin adds new Moh land project", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const app = new WebApp(page);
-    const testData = readTestData();
-
+    const environment = testData.environments;
+    const data = testData.services['moh-land-booking-journey'];
     const timestamp = new Date()
       .toISOString()
       .replace(/[-:T.]/g, "")
       .slice(0, 14);
-    const projectName = `Automation MOH Land ${timestamp}`;
-    const updatedData = { ...testData, projectName };
-    writeTestData(updatedData);
+    const projectName = `Automation Moh Land Project ${timestamp}`;
+    DataHelper.updateServiceData("test-data.json", "moh-land-booking-journey", "projectName", projectName);
 
-    await app.adminProjectPage.login(
-      updatedData.adminPortalUrl,
-      updatedData.adminUsername,
-      updatedData.adminPassword,
-    );
-    await app.adminProjectPage.openProjectCreation();
-    await page
-      .locator("form-field-component")
-      .filter({ hasText: "إسم المشروع *" })
-      .getByPlaceholder("إسم المشروع")
-      .fill(projectName);
+    await logStep("Step 01: Login to admin portal as a super admin");
+    await app.adminProjectPage.login(environment.adminPortalUrl, data.adminUsername, data.adminPassword);
 
-    const projectTypeDropdown = page.locator(
-      "//mat-select[@formcontrolname='project_type']",
-    );
-    const projectTypeOption = page.getByText("أراضي وزارة البلديات والإسكان", {
-      exact: true,
-    });
+    await logStep("Step 02: Navigate to add new project");
+    await app.adminProjectPage.clickInternalInventory();
+    await app.adminProjectPage.clickProjectsLink();
+    await app.adminProjectPage.clickAddNewProjectButton();
 
-    let projectTypeVisible = false;
-    for (let attempt = 0; attempt < 5; attempt++) {
-      await projectTypeDropdown.click();
-      projectTypeVisible = await projectTypeOption.isVisible().catch(() => false);
-      if (projectTypeVisible) break;
-      await page.waitForTimeout(2000);
-    }
+    await logStep("Step 03: Enter project details and save");
+    await app.adminProjectPage.fillProjectName(projectName);
+    await app.adminProjectPage.selectProjectType("أراضي وزارة البلديات والإسكان");
+    await app.adminProjectPage.selectRegion("الرياض");
+    await app.adminProjectPage.selectCity("الخرج");
+    await app.adminProjectPage.selectSubsidyType("دعم عيني كامل");
+    await app.adminProjectPage.clickSaveButton();
+    await app.adminProjectPage.validateToastMessage();
 
-    await expect(projectTypeOption).toBeVisible({ timeout: 30000 });
-    await projectTypeOption.click();
-    await page
-      .locator("//ng-select[@formcontrolname='region_id']")
-      .getByRole("combobox")
-      .click();
-    await page.getByText("الرياض").click();
-    await page.locator("//input[@id='inputCity']").click();
-    await page.getByRole("option", { name: "الرياض", exact: true }).click();
-    await page.locator("//mat-select[@formcontrolname='subsidy_type']").click();
-    await page.getByText("دعم عيني كامل").click();
-    await page.getByRole("button", { name: "حفظ" }).click();
-    const saveSuccessToast = page.getByText("تم الحفظ بنجاح!");
-    await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
+    await logStep("Step 06: Import and commit project units");
+    await app.adminProjectPage.clickUnitsTab();
+    await app.adminProjectPage.expectImportNewUnitButtonVisible();
+    await app.adminProjectPage.clickImportNewUnitButton();
+    const unitsImportFilePath = path.join(process.cwd(), "src", "data", "MOHLand.xlsx");
+    await app.adminProjectPage.uploadUnitsFile(unitsImportFilePath);
+    await app.adminProjectPage.clickImportSaveButton();
+    await app.adminProjectPage.waitForUnitImportCompletion();
+    await app.adminProjectPage.clickApproveButton();
+    await app.adminProjectPage.clickConfirmButton();
+    await app.adminProjectPage.waitForImportConfirmation();
+    await app.adminProjectPage.clickBackButton();
 
-    await page.getByRole("tab", { name: "الوحدات", exact: true }).click();
-    await expect(page.getByRole("button", { name: "استيراد وحدة جديدة" })).toBeVisible({ timeout: 30000 });
-    await page.getByRole("button", { name: "استيراد وحدة جديدة" }).click();
-    await page.locator("//input[@type='file']").setInputFiles(
-      path.join(process.cwd(), "src", "data", "MOHLand.xlsx"),
-    );
-    await page.getByRole("button", { name: " حفظ" }).click();
-
-    const importInProgress = page.getByText("تحت الإجراء ...", { exact: true });
-    await expect(importInProgress).toBeVisible({ timeout: 120000 });
-    await page.waitForTimeout(5000);
-    await page.reload();
-    const fileProcessedMessage = page.getByText("تم إكمال الإجراء", { exact: true });
-    let completedVisible = false;
-    while (!completedVisible) {
-      completedVisible = await fileProcessedMessage.isVisible().catch(() => false);
-      if (!completedVisible) {
-        await page.reload();
-        await page.waitForTimeout(3000);
-      }
-    }
-    await page.getByRole("button", { name: "اعتماد" }).click();
-    await page.getByRole("button", { name: "موافق" }).click();
-    await page.waitForTimeout(3000);
-    await page.getByRole("button", { name: "رجوع" }).click();
-
-    await page.locator("span").filter({ hasText: /المحتوى المرئي/i }).first().click();
-    await page.locator(
-      "//h1[contains (text(), 'الصورة الإعلانية')]/parent::div/following-sibling::div/child::input[@type='file']",
-    ).setInputFiles(path.join(process.cwd(), "src", "data", "Sample image.jpg"));
-    await page.locator("//mat-icon[contains (text(), 'file_upload')]").click();
+    await logStep("Step 07: Upload project media");
+    await app.adminProjectPage.clickProjectMediaTab();
+    const bannerImagePath = path.join(process.cwd(), "src", "data", "Sample image.jpg");
+    await app.adminProjectPage.uploadBannerImage(bannerImagePath);
+    await app.adminProjectPage.clickUploadButton();
 
     const image2Path = path.join(process.cwd(), "src", "data", "Sample image 2.png");
-    await page.waitForTimeout(2000);
-    await page.locator(
-      "//h1[contains (text(), 'ملف المخطط الرئيسي ')]/parent::div/following-sibling::div/child::input[@type='file']",
-    ).setInputFiles(image2Path);
-    await page.locator("//mat-icon[contains (text(), 'file_upload')]").click();
-    await page.waitForTimeout(2000);
-    await page.locator(
-      "//h1[contains (text(), 'صورة العر')]/parent::div/following-sibling::div/child::input[@type='file']",
-    ).setInputFiles(image2Path);
-    await page.locator("//mat-icon[contains (text(), 'file_upload')]").click();
-    await page.locator("div").filter({ hasText: /^Display method$/ }).first().click();
-    await page.getByText("Hero").click();
-    await page.getByRole("textbox", { name: "عنوان صفحة التفاصيل (باللغة العربية)" }).fill(projectName);
-    await page.getByRole("textbox", { name: "عنوان صفحة التفاصيل (باللغة الإنجليزية)" }).fill(projectName);
-    await page.getByRole("textbox", { name: "تاريخ جهوزية أول وحدة" }).fill("2026-01-01");
-    await page.getByRole("textbox", { name: "الاسم (باللغة العربية)" }).fill("test bb");
-    await page.getByRole("textbox", { name: "الاسم (باللغة الإنجليزية)" }).fill("test bb");
-    await page.getByRole("textbox", { name: "الملخص AR" }).fill("الملخص AR".repeat(8));
-    await page.getByRole("textbox", { name: "ملخص EN" }).fill("Summary EN ".repeat(10));
-    await page.getByRole("textbox", { name: "الوصف (باللغة العربية)" }).fill("الوصف (باللغة العربية)".repeat(7));
-    await page.getByRole("textbox", { name: "الوصف (باللغة الإنجليزية)" }).fill("Description EN ".repeat(10));
-    await page.getByRole("textbox", { name: "السعر يبدأ من" }).fill("500000");
-    await page.getByRole("spinbutton", { name: "خط العرض" }).fill("1.1");
-    await page.getByRole("spinbutton", { name: "خط الطول" }).fill("1.1");
-    await expect(page.locator("(//button[contains (@class, 'uploadStatus')])[3]")).toBeVisible({ timeout: 120000 });
-    await page.waitForTimeout(1500);
-    await page.locator("#save_btn").click();
+    await app.adminProjectPage.uploadMasterPlanImage(image2Path);
+    await app.adminProjectPage.clickUploadButton();
+    await app.adminProjectPage.uploadAerialImage(image2Path);
+    await app.adminProjectPage.clickUploadButton();
 
-    await page.getByRole("tab", { name: "تفاصيل المشروع" }).click();
-    await page.getByRole("button", { name: "تقديم طلب موافقة على نشر المحتوى المرفوع" }).click();
-    await page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }).click();
-    await page.getByRole("button", { name: "إبقاء المشروع غير منشور" }).click();
-    await page.getByRole("button", { name: "حفظ" }).click();
-    await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
+    await logStep("Step 08: Enter project textual media details and save");
+    await app.adminProjectPage.selectDisplayMethod("Hero");
+    await app.adminProjectPage.fillDetailsTitleArabic(projectName);
+    await app.adminProjectPage.fillDetailsTitleEnglish(projectName);
+    await app.adminProjectPage.fillFirstUnitReadyDate("2026-01-01");
+    await app.adminProjectPage.fillNameArabic(projectName);
+    await app.adminProjectPage.fillNameEnglish(projectName);
+    await app.adminProjectPage.fillSummaryArabic("ملخص المشروع".repeat(10));
+    await app.adminProjectPage.fillSummaryEnglish("Project Summary".repeat(10));
+    await app.adminProjectPage.fillDescriptionArabic("الوصف (باللغة العربية)".repeat(10));
+    await app.adminProjectPage.fillDescriptionEnglish("Description EN".repeat(10));
+    await app.adminProjectPage.fillStartingPrice("500000");
+    await app.adminProjectPage.fillLatitude("1.1");
+    await app.adminProjectPage.fillLongitude("1.1");
+    await app.adminProjectPage.expectMediaUploadComplete(2);
+    await app.adminProjectPage.clickMediaSaveButton();
 
-    await page.getByText("نماذج الوحدات").click();
-    await page.getByRole("cell", { name: "model_1" }).click();
-    await page.getByRole("button", { name: "حفظ" }).click();
-    await page.getByText("المحتوى المرئي ( مسودة )").click();
-    await page.getByRole("button", { name: "حفظ" }).click();
-    await page.getByRole("button", { name: "تقديم طلب موافقة على نشر المحتوى المرفوع" }).click();
-    await page.getByRole("button", { name: "قبول المحتوى المرئي المرفوع" }).click();
+    await logStep("Step 09: Approve project media");
+    await app.adminProjectPage.clickProjectDetailsTab();
+    await app.adminProjectPage.clickRequestMediaApprovalButton();
+    await app.adminProjectPage.clickAcceptUploadedMediaButton();
+    await app.adminProjectPage.clickKeepProjectUnpublishedButton();
+    await app.adminProjectPage.clickSaveButton();
+    await app.adminProjectPage.validateToastMessage();
 
-    const publishButton = page.getByRole("button", { name: "وحدة النشر" });
-    await publishButton.click();
-    while (true) {
-      await page.waitForTimeout(3000);
-      if (!await publishButton.isVisible().catch(() => false)) break;
-      await page.reload();
-    }
+    await logStep("Step 10: Publish the unit model");
+    await app.adminProjectPage.clickUnitModelsSection();
+    await app.adminProjectPage.clickUnitModelCell();
+    await app.adminProjectPage.clickSaveButton();
+    await app.adminProjectPage.clickMediaDraftSection();
+    await app.adminProjectPage.clickSaveButton();
+    await app.adminProjectPage.clickRequestMediaApprovalButton();
+    await app.adminProjectPage.clickAcceptUploadedMediaButton();
+    await app.adminProjectPage.clickPublishUnitButton();
+    await app.adminProjectPage.clickUnitModelLink();
 
-    await page.locator("a").filter({ hasText: /model_1/ }).click();
-    await page.waitForTimeout(3000);
-    const chevronElement = page.locator("(//div[contains (@class, 'chevron')]/parent::div)[1]");
-    if (await chevronElement.isVisible().catch(() => false)) await chevronElement.click();
-    await page.getByText("تفاصيل المشروع").click();
+    await logStep("Step 11: Set project open for booking");
+    await app.adminProjectPage.clickProjectDetailsText();
+    await app.adminProjectPage.enableAvailableForBookingToggle();
+    await app.adminProjectPage.clickSaveButton();
 
-    const bookingAvailableToggle = page.locator(
-      "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
-    );
-    const visualContentTab = page.getByRole("tab", { name: /تمت الموافقة/ });
-    while (!await visualContentTab.isVisible().catch(() => false)) {
-      await page.reload();
-      await page.waitForTimeout(2000);
-    }
-    await expect(visualContentTab).toBeVisible();
-    await expect(bookingAvailableToggle).toBeVisible({ timeout: 30000 });
-    if (await bookingAvailableToggle.getAttribute("aria-checked") === "false") {
-      await bookingAvailableToggle.click();
-    }
-    await expect(bookingAvailableToggle).toHaveAttribute("aria-checked", "true");
-    await page.getByRole("button", { name: "حفظ" }).click();
-
-    const publishProjectToggle = page.locator(
-      "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
-    );
-    await expect(publishProjectToggle).toBeVisible({ timeout: 30000 });
-    if (await publishProjectToggle.getAttribute("aria-checked") === "false") {
-      await publishProjectToggle.click();
-    }
-    await expect(publishProjectToggle).toHaveAttribute("aria-checked", "true");
-    await page.waitForTimeout(3000);
-    await page.getByRole("button", { name: "حفظ" }).click();
-    await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
-    await page.waitForTimeout(3000);
+    await logStep("Step 12: Publish the project and validate the toast message");
+    await app.adminProjectPage.enableAvailableForBookingToggle();
+    await app.adminProjectPage.clickSaveButton();
+    await app.adminProjectPage.publishProject();
+    await app.adminProjectPage.clickSaveButton();
+    await app.adminProjectPage.validateToastMessage();
   });
 
   test("TC-02 - Book moh land", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-
-    await app.loginPage.gotoHomePage(testData.userPortalUrl);
+    const data = testData.services['moh-land-booking-journey'];
+    const environment = testData.environments;
+    await logStep("Step 01: Open user portal");
+    await app.loginPage.gotoHomePage(environment.userPortalUrl);
     await app.loginPage.acceptCookies();
+
+    await logStep("Step 02: Log in with Nafath");
     await app.loginPage.openLogin();
-    await app.loginPage.loginWithNafath(testData.sakaniUserIdMoh);
+    await app.loginPage.loginWithNafath(data.sakaniUserIdMoh);
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
+
+    await logStep("Step 03: Search for the project");
     await app.marketplaceLandingPage.openSearch();
-    await app.marketplaceLandingPage.searchForProject(testData.projectName);
+    await app.marketplaceLandingPage.searchForProject(data.projectName);
     await app.projectDetailsPage.openUnitsAndScroll();
+
+    await logStep("Step 04: Select land to select");
     await app.projectUnitsPage.selectLand(1);
+
+    await logStep("Step 05: Complete the booking and sign contract");
     await app.unitDetailsPage.reserveUnit();
-    await app.unitBookingPage.signMohLandBooking();
+    await app.unitBookingPage.signMohLandBookingContract();
+    await logStep("Step 05: Validate the success page");
     await expect(page.getByText("تهانينا!")).toBeVisible();
   });
 
-  test("TC-03 - Cancel moh land booking", { annotation: [{ product: "Gov Support", type: "critical" }] as any}, async ({ page }) => {
+  test("TC-03 - Cancel moh land booking", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
+    const data = testData.services['moh-land-booking-journey'];
+    const environment = testData.environments;
 
-    await app.loginPage.gotoHomePage(testData.userPortalUrl);
+    await logStep("Step 01: Open user portal");
+    await app.loginPage.gotoHomePage(environment.userPortalUrl);
     await app.loginPage.acceptCookies();
+
+    await logStep("Step 02: Log in with Nafath");
     await app.loginPage.openLogin();
-    await app.loginPage.loginWithNafath(testData.sakaniUserIdMoh);
+    await app.loginPage.loginWithNafath(data.sakaniUserIdMoh);
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
+
+    await logStep("Step 03: Open active bookings");
     await app.bookingPage.openActiveBookings();
+
+    await logStep("Step 05: Open booking details");
     await app.bookingPage.openBookingDetails();
+
+    await logStep("Step 06: Cancel the booking");
     await app.bookingPage.cancelMohLandBooking();
   });
 });

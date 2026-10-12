@@ -22,17 +22,15 @@ export const DiscountOnReservedUnitsObjects = {
 		name: "التالي",
 	},
 	projectNameInputfield: {
-		xpath:"//app-project-filter-dropdown/descendant::input"
+		xpath: "//app-project-filter-dropdown/descendant::input"
 	},
-	
 	projectOption: (projectName: string) => ({
 		role: "option" as const,
 		name: projectName,
 	}),
-
-    firstUnitCheckbox:{
-        xpath:"(//app-sapa-checkbox-v2)[1]"
-    },
+	firstUnitCheckbox: {
+		xpath: "(//app-sapa-checkbox-v2)[1]"
+	},
 	continueBtookingButton: {
 		role: "button",
 		name: "مواصلة الحجز",
@@ -40,15 +38,13 @@ export const DiscountOnReservedUnitsObjects = {
 	banksDropdownList: {
 		css: "app-bank-list-dropdown-control",
 	},
-	
 	bankOption: {
 		role: "option",
 		name: "بنك الأهلي السعودي",
 	},
-
-    descountPercentageInputfield:{
-        xpath:"//input[@type='number']"
-    },
+	descountPercentageInputfield: {
+		xpath: "//input[@type='number']"
+	},
 	confirmButton: {
 		role: "button",
 		name: "تأكيد",
@@ -62,7 +58,7 @@ export const DiscountOnReservedUnitsObjects = {
 		name: "حجوزات",
 	},
 	cancellationReasonDropdownList: {
-		xpath:"//app-sapa-dropdown-v2/descendant::ng-select"
+		xpath: "//app-sapa-dropdown-v2/descendant::ng-select"
 	},
 	cancellationReasonOption: {
 		role: "option",
@@ -94,44 +90,36 @@ export const DiscountOnReservedUnitsObjects = {
 		role: "tab",
 		name: "عرض السعر",
 	},
-
-	
 	downloadIcon: {
 		css: ".pointer.svg-icon",
 	},
-
-    unitPriceBeforeDiscount:{
-        xpath:"(//div[contains(text(),'سعر الوحدة')])[2]/parent::div/span"
-    },
-
-    unitPriceAfterDiscount:{
-        xpath:"(//div[contains(text(),'القيمة الإجمالية')])/parent::div/span"
-    },
-
-	payBookingFees:{
+	unitPriceBeforeDiscount: {
+		xpath: "(//div[contains(text(),'سعر الوحدة')])[2]/parent::div/span"
+	},
+	unitPriceAfterDiscount: {
+		xpath: "(//div[contains(text(),'القيمة الإجمالية')])/parent::div/span"
+	},
+	payBookingFees: {
 		role: "heading",
 		name: "دفع رسوم الحجز",
-    },
+	},
+	theBookings: {
+		text: "الحجوزات"
+	},
+	searchForUnitOrIDInputfield: {
 
-    theBookings:{
-        text:"الحجوزات"
-    },
-    searchForUnitOrIDInputfield:{
-      
-        role:"textbox", name:"ابحث برمز الوحدة أو رقم الهوية"
-    },
+		role: "textbox", name: "ابحث برمز الوحدة أو رقم الهوية"
+	},
 	bookingStatusDropdown: {
-		xpath:"(//app-sapa-dropdown-v2/descendant::ng-select)[1]"
+		xpath: "(//app-sapa-dropdown-v2/descendant::ng-select)[1]"
 	},
 	priceQuotationStatusOption: {
 		role: "option",
 		name: "عرض السعر",
 	},
-
-    viewDetailsOfSerchedResultButton:{
-    text:"إظهار التفاصيل"
-    },
-
+	viewDetailsOfSerchedResultButton: {
+		text: "إظهار التفاصيل"
+	},
 	reissuePriceQuotationButton: {
 		role: "button",
 		name: "إعادة إصدار عرض السعر",
@@ -139,17 +127,15 @@ export const DiscountOnReservedUnitsObjects = {
 	reissuePriceQuotationSuccessMessage: {
 		text: "تمت إعادة إصدار عرض السعر بنجاح.",
 	},
-    
 	extendPriceQuotationButton: {
 		role: "button",
 		name: "تمديد فترة عرض السعر",
 	},
 	yesButton: {
 		role: "button",
-		name:"نعم",
+		name: "نعم",
 	},
 	extendPriceQuotationSuccessMessage: {
 		text: "لقد تم تمديد عرض الأسعار هذا بنجاح.",
 	},
-
 } as const

@@ -56,6 +56,4 @@ export const PaymentTrackingObjects = {
     bookingDetailsTab: {
         xpath: "//a[contains(text(),'تفاصيل الحجوزات')]"
     },
-
-    
 } as const

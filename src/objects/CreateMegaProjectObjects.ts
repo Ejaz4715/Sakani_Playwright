@@ -59,7 +59,6 @@ export const CreateMegaProjectObjects = {
     },
     updateButton: {
         xpath: '//button[contains(text(), "تحديث")]'
-
     },
     projectNotAvailableForNonSaudiMessage: {
         xpath: '//span[text()="عذرا المشروع غير متاح لغير السعوديين"]'
@@ -70,7 +69,6 @@ export const CreateMegaProjectObjects = {
     searchButton: {
         xpath: "//button[contains(text(),'بحث')]"
     },
-
     searchedMegaPrjectResult: {
         xpath: "//datatable-body-cell[2]"
     },

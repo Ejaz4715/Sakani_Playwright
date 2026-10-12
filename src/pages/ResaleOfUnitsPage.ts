@@ -486,8 +486,8 @@ export class ResaleOfUnitsPage {
         );
         await userProfileButton.click();
 
-        const myBookingsLink = this.page.getByText(
-            BookingCancellationObjects.myBookingsLink.text,
+        const myBookingsLink = this.page.locator(
+            BookingCancellationObjects.myBookingsLink,
         );
         await myBookingsLink.click();
         const resaleRequestsButton = this.page.getByText(

@@ -130,7 +130,6 @@ export class AdminLoyaltyPage {
         await discountInput.fill(discount);
     }
 
-
     async fillAcceptableQuantityPerUser(text: string) {
         const acceptableQuantityInput = this.page.locator("//input[@formcontrolname='acceptable_quantity_per_user']");
         await acceptableQuantityInput.fill(text);

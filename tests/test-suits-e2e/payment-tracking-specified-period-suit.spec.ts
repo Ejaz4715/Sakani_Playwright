@@ -428,7 +428,7 @@ test.describe("Payment tracking - specified period", () => {
     await app.flexiblePaymentPage.clickOnNewSchedulesButton();
     await app.flexiblePaymentPage.enterScheduleNameInArabic("Test");
     await app.flexiblePaymentPage.selectScheduleType("specificPeriod");
-    await app.flexiblePaymentPage.selectPalnType();
+    await app.flexiblePaymentPage.selectPlanTypeMonthly();
     await app.flexiblePaymentPage.enterPlanPeriod("36");
     await app.flexiblePaymentPage.clickOnNextButton();
     await app.flexiblePaymentPage.clickOnNextButton();

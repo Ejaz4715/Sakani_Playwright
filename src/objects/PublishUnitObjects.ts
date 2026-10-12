@@ -1,13 +1,11 @@
 export const PublishUnitObjects = {
-
     //Partners
-    developerBrokerRoleText: "شركة وساطة عقارية",
-
+    developerBrokerRoleText:
+        "شركة وساطة عقارية",
     servicesLink: {
         role: "link",
         name: "الخدمات",
     },
-
     managePublishButton: {
         role: "button",
         name: "إدارة النشر",
@@ -62,12 +60,10 @@ export const PublishUnitObjects = {
     buildingYearDropdownList: {
         xpath: "//label[@for='building_year']/parent::div/descendant::ng-select",
     },
-
     buildingYearOption: {
         role: "option",
         name: "2026",
     },
-
     descriptionTextarea: {
         xpath: "//label[@for='description']/following-sibling::textarea",
     },
@@ -90,10 +86,13 @@ export const PublishUnitObjects = {
     adLicenseNumberToSearchInputfield: {
         xpath: "//label[contains(text(),' رقم ترخيص الإعلان')]/parent::app-sapa-label/following-sibling::div/input",
     },
+    searchButton: {
+        role: "button",
+        name: "بحث",
+    },
     adLicenseStatus: {
         xpath: "(//datatable-body-cell/div/div)[5]",
     },
-
 
     //Admin
     externalInventoryLink: {
@@ -112,9 +111,9 @@ export const PublishUnitObjects = {
         role: "textbox",
         name: "رقم ترخيص الإعلان",
     },
-    adLicenseNumberResultCell: (name: string) => ({
+    adLicenseNumberResultCell: (name: string | number) => ({
         role: "cell" as const,
-        name,
+        name: String(name),
     }),
     viewPublishUnitLink: {
         role: "link",
@@ -124,7 +123,6 @@ export const PublishUnitObjects = {
         role: "button",
         name: "قبول",
     },
-    publishUnitApprovalSuccessMessage: "تم الموافقة على هذه الوحدة بنجاح",
-    
-
+    publishUnitApprovalSuccessMessage:
+        "تم الموافقة على هذه الوحدة بنجاح",
 } as const;

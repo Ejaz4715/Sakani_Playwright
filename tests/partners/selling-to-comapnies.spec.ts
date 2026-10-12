@@ -503,8 +503,8 @@ test.describe('Selling to companies', () => {
         await app.loginPage.openLogin();
         await app.loginPage.loginWithNafath(companyUserId);
         await app.loginPage.waitForNafathPromptToDisappear();
-        await app.loginPage.continueNewUserPopup();
-        await app.loginPage.handlePushNotificationPopup();
+        ///await app.loginPage.continueNewUserPopup();
+        //await app.loginPage.handlePushNotificationPopup();
 
         await logStep("Step 02: Navigate to companies > Company reservations > Active bookings > Not billed");
         await app.marketplaceLandingPage.openProfileManagement();
@@ -525,7 +525,7 @@ test.describe('Selling to companies', () => {
         await page.waitForTimeout(2000)
         await app.offPlanBasketMultipleBookingPage.clickOnCompanyReservationFeesPayment();
         await app.paymentGatewayPage.fillCardDetails();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(5000);
     });
 
     test("TC-06 - User signs sale contract for all units", async ({page}) => {

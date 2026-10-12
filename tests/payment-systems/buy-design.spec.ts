@@ -1,30 +1,16 @@
 import { test, expect, Page } from "@playwright/test";
-const fs = require("fs");
 const path = require("path");
-const XLSX = require("xlsx");
 import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
-import buyDesignData from "@data/payment-system-test-data.json";
-
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
-
-function readTestData() {
-  return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
-
-function writeTestData(data: any) {
-  fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
+import buyDesignData from "@data/test-data.json";
 
 test.describe("Order design", () => {
   test("TC-01 - User buy a design - only design option", { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const userId = buyDesignData["buy-design"]["only-design"].userId;
-    const designName = buyDesignData["buy-design"]["only-design"].designName;
+    const userId = buyDesignData.services["buy-design"]["only-design"].userId;
     const userPortalUrl = buyDesignData.environments.userPortalUrl;
 
     await logStep("Step 01: Open user portal");
@@ -62,27 +48,25 @@ test.describe("Order design", () => {
     await designApp.buyDesignPage.verifyPaymentSuccess();
   });
 
-
-
-
   test("TC-01 - Add new moh land project", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const app = new WebApp(page);
-    const testData = readTestData();
+    const environment = buyDesignData.environments;
+    const data = buyDesignData.services["buy-design"];
 
     const timestamp = new Date()
       .toISOString()
       .replace(/[-:T.]/g, "")
       .slice(0, 14);
     const projectName = `Automation Moh Land ${timestamp}`;
-    const updatedData = { ...testData, projectName };
-    writeTestData(updatedData);
+    DataHelper.updateServiceData("buy-design", "projectName", projectName);
 
     await app.adminProjectPage.login(
-      updatedData.adminPortalUrl,
-      updatedData.adminUsername,
-      updatedData.adminPassword,
+      environment.adminPortalUrl,
+      data.adminUsername,
+      data.adminPassword,
     );
+    
     await app.adminProjectPage.openProjectCreation();
     await page
       .locator("form-field-component")
@@ -242,11 +226,11 @@ test.describe("Order design", () => {
 
   test("TC-02 - Book moh land", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
-    const userId = buyDesignData["buy-design"]["with-fitting"].userId;
     const app = new WebApp(page);
-
-    await app.loginPage.gotoHomePage(testData.userPortalUrl);
+    const environment = buyDesignData.environments;
+    const data = buyDesignData.services["buy-design"];
+    const userId = data["with-fitting"].userId;
+    await app.loginPage.gotoHomePage(environment.userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
     await app.loginPage.loginWithNafath(userId);
@@ -254,25 +238,24 @@ test.describe("Order design", () => {
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
     await app.marketplaceLandingPage.openSearch();
-    await app.marketplaceLandingPage.searchForProject(testData.projectName);
+    await app.marketplaceLandingPage.searchForProject(data.projectName);
     await app.projectDetailsPage.openUnitsAndScroll();
     await app.projectUnitsPage.selectLand(1);
     await app.unitDetailsPage.reserveUnit();
-    await app.unitBookingPage.signMohLandBooking();
+    await app.unitBookingPage.signMohLandBookingContract();
     await expect(page.getByText("تهانينا!")).toBeVisible();
   });
 
 
   test("TC-03 - User buy a design - design with fitting option", { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const userId = buyDesignData["buy-design"]["with-fitting"].userId;
-    const designName = buyDesignData["buy-design"]["with-fitting"].designName;
-    const userPortalUrl = buyDesignData.environments.userPortalUrl;
+    const environment = buyDesignData.environments;
+    const data = buyDesignData.services["buy-design"];
+    const userId = data["with-fitting"].userId;
 
     await logStep("Step 01: Open user portal");
-    await app.loginPage.gotoHomePage(userPortalUrl);
+    await app.loginPage.gotoHomePage(environment.userPortalUrl);
     await app.loginPage.acceptCookies();
 
     await logStep("Step 02: Log in with Nafath");
@@ -317,24 +300,26 @@ test.describe("Order design", () => {
     await logStep("Step 06: Verify successfully paid");
     await designApp.buyDesignPage.verifyPaymentSuccess();
   });
+
   test("TC-04 - Add new moh land project", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     const app = new WebApp(page);
-    const testData = readTestData();
+    const environment = buyDesignData.environments;
+    const data = buyDesignData.services["buy-design"];
 
     const timestamp = new Date()
       .toISOString()
       .replace(/[-:T.]/g, "")
       .slice(0, 14);
     const projectName = `Automation Moh Land ${timestamp}`;
-    const updatedData = { ...testData, projectName };
-    writeTestData(updatedData);
+    DataHelper.updateServiceData("buy-design", "projectName", projectName);
 
     await app.adminProjectPage.login(
-      updatedData.adminPortalUrl,
-      updatedData.adminUsername,
-      updatedData.adminPassword,
+      environment.adminPortalUrl,
+      data.adminUsername,
+      data.adminPassword,
     );
+
     await app.adminProjectPage.openProjectCreation();
     await page
       .locator("form-field-component")
@@ -494,11 +479,11 @@ test.describe("Order design", () => {
 
   test("TC-05 - Book moh land", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
-    const userId = buyDesignData["buy-design"]["with-fitting"].userId;
     const app = new WebApp(page);
-
-    await app.loginPage.gotoHomePage(testData.userPortalUrl);
+    const environment = buyDesignData.environments;
+    const data = buyDesignData.services["buy-design"];
+    const userId = data["with-fitting"].userId;
+    await app.loginPage.gotoHomePage(environment.userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
     await app.loginPage.loginWithNafath(userId);
@@ -506,21 +491,20 @@ test.describe("Order design", () => {
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
     await app.marketplaceLandingPage.openSearch();
-    await app.marketplaceLandingPage.searchForProject(testData.projectName);
+    await app.marketplaceLandingPage.searchForProject(data.projectName);
     await app.projectDetailsPage.openUnitsAndScroll();
     await app.projectUnitsPage.selectLand(1);
     await app.unitDetailsPage.reserveUnit();
-    await app.unitBookingPage.signMohLandBooking();
+    await app.unitBookingPage.signMohLandBookingContract();
     await expect(page.getByText("تهانينا!")).toBeVisible();
   });
 
 
   test("TC-06 - User buy a design - design with fitting and bulding permit option", { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    const testData = readTestData();
     const app = new WebApp(page);
-    const userId = buyDesignData["buy-design"]["with-fitting-and-building-permit"].userId;
-    const designName = buyDesignData["buy-design"]["with-fitting-and-building-permit"].designName;
+    const data = buyDesignData.services["buy-design"];
+    const userId = data["with-fitting-and-building-permit"].userId;
     const userPortalUrl = buyDesignData.environments.userPortalUrl;
 
     await logStep("Step 01: Open user portal");

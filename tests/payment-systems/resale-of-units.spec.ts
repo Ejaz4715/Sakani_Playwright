@@ -6,38 +6,27 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
-import readResaleData from "@data/payment-system-test-data.json";
-
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
-
-function readTestData() {
-    return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-}
-
-function writeTestData(data: any) {
-    fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
+import readResaleData from "@data/test-data.json";
 
 test.describe("Resale Of Units - With Known Buyer", () => {
     test("TC-01 - Add new project offplan project", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(120000);
-        const testData = readTestData();
         const app = new WebApp(page);
-
+        const environment = readResaleData.environments;
+        const data = readResaleData.services["resale-of-units"];
         const currentDate = DateUtils.getDateISO(600);
         const projectName = `Automation Project ${new Date()
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        const updatedData = { ...testData, projectName };
-        writeTestData(updatedData);
+        DataHelper.updateServiceData("test-data.json", "resale-of-units", "projectName", projectName);
 
-        // Project details
         await app.adminProjectPage.login(
-            updatedData.adminPortalUrl,
-            updatedData.adminUsername,
-            updatedData.adminPassword,
+            environment.adminPortalUrl,
+            data.adminUsername,
+            data.adminPassword,
         );
+
         await app.adminProjectPage.openProjectCreation();
         await page
             .locator("form-field-component")
@@ -336,12 +325,12 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const environment = readResaleData.environments;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
         await app.developerProjectPage.openProjectBySearch(projectName);
@@ -370,18 +359,21 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const environment = readResaleData.environments;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
+
         await logStep("Step 01: Navigate to partners portal > Login");
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
+
         await logStep("Step 02: Navigate to searched project > Navigate to sale contracts ");
         await app.developerProjectPage.openProjectBySearch(projectName);
         await app.developerProjectPage.openSalesContractsTab();
         await app.developerProjectPage.viewAndApproveSalesContract();
+
         await logStep("Step 03: Approve sales contract and verify is approved");
         await app.developerProjectPage.approveUnitSpecification();
         await app.developerProjectPage.fillOtp("1234");
@@ -391,11 +383,11 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-04 - Seller books offplan unit and pay the fees", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const seller = readResaleData["resale-of-units"].sellerUserId;
-        const userPortalUrl = readResaleData.environments.userPortalUrl;
+        const environment = readResaleData.environments;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+        const seller = readResaleData.services["resale-of-units"].sellerUserId;
+        const userPortalUrl = environment.userPortalUrl;
 
         await logStep("Step 01: Navigate to user portal > Login");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -437,9 +429,8 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-05 - Seller signs sales contract", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const seller = readResaleData["resale-of-units"].sellerUserId;
+        const seller = readResaleData.services["resale-of-units"].sellerUserId;
         const userPortalUrl = readResaleData.environments.userPortalUrl;
 
         await logStep("Step 01: Open user portal");
@@ -455,15 +446,9 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
         await logStep("Step 03: Open active bookings");
         await app.bookingPage.openActiveBookings();
-        const bookedUnitCode =
-            await app.bookingPage.getBookedUnitCode();
+        const bookedUnitCode = await app.bookingPage.getBookedUnitCode();
         expect(bookedUnitCode).toBeTruthy();
-        testData.bookedUnitCode = bookedUnitCode;
-        fs.writeFileSync(
-            testDataPath,
-            JSON.stringify(testData, null, 2) + "\n",
-            "utf8",
-        );
+        DataHelper.updateServiceData("test-data.json", "resale-of-units", "bookedUnitCode", bookedUnitCode);
 
         await logStep("Step 04: Open booking details > Sign the sales contract");
         await app.bookingPage.openBookingDetails();
@@ -474,34 +459,43 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-06 - Developer confirms the booking", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const developerUserId = testData.developerUserId;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
+        const sapaPortalUrl = readResaleData.environments.sapaPortalUrl;
+        const bookedUnitCode = readResaleData.services["resale-of-units"].bookedUnitCode;
+
         await logStep("Step 01: Navigate to partners portal > Login");
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
+
         await logStep("Step 02: Navigate to booking page > Confirm booking");
-        await app.developerProjectPage.confirmBooking(testData.bookedUnitCode);
+        await app.developerProjectPage.confirmBooking(bookedUnitCode);
     });
 
 
     test("TC-07 - Admin configures project-level of resale settings", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
+        const adminPortalUrl = readResaleData.environments.adminPortalUrl;
+        const adminUsername = readResaleData.services["resale-of-units"].adminUsername;
+        const adminPassword = readResaleData.services["resale-of-units"].adminPassword;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+
         await logStep("Step 01: Login to admin platform");
         await app.adminProjectPage.login(
-            testData.adminPortalUrl,
-            testData.adminUsername,
-            testData.adminPassword,
+            adminPortalUrl,
+            adminUsername,
+            adminPassword,
         );
+
         await logStep("Step 02: Search for project > navigate to resale settings");
         await app.adminProjectPage.openProjects();
-        await app.resaleOfUnitsPage.fillProjectName(testData.projectName);
+        await app.resaleOfUnitsPage.fillProjectName(projectName);
         await app.resaleOfUnitsPage.clickProjectSearchButton();
-        await app.resaleOfUnitsPage.clickSearchedProjectResult(testData.projectName);
+        await app.resaleOfUnitsPage.clickSearchedProjectResult(projectName);
         await app.resaleOfUnitsPage.clickOnResaleSettingTab();
+
         await logStep("Step 03: Apply the confiqguartion and save");
         await app.resaleOfUnitsPage.clickOnuseGeneralResaleSettingsSwitch();
         await app.resaleOfUnitsPage.selectResaleFeeType();
@@ -514,17 +508,12 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-08 - Seller submits new resale request for known buyer", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const seller = readResaleData["resale-of-units"].sellerUserId;
-        const buyerId = readResaleData["resale-of-units"].buyerrUserId;
-        const buyerDob = readResaleData["resale-of-units"].buyerDOB;
+        const seller = readResaleData.services["resale-of-units"].sellerUserId;
+        const buyerId = readResaleData.services["resale-of-units"].buyerUserId;
+        const buyerDob = readResaleData.services["resale-of-units"].buyerDOB;
         const userPortalUrl = readResaleData.environments.userPortalUrl;
 
-
-        // await page.reload({ waitUntil: 'load' });
-        // // Reload and wait until there are no ongoing network requests for at least 500ms
-        // await page.reload({ waitUntil: 'networkidle' });
         await logStep("Step 01: Open user portal");
         await app.loginPage.gotoHomePage(userPortalUrl);
         await app.loginPage.acceptCookies();
@@ -538,15 +527,9 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
         await logStep("Step 03: Open complete bookings");
         await app.bookingPage.openCompletedBookings();
-        const bookedUnitCode =
-            await app.bookingPage.getBookedUnitCode();
+        const bookedUnitCode = await app.bookingPage.getBookedUnitCode();
         expect(bookedUnitCode).toBeTruthy();
-        testData.bookedUnitCode = bookedUnitCode;
-        fs.writeFileSync(
-            testDataPath,
-            JSON.stringify(testData, null, 2) + "\n",
-            "utf8",
-        );
+        DataHelper.updateServiceData("test-data.json", "resale-of-units", "bookedUnitCode", bookedUnitCode);
 
         await logStep("Step 04: Open booking details > Click on resale of units");
         await app.bookingPage.openBookingDetails();
@@ -585,12 +568,13 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-09 - Developer approves known-buyer request", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const developerUserId = testData.developerUserId;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
+        const requestNumber = readResaleData.services["resale-of-units"].requestNumber;
+        const sapaPortalUrl = readResaleData.environments.sapaPortalUrl;
 
         await logStep("Step 01: Open partners portal");
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(sapaPortalUrl);
 
         await logStep("Step 02: Login to the platfrom");
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -601,7 +585,7 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
         await logStep("Step 04: Search by reference number and click on view deatails");
         await app.resaleOfUnitsPage.selectSearchByReference();
-        await app.resaleOfUnitsPage.fillRequestNumberInputfield(readResaleData["resale-of-units"].requestNumber);
+        await app.resaleOfUnitsPage.fillRequestNumberInputfield(requestNumber);
         await app.resaleOfUnitsPage.clickOnViewDetailsButton();
 
         await logStep("Step 05: Approve the request and verify the request is apporved");
@@ -613,9 +597,8 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 
     test("TC-10 - Buyer signs contract and pays waiver", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const buyerId = readResaleData["resale-of-units"].buyerrUserId;
+        const buyerId = readResaleData.services["resale-of-units"].buyerUserId;
         const userPortalUrl = readResaleData.environments.userPortalUrl;
 
         await logStep("Step 01: Open user portal");
@@ -648,31 +631,25 @@ test.describe("Resale Of Units - With Known Buyer", () => {
 });
 
 
-
-
-
-
-
 test.describe("Resale Of Units - With Unknown Buyer", () => {
     test("TC-01 - Add new project offplan project", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(120000);
-        const testData = readTestData();
         const app = new WebApp(page);
-
+        const environment = readResaleData.environments;
+        const data = readResaleData.services["resale-of-units"];
         const currentDate = DateUtils.getDateISO(600);
         const projectName = `Automation Project ${new Date()
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        const updatedData = { ...testData, projectName };
-        writeTestData(updatedData);
+        DataHelper.updateServiceData("test-data.json", "resale-of-units", "projectName", projectName);
 
-        // Project details
         await app.adminProjectPage.login(
-            updatedData.adminPortalUrl,
-            updatedData.adminUsername,
-            updatedData.adminPassword,
+            environment.adminPortalUrl,
+            data.adminUsername,
+            data.adminPassword,
         );
+
         await app.adminProjectPage.openProjectCreation();
         await page
             .locator("form-field-component")
@@ -971,12 +948,12 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-02 - Developer adds payment schedules", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const environment = readResaleData.environments;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
 
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
         await app.developerProjectPage.openProjectBySearch(projectName);
@@ -1005,18 +982,21 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-03 - Developer approves sales contract", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const developerUserId = testData.developerUserId;
+        const environment = readResaleData.environments;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
+
         await logStep("Step 01: Navigate to partners portal > Login");
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
+
         await logStep("Step 02: Navigate to searched project > Navigate to sale contracts ");
         await app.developerProjectPage.openProjectBySearch(projectName);
         await app.developerProjectPage.openSalesContractsTab();
         await app.developerProjectPage.viewAndApproveSalesContract();
+
         await logStep("Step 03: Approve sales contract and verify is approved");
         await app.developerProjectPage.approveUnitSpecification();
         await app.developerProjectPage.fillOtp("1234");
@@ -1026,11 +1006,11 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-04 - Seller books offplan unit and pay the fees", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const projectName = testData.projectName;
-        const seller = readResaleData["resale-of-units"].sellerUserId;
-        const userPortalUrl = readResaleData.environments.userPortalUrl;
+        const environment = readResaleData.environments;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+        const seller = readResaleData.services["resale-of-units"].sellerUserId;
+        const userPortalUrl = environment.userPortalUrl;
 
         await logStep("Step 01: Navigate to user portal > Login");
         await app.loginPage.gotoHomePage(userPortalUrl);
@@ -1072,9 +1052,8 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-05 - Seller signs sales contract", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const seller = readResaleData["resale-of-units"].sellerUserId;
+        const seller = readResaleData.services["resale-of-units"].sellerUserId;
         const userPortalUrl = readResaleData.environments.userPortalUrl;
 
         await logStep("Step 01: Open user portal");
@@ -1090,15 +1069,9 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
         await logStep("Step 03: Open active bookings");
         await app.bookingPage.openActiveBookings();
-        const bookedUnitCode =
-            await app.bookingPage.getBookedUnitCode();
+        const bookedUnitCode = await app.bookingPage.getBookedUnitCode();
         expect(bookedUnitCode).toBeTruthy();
-        testData.bookedUnitCode = bookedUnitCode;
-        fs.writeFileSync(
-            testDataPath,
-            JSON.stringify(testData, null, 2) + "\n",
-            "utf8",
-        );
+        DataHelper.updateServiceData("test-data.json", "resale-of-units", "bookedUnitCode", bookedUnitCode);
 
         await logStep("Step 04: Open booking details > Sign the sales contract");
         await app.bookingPage.openBookingDetails();
@@ -1107,37 +1080,46 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
         await app.unitBookingPage.expectSalesContractSuccess();
     });
 
-    test("TC-06 - Developer confirms the booking and adds annex", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-06 - Developer confirms the booking", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const developerUserId = testData.developerUserId;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
+        const sapaPortalUrl = readResaleData.environments.sapaPortalUrl;
+        const bookedUnitCode = readResaleData.services["resale-of-units"].bookedUnitCode;
+
         await logStep("Step 01: Navigate to partners portal > Login");
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(sapaPortalUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
+
         await logStep("Step 02: Navigate to booking page > Confirm booking");
-        await app.developerProjectPage.confirmBooking(testData.bookedUnitCode);
+        await app.developerProjectPage.confirmBooking(bookedUnitCode);
     });
 
 
     test("TC-07 - Admin configures project-level of resale settings", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
+
+        const adminPortalUrl = readResaleData.environments.adminPortalUrl;
+        const adminUsername = readResaleData.services["resale-of-units"].adminUsername;
+        const adminPassword = readResaleData.services["resale-of-units"].adminPassword;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
 
         await logStep("Step 01: Login to admin platform");
         await app.adminProjectPage.login(
-            testData.adminPortalUrl,
-            testData.adminUsername,
-            testData.adminPassword,
+            adminPortalUrl,
+            adminUsername,
+            adminPassword,
         );
+
         await logStep("Step 02: Search for project > navigate to resale settings");
         await app.adminProjectPage.openProjects();
-        await app.resaleOfUnitsPage.fillProjectName(testData.projectName);
+        await app.resaleOfUnitsPage.fillProjectName(projectName);
         await app.resaleOfUnitsPage.clickProjectSearchButton();
-        await app.resaleOfUnitsPage.clickSearchedProjectResult(testData.projectName);
+        await app.resaleOfUnitsPage.clickSearchedProjectResult(projectName);
         await app.resaleOfUnitsPage.clickOnResaleSettingTab();
+
         await logStep("Step 03: Apply the confiqguartion and save");
         await app.resaleOfUnitsPage.clickOnuseGeneralResaleSettingsSwitch();
         await app.resaleOfUnitsPage.selectResaleFeeType();
@@ -1150,17 +1132,10 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-08 - Seller submits new resale request for unkown buyer", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const seller = readResaleData["resale-of-units"].sellerUserId;
-        const buyerId = readResaleData["resale-of-units"].buyerrUserId;
-        const buyerDob = readResaleData["resale-of-units"].buyerDOB;
+        const seller = readResaleData.services["resale-of-units"].sellerUserId;
         const userPortalUrl = readResaleData.environments.userPortalUrl;
 
-
-        // await page.reload({ waitUntil: 'load' });
-        // // Reload and wait until there are no ongoing network requests for at least 500ms
-        // await page.reload({ waitUntil: 'networkidle' });
         await logStep("Step 01: Open user portal");
         await app.loginPage.gotoHomePage(userPortalUrl);
         await app.loginPage.acceptCookies();
@@ -1174,15 +1149,9 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
         await logStep("Step 03: Open complete bookings");
         await app.bookingPage.openCompletedBookings();
-        const bookedUnitCode =
-            await app.bookingPage.getBookedUnitCode();
+        const bookedUnitCode = await app.bookingPage.getBookedUnitCode();
         expect(bookedUnitCode).toBeTruthy();
-        testData.bookedUnitCode = bookedUnitCode;
-        fs.writeFileSync(
-            testDataPath,
-            JSON.stringify(testData, null, 2) + "\n",
-            "utf8",
-        );
+        DataHelper.updateServiceData("resale-of-units", "bookedUnitCode", bookedUnitCode);
 
         await logStep("Step 04: Open booking details > Click on resale of units");
         await app.bookingPage.openBookingDetails();
@@ -1190,7 +1159,6 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
         await logStep("Step 05: Select assign to unkown buyer");
         await app.resaleOfUnitsPage.clickOnAssignWithoutBuyerOption();
-
 
         await logStep("Step 06: Click on next to fainancial information");
         await app.resaleOfUnitsPage.clickOnNextToFinancialInfoButton();
@@ -1209,6 +1177,7 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
         await app.resaleOfUnitsPage.fillCompletionPercentageInputfield(100);
         await app.resaleOfUnitsPage.selectStatus();
         await app.resaleOfUnitsPage.clickOnAddInstallmentButton();
+
         await logStep("Step 10: Check on desclaimer waiver then click on submit the request");
         await app.resaleOfUnitsPage.clickOnDisclaimerWaiverCheckbox();
         await app.resaleOfUnitsPage.clickOnSubmitButton();
@@ -1219,12 +1188,14 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-09 - Developer approves unknown-buyer request", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const developerUserId = testData.developerUserId;
+        const environment = readResaleData.environments;
+        const projectName = readResaleData.services["resale-of-units"].projectName;
+        const developerUserId = readResaleData.services["resale-of-units"].developerUserId;
+        const requestNumber = readResaleData.services["resale-of-units"].requestNumber
 
         await logStep("Step 01: Open partners portal");
-        await app.developerProjectPage.gotoAuth(testData.sapaPortalUrl);
+        await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
 
         await logStep("Step 02: Login to the platfrom");
         await app.developerProjectPage.loginDeveloper(developerUserId);
@@ -1235,7 +1206,7 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
         await logStep("Step 04: Search by reference number and click on view deatails");
         await app.resaleOfUnitsPage.selectSearchByReference();
-        await app.resaleOfUnitsPage.fillRequestNumberInputfield(readResaleData["resale-of-units"].requestNumber);
+        await app.resaleOfUnitsPage.fillRequestNumberInputfield(requestNumber);
         await app.resaleOfUnitsPage.clickOnViewDetailsButton();
 
         await logStep("Step 05: Approve the request and verify the request is apporved");
@@ -1251,20 +1222,25 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-10 - Admin adds a buyer", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
-        const buyerId = readResaleData["resale-of-units"].buyerrUserId;
-        const buyerDob = readResaleData["resale-of-units"].buyerDOB;
         const app = new WebApp(page);
-        await logStep("Step 01: Login to admin portal");
+
+        const adminPortalUrl = readResaleData.environments.adminPortalUrl;
+        const adminUsername = readResaleData.services["resale-of-units"].adminUsername;
+        const adminPassword = readResaleData.services["resale-of-units"].adminPassword;
+        const buyerId = readResaleData.services["resale-of-units"].buyerUserId;
+        const buyerDob = readResaleData.services["resale-of-units"].buyerDOB;
+        const requestNumber = readResaleData.services["resale-of-units"].requestNumber;
+
+        await logStep("Step 01: Login to admin platform");
         await app.adminProjectPage.login(
-            testData.adminPortalUrl,
-            testData.adminUsername,
-            testData.adminPassword,
+            adminPortalUrl,
+            adminUsername,
+            adminPassword,
         );
 
         await logStep("Step 02: Navigate to resale requests page and search for request number");
         await app.adminProjectPage.openResaleRequests();
-        await app.resaleOfUnitsPage.fillRequestNumberInputfieldAdmin(readResaleData["resale-of-units"].requestNumber);
+        await app.resaleOfUnitsPage.fillRequestNumberInputfieldAdmin(requestNumber);
         await app.resaleOfUnitsPage.clickOnSearchButton();
         await app.resaleOfUnitsPage.clickOnSearchedResult();
 
@@ -1285,9 +1261,8 @@ test.describe("Resale Of Units - With Unknown Buyer", () => {
 
     test("TC-11 - Buyer signs contract and pays waiver", { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        const testData = readTestData();
         const app = new WebApp(page);
-        const buyerId = readResaleData["resale-of-units"].buyerrUserId;
+        const buyerId = readResaleData.services["resale-of-units"].buyerUserId;
         const userPortalUrl = readResaleData.environments.userPortalUrl;
 
         await logStep("Step 01: Open user portal");
