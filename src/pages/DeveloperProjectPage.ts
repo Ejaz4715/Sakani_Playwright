@@ -114,6 +114,8 @@ export class DeveloperProjectPage {
     await projectsLink.click();
   }
 
+
+
   async searchProject(projectName) {
     const projectFilter = this.page
       .locator(DeveloperObjects.projectFilter)
@@ -539,5 +541,99 @@ export class DeveloperProjectPage {
   async openTheFirstExistingProject() {
     await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().waitFor({ state: 'visible', timeout: DEFAULT_TIMEOUT });
     await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().click();
+  }
+
+  async clickOnReports() {
+    const reportsLink = this.page.getByRole(
+      DeveloperObjects.reportsLink.role,
+      { name: DeveloperObjects.reportsLink.name },
+    );
+    await this.waitForVisible(reportsLink);
+    await reportsLink.click();
+  }
+
+  async selectBookingsAndUnitsReport() {
+    const reportTypeDropdown = this.page
+      .locator(DeveloperObjects.reportTypeDropdown.xpath)
+    await this.waitForVisible(reportTypeDropdown);
+    await reportTypeDropdown.click();
+
+    const reportOption = this.page.getByRole(
+      DeveloperObjects.bookingsAndUnitsReportOption.role,
+      { name: DeveloperObjects.bookingsAndUnitsReportOption.name },
+    );
+    await this.waitForVisible(reportOption);
+    await reportOption.click();
+  }
+
+  async clickIssueTheReportButton() {
+    const issueTheReportButton = this.page.getByRole(
+      DeveloperObjects.issueTheReportButton.role,
+      { name: DeveloperObjects.issueTheReportButton.name },
+    );
+    await this.waitForVisible(issueTheReportButton);
+    await issueTheReportButton.click();
+  }
+  async clickIssueReportButton() {
+    const issueReportButton = this.page.getByRole(
+      DeveloperObjects.issueReportButton.role,
+      { name: DeveloperObjects.issueReportButton.name },
+    );
+    await this.waitForVisible(issueReportButton);
+    await issueReportButton.click();
+  }
+
+  async searchProjectForReport(projectName: string) {
+    const projectSearchInput = this.page.getByRole(
+      DeveloperObjects.projectSearchInputFieldForReport.role,
+      { name: DeveloperObjects.projectSearchInputFieldForReport.name },
+    );
+    await this.waitForVisible(projectSearchInput);
+    await projectSearchInput.fill(projectName);
+    await this.page.waitForTimeout(2000);
+    // await projectSearchInput.press("Backspace");
+
+    const projectResult = this.page
+      .locator(DeveloperObjects.projectResult.xpath)
+      .first();
+    if (await projectResult.isVisible()) {
+      await projectResult.click();
+    }
+  }
+
+  async refreshUntilReportStatusChanges() {
+    const status = this.page.locator(DeveloperObjects.status.xpath);
+    const deadline = Date.now() + LONG_TIMEOUT;
+
+    await this.waitForVisible(status);
+    while ((await status.innerText()).trim() === "تحت الإجراء") {
+      const remainingTime = deadline - Date.now();
+      if (remainingTime <= 0) {
+        throw new Error(
+          `Report status remained "تحت الإجراء" for ${LONG_TIMEOUT}ms`,
+        );
+      }
+
+      await this.page.waitForTimeout(Math.min(2000, remainingTime));
+      await this.page.reload();
+      await status.waitFor({
+        state: "visible",
+        timeout: Math.max(1, deadline - Date.now()),
+      });
+    }
+  }
+
+  async clickReportDownloadButton() {
+    const downloadButton = this.page.locator(
+      DeveloperObjects.downloadButton.xpath,
+    );
+    await this.waitForVisible(downloadButton);
+    await downloadButton.click();
+  }
+
+  async isReportAddedToastMessageVisible() {
+    return await this.page
+      .getByText(DeveloperObjects.reportAddedToastMessage)
+      .isVisible();
   }
 }

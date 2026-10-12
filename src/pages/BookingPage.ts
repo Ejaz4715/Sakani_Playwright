@@ -298,6 +298,7 @@ async clickBrochureButton() {
     const constructionStatusDropdown = this.page.locator(
       BookingCancellationObjects.constructionStatusDropdownButton.xpath,
     );
+    
     await this.click(constructionStatusDropdown);
 
     const constructionStatusOption = this.page.getByRole(

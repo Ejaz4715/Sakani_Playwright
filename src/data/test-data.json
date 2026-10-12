@@ -207,6 +207,14 @@
       "developerUserId": "1023129537",
       "unitWithoutSalesChannels": "02-01-0146-11-10003",
       "userId": "1300070834"
+    },
+
+    "generate-reports": {
+      "projectName": "Automation Project P_003",
+      "developerUserId": "1023129537"
+    },
+     "registration": {
+      "newUserId": ""
     }
   }
 }

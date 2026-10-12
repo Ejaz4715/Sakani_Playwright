@@ -37,6 +37,7 @@ import { StampManagementPage } from "@pages/StampManagementPage";
 import { DashboardViewPage } from "@pages/DashboardPageView";
 import { SalesChannel_TargetAudiencePage } from "@pages/SalesChannel_TargetAudiencePage";
 import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
+import { RegistrationPage } from '@pages/RegistrationPage'
 
 export class WebApp {
   page: Page;
@@ -78,6 +79,7 @@ export class WebApp {
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
   partnersLoginPage: InstanceType<typeof PartnersLoginPage>;
   stampManagementPage: InstanceType<typeof StampManagementPage>;
+  registrationPage: InstanceType<typeof RegistrationPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -149,5 +151,6 @@ export class WebApp {
     this.unitsDeliveryPage = new UnitsDeliveryPage (page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
     this.partnersLoginPage = new PartnersLoginPage(page);
+    this.registrationPage = new RegistrationPage(page);
   }
 }
