@@ -32,8 +32,6 @@ import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
-import {StampManagementPage} from "@pages/StampManagementPage";
-import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { PartnersLoginPage } from '@pages/PartnersLoginPage'
 import {StampManagementPage} from "@pages/StampManagementPage";
 import {DashboardViewPage} from "@pages/DashboardPageView";
@@ -75,10 +73,8 @@ export class WebApp {
   sortingPage: InstanceType<typeof SortingPage>;
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
-  stampManagementPage: InstanceType<typeof StampManagementPage>;
   dashboardViewPage: InstanceType<typeof DashboardViewPage>
   salesChannelTargetAudiencePage: InstanceType<typeof SalesChannel_TargetAudiencePage>
-
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
   partnersLoginPage: InstanceType<typeof PartnersLoginPage>;
   stampManagementPage: InstanceType<typeof StampManagementPage>;
