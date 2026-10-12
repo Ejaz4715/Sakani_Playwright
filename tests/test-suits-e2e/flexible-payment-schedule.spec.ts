@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 const path = require("path");
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
@@ -69,39 +69,53 @@ test.describe("Add flexible payment schedules", () => {
         await logStep("Step 08: Confirm the schedule > Validate the success message");
         await app.flexiblePaymentPage.clickOnConfirmButton();
         await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
-
-        // await page.getByRole('dialog').locator('a').filter({ hasText: 'الإدارة المالية' }).click();
-        // await page.getByRole('link', { name: 'جداول الدفع' }).click();
-        // await page.getByRole('button', { name: 'جدول جديد' }).click();
-        // await page.locator("//input[@placeholder='على سبيل المثال: خطة مرنة لمدة عامين']").fill('test arabic title');
-        // await page.locator("//input[@placeholder='خطة مرنة لمدة عامين']").fill('test english title');
-        // await page.getByRole('combobox').click();
-        // await page.getByRole('option', { name: 'نسبة الإنجاز' }).click();
-        // await page.getByRole('textbox', { name: 'مثال: 10%' }).fill('2');
-        // await page.getByRole('button', { name: 'عقد أساسي' }).click();
-        // await page.getByRole('button', { name: 'التالي' }).click();
-        // await page.getByRole('textbox', { name: 'مثال: 15%' }).first().fill('30');
-        // await page.getByRole('textbox', { name: 'مثال: 15%' }).nth(1).fill('30');
-        // await page.getByRole('textbox', { name: 'مثال: 15%' }).nth(2).fill('30');
-        // await page.getByRole('textbox', { name: 'مثال: 15%' }).nth(3).fill('60');
-        // await page.getByRole('textbox', { name: 'مثال: 15%' }).nth(4).fill('40');
-        // await page.getByRole('textbox', { name: 'مثال: 15%' }).nth(5).fill('100');
-        // await page.getByRole('button', { name: 'التالي' }).click();
-        // await page.getByRole('textbox', { name: 'ابحث برمز المشروع أو اسمه' }).fill('Automation Project P_003');
-        // await page.getByRole('cell').filter({ hasText: /^$/ }).click();
-        // await page.getByRole('cell').filter({ hasText: /^$/ }).check();
-        // await page.getByRole('button', { name: 'التالي' }).click();
-        // await page.getByText('جميع الوحدات المتاحة الحالية والمستقبلية').click();
-        // await page.getByText('جميع الوحدات المتاحة الحالية والمستقبلية').check();
-        // await page.getByRole('button', { name: 'التالي' }).click();
-        // await page.getByRole('button', { name: 'تأكيد' }).click();
-        // await page.getByText('تم إنشاء جدول الدفع بنجاح').click();
-        // await page.getByRole('button', { name: 'الانتقال إلى التفاصيل' }).click();
-        // await page.getByRole('heading', { name: 'تفاصيل جدول الدفع' }).click();
-        //span[normalize-space ()='تحديث']
     });
 
-    test("TC-02 Delete flexible payment schedule (Completion percentage)", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-02 Edit payment schedule (Completion percentage)", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+        test.setTimeout(0);
+        //read data from json relative to the service
+        const environment = readEnvironments();
+        const data = readServiceData();
+        const app = new WebApp(page);
+        const developerUserId = data.developerUserId;
+        const sapaPortalUrl = environment.sapaPortalUrl;
+        const scheduleTitleAr = data.scheduleTitleAr;
+        const benefitPercenatage = "5";
+
+        await logStep("Step 01: Login as developer to sapa portal and open the project");
+        await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
+        await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        await app.partnersLoginPage.switchRoleToDeveloper();
+
+        await logStep("Step 02: Navigate to financials management > Payment Schedules");
+        await app.flexiblePaymentPage.clickOnFinancialManagement();
+        await app.flexiblePaymentPage.clickOnPaymentSchedules();
+
+        await logStep("Step 03: Search for a schedule > View details of the schedule");
+        await app.flexiblePaymentPage.searchScheduleByTitle(scheduleTitleAr);
+        await page.waitForTimeout(5000);
+        await app.flexiblePaymentPage.clickOnScheduleDetails();
+
+        await logStep("Step 04: Edit schedule > Add Benefit percentage and confirm the update");
+        await app.flexiblePaymentPage.clickOnEditSchedule();
+        const valBefore = await app.flexiblePaymentPage.getBenefitPercenategValue();
+        expect(Number(valBefore?.replace('%', '').trim())).toEqual(0);
+        await app.flexiblePaymentPage.clickOnNextButton();
+        await app.flexiblePaymentPage.clickOnNextButton();
+        await app.flexiblePaymentPage.clickOnNextButton();
+        await app.flexiblePaymentPage.enterBenefitPercentage(benefitPercenatage);
+        await app.flexiblePaymentPage.clickOnNextButton();
+        await app.flexiblePaymentPage.clickOnConfirmButton();
+        
+        await logStep("Step 04: Validate the success update message > Validate the value is reflected in the details schedule details page");
+        await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
+        await app.flexiblePaymentPage.clickGoToDetailsButton();
+        const valAfter = await app.flexiblePaymentPage.getBenefitPercenategValue();
+        expect(Number(valAfter?.replace('%', '').trim())).toEqual(Number(benefitPercenatage));
+    });
+
+
+    test("TC-03 Delete flexible payment schedule (Completion percentage)", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
         const environment = readEnvironments();
@@ -135,7 +149,7 @@ test.describe("Add flexible payment schedules", () => {
         await app.flexiblePaymentPage.clickOnScheduleDeletedMessage();
     });
 
-    test("TC-03 Add flexible payment schedule (Specific period)", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-04 Add flexible payment schedule (Specific period)", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
         const environment = readEnvironments();
@@ -195,7 +209,7 @@ test.describe("Add flexible payment schedules", () => {
         await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
     });
 
-    test("TC-04 Delete flexible payment schedule (Specific period)", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-05 Delete flexible payment schedule (Specific period)", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
         const environment = readEnvironments();
