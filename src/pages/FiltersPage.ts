@@ -113,6 +113,11 @@ export class FiltersPage {
         await expect(option).toBeVisible({ timeout: 90000 });
         await option.click();
     }
+    async clickOnReadyMadeUnits(){
+        const option = this.page.locator(FiltersObjects.readyMadeUnits.xpath);
+        await expect(option).toBeVisible({ timeout: 90000 });
+        await option.click();
+    }
 
     async clickOnFilterResultButton() {
         const button = this.page.locator(FiltersObjects.filterResultButton.xpath);

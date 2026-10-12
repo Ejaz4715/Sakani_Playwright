@@ -72,5 +72,34 @@ export const DeveloperObjects = {
   crmBankSelector:"//span[contains(text(),'CRM Bank Test')]",
   confirmCompanyBooking:"//span[contains(text(),'تأكيد')]/..",
   showBookingDetailsButton:"//button[contains(text(),'عرض التفاصيل')]",
-  cancelButtonOnPopUp: { role: 'button', name: 'إلغاء' }
+  cancelButtonOnPopUp: { role: 'button', name: 'إلغاء' },
+
+//Generate reports
+
+reportsLink: { role: "link", name: "التقارير" },
+reportTypeDropdown: {
+ xpath:"//label[text()=' حدد نوع التقرير']/ancestor::app-sapa-dropdown/descendant::ng-select"
+},
+bookingsAndUnitsReportOption: {
+  role: "option",
+  name: "الحجوزات والوحدات",
+},
+issueTheReportButton: { role: "button", name: "إصدار التقرير" },
+
+issueReportButton: { role: "button", name: "إصدار تقرير" },
+reportAddedToastMessage: "تمت إضافة التقرير",
+projectSearchInputFieldForReport: { role: "textbox", name: "بحث عن مشروع" },
+projectResult:{
+  xpath:"//label[@class='form-check-label']"
+},
+
+downloadButton:{
+  xpath:"(//button[text()=' تحميل '])[1]"
+},
+
+status:{
+  xpath:"(//datatable-body-cell)[3]/descendant::span"
+},
+
+
 } as const;

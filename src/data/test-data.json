@@ -187,7 +187,16 @@
     },
     "readymade": {
       "projectName": "Ready MOH 001",
-      "sakaniUserId": "1441376098"
+      "sakaniUserId": "1320005201"
+    },
+
+    "generate-reports": {
+      "projectName": "Automation Project P_003",
+      "developerUserId": "1023129537"
+    },
+
+     "registration": {
+      "newUserId": ""
     }
   }
 }

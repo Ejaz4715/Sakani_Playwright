@@ -180,7 +180,7 @@ saveButton:{
 },
 
 unitResultCard:{
-  xpath:"//app-marketplace-project-card-template"
+  xpath:"(//app-marketplace-project-card-template)[1]"
 },
 unitResultDetailsPage:{
   xpath:"//app-property-dx-page"

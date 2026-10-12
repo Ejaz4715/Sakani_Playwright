@@ -19,7 +19,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 
 test.describe("ReadyMade Booking", () => {
-
     test("TC-01 User books readymade unit", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
@@ -45,28 +44,23 @@ test.describe("ReadyMade Booking", () => {
         await app.projectDetailsPage.openUnitsAndScroll();
 
         await logStep("Step 03: Open a unit and start the booking");
-        const page1Promise = page.waitForEvent("popup");
+
         // await app.marketplaceLandingPage.openResidentialUnit();
+
+        await app.projectUnitsPage.selectLand(1);
+        const page1Promise = page.waitForEvent("popup");
         const page1 = await page1Promise;
-        const page2Promise = page1.waitForEvent("popup");
-        {
-            const unitApp = new WebApp(page1);
-            await unitApp.projectUnitsPage.openUnitInPopup(1);
-        }
-        const page2 = await page2Promise;
-        {
-            let bookingPage = page2;
-            let bookingApp = new WebApp(bookingPage);
+        // const page2Promise = page1.waitForEvent("popup");
 
-            await logStep("Step 04: Confirm terms and conditons");
-            await bookingApp.unitDetailsPage.reserveUnit();
-            await bookingApp.unitBookingPage.acceptTermsAndConfirm();
+        const unitApp = new WebApp(page1);
 
-            await logStep("Step 05: Validate payment success");
-            //   await bookingApp.paymentGatewayPage.fillCardDetails();
-            await bookingApp.paymentConfirmationPage.closePayment();
-            await bookingApp.paymentConfirmationPage.expectSuccessMessage();
-        }
+
+        await logStep("Step 05: Complete the booking and sign contract");
+        await app.unitDetailsPage.reserveUnit();
+        await app.unitBookingPage.signMohLandBookingContract();
+        await logStep("Step 05: Validate the success page");
+        await expect(page.getByText("تهانينا!")).toBeVisible();
+
     });
 
 });

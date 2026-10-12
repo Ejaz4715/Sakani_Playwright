@@ -34,6 +34,7 @@ import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
 import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { PartnersLoginPage } from '@pages/PartnersLoginPage'
+import { RegistrationPage } from '@pages/RegistrationPage'
 
 export class WebApp {
   page: Page;
@@ -72,6 +73,8 @@ export class WebApp {
   tagsPage: InstanceType<typeof TagsPage>;
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
   partnersLoginPage: InstanceType<typeof PartnersLoginPage>;
+  registrationPage: InstanceType<typeof RegistrationPage>;
+
 
   constructor(page: Page) {
     this.page = page;
@@ -123,5 +126,6 @@ export class WebApp {
     this.unitsDeliveryPage = new UnitsDeliveryPage (page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
     this.partnersLoginPage = new PartnersLoginPage(page);
+    this.registrationPage = new RegistrationPage(page);
   }
 }
