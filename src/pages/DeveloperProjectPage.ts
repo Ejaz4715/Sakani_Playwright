@@ -455,6 +455,29 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.projectNameOptionSelector).click();
   }
 
+  async bookUnitsForCustomersUsingUnitCode(nationalIdentity:string ,unitCode:string){
+    await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
+
+    await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
+
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
+
+    const searchButton = this.page.getByRole(
+        DeveloperObjects.searchButton.role,
+        { name: DeveloperObjects.searchButton.name },
+    );
+    await this.waitForVisible(searchButton);
+    await searchButton.click();
+
+    const nextButton = this.page.locator(DeveloperObjects.nextButton);
+    await expect(nextButton).toBeEnabled({ timeout: DEFAULT_TIMEOUT });
+    await nextButton.click();
+
+    await this.page.waitForTimeout(3000);
+    await this.page.locator(DeveloperObjects.unitCodeTextfield).fill(unitCode);
+  }
+
   async bookUnitsForCompanies(companyUserId:string,companyCR:string,projectName:string){
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
@@ -514,6 +537,11 @@ export class DeveloperProjectPage {
   async isBookingListButtonVisible(){
     await this.page.locator(DeveloperObjects.bookingListButton).waitFor({state: 'visible',timeout:90000});
     return await this.page.locator(DeveloperObjects.bookingListButton).isVisible();
+  }
+
+  async openTheFirstExistingProject(){
+    await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().waitFor({state: 'visible',timeout: DEFAULT_TIMEOUT});
+    await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().click();
   }
 
 }

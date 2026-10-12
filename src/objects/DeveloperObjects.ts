@@ -67,4 +67,6 @@ export const DeveloperObjects = {
   crmBankSelector:"//span[contains(text(),'CRM Bank Test')]",
   confirmCompanyBooking:"//span[contains(text(),'تأكيد')]/..",
   showBookingDetailsButton:"//button[contains(text(),'عرض التفاصيل')]",
+  showFirstProjectDetails:"datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
+  unitCodeTextfield:".input-icon-container input",
 } as const;
