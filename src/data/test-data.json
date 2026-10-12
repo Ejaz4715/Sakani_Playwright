@@ -197,6 +197,12 @@
       "unitCodeUpdatePrice": "02-01-0149-8-104",
       "exsitingPrice": "28008",
       "updatedPrice": 28010
+    },
+    "flexible-payment-schedule": {
+      "projectName": "Automation Project P_003",
+      "developerUserId": "1023129537",
+      "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261012104113",
+      "scheduleTitleEn": "Automation Flexible Payment Schedule 20261012104113"
     }
   }
 }
