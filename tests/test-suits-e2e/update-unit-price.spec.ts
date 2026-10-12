@@ -73,7 +73,7 @@ test.describe("Update unit price from partners", () => {
         await app.updateUnitsPage.clickConfirmYesButton();
     });
 
-    test("TC-01 Verify the price of the unit has been updated", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-02 Verify the price of the unit has been updated", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
         const environment = readEnvironments();
