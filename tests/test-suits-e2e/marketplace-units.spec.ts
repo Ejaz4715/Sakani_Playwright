@@ -26,15 +26,16 @@ test.describe("Marketplace Units", () => {
         await app.loginPage.gotoHomePage(userPortalUrl);
         await app.loginPage.acceptCookies();
         await app.filtersPage.clickOnPropertiesForSaleButton();
-        await app.filtersPage.clickOnOffPlanSaleUnits();
+        await app.filtersPage.clickOnReadyMadeUnits();
         await logStep("Step 02: Filter for unit > Verify the unit is present");
-        await app.bookingPage.selectConstructionStatus();
-        await app.bookingPage.clickOnSaveButton();
         await app.bookingPage.selectPropertyType();
         await app.bookingPage.clickOnSaveButton();
+        const unitDetailsPagePromise = page.waitForEvent("popup");
         await app.bookingPage.clickUnitResultCard();
-        const page1Promise = page.waitForEvent("popup");
-        await app.bookingPage.verifyElementVisibility(BookingCancellationObjects.unitResultDetailsPage, true);
+        const unitDetailsPage = await unitDetailsPagePromise;
+        await expect(
+            unitDetailsPage.locator(BookingCancellationObjects.unitResultDetailsPage.xpath),
+        ).toBeVisible();
 
     });
 

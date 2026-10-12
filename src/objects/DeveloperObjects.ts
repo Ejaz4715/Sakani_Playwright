@@ -151,5 +151,4 @@ export const DeveloperObjects = {
     "datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
   unitCodeTextfield:
     ".input-icon-container input",
-
 } as const;

@@ -6,6 +6,9 @@ export const FiltersObjects = {
     offPlanSaleUnits: {
         xpath: "//div[text()=' وحدات البيع على الخارطة ']",
     },
+    readyMadeUnits: {
+        xpath: "//div[text()=' الوحدات الجاهزة ']",
+    },
     filterResultButton: {
         xpath: "//span[text()='تصفية النتائج']",
     },
