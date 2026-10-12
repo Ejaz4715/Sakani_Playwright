@@ -79,12 +79,9 @@ export const UpdateUnitsObjects = {
     name: "تأكيد",
   },
   unitPriceWorkbook: {
-    sheetName:
-      "Project Units Prices",
-    unitCodeColumn:
-      "Product Code|Product Number",
-    marketPriceColumn:
-      "Market Price",
+    sheetName:"Project Units Prices",
+    unitCodeColumn:"Product Code|Product Number",
+    marketPriceColumn: "Market Price",
     priceColumns: [
       "Market Price",
       "MOH Price",

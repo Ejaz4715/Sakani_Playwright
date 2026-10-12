@@ -133,5 +133,21 @@ export class WebApp {
     this.updateUnitsPage = new UpdateUnitsPage(page);
     this.partnersLoginPage = new PartnersLoginPage(page);
     this.stampManagementPage = new StampManagementPage(page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
+    this.createMegaProjectPage = new CreateMegaProjectPage (page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
+    this.paymentTrackingPage = new PaymentTrackingPage (page);
+    this.rentalBehavrioPage = new RentalBehaviorPage (page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
+    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage (page);
+    this.buyDesignPage = new BuyDesignPage (page);
+    this.waitingListPage = new WaitingListPage (page);
+    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage (page);
+    this.cashPaymentPage = new CashPaymentPage (page);
+    this.publishUnitPage = new PublishUnitPage (page);
+    this.unitsDeliveryPage = new UnitsDeliveryPage (page);
+    this.updateUnitsPage = new UpdateUnitsPage(page);
+    this.partnersLoginPage = new PartnersLoginPage(page);
   }
 }

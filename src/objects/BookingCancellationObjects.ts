@@ -1,7 +1,10 @@
 export const BookingCancellationObjects = {
-  userProfileButton: "//button[@id='profile-dropdown']",
-  myBookingsLink: "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'حجوزاتي')]",
-  manageProfile: "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'إدارة الملف الشخصي')]",
+  userProfileButton:
+    "//button[@id='profile-dropdown']",
+  myBookingsLink:
+    "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'حجوزاتي')]",
+  manageProfile:
+    "//div[@aria-labelledby='profile-dropdown']/descendant::span[contains (text(), 'إدارة الملف الشخصي')]",
   activeBookingsTab: {
     role: "tab", name: "نشطة"
   },
@@ -134,6 +137,7 @@ export const BookingCancellationObjects = {
   developerInfoPage: {
     xpath: "//app-dx-partner-info-section"
   },
+
   //Secure payment schedule
   viewDetailsButton: {
     xpath: "//button[contains(text(), 'عرض التفاصيل')]"

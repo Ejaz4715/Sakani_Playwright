@@ -13,7 +13,8 @@ export const DeveloperObjects = {
   switchRoleButton: {
     role: "button", name: "التبديل إلى"
   },
-  developerRoleText: "شركة تطوير عقارية",
+  developerRoleText:
+    "شركة تطوير عقارية",
   menuIcon:
     ".svg-icon.svg-icon-v2-24.icon-menu-v2",
   verifyOTPButton: {
@@ -68,7 +69,8 @@ export const DeveloperObjects = {
   },
   addUnitSpecificationButton:
     "//button[contains(text(), 'إضافة مواصفات الوحدة')]/following-sibling::button[contains(text(), 'اعتماد')]",
-  otpInput: "//app-sapa-otp-verification//input",
+  otpInput:
+    "//app-sapa-otp-verification//input",
   verifyCodeButton: {
     role: "button", name: "التحقق من الرمز"
   },
@@ -149,4 +151,5 @@ export const DeveloperObjects = {
     "datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
   unitCodeTextfield:
     ".input-icon-container input",
+
 } as const;

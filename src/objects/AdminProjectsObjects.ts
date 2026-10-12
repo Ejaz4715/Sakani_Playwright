@@ -4,19 +4,23 @@ export const AdminObjects = {
     label: "إسم المشروع *",
     placeholder: "إسم المشروع",
   },
-  projectTypeDropdown: "//mat-select[@formcontrolname='project_type']",
+  projectTypeDropdown:
+    "//mat-select[@formcontrolname='project_type']",
   async projectTypeOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
-  regionDropdown: "//ng-select[@formcontrolname='region_id']",
+  regionDropdown:
+    "//ng-select[@formcontrolname='region_id']",
   async regionOption(text: string) {
     return `//div[@role='option']/child::span[normalize-space() ='${text}']`;
   },
-  cityDropdown: "//input[@id='inputCity']",
+  cityDropdown:
+    "//input[@id='inputCity']",
   async cityOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
-  developerInput: "//input[@id='inputDeveloper']",
+  developerInput:
+    "//input[@id='inputDeveloper']",
   async developerOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
@@ -24,7 +28,8 @@ export const AdminObjects = {
     role: "switch",
     name: "قابل للحجز؟",
   },
-  statusDropdown: "//mat-select[@formcontrolname='status']",
+  statusDropdown:
+    "//mat-select[@formcontrolname='status']",
   async projectStatusOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
@@ -32,11 +37,13 @@ export const AdminObjects = {
     role: "textbox",
     name: "تاريخ انتهاء رخصة البيع في وافي",
   },
-  subsidyTypeDropdown: "//mat-select[@formcontrolname='subsidy_type']",
+  subsidyTypeDropdown:
+    "//mat-select[@formcontrolname='subsidy_type']",
   async subsidyTypeOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
-  maxSubsidyAmountField: "//input[@formcontrolname='max_subsidy_amount']",
+  maxSubsidyAmountField:
+    "//input[@formcontrolname='max_subsidy_amount']",
   projectAgreementDate: {
     role: "textbox",
     name: "تاريخ توقيع الاتفاقيه للمشروع",
@@ -57,11 +64,13 @@ export const AdminObjects = {
     role: "textbox",
     name: "رقم حساب الضمان",
   },
-  bankDropdown: "//app-nsar-dropdown[@formcontrolname='bank_name']/descendant::ng-select",
+  bankDropdown:
+    "//app-nsar-dropdown[@formcontrolname='bank_name']/descendant::ng-select",
   async bankOption(text: string) {
     return `//div[@role = 'option']/descendant::span[normalize-space() ='${text}']`;
   },
-  deductionPercentageField: "//input[@formcontrolname='deduct_percentage']",
+  deductionPercentageField:
+    "//input[@formcontrolname='deduct_percentage']",
   deedIssueCityArabic: {
     role: "textbox",
     name: "المدينة المصدر منها الصك (بالعربية)",
@@ -82,7 +91,8 @@ export const AdminObjects = {
   saveSuccessMessage: {
     text: "تم الحفظ بنجاح!",
   },
-  azmToggle: "//label[contains (text(), 'AZM')]/preceding-sibling::button",
+  azmToggle:
+    "//label[contains (text(), 'AZM')]/preceding-sibling::button",
   financingEntitiesHeading: {
     text: /قائمة الجهات التمويلية/i,
   },
@@ -115,7 +125,8 @@ export const AdminObjects = {
     role: "button",
     name: " حفظ",
   },
-  importInProgressMessage: "//div[text() = 'الرمز المرجعي للعملية']",
+  importInProgressMessage:
+    "//div[text() = 'الرمز المرجعي للعملية']",
   importCompleteMessage: {
     text: "تم إكمال الإجراء",
     exact: true,
@@ -136,10 +147,14 @@ export const AdminObjects = {
     selector: "span",
     text: /المحتوى المرئي/i,
   },
-  bannerImageInput: "//h1[contains (text(), 'الصورة الإعلانية')]/parent::div/following-sibling::div/child::input[@type='file']",
-  masterPlanImageInput: "//h1[contains (text(), 'ملف المخطط الرئيسي ')]/parent::div/following-sibling::div/child::input[@type='file']",
-  aerialImageInput: "//h1[contains (text(), 'صورة العر')]/parent::div/following-sibling::div/child::input[@type='file']",
-  uploadButton: "//mat-icon[contains (text(), 'file_upload')]",
+  bannerImageInput:
+    "//h1[contains (text(), 'الصورة الإعلانية')]/parent::div/following-sibling::div/child::input[@type='file']",
+  masterPlanImageInput:
+    "//h1[contains (text(), 'ملف المخطط الرئيسي ')]/parent::div/following-sibling::div/child::input[@type='file']",
+  aerialImageInput:
+    "//h1[contains (text(), 'صورة العر')]/parent::div/following-sibling::div/child::input[@type='file']",
+  uploadButton:
+    "//mat-icon[contains (text(), 'file_upload')]",
   displayMethodDropdown: {
     selector: "div",
     text: /^Display method$/,
@@ -195,9 +210,12 @@ export const AdminObjects = {
     role: "spinbutton",
     name: "خط الطول",
   },
-  uploadStatus: "//button[contains (@class, 'uploadStatus')]",
-  guarenteeAfterServices: "//input[@formcontrolname='guarantees_after_service']",
-  mediaSaveButton: "#save_btn",
+  uploadStatus:
+    "//button[contains (@class, 'uploadStatus')]",
+  guarenteeAfterServices:
+    "//input[@formcontrolname='guarantees_after_service']",
+  mediaSaveButton:
+    "#save_btn",
   projectDetailsTab: {
     role: "tab",
     name: "تفاصيل المشروع",
@@ -277,7 +295,10 @@ export const AdminObjects = {
   developerPhoneNumberInputfiled: {
     xpath: "//app-phone-input/descendant::input"
   },
-  bookingAvailableToggle: "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
-  projectPublishedToggle: "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
-  rightTabArrow: "//mat-icon[contains (text(), 'chevron_right')]"
+  bookingAvailableToggle:
+    "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
+  projectPublishedToggle:
+    "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
+  rightTabArrow:
+    "//mat-icon[contains (text(), 'chevron_right')]",
 } as const;
