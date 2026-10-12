@@ -155,7 +155,7 @@
     "sales-channels-target-audience-unit-issuance": {
       "developerUserId": "1023129537",
       "unitWithoutSalesChannels": "02-01-0146-11-10003",
-      "userId": "1300070834"
+      "userId": "1300070834",
       "sakaniUserId": "1441376098"
     },
     "update-participated-bank": {
@@ -211,7 +211,7 @@
 
      "readymade": {
       "projectName": "Ready MOH 001",
-      "sakaniUserId": "1441376098"
+      "sakaniUserId": "1441376098",
       "projectName": "Automation Project P_003",
       "projectCode": "02-01-0149",
       "availableUnitCode": "02-01-0149-5-101",
@@ -236,7 +236,7 @@
     },
     "secure-payment-schedules": {
       "projectName": "Automation Project Offplan 20261006143505",
-      "sakaniUserId": "1300070834"
+      "sakaniUserId": "1300070834",
       "sakaniUserId": "1441376098",
       "deliveryUnitCode": "01-01-0720-5-101"
     },
@@ -252,4 +252,3 @@
       "userId": "1300070834"
     }
   }
-}
