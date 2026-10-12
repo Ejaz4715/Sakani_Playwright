@@ -2,7 +2,7 @@ import { expect, Page } from "@playwright/test";
 import { FlexiblePaymentObjects } from '@objects/FlexiblePaymentObjects';
 import { BookingAndSelectPaymentMethodObjects } from '@objects/BookingAndSelectPaymentMethodObjects';
 
-let DEFAULT_TIMEOUT=30_000
+let DEFAULT_TIMEOUT = 30_000
 export class FlexiblePaymentPage {
     page: Page;
     constructor(page: Page) {
@@ -33,16 +33,25 @@ export class FlexiblePaymentPage {
             FlexiblePaymentObjects.newScheduleButton.role, {
             name: FlexiblePaymentObjects.newScheduleButton.name
         }
-    );
+        );
         await expect(newScheduleButton).toBeVisible({ timeout: 90000 });
         await newScheduleButton.click();
     }
+
     async enterScheduleNameInArabic(arabicName: string) {
         const scheduleNameInArabicInputfield = this.page.locator(
             FlexiblePaymentObjects.scheduleNameInArabicInputfield.xpath
         );
         await expect(scheduleNameInArabicInputfield).toBeVisible({ timeout: 90000 });
         await scheduleNameInArabicInputfield.fill(arabicName);
+    }
+
+    async enterScheduleNameInEnglish(englishName: string) {
+        const scheduleNameInArabicInputfield = this.page.locator(
+            FlexiblePaymentObjects.scheduleNameInEnglishInputfield.xpath
+        );
+        await expect(scheduleNameInArabicInputfield).toBeVisible({ timeout: 90000 });
+        await scheduleNameInArabicInputfield.fill(englishName);
     }
 
     async selectScheduleType(scheduleType: "completionPercentage" | "specificPeriod") {
@@ -169,8 +178,45 @@ export class FlexiblePaymentPage {
         await expect(successfulMessage).toBeVisible({ timeout: 90000 });
     }
 
+    async searchScheduleByTitle(title: string) {
+        const scheduleSearchInputfield = this.page.locator(
+            FlexiblePaymentObjects.scheduleSearchInputfield.xpath
+        );
 
-    async selectPalnType() {
+        await expect(scheduleSearchInputfield).toBeVisible({ timeout: 90000 });
+        await scheduleSearchInputfield.fill(title);
+    }
+
+    async clickOnScheduleDetails() {
+        const scheduleDetailsButton = this.page.getByRole(
+            FlexiblePaymentObjects.scheduleDetailsButton.role,
+            { name: FlexiblePaymentObjects.scheduleDetailsButton.name }
+        );
+
+        await expect(scheduleDetailsButton).toBeVisible({ timeout: 90000 });
+        await scheduleDetailsButton.click();
+    }
+
+    async clickOnDeleteSchedule() {
+        const deleteScheduleButton = this.page.getByRole(
+            FlexiblePaymentObjects.deleteScheduleButton.role,
+            { name: FlexiblePaymentObjects.deleteScheduleButton.name }
+        );
+
+        await expect(deleteScheduleButton).toBeVisible({ timeout: 90000 });
+        await deleteScheduleButton.click();
+    }
+
+    async clickOnScheduleDeletedMessage() {
+        const scheduleDeletedMessage = this.page.getByText(
+            FlexiblePaymentObjects.scheduleDeletedMessage.text
+        );
+
+        await expect(scheduleDeletedMessage).toBeVisible({ timeout: 90000 });
+        await scheduleDeletedMessage.click();
+    }
+
+    async selectPlanTypeMonthly() {
         const planTypeDropdownList = this.page.locator(
             FlexiblePaymentObjects.planTypeDropdownList.xpath
         );
@@ -197,34 +243,34 @@ export class FlexiblePaymentPage {
     }
 
     async clickOnCashPayment() {
-        await this.page.locator(FlexiblePaymentObjects.payCash.css).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.payCash.css).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
         await this.page.locator(FlexiblePaymentObjects.payCash.css).click();
     }
 
     async clickOnCustomerDropdownMenu() {
-        await this.page.locator(FlexiblePaymentObjects.customerTypeDropdown.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.customerTypeDropdown.xpath).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
         await this.page.locator(FlexiblePaymentObjects.customerTypeDropdown.xpath).click();
     }
 
     async selectIndividualCustomersType() {
-        await this.page.locator(FlexiblePaymentObjects.individualCustomersType.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.individualCustomersType.xpath).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
         await this.page.locator(FlexiblePaymentObjects.individualCustomersType.xpath).click();
     }
 
 
-    async fillNationalIdentity(nationalIdentity:string) {
-        await this.page.locator(FlexiblePaymentObjects.nationalIdentityField.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+    async fillNationalIdentity(nationalIdentity: string) {
+        await this.page.locator(FlexiblePaymentObjects.nationalIdentityField.xpath).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
         await this.page.locator(FlexiblePaymentObjects.nationalIdentityField.xpath).fill(nationalIdentity);
 
     }
 
     async clickOnSearch() {
-        await this.page.locator(FlexiblePaymentObjects.searchButton.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.searchButton.xpath).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
         await this.page.locator(FlexiblePaymentObjects.searchButton.xpath).click();
     }
 
     async viewTheBookedUnitDetails() {
-        await this.page.locator(FlexiblePaymentObjects.bookedUnitDetailsIcon.xpath).waitFor({state:"visible",timeout:DEFAULT_TIMEOUT});
+        await this.page.locator(FlexiblePaymentObjects.bookedUnitDetailsIcon.xpath).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
         await this.page.locator(FlexiblePaymentObjects.bookedUnitDetailsIcon.xpath).click();
     }
 
