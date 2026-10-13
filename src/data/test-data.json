@@ -11,7 +11,7 @@
       "adminPassword": "admin",
       "developerUserId": "1023129537",
       "sakaniUserId": "1300061022",
-      "bookedUnitCode": "01-01-0655-16-112"
+      "bookedUnitCode": "01-01-0674-7-103"
     },
     "auction-journey": {
       "projectName": "",
@@ -27,7 +27,8 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserIdMoh": "1019075999",
-      "projectName": "Automation Moh Land Project 20261006145616"
+      "projectName": "Automation Moh Land Project 20261006145616",
+      "Name": "qqqqqqqqq"
     },
     "loyalty-sharrai": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
@@ -91,7 +92,7 @@
       "projectName": "Automation Project 20261006110013",
       "companyUser": "1001234342",
       "companyCR": "7001234342",
-      "companyUnitCode": "01-01-0714-5-101"
+      "companyUnitCode": "01-01-0702-7-103"
     },
     "unit-delivery": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
@@ -149,7 +150,12 @@
       "developerUserId": "1023129537"
     },
     "dashboard-view": {
+      "developerUserId": "1023129537"
+    },
+    "sales-channels-target-audience-unit-issuance": {
       "developerUserId": "1023129537",
+      "unitWithoutSalesChannels": "02-01-0146-11-10003",
+      "userId": "1300070834",
       "sakaniUserId": "1441376098"
     },
     "update-participated-bank": {
@@ -168,6 +174,13 @@
       "projectName": "readymade private land",
       "sakaniUserId": "1441376098"
     },
+    "update-unit": {
+      "projectName": "Automation Project P_003",
+      "projectCode": "02-01-0149",
+      "availableUnitCode": "02-01-0149-5-101",
+      "bookedUnitCode": "02-01-0149-6-102",
+      "developerUserId": "1023129537"
+    },
     "card-details": {
       "projectName": "Automation Project P_003",
       "sakaniUserId": "1441376098"
@@ -181,14 +194,12 @@
     },
     "secure-payment-schedules": {
       "projectName": "Automation Project Offplan 20261006143505",
-      "sakaniUserId": "1300070834"
+      "sakaniUserId": "1441376098",
+      "deliveryUnitCode": "01-01-0720-5-101"
     },
     "readymade": {
-      "projectName": "Ready MOH 001",
-      "sakaniUserId": "1441376098"
-    },
-    "update-unit": {
       "projectName": "Automation Project P_003",
+      "sakaniUserId": "1441376098",
       "projectCode": "02-01-0149",
       "availableUnitCode": "02-01-0149-5-101",
       "bookedUnitCode": "02-01-0149-6-102",
@@ -200,21 +211,14 @@
     "flexible-payment-schedule": {
       "projectName": "Automation Project P_003",
       "developerUserId": "1023129537",
-      "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261012103838",
-      "scheduleTitleEn": "Automation Flexible Payment Schedule 20261012131359"
+      "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261012104113",
+      "scheduleTitleEn": "Automation Flexible Payment Schedule 20261012104113"
     },
-    "sales-channels-target-audience-unit-issuance": {
-      "developerUserId": "1023129537",
-      "unitWithoutSalesChannels": "02-01-0146-11-10003",
-      "userId": "1300070834"
-    },
-
-    "generate-reports": {
-      "projectName": "Automation Project P_003",
+    "reservation-management-filters": {
       "developerUserId": "1023129537"
     },
-     "registration": {
-      "newUserId": ""
+    "news-housing-products-support": {
+      "sakaniUserId": "1300070834"
     }
   }
 }
