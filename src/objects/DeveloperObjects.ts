@@ -151,7 +151,47 @@ export const DeveloperObjects = {
     "datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
   unitCodeTextfield:
     ".input-icon-container input",
-  unitCheckbox(row: number): string {
+
+  // Unit reservation
+  unitCheckbox(row: number) {
     return `//datatable-row-wrapper[${row}]/descendant::app-sapa-checkbox-v2`;
   },
+  contiueBookingButton:
+    "//button[normalize-space() = 'مواصلة الحجز']",
+  selectAnotherUnitButton:
+    "//button[normalize-space() = 'حدد وحدة أخرى']",
+  bankDropdown:
+    "//app-bank-list-dropdown-control/descendant::input",
+  bankOptions(bankName: string) {
+    return `//div[@role='option']/descendant::span[normalize-space() = '${bankName}']`;
+  },
+  reservationSuccessPopup:
+    "//span[normalize-space() = 'تأكيد الحجز']",
+  bookingSearchInput: {
+    role: "textbox", name: "ابحث برمز الوحدة أو رقم الهوية"
+  },
+  bookingFilterStatusDropdown:
+    "//div[normalize-space() = 'الحالة']/ancestor::app-sapa-dropdown-v2",
+  bookingFilterStatusOptions(option: string) {
+    return `//div[@role='option']/descendant::span[normalize-space() = '${option}']`;
+  },
+  viewBookingDetails:
+    "(//span[normalize-space() = 'إظهار التفاصيل'])[1]",
+  bookingsTab: {
+    role: "tab", name: "حجوزات"
+  },
+  confirmBookingActionButton: {
+    role: "button", name: "تأكيد الحجز"
+  },
+  yesConfirmationButton: {
+    role: "button", name: "نعم"
+  },
+  confirmBookingSuccessText:
+    "تهانينا!",
+  cancelBookingReasonDropdown:
+    "//app-sapa-dropdown-v2/descendant::input",
+  cancelBookingReasonOption(option: string) {
+    return `//div[@role='option']/descendant::span[normalize-space() = '${option}']`;
+  },
+
 } as const;
