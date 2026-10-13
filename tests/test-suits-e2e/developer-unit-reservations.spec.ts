@@ -98,6 +98,7 @@ test.describe("Update unit price from partners", () => {
         await logStep("Step 03: Select unit and move to financial information page");
         await app.developerProjectPage.selectUnitCheckbox(1);
         await app.developerProjectPage.clickOnNextButton();
+        await app.developerProjectPage.clickSelectAndContinue();
         await app.developerProjectPage.clickContinueBookingButton();
 
         await logStep("Step 04: Select the bank and confirm the booking > Verify booking list is visible");
@@ -136,6 +137,7 @@ test.describe("Update unit price from partners", () => {
         await app.discountOnReservedUnitsPage.clickOnCancelBookingButton();
         await app.discountOnReservedUnitsPage.clickOnContinueCancellationButton();
         await app.discountOnReservedUnitsPage.clickOnNoButton();
+        await app.discountOnReservedUnitsPage.clickOnYesButton();
         await app.discountOnReservedUnitsPage.fillCancellationOtpCodeInput(1234);
         await app.discountOnReservedUnitsPage.clickOnVerifyCancellationCodeButton();
         await app.discountOnReservedUnitsPage.verifyBeneficiaryCancellationToastSuccessMessage();
