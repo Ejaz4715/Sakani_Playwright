@@ -157,6 +157,11 @@ export class FlexiblePaymentPage {
         await projectResultChecbox.click();
     }
 
+    async enterBenefitPercentage(text: string) {
+        const benefitPercenatge = this.page.locator(FlexiblePaymentObjects.benefitPercenatgeInput.xpath);
+        await benefitPercenatge.fill(text);
+    }
+
     async clickOnConfirmButton() {
         const confirmButton = this.page.getByRole(
             FlexiblePaymentObjects.confirmButton.role, {
@@ -171,8 +176,6 @@ export class FlexiblePaymentPage {
     async verifyTheSuccessfulMessage() {
         const successfulMessage = this.page.locator(
             FlexiblePaymentObjects.successfulMessage.xpath
-
-
         );
 
         await expect(successfulMessage).toBeVisible({ timeout: 90000 });
@@ -205,6 +208,16 @@ export class FlexiblePaymentPage {
 
         await expect(deleteScheduleButton).toBeVisible({ timeout: 90000 });
         await deleteScheduleButton.click();
+    }
+
+    async clickOnEditSchedule() {
+        const editScheduleButton = this.page.getByRole(
+            FlexiblePaymentObjects.editScheduleButton.role,
+            { name: FlexiblePaymentObjects.editScheduleButton.name }
+        );
+
+        await expect(editScheduleButton).toBeVisible({ timeout: 90000 });
+        await editScheduleButton.click();
     }
 
     async clickOnScheduleDeletedMessage() {
@@ -274,6 +287,17 @@ export class FlexiblePaymentPage {
         await this.page.locator(FlexiblePaymentObjects.bookedUnitDetailsIcon.xpath).click();
     }
 
+    async clickGoToDetailsButton() {
+        await this.page.locator(FlexiblePaymentObjects.goToDetailsButton.xpath).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
+        await this.page.locator(FlexiblePaymentObjects.goToDetailsButton.xpath).click();
+    }
+
+    async getBenefitPercenategValue() {
+        await this.page.locator(FlexiblePaymentObjects.benefitPercenategValue.xpath).waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
+        const benefitValue = await this.page.locator(FlexiblePaymentObjects.benefitPercenategValue.xpath).textContent();
+        return benefitValue;
+    }
+
     async confirmTheCashPayment() {
         await this.page.locator(FlexiblePaymentObjects.cashPaymentConfirmationButton.xpath).waitFor({
             state: "visible",
@@ -290,5 +314,3 @@ export class FlexiblePaymentPage {
 
 
 }
-
-// module.exports = { FlexiblePaymentPage };

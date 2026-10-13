@@ -21,3 +21,6 @@ certs/
 .env
 src/downloads/*
 !src/downloads/.gitkeep
+
+## IntelliJ files
+.idea/

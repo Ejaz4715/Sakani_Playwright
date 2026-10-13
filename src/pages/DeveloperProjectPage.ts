@@ -2,10 +2,10 @@
 import { Page, expect, Locator } from "@playwright/test";
 const path = require("path");
 import { DeveloperObjects } from '@objects/DeveloperObjects'
-import { DevelopersPage } from "@pages/DevelopersPage";
+import {DevelopersPage} from "@pages/DevelopersPage";
 import * as timers from "node:timers";
-const DEFAULT_TIMEOUT = 30_000;
-const LONG_TIMEOUT = 90_000;
+const DEFAULT_TIMEOUT= 30_000;
+const LONG_TIMEOUT= 90_000;
 
 
 export class DeveloperProjectPage {
@@ -113,8 +113,6 @@ export class DeveloperProjectPage {
     await this.waitForVisible(projectsLink);
     await projectsLink.click();
   }
-
-
 
   async searchProject(projectName) {
     const projectFilter = this.page
@@ -405,41 +403,40 @@ export class DeveloperProjectPage {
     await this.page.getByText("تهانينا!").click();
   }
 
-  async isSuccessfulConfirmationMessageVisible() {
-    return await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
+  async isSuccessfulConfirmationMessageVisible(){
+    return  await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
   }
 
-  async closeConfirmationModal() {
+  async closeConfirmationModal(){
     await this.page.locator(DeveloperObjects.closeConfirmationModal).click();
   }
 
-  async clickOnCompanies() {
-    await this.page.locator(DeveloperObjects.companiesButton).waitFor({ state: "visible" });
+  async clickOnCompanies(){
+    await this.page.locator(DeveloperObjects.companiesButton).waitFor({state: "visible"});
     await this.page.locator(DeveloperObjects.companiesButton).click();
-
   }
 
-  async waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
+  async  waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
     await locator.waitFor({ state: 'visible', timeout });
     await locator.click();
   }
 
-  async waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
+  async  waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
     await locator.waitFor({ state: 'visible', timeout });
     await locator.fill(value);
   }
 
-  async bookUnitsForCustomers(nationalIdentity: string, projectName: string) {
+  async bookUnitsForCustomers(nationalIdentity:string,projectName:string){
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
 
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
 
-    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField), nationalIdentity);
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
 
     const searchButton = this.page.getByRole(
-      DeveloperObjects.searchButton.role,
-      { name: DeveloperObjects.searchButton.name },
+        DeveloperObjects.searchButton.role,
+        { name: DeveloperObjects.searchButton.name },
     );
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -454,17 +451,17 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.projectNameOptionSelector).click();
   }
 
-  async bookUnitsForCustomersUsingUnitCode(nationalIdentity: string, unitCode: string) {
+  async bookUnitsForCustomersUsingUnitCode(nationalIdentity:string ,unitCode:string){
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
 
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
 
-    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField), nationalIdentity);
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
 
     const searchButton = this.page.getByRole(
-      DeveloperObjects.searchButton.role,
-      { name: DeveloperObjects.searchButton.name },
+        DeveloperObjects.searchButton.role,
+        { name: DeveloperObjects.searchButton.name },
     );
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -477,14 +474,14 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.unitCodeTextfield).fill(unitCode);
   }
 
-  async bookUnitsForCompanies(companyUserId: string, companyCR: string, projectName: string) {
+  async bookUnitsForCompanies(companyUserId:string,companyCR:string,projectName:string){
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton));
     await this.waitAndFill(this.page.locator(DeveloperObjects.companyCRField), companyCR);
     const searchButton = this.page.getByRole(
-      DeveloperObjects.searchButton.role,
-      { name: DeveloperObjects.searchButton.name },
+        DeveloperObjects.searchButton.role,
+        { name: DeveloperObjects.searchButton.name },
     );
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -511,35 +508,35 @@ export class DeveloperProjectPage {
     await this.waitAndClick(this.page.locator(DeveloperObjects.bankSelector));
   }
 
-  async selectCRMBank() {
+  async selectCRMBank(){
     await this.waitAndClick(this.page.locator(DeveloperObjects.crmBankSelector));
   }
 
-  async confirmBookingForCompanies() {
+  async confirmBookingForCompanies(){
     await this.waitAndClick(this.page.locator(DeveloperObjects.confirmCompanyBooking));
   }
 
-  async isCompanyBookingConfirmed() {
-    await this.page.locator(DeveloperObjects.showBookingDetailsButton).waitFor({ state: 'visible', timeout: 30000 });
+  async isCompanyBookingConfirmed(){
+    await this.page.locator(DeveloperObjects.showBookingDetailsButton).waitFor({state: 'visible',timeout: 30000});
     return await this.page.locator(DeveloperObjects.showBookingDetailsButton).isVisible();
   }
 
   async clickOnConfirmationButton() {
     const confirmButton = this.page.getByRole(
-      DeveloperObjects.confirmButton.role,
-      { name: DeveloperObjects.confirmButton.name },
+        DeveloperObjects.confirmButton.role,
+        { name: DeveloperObjects.confirmButton.name },
     );
-    await confirmButton.waitFor({ state: 'visible', timeout: DEFAULT_TIMEOUT });
+    await confirmButton.waitFor({state: 'visible',timeout: DEFAULT_TIMEOUT});
     await confirmButton.click();
   }
 
-  async isBookingListButtonVisible() {
-    await this.page.locator(DeveloperObjects.bookingListButton).waitFor({ state: 'visible', timeout: 90000 });
+  async isBookingListButtonVisible(){
+    await this.page.locator(DeveloperObjects.bookingListButton).waitFor({state: 'visible',timeout:90000});
     return await this.page.locator(DeveloperObjects.bookingListButton).isVisible();
   }
 
-  async openTheFirstExistingProject() {
-    await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().waitFor({ state: 'visible', timeout: DEFAULT_TIMEOUT });
+  async openTheFirstExistingProject(){
+    await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().waitFor({state: 'visible',timeout: DEFAULT_TIMEOUT});
     await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().click();
   }
 
@@ -636,4 +633,15 @@ export class DeveloperProjectPage {
       .getByText(DeveloperObjects.reportAddedToastMessage)
       .isVisible();
   }
+
+  async clickOnIndividualBookings(){
+    await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
+  }
+
+  async clickOnCompanyBookings() {
+    await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
+  }
+
 }
