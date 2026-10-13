@@ -1,5 +1,6 @@
 import { Page } from "@playwright/test";
 import { DataHelper } from "@helpers/DataHelper";
+import { LoginObjects } from "@objects/LoginObjects";
 import { RegistrationObjects } from "@objects/RegistrationObjects";
 
 export class RegistrationPage {
@@ -53,6 +54,25 @@ export class RegistrationPage {
         return email;
     }
 
+    async fillOtp(otp: string) {
+        if (!/^\d{4}$/.test(otp)) {
+            throw new Error("OTP must be exactly 4 digits");
+        }
+
+        const otpFields = [
+            RegistrationObjects.otp1,
+            RegistrationObjects.otp2,
+            RegistrationObjects.otp3,
+            RegistrationObjects.otp4,
+        ];
+
+        for (const [index, otpField] of otpFields.entries()) {
+            const input = this.page.locator(otpField.xpath);
+            await input.waitFor({ state: "visible" });
+            await input.fill(otp.charAt(index));
+        }
+    }
+
     async clickContinueButton() {
         const button = this.page.getByRole(
             RegistrationObjects.continueButton.role,
@@ -60,6 +80,14 @@ export class RegistrationPage {
         );
         await button.waitFor({ state: "visible" });
         await button.click();
+    }
+
+    async isNewUserContinueButtonVisible(){
+        const button = this.page.getByRole(
+            LoginObjects.newUserContinueButton.role,
+            { name: LoginObjects.newUserContinueButton.name },
+        );
+        return button.isVisible();
     }
 
     
@@ -196,6 +224,5 @@ export class RegistrationPage {
         throw new Error("Eligibility result message did not become visible");
     }
 
-
-
+    
 }

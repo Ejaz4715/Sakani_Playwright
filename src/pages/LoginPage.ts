@@ -1,10 +1,10 @@
 import { LoginObjects } from '@objects/LoginObjects'
 import { expect, Page } from "@playwright/test";
 export class LoginPage {
-    page: Page;
-    constructor(page: Page) {
-        this.page = page;
-    }
+  page: Page;
+  constructor(page: Page) {
+    this.page = page;
+  }
 
   async click(locator: any) {
     await locator.click();
@@ -77,6 +77,7 @@ export class LoginPage {
       { name: LoginObjects.newUserContinueButton.name },
     );
     if (await newUserContinueButton.isVisible().catch(() => false)) {
+      await this.page.waitForTimeout(300);
       await newUserContinueButton.click({ force: true });
     }
   }

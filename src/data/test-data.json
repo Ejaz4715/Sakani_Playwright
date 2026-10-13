@@ -214,6 +214,28 @@
       "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261012104113",
       "scheduleTitleEn": "Automation Flexible Payment Schedule 20261012104113"
     },
+    "sales-channels-target-audience-unit-issuance": {
+      "developerUserId": "1023129537",
+      "unitWithoutSalesChannels": "02-01-0146-11-10003",
+      "userId": "1300070834"
+    },
+    "generate-reports": {
+      "projectName": "Automation Project P_003",
+      "developerUserId": "1023129537"
+    },
+    "registration": {
+      "newUserId": "1119800019"
+    },
+    "request-publish-project": {
+      "projectName": "Automation Project Offplan 20261006143505",
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "developerUserId": "1023129537",
+      "sakaniUserId": "1300070834"
+    },
+      "verifying-eligibility-for-developmental-housing": {
+      "developerUserId": "1023129537",
+      "sakaniUserId": "1059998823"
     "reservation-management-filters": {
       "developerUserId": "1023129537"
     },

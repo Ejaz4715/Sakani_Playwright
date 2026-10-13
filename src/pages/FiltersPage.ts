@@ -93,12 +93,6 @@ export class FiltersPage {
         await input.fill("");
     }
 
-
-
-
-
-
-
     async clickOnPropertiesForSaleButton() {
         const button = this.page.getByRole(
             FiltersObjects.propertiesForSaleButton.role,
