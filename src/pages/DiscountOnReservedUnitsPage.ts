@@ -259,11 +259,10 @@ export class DiscountOnReservedUnitsPage {
     }
 
     async verifyBeneficiaryCancellationToastSuccessMessage() {
-        const successMessage = this.page.getByText(
-            DiscountOnReservedUnitsObjects.beneficiaryCancellationToastSuccessMessage.text,
-            { exact: true }
-        );
-        await expect(successMessage).toBeVisible({ timeout: 90000 });
+        const successMessage = this.page.locator(
+            DiscountOnReservedUnitsObjects.beneficiaryCancellationToastSuccessMessage);
+        await expect(successMessage, "Cancellation success message is not present")
+        .toBeVisible({ timeout: 90000 });
     }
 
     async clickOnPriceQuotationTab() {
@@ -274,7 +273,6 @@ export class DiscountOnReservedUnitsPage {
         await expect(priceQuotationTab).toBeVisible({ timeout: 90000 });
         await priceQuotationTab.click();
     }
-     
 
     async clickOnReissuePriceQuotationButton() {
         const reissuePriceQuotationButton = this.page.getByRole(

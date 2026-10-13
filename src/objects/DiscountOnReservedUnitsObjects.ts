@@ -83,9 +83,8 @@ export const DiscountOnReservedUnitsObjects = {
 		role: "button",
 		name: "التحقق من الرمز",
 	},
-	beneficiaryCancellationToastSuccessMessage: {
-		text: "//div[contains(text(),'تم  إلغاء الحجز للمستفيد')]",
-	},
+	beneficiaryCancellationToastSuccessMessage:
+		"//div[contains(text(),'تم  إلغاء الحجز للمستفيد')]",
 	priceQuotationTab: {
 		role: "tab",
 		name: "عرض السعر",

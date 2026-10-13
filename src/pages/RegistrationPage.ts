@@ -9,7 +9,7 @@ export class RegistrationPage {
         this.page = page;
     }
 
-    async incrementNewUserId(){
+    async incrementNewUserId() {
         const registrationData = DataHelper.readData().services?.registration;
         const currentUserId: string = registrationData?.newUserId ?? "";
         const userIdPrefix = "1110004";
@@ -27,11 +27,10 @@ export class RegistrationPage {
             { name: RegistrationObjects.nationalIdInputfield.name },
         );
         await nationalIdInput.fill(nextUserId);
-
         return nextUserId;
     }
 
-    async fillRandomMobilePhone(){
+    async fillRandomMobilePhone() {
         const phoneNumber = `5${Math.floor(
             10_000_000 + Math.random() * 90_000_000,
         )}`;
@@ -82,7 +81,7 @@ export class RegistrationPage {
         await button.click();
     }
 
-    async isNewUserContinueButtonVisible(){
+    async isNewUserContinueButtonVisible() {
         const button = this.page.getByRole(
             LoginObjects.newUserContinueButton.role,
             { name: LoginObjects.newUserContinueButton.name },
@@ -90,8 +89,8 @@ export class RegistrationPage {
         return button.isVisible();
     }
 
-    
-    async clickExplorePropertiesButton(){
+
+    async clickExplorePropertiesButton() {
         const button = this.page.getByRole(
             RegistrationObjects.explorePropertiesButton.role,
             { name: RegistrationObjects.explorePropertiesButton.name },
@@ -100,7 +99,7 @@ export class RegistrationPage {
         await button.click();
     }
 
-    async checkTermsAndConditions(){
+    async checkTermsAndConditions() {
         const checkbox = this.page.getByRole(
             RegistrationObjects.termsAndConditionsCheckbox.role,
             { name: RegistrationObjects.termsAndConditionsCheckbox.name },
@@ -118,7 +117,7 @@ export class RegistrationPage {
         await button.click();
     }
 
-    async checkEligibilityTerms(){
+    async checkEligibilityTerms() {
         const checkbox = this.page.getByRole(
             RegistrationObjects.eligibilityTermsCheckbox.role,
             { name: RegistrationObjects.eligibilityTermsCheckbox.name },
@@ -197,7 +196,6 @@ export class RegistrationPage {
             await field.waitFor({ state: "visible" });
             await field.fill(Array.isArray(value) ? value[index] : value);
         }
-
         return fieldCount;
     }
 
@@ -220,9 +218,6 @@ export class RegistrationPage {
         if (await notEligibleMessage.isVisible()) {
             return "not eligible";
         }
-
         throw new Error("Eligibility result message did not become visible");
     }
-
-    
 }

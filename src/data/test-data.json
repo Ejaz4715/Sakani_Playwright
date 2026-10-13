@@ -219,7 +219,16 @@
       "developerUserId": "1023129537"
     },
     "registration": {
-      "newUserId": "1119800019"
+      "newUserId": ""
+    },
+    "developer-unit-reservation": {
+      "sakaniUserIdEligible": "1330042042",
+      "sakaniUserIdNonEligible": "1300070834",
+      "unitCodeOffplanPrivate": "02-01-0213-11-107",
+      "unitCodeOffplanMoh": "01-01-0717-7-103",
+      "developerUserId": "1023129537",
+      "OffplanPrivateProject": "Automation Project Offplan 20261006142700",
+      "OffplanMohProject": "Automation Project Offplan 20261006132208"
     },
     "request-publish-project": {
       "projectName": "Automation Project Offplan 20261006143505",
