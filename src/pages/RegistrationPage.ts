@@ -1,5 +1,6 @@
 import { Page } from "@playwright/test";
 import { DataHelper } from "@helpers/DataHelper";
+import { LoginObjects } from "@objects/LoginObjects";
 import { RegistrationObjects } from "@objects/RegistrationObjects";
 
 export class RegistrationPage {
@@ -8,7 +9,7 @@ export class RegistrationPage {
         this.page = page;
     }
 
-    async incrementNewUserId(){
+    async incrementNewUserId() {
         const registrationData = DataHelper.readData().services?.registration;
         const currentUserId: string = registrationData?.newUserId ?? "";
         const userIdPrefix = "1110004";
@@ -26,11 +27,10 @@ export class RegistrationPage {
             { name: RegistrationObjects.nationalIdInputfield.name },
         );
         await nationalIdInput.fill(nextUserId);
-
         return nextUserId;
     }
 
-    async fillRandomMobilePhone(){
+    async fillRandomMobilePhone() {
         const phoneNumber = `5${Math.floor(
             10_000_000 + Math.random() * 90_000_000,
         )}`;
@@ -53,6 +53,25 @@ export class RegistrationPage {
         return email;
     }
 
+    async fillOtp(otp: string) {
+        if (!/^\d{4}$/.test(otp)) {
+            throw new Error("OTP must be exactly 4 digits");
+        }
+
+        const otpFields = [
+            RegistrationObjects.otp1,
+            RegistrationObjects.otp2,
+            RegistrationObjects.otp3,
+            RegistrationObjects.otp4,
+        ];
+
+        for (const [index, otpField] of otpFields.entries()) {
+            const input = this.page.locator(otpField.xpath);
+            await input.waitFor({ state: "visible" });
+            await input.fill(otp.charAt(index));
+        }
+    }
+
     async clickContinueButton() {
         const button = this.page.getByRole(
             RegistrationObjects.continueButton.role,
@@ -62,8 +81,16 @@ export class RegistrationPage {
         await button.click();
     }
 
-    
-    async clickExplorePropertiesButton(){
+    async isNewUserContinueButtonVisible() {
+        const button = this.page.getByRole(
+            LoginObjects.newUserContinueButton.role,
+            { name: LoginObjects.newUserContinueButton.name },
+        );
+        return button.isVisible();
+    }
+
+
+    async clickExplorePropertiesButton() {
         const button = this.page.getByRole(
             RegistrationObjects.explorePropertiesButton.role,
             { name: RegistrationObjects.explorePropertiesButton.name },
@@ -72,7 +99,7 @@ export class RegistrationPage {
         await button.click();
     }
 
-    async checkTermsAndConditions(){
+    async checkTermsAndConditions() {
         const checkbox = this.page.getByRole(
             RegistrationObjects.termsAndConditionsCheckbox.role,
             { name: RegistrationObjects.termsAndConditionsCheckbox.name },
@@ -90,7 +117,7 @@ export class RegistrationPage {
         await button.click();
     }
 
-    async checkEligibilityTerms(){
+    async checkEligibilityTerms() {
         const checkbox = this.page.getByRole(
             RegistrationObjects.eligibilityTermsCheckbox.role,
             { name: RegistrationObjects.eligibilityTermsCheckbox.name },
@@ -169,7 +196,6 @@ export class RegistrationPage {
             await field.waitFor({ state: "visible" });
             await field.fill(Array.isArray(value) ? value[index] : value);
         }
-
         return fieldCount;
     }
 
@@ -192,10 +218,6 @@ export class RegistrationPage {
         if (await notEligibleMessage.isVisible()) {
             return "not eligible";
         }
-
         throw new Error("Eligibility result message did not become visible");
     }
-
-
-
 }

@@ -1,11 +1,11 @@
-// @ts-nocheck
 import { Page, expect, Locator } from "@playwright/test";
 const path = require("path");
 import { DeveloperObjects } from "@objects/DeveloperObjects";
 import { DevelopersPage } from "@pages/DevelopersPage";
+
 import * as timers from "node:timers";
-const DEFAULT_TIMEOUT = 30_000;
-const LONG_TIMEOUT = 90_000;
+const DEFAULT_TIMEOUT= 30_000;
+const LONG_TIMEOUT= 90_000;
 
 export class DeveloperProjectPage {
   page: Page;
@@ -19,14 +19,14 @@ export class DeveloperProjectPage {
     await expect(locator).toBeVisible({ timeout: this.defaultTimeout });
   }
 
-  async clickIfVisible(locator, options = {}) {
+  async clickIfVisible(locator: Locator, options: { timeout?: number } = {}) {
     const timeout = options.timeout ?? 5000;
     const isVisible = await locator.isVisible({ timeout }).catch(() => false);
     if (isVisible) {
       await locator.click();
     }
   }
-  async gotoAuth(url) {
+  async gotoAuth(url: string) {
     await this.page.goto(url);
   }
 
@@ -93,7 +93,7 @@ export class DeveloperProjectPage {
     await projectsLink.click();
   }
 
-  async searchProject(projectName) {
+  async searchProject(projectName: string) {
     const projectFilter = this.page.locator(DeveloperObjects.projectFilter).first();
     await this.waitForVisible(projectFilter);
     await projectFilter.click();
@@ -112,7 +112,7 @@ export class DeveloperProjectPage {
     await projectOption.click({ force: true });
   }
 
-  async openProjectBySearch(projectName) {
+  async openProjectBySearch(projectName: string) {
     await this.openProjectsPage();
     await this.searchProject(projectName);
 
@@ -174,7 +174,7 @@ export class DeveloperProjectPage {
     await addAnnexButton.click();
   }
 
-  async searchUnitByCode(unitCode) {
+  async searchUnitByCode(unitCode: string) {
     const unitCodeInput = this.page.locator("//app-sapa-input-with-icon[@formcontrolname='unit_code']/descendant::input");
     await this.waitForVisible(unitCodeInput);
     await unitCodeInput.fill(unitCode);
@@ -197,7 +197,7 @@ export class DeveloperProjectPage {
     await addAnnexButton.click();
   }
 
-  async uploadAnnexFile(filePath) {
+  async uploadAnnexFile(filePath: string) {
     const fileInput = this.page.locator("//input[@type='file']");
     await fileInput.setInputFiles(filePath);
     const attachmentText = this.page.getByText("الملف المرفق", { exact: true });
@@ -237,6 +237,13 @@ export class DeveloperProjectPage {
     percentageOneValue,
     completionPercentageTwoValue,
     percentageTwoValue,
+  }: {
+    type: string;
+    scheduleName: string;
+    completionPercentageOneValue: string;
+    percentageOneValue: string;
+    completionPercentageTwoValue: string;
+    percentageTwoValue: string;
   }) {
     const addScheduleButton = this.page
       .getByRole("button", { name: /إضافة جدول جديد/ })
@@ -314,7 +321,7 @@ export class DeveloperProjectPage {
   }
 
 
-  async confirmBooking(unitCode) {
+  async confirmBooking(unitCode: string) {
     // 1. Navigate to the manage reservations and individual booking section
     await this.navigateToIndividualBookings();
 
@@ -338,7 +345,7 @@ export class DeveloperProjectPage {
     await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), "Confirmation booking success text is not visible").toBeVisible({ timeout: 20000 });
   }
 
-  async confirmCompanyBooking(unitCode) {
+  async confirmCompanyBooking(unitCode: string) {
     // 1. Navigate to the manage reservations and individual booking section
     await this.navigateToIndividualBookings();
 
@@ -363,37 +370,37 @@ export class DeveloperProjectPage {
     await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), "Confirmation booking success text is not visible").toBeVisible({ timeout: 20000 });
   }
 
-  async isSuccessfulConfirmationMessageVisible() {
-    return await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
+  async isSuccessfulConfirmationMessageVisible(){
+    return  await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
   }
 
-  async closeConfirmationModal() {
+  async closeConfirmationModal(){
     await this.page.locator(DeveloperObjects.closeConfirmationModal).click();
   }
 
-  async clickOnCompanies() {
-    await this.page.locator(DeveloperObjects.companiesButton).waitFor({ state: "visible" });
+  async clickOnCompanies(){
+    await this.page.locator(DeveloperObjects.companiesButton).waitFor({state: "visible"});
     await this.page.locator(DeveloperObjects.companiesButton).click();
   }
 
-  async waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
-    await locator.waitFor({ state: "visible", timeout });
+
+  async  waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
+    await locator.waitFor({ state: 'visible', timeout });
     await locator.click();
   }
 
-  async waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
-    await locator.waitFor({ state: "visible", timeout });
+  async  waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
+    await locator.waitFor({ state: 'visible', timeout });
     await locator.fill(value);
   }
 
-  async bookUnitsForCustomers(nationalIdentity: string, projectName: string) {
+  async bookUnitsForCustomers(nationalIdentity:string,projectName:string){
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
 
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
-
-    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField), nationalIdentity);
-
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
+   
     const searchButton = this.page.getByRole(DeveloperObjects.searchButton.role, { name: DeveloperObjects.searchButton.name });
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -408,14 +415,12 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.projectNameOptionSelector).click();
   }
 
-  async bookUnitsForCustomersUsingUnitCode(nationalIdentity: string, unitCode: string) {
+  async bookUnitsForCustomersUsingUnitCode(nationalIdentity:string ,unitCode:string){
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
-
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
-
-    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField), nationalIdentity);
-
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
+    
     const searchButton = this.page.getByRole(DeveloperObjects.searchButton.role, { name: DeveloperObjects.searchButton.name });
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -428,11 +433,12 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.unitCodeTextfield).fill(unitCode);
   }
 
-  async bookUnitsForCompanies(companyUserId: string, companyCR: string, projectName: string) {
+  async bookUnitsForCompanies(companyUserId:string,companyCR:string,projectName:string){
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton));
     await this.waitAndFill(this.page.locator(DeveloperObjects.companyCRField), companyCR);
+   
     const searchButton = this.page.getByRole(DeveloperObjects.searchButton.role, { name: DeveloperObjects.searchButton.name });
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -459,16 +465,17 @@ export class DeveloperProjectPage {
     await this.waitAndClick(this.page.locator(DeveloperObjects.bankSelector));
   }
 
-  async selectCRMBank() {
+  async selectCRMBank(){
     await this.waitAndClick(this.page.locator(DeveloperObjects.crmBankSelector));
   }
 
-  async confirmBookingForCompanies() {
+  async confirmBookingForCompanies(){
     await this.waitAndClick(this.page.locator(DeveloperObjects.confirmCompanyBooking));
   }
 
   async isCompanyBookingConfirmed() {
     await this.page.locator(DeveloperObjects.showBookingDetailsButton).waitFor({ state: "visible", timeout: 30000 });
+
     return await this.page.locator(DeveloperObjects.showBookingDetailsButton).isVisible();
   }
 
@@ -588,5 +595,15 @@ export class DeveloperProjectPage {
   async validateSuccessReservationPopup() {
     const reservationSuccessPopup = this.page.locator(DeveloperObjects.reservationSuccessPopup);
     await expect(reservationSuccessPopup, "Reservation successful message pop up is not present").toBeVisible({ timeout: 20000 });
+  }
+
+  async clickOnIndividualBookings(){
+    await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
+  }
+
+  async clickOnCompanyBookings() {
+    await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
+    await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
   }
 }

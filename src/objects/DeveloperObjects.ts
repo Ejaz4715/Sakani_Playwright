@@ -37,19 +37,23 @@ export const DeveloperObjects = {
   projectNameOption: {
     role: "option", name: "اسم المشروع"
   },
-  projectSearchInput: "app-project-search",
+  projectSearchInput:
+    "app-project-search",
   searchButton: {
     role: "button", name: "بحث"
   },
-  passwordEyeIcon: ".pointer.icon-password-show",
+  passwordEyeIcon:
+    ".pointer.icon-password-show",
   paymentScheduleTab: {
     role: "tab", name: /جداول الدفع/
   },
   addScheduleButton: {
     role: "button", name: /إضافة جدول جديد/
   },
-  cashOption: "نقدي",
-  lendingOption: "التمويل",
+  cashOption:
+    "نقدي",
+  lendingOption:
+    "التمويل",
   scheduleNameInput: {
     role: "textbox", name: "مثال: سبع دفعات"
   },
@@ -193,5 +197,37 @@ export const DeveloperObjects = {
   cancelBookingReasonOption(option: string) {
     return `//div[@role='option']/descendant::span[normalize-space() = '${option}']`;
   },
+  //---------End of unit reservation objects ----------
 
+  // Generate reports objects
+  reportsLink: {
+    role: "link", name: "التقارير"
+  },
+  reportTypeDropdown: {
+    xpath: "//label[text()=' حدد نوع التقرير']/ancestor::app-sapa-dropdown/descendant::ng-select"
+  },
+  bookingsAndUnitsReportOption: {
+    role: "option",
+    name: "الحجوزات والوحدات",
+  },
+  issueTheReportButton: {
+    role: "button", name: "إصدار التقرير"
+  },
+  issueReportButton: {
+    role: "button", name: "إصدار تقرير"
+  },
+  reportAddedToastMessage:
+    "تمت إضافة التقرير",
+  projectSearchInputFieldForReport: {
+    role: "textbox", name: "بحث عن مشروع"
+  },
+  projectResult: {
+    xpath: "//label[@class='form-check-label']"
+  },
+  downloadButton: {
+    xpath: "(//button[text()=' تحميل '])[1]"
+  },
+  status: {
+    xpath: "(//datatable-body-cell)[3]/descendant::span"
+  },
 } as const;

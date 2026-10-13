@@ -3,6 +3,18 @@ export const RegistrationObjects = {
     mobilePhoneInputfield: { role: "textbox", name: "أدخل رقم هاتفك المحمول" },
     emailInputfield: { role: "textbox", name: "أدخل بريدك الإلكتروني" },
 
+    otp1:{
+        xpath:"//input[@autocomplete='one-time-code'][1]"
+    },
+    otp2:{
+        xpath:"//input[@autocomplete='one-time-code'][2]"
+    },
+    otp3:{
+        xpath:"//input[@autocomplete='one-time-code'][3]"
+    },
+    otp4:{
+        xpath:"//input[@autocomplete='one-time-code'][4]"
+    },
 
     continueButton: { role: "button", name: "المتابعة" },
 
@@ -81,6 +93,7 @@ export const RegistrationObjects = {
     motherDob: {
         xpath: "//app-hijri-datepicker[@formcontrolname='dob_mother']/descendant::input[1]"
     },
-
-
+    financialAdvisoryLink: {
+		xpath: "(//a[contains(., 'المستشار العقاري')])[3]",
+	},
 } as const

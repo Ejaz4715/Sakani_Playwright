@@ -17,6 +17,7 @@ export class ResaleOfUnitsPage {
         const projectNameInputfield = this.page.locator(
             ResaleOfUnitsObjects.projectNameInputfield.xpath
         );
+        await this.page.waitForTimeout(3000);
         await expect(projectNameInputfield).toBeVisible({ timeout: 90000 });
         await projectNameInputfield.fill(projectName);
     }
