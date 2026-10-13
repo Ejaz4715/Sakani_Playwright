@@ -151,4 +151,7 @@ export const DeveloperObjects = {
     "datatable-selection datatable-body-row:nth-child(1) .pointer.icon-password-show",
   unitCodeTextfield:
     ".input-icon-container input",
+  unitCheckbox(row: number): string {
+    return `//datatable-row-wrapper[${row}]/descendant::app-sapa-checkbox-v2`;
+  },
 } as const;

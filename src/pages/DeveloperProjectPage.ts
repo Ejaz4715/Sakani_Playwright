@@ -429,6 +429,7 @@ export class DeveloperProjectPage {
     await locator.fill(value);
   }
 
+
   async bookUnitsForCustomers(nationalIdentity: string, projectName: string) {
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
@@ -635,5 +636,12 @@ export class DeveloperProjectPage {
     return await this.page
       .getByText(DeveloperObjects.reportAddedToastMessage)
       .isVisible();
+  }
+
+  async selectUnitCheckbox(row: number) {
+    const unitCheckbox = this.page.locator(
+      DeveloperObjects.unitCheckbox());
+    await this.waitForVisible(unitCheckbox);
+    await unitCheckbox.click();
   }
 }
