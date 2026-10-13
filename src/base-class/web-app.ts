@@ -37,7 +37,9 @@ import { StampManagementPage } from "@pages/StampManagementPage";
 import { DashboardViewPage } from "@pages/DashboardPageView";
 import { SalesChannel_TargetAudiencePage } from "@pages/SalesChannel_TargetAudiencePage";
 import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
-import { RegistrationPage } from '@pages/RegistrationPage'
+import { RegistrationPage } from '@pages/RegistrationPage';
+import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
+import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
 
 export class WebApp {
   page: Page;
@@ -80,7 +82,8 @@ export class WebApp {
   partnersLoginPage: InstanceType<typeof PartnersLoginPage>;
   stampManagementPage: InstanceType<typeof StampManagementPage>;
   registrationPage: InstanceType<typeof RegistrationPage>;
-
+  requestPublishProjectPage: InstanceType<typeof RequestPublishProjectPage>;
+  verifyingEligibilityForDevelopmentalHousingPage: InstanceType<typeof VerifyingEligibilityForDevelopmentalHousingPage>;
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(page);
@@ -136,21 +139,23 @@ export class WebApp {
     this.partnersLoginPage = new PartnersLoginPage(page);
     this.stampManagementPage = new StampManagementPage(page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
-    this.createMegaProjectPage = new CreateMegaProjectPage (page);
-    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
-    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
-    this.paymentTrackingPage = new PaymentTrackingPage (page);
-    this.rentalBehavrioPage = new RentalBehaviorPage (page);
-    this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
-    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage (page);
-    this.buyDesignPage = new BuyDesignPage (page);
-    this.waitingListPage = new WaitingListPage (page);
-    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage (page);
-    this.cashPaymentPage = new CashPaymentPage (page);
-    this.publishUnitPage = new PublishUnitPage (page);
-    this.unitsDeliveryPage = new UnitsDeliveryPage (page);
+    this.createMegaProjectPage = new CreateMegaProjectPage(page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage(page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage(page);
+    this.paymentTrackingPage = new PaymentTrackingPage(page);
+    this.rentalBehavrioPage = new RentalBehaviorPage(page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
+    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage(page);
+    this.buyDesignPage = new BuyDesignPage(page);
+    this.waitingListPage = new WaitingListPage(page);
+    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage(page);
+    this.cashPaymentPage = new CashPaymentPage(page);
+    this.publishUnitPage = new PublishUnitPage(page);
+    this.unitsDeliveryPage = new UnitsDeliveryPage(page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
     this.partnersLoginPage = new PartnersLoginPage(page);
     this.registrationPage = new RegistrationPage(page);
+    this.requestPublishProjectPage = new RequestPublishProjectPage(page);
+    this.verifyingEligibilityForDevelopmentalHousingPage = new VerifyingEligibilityForDevelopmentalHousingPage(page);
   }
 }
