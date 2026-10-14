@@ -56,6 +56,14 @@ export class UserProfilePage extends BasePage {
   readonly favoritesHeading: Locator;
   readonly registeredInterestsHeading: Locator;
   readonly exploreMarketplaceButton: Locator;
+  
+  // --- My Company ---
+  readonly companyBookingsHeading: Locator;
+  readonly companyPaymentsHeading: Locator;
+  readonly bookingCard: Locator;
+  readonly invoiceCard: Locator;
+
+
 
   constructor(page: Page) {
     super(page);
@@ -98,11 +106,16 @@ export class UserProfilePage extends BasePage {
     this.previewReceiptButton = page.getByRole('button', { name: /Preview receipt/i });
 
     this.favoritesHeading = page.getByRole('heading', { name: /^\s*Favorites\s*$/i });
-    this.registeredInterestsHeading = page.getByRole('heading', { name: /Registered interests/i });
+    this.registeredInterestsHeading = page.getByRole('heading', { name: /Registered interests/i });    
     this.exploreMarketplaceButton = page.getByRole('button', {
       name: /Explore Marketplace/i,
     }).or(page.getByRole('link', { name: /Explore Marketplace/i })).first();
-    
+
+
+    this.companyBookingsHeading = page.getByRole('heading', { name: /Company Bookings/i });
+    this.companyPaymentsHeading = page.getByRole('heading', { name: /Company Payments/i });
+    this.bookingCard = page.locator("//app-booking-card-v5").first();
+    this.invoiceCard = page.locator("//app-invoice-card-v5").first();
   }
 
   /** Open one of the profile routes and wait for its own readiness signal. */
@@ -145,6 +158,14 @@ export class UserProfilePage extends BasePage {
 
   async openRegisteredInterests(): Promise<void> {
     await this.openRoute(PROFILE_ROUTES.registeredInterests, this.registeredInterestsHeading);
+  }
+
+  async openCompanyBookings(): Promise<void> {
+    await this.openRoute(PROFILE_ROUTES.companyBookings, this.companyBookingsHeading);
+  }
+
+  async openCompanyPayments(): Promise<void> {
+    await this.openRoute(PROFILE_ROUTES.companyPayments, this.companyPaymentsHeading);
   }
 
   /** A status/section tab by visible label, within any profile page. */

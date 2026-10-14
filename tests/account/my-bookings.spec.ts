@@ -26,7 +26,7 @@ test.describe('My bookings - depth', () => {
     ).toBeTruthy();
   });
 
-  test('TC-02 The Active tab filters to active bookings', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-02 The Active tab filters only lists active bookings', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const myBookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the my bookings page');
