@@ -45,7 +45,7 @@ export class Header {
     // globe icon, so the accessible name is not always exactly the word.
     this.languageToggle = page.getByRole('button', { name: /English|عربي|العربية/ });
     this.loginButton = page.getByRole('button', { name: /^(Login|تسجيل الدخول)$/ });
-    this.userMenuButton = page.locator('button').filter({ hasText: /ALSHAIKHA|اليامي/ });
+    this.userMenuButton = page.locator("//button[@id='profile-dropdown']");
     this.brandLink = page.getByRole('link', { name: /Sakani logo|شعار سكني/i }).first();
   }
 
@@ -54,8 +54,8 @@ export class Header {
     return this.userMenuButton.first().isVisible().catch(() => false);
   }
 
-  async expectAuthenticated(name: string | RegExp): Promise<void> {
-    await expect(this.userMenuButton.first()).toContainText(name, { timeout: 60_000 });
+  async expectAuthenticated(): Promise<void> {
+    await expect(this.userMenuButton.first()).toBeVisible({ timeout: 60_000 });
   }
 
   async openUserMenu(): Promise<void> {

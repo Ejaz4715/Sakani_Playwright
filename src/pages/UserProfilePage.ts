@@ -19,6 +19,10 @@ import { PROFILE_ROUTES } from '@data/testData';
 export class UserProfilePage extends BasePage {
   protected path: string = PROFILE_ROUTES.dashboard;
 
+  // --- Account ---
+  readonly notifications: Locator;
+  readonly notificationsCentre: Locator;
+
   /** Left-navigation entries, addressed by their visible label. */
   readonly sidebar: Locator;
 
@@ -56,6 +60,9 @@ export class UserProfilePage extends BasePage {
   constructor(page: Page) {
     super(page);
 
+    this.notifications = page.locator("//span[normalize-space() = 'Notifications']");
+    this.notificationsCentre = page.getByText("Notification centre");
+    
     this.sidebar = page.getByText('Dashboard', { exact: true }).first();
 
     this.startServiceButton = page.getByRole('button', { name: /Start service/i });
@@ -95,12 +102,21 @@ export class UserProfilePage extends BasePage {
     this.exploreMarketplaceButton = page.getByRole('button', {
       name: /Explore Marketplace/i,
     }).or(page.getByRole('link', { name: /Explore Marketplace/i })).first();
+    
   }
 
   /** Open one of the profile routes and wait for its own readiness signal. */
   async openRoute(route: string, ready: Locator): Promise<void> {
     this.path = route;
     await this.gotoUntilReady(ready, route);
+  }
+
+  async openNotifications(): Promise<void> {
+    await this.notifications.click();
+  }
+
+  async expectNotificationsCentreVisible(): Promise<void> {
+    await expect(this.notificationsCentre).toBeVisible({timeout: 20000});
   }
 
   async openDashboard(): Promise<void> {

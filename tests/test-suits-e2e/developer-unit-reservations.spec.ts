@@ -2,13 +2,10 @@ import { test, expect } from '@playwright/test';
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps'
-import { DeveloperProjectPage } from '@pages/DeveloperProjectPage';
 
 const SERVICE = "developer-unit-reservation";
-
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
-
 
 test.describe("Update unit price from partners", () => {
     test("TC-01 - Developer books a unit for a non-bene user in offplan private project", {annotation: [{product: 'Marketplace', type: 'critical'}] as any}, async ({ page }) => {
@@ -67,12 +64,18 @@ test.describe("Update unit price from partners", () => {
         
         await logStep("Step 03: Navigate to booking details and cancel the booking");
         await app.discountOnReservedUnitsPage.clickOnBookingsTab();
+
+        await logStep("Step 04: Select cancellation reason and confirm the reservation cancellation");
         await app.discountOnReservedUnitsPage.selectCancellationReasonOption();
         await app.discountOnReservedUnitsPage.clickOnCancelBookingButton();
         await app.discountOnReservedUnitsPage.clickOnContinueCancellationButton();
         await app.discountOnReservedUnitsPage.clickOnNoButton();
+
+        await logStep("Step 05: Enter OTP and verify");
         await app.discountOnReservedUnitsPage.fillCancellationOtpCodeInput(1234);
         await app.discountOnReservedUnitsPage.clickOnVerifyCancellationCodeButton();
+        
+        await logStep("Step 06: Validate the message");
         await app.discountOnReservedUnitsPage.verifyBeneficiaryCancellationToastSuccessMessage();
     });
 
@@ -132,12 +135,18 @@ test.describe("Update unit price from partners", () => {
 
         await logStep("Step 03: Navigate to booking details and cancel the booking");
         await app.discountOnReservedUnitsPage.clickOnBookingsTab();
+
+        await logStep("Step 04: Select cancellation reason and confirm the reservation cancellation");
         await app.discountOnReservedUnitsPage.selectCancellationReasonOption();
         await app.discountOnReservedUnitsPage.clickOnCancelBookingButton();
         await app.discountOnReservedUnitsPage.clickOnContinueCancellationButton();
         await app.discountOnReservedUnitsPage.clickOnNoButton();
+
+        await logStep("Step 05: Enter OTP and verify");
         await app.discountOnReservedUnitsPage.fillCancellationOtpCodeInput(1234);
         await app.discountOnReservedUnitsPage.clickOnVerifyCancellationCodeButton();
+
+        await logStep("Step 06: Validate the message");
         await app.discountOnReservedUnitsPage.verifyBeneficiaryCancellationToastSuccessMessage();
     });
 });

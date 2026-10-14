@@ -6,16 +6,13 @@ import { logStep } from '@helpers/LogSteps'
 import { ExcelUtils } from '@pages/utils/ExcelUtils';
 
 const SERVICE = "update-unit";
-
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
-const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
-
 
 test.describe("Update unit price from partners", () => {
     test("TC-01 Update the price of a unit", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
+        await logStep("Step 00: Read data from json relative to the service");
         const environment = readEnvironments();
         const data = readServiceData();
         const app = new WebApp(page);
@@ -50,9 +47,9 @@ test.describe("Update unit price from partners", () => {
 
         await logStep('Step 05: Read excel file and retrive the exisitng price > Write updated prices to the excel file and save');
         const exsitingPrice = app.updateUnitsPage.getUnitPriceFromWorkbook(filePath, unitCode);
-        writeServiceData("exsitingPrice", exsitingPrice);
+        DataHelper.updateServiceData(SERVICE, "exsitingPrice", exsitingPrice);
         const updatedPrice = Number(exsitingPrice) + 2;
-        writeServiceData("updatedPrice", updatedPrice);
+        DataHelper.updateServiceData(SERVICE, "updatedPrice", updatedPrice);
         await app.updateUnitsPage.updateUnitPricesWorkbook(filePath, unitCode, updatedPrice);
 
         await logStep('Step 06: Navigate to update unit price page > Upload updated unit price file');
@@ -75,7 +72,7 @@ test.describe("Update unit price from partners", () => {
 
     test("TC-02 Verify the price of the unit has been updated", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
+        await logStep("Step 00: Read data from json relative to the service");
         const environment = readEnvironments();
         const data = readServiceData();
         const app = new WebApp(page);
