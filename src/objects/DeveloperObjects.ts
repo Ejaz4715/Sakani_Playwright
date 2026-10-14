@@ -169,6 +169,10 @@ export const DeveloperObjects = {
   bankOptions(bankName: string) {
     return `//div[@role='option']/descendant::span[normalize-space() = '${bankName}']`;
   },
+  selectAndContinueButton: {
+    role: "button",
+    name: /^\s*التحديد والاستمرار\s*$/
+  },
   reservationSuccessPopup:
     "//span[normalize-space() = 'تأكيد الحجز']",
   bookingSearchInput: {

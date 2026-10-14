@@ -4,8 +4,8 @@ import { DeveloperObjects } from "@objects/DeveloperObjects";
 import { DevelopersPage } from "@pages/DevelopersPage";
 
 import * as timers from "node:timers";
-const DEFAULT_TIMEOUT= 30_000;
-const LONG_TIMEOUT= 90_000;
+const DEFAULT_TIMEOUT = 30_000;
+const LONG_TIMEOUT = 90_000;
 
 export class DeveloperProjectPage {
   page: Page;
@@ -301,13 +301,12 @@ export class DeveloperProjectPage {
     await this.page.waitForTimeout(3000);
   }
 
-  async filterBookingsByStatus (status: string) {
+  async filterBookingsByStatus(status: string) {
     const statusDropdown = this.page.locator(DeveloperObjects.bookingFilterStatusDropdown);
-    await statusDropdown.click();    
+    await statusDropdown.click();
     const statusOption = this.page.locator(DeveloperObjects.bookingFilterStatusOptions(status));
     await statusOption.click();
     await this.page.waitForTimeout(3000);
-
   }
 
   async viewDetailsOfSearchedBooking() {
@@ -370,37 +369,36 @@ export class DeveloperProjectPage {
     await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), "Confirmation booking success text is not visible").toBeVisible({ timeout: 20000 });
   }
 
-  async isSuccessfulConfirmationMessageVisible(){
-    return  await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
+  async isSuccessfulConfirmationMessageVisible() {
+    return await this.page.locator(DeveloperObjects.successfulBookingConfirmationMessage).isVisible();
   }
 
-  async closeConfirmationModal(){
+  async closeConfirmationModal() {
     await this.page.locator(DeveloperObjects.closeConfirmationModal).click();
   }
 
-  async clickOnCompanies(){
-    await this.page.locator(DeveloperObjects.companiesButton).waitFor({state: "visible"});
+  async clickOnCompanies() {
+    await this.page.locator(DeveloperObjects.companiesButton).waitFor({ state: "visible" });
     await this.page.locator(DeveloperObjects.companiesButton).click();
   }
 
-
-  async  waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
+  async waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
     await locator.waitFor({ state: 'visible', timeout });
     await locator.click();
   }
 
-  async  waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
+  async waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TIMEOUT) {
     await locator.waitFor({ state: 'visible', timeout });
     await locator.fill(value);
   }
 
-  async bookUnitsForCustomers(nationalIdentity:string,projectName:string){
+  async bookUnitsForCustomers(nationalIdentity: string, projectName: string) {
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
 
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
-    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
-   
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField), nationalIdentity);
+
     const searchButton = this.page.getByRole(DeveloperObjects.searchButton.role, { name: DeveloperObjects.searchButton.name });
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -415,12 +413,12 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.projectNameOptionSelector).click();
   }
 
-  async bookUnitsForCustomersUsingUnitCode(nationalIdentity:string ,unitCode:string){
+  async bookUnitsForCustomersUsingUnitCode(nationalIdentity: string, unitCode: string) {
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton), LONG_TIMEOUT);
-    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField),nationalIdentity);
-    
+    await this.waitAndFill(this.page.locator(DeveloperObjects.nationalIdentityField), nationalIdentity);
+
     const searchButton = this.page.getByRole(DeveloperObjects.searchButton.role, { name: DeveloperObjects.searchButton.name });
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -433,12 +431,12 @@ export class DeveloperProjectPage {
     await this.page.locator(DeveloperObjects.unitCodeTextfield).fill(unitCode);
   }
 
-  async bookUnitsForCompanies(companyUserId:string,companyCR:string,projectName:string){
+  async bookUnitsForCompanies(companyUserId: string, companyCR: string, projectName: string) {
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
     await this.waitAndClick(this.page.locator(DeveloperObjects.newBookingButton));
     await this.waitAndFill(this.page.locator(DeveloperObjects.companyCRField), companyCR);
-   
+
     const searchButton = this.page.getByRole(DeveloperObjects.searchButton.role, { name: DeveloperObjects.searchButton.name });
     await this.waitForVisible(searchButton);
     await searchButton.click();
@@ -465,11 +463,11 @@ export class DeveloperProjectPage {
     await this.waitAndClick(this.page.locator(DeveloperObjects.bankSelector));
   }
 
-  async selectCRMBank(){
+  async selectCRMBank() {
     await this.waitAndClick(this.page.locator(DeveloperObjects.crmBankSelector));
   }
 
-  async confirmBookingForCompanies(){
+  async confirmBookingForCompanies() {
     await this.waitAndClick(this.page.locator(DeveloperObjects.confirmCompanyBooking));
   }
 
@@ -592,12 +590,17 @@ export class DeveloperProjectPage {
     await bankOptions.click();
   }
 
+  async clickSelectAndContinue() {
+    const selectAndContinue = this.page.getByRole(DeveloperObjects.selectAndContinueButton.role, { name: DeveloperObjects.selectAndContinueButton.name });
+    await selectAndContinue.click({ timeout: 20000 });
+  }
+
   async validateSuccessReservationPopup() {
     const reservationSuccessPopup = this.page.locator(DeveloperObjects.reservationSuccessPopup);
     await expect(reservationSuccessPopup, "Reservation successful message pop up is not present").toBeVisible({ timeout: 20000 });
   }
 
-  async clickOnIndividualBookings(){
+  async clickOnIndividualBookings() {
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.individualBooking));
   }
