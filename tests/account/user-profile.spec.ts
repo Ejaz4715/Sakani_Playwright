@@ -4,7 +4,7 @@ import { PROFILE_ROUTES } from '@data/testData';
 import { logStep } from '@helpers/LogSteps';
 
 test.describe('Account - profile page', () => {
-  test('TC-01 Dashboard renders for the authenticated user', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
+  test('TC-01 Dashboard renders for the authenticated user', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const profile = new UserProfilePage(authenticatedPage);
@@ -17,7 +17,7 @@ test.describe('Account - profile page', () => {
     await expect(profile.startServiceButton.first()).toBeVisible();
   });
 
-  test('TC-02 User profile sidebar exposes every top-level area', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
+  test('TC-02 User profile sidebar exposes every top-level area', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const profile = new UserProfilePage(authenticatedPage);
@@ -41,7 +41,7 @@ test.describe('Account - profile page', () => {
     );
   });
 
-  test('TC-03 My information shows the user profile and its actions', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
+  test('TC-03 My information shows the user profile and its actions', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const profile = new UserProfilePage(authenticatedPage);
@@ -55,7 +55,7 @@ test.describe('Account - profile page', () => {
     await expect(profile.updateContactButton.first()).toBeVisible();
   });
 
-  test('TC-04 User national ID is not exposed in full', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-04 User national ID is not exposed in full', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the my information page');
@@ -66,7 +66,7 @@ test.describe('Account - profile page', () => {
     expect(body, 'Plain national ID should be masked').not.toContain('1000011485');
   });
 
-  test('TC-05 Wallet shows a balance and both tabs (Balance & Transactions, Bank account)', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
+  test('TC-05 Wallet shows a balance and both tabs (Balance & Transactions, Bank account)', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the wallet page');
@@ -80,7 +80,7 @@ test.describe('Account - profile page', () => {
     );
   });
 
-  test('TC-06 Wallet transactions list renders correctly', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
+  test('TC-06 Wallet transactions list renders correctly', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the wallet page');
@@ -92,7 +92,7 @@ test.describe('Account - profile page', () => {
     ).toBeVisible({ timeout: 60_000 });
   });
 
-  test('TC-07 The bank account tab opens', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-07 The bank account tab opens', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the wallet page');
@@ -107,7 +107,7 @@ test.describe('Account - profile page', () => {
     ).toBeVisible({ timeout: 60_000 });
   });
 
-  test('TC-08 Financial advisory shows the profile and both tabs (Overview, Financing Requests)', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
+  test('TC-08 Financial advisory shows the profile and both tabs (Overview, Financing Requests)', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const profile = new UserProfilePage(authenticatedPage);
@@ -123,7 +123,7 @@ test.describe('Account - profile page', () => {
     );
   });
 
-  test('TC-09 Financing requests tab opens', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
+  test('TC-09 Financing requests tab opens', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the financial advisory page');
@@ -136,7 +136,7 @@ test.describe('Account - profile page', () => {
     await expect(profile.advisoryHeading.first()).toBeVisible();
   });
 
-  test('TC-10 Payments page exposes all four status tabs (All, Unpaid, Paid, Cancelled)', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-10 Payments page exposes all four status tabs (All, Unpaid, Paid, Cancelled)', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the payments page');
@@ -148,7 +148,7 @@ test.describe('Account - profile page', () => {
     );
   });
 
-  test('TC-11 An invoice can be previewed from the payments list', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({
+  test('TC-11 An invoice can be previewed from the payments list', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const profile = new UserProfilePage(authenticatedPage);
@@ -165,7 +165,7 @@ test.describe('Account - profile page', () => {
     await expect(invoice).toBeEnabled();
   });
 
-  test('TC-12 Pagination controls are disabled on the first page', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
+  test('TC-12 Pagination controls are disabled on the first page', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const profile = new UserProfilePage(authenticatedPage);
@@ -182,7 +182,7 @@ test.describe('Account - profile page', () => {
     await expect(first).toBeDisabled();
   });
 
-  test('TC-13 Favorites exposes all five category tabs (All, Destinations, Projects, Units, Services)', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-13 Favorites exposes all five category tabs (All, Destinations, Projects, Units, Services)', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the favorites page');
@@ -194,7 +194,7 @@ test.describe('Account - profile page', () => {
     ).toEqual(expect.arrayContaining(['All', 'Destinations', 'Projects', 'Units', 'Services']));
   });
 
-  test('TC-14 Registered interests exposes all five tabs (All, Destinations, Projects, Developers, Brokers)', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-14 Registered interests exposes all five tabs (All, Destinations, Projects, Developers, Brokers)', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const profile = new UserProfilePage(authenticatedPage);
 
     await logStep('Step 01: Open the registered interests page');
@@ -206,7 +206,7 @@ test.describe('Account - profile page', () => {
     ).toEqual(expect.arrayContaining(['All', 'Destinations', 'Projects', 'Developers', 'Brokers']));
   });
 
-  test('TC-15 Registered interests shows its empty state with a CTA', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
+  test('TC-15 Registered interests shows its empty state with a CTA', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
     authenticatedPage,
   }) => {
     const profile = new UserProfilePage(authenticatedPage);
@@ -218,7 +218,7 @@ test.describe('Account - profile page', () => {
     await expect(profile.exploreMarketplaceButton).toBeVisible({ timeout: 60_000 });
   });
 
-  test('TC-16 Profile routes redirect to login page when logged out', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ page }) => {
+  test('TC-16 Profile routes redirect to login page when logged out', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ page }) => {
     await logStep('Step 01: Navigate to the protected wallet route while logged out');
     await page.goto(`${PROFILE_ROUTES.wallet}?lang=en`, { waitUntil: 'commit' });
 

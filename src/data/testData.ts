@@ -8,7 +8,8 @@
 
 export const TEST_USER = {
   /** National ID used for Nafath login. Auto-approves in pre-production. */
-  nationalId: process.env.SAKANI_NATIONAL_ID ?? '1000011485',
+  nationalId: '1000011485',
+  companyUserId: '1001234342',
   /** Display name rendered in the header once authenticated. */
   displayName: 'ALSHAIKHA',
   arabicName: 'محمد حسين حامد اليامي',
@@ -231,6 +232,8 @@ export const PROFILE_ROUTES = {
   payments: '/app/user-profile/payment-transaction',
   favorites: '/app/user-profile/favorites',
   registeredInterests: '/app/user-profile/preferences/registered-interests',
+  companyBookings: '/app/user-profile/my-company/company-bookings/listing',
+  companyPayments: '/app/user-profile/my-company/company-payments/listing',
   myBookings: '/app/user-profile/my-activities/my-bookings/listing',
 } as const;
 

@@ -19,6 +19,10 @@ import { PROFILE_ROUTES } from '@data/testData';
 export class UserProfilePage extends BasePage {
   protected path: string = PROFILE_ROUTES.dashboard;
 
+  // --- Account ---
+  readonly notifications: Locator;
+  readonly notificationsCentre: Locator;
+
   /** Left-navigation entries, addressed by their visible label. */
   readonly sidebar: Locator;
 
@@ -52,10 +56,21 @@ export class UserProfilePage extends BasePage {
   readonly favoritesHeading: Locator;
   readonly registeredInterestsHeading: Locator;
   readonly exploreMarketplaceButton: Locator;
+  
+  // --- My Company ---
+  readonly companyBookingsHeading: Locator;
+  readonly companyPaymentsHeading: Locator;
+  readonly bookingCard: Locator;
+  readonly invoiceCard: Locator;
+
+
 
   constructor(page: Page) {
     super(page);
 
+    this.notifications = page.locator("//span[normalize-space() = 'Notifications']");
+    this.notificationsCentre = page.getByText("Notification centre");
+    
     this.sidebar = page.getByText('Dashboard', { exact: true }).first();
 
     this.startServiceButton = page.getByRole('button', { name: /Start service/i });
@@ -91,16 +106,30 @@ export class UserProfilePage extends BasePage {
     this.previewReceiptButton = page.getByRole('button', { name: /Preview receipt/i });
 
     this.favoritesHeading = page.getByRole('heading', { name: /^\s*Favorites\s*$/i });
-    this.registeredInterestsHeading = page.getByRole('heading', { name: /Registered interests/i });
+    this.registeredInterestsHeading = page.getByRole('heading', { name: /Registered interests/i });    
     this.exploreMarketplaceButton = page.getByRole('button', {
       name: /Explore Marketplace/i,
     }).or(page.getByRole('link', { name: /Explore Marketplace/i })).first();
+
+
+    this.companyBookingsHeading = page.getByRole('heading', { name: /Company Bookings/i });
+    this.companyPaymentsHeading = page.getByRole('heading', { name: /Company Payments/i });
+    this.bookingCard = page.locator("//app-booking-card-v5").first();
+    this.invoiceCard = page.locator("//app-invoice-card-v5").first();
   }
 
   /** Open one of the profile routes and wait for its own readiness signal. */
   async openRoute(route: string, ready: Locator): Promise<void> {
     this.path = route;
     await this.gotoUntilReady(ready, route);
+  }
+
+  async openNotifications(): Promise<void> {
+    await this.notifications.click();
+  }
+
+  async expectNotificationsCentreVisible(): Promise<void> {
+    await expect(this.notificationsCentre).toBeVisible({timeout: 20000});
   }
 
   async openDashboard(): Promise<void> {
@@ -129,6 +158,14 @@ export class UserProfilePage extends BasePage {
 
   async openRegisteredInterests(): Promise<void> {
     await this.openRoute(PROFILE_ROUTES.registeredInterests, this.registeredInterestsHeading);
+  }
+
+  async openCompanyBookings(): Promise<void> {
+    await this.openRoute(PROFILE_ROUTES.companyBookings, this.companyBookingsHeading);
+  }
+
+  async openCompanyPayments(): Promise<void> {
+    await this.openRoute(PROFILE_ROUTES.companyPayments, this.companyPaymentsHeading);
   }
 
   /** A status/section tab by visible label, within any profile page. */
