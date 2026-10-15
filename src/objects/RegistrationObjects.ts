@@ -69,10 +69,6 @@ export const RegistrationObjects = {
     confirmButton: { role: "button", name: "تأكيد" },
     eligibilitySuccessMessage: "تهانينا، أنت الآن مستحق للدعم السكني!",
     notEligibilitySuccessMessage: " عذرا ، أنت غير مؤهل للحصول على الدعم ",
-
-
-
-
     //Extra fields
     guardianId: {
         xpath: "//input[@formcontrolname='guardian_nin']"
@@ -93,7 +89,42 @@ export const RegistrationObjects = {
     motherDob: {
         xpath: "//app-hijri-datepicker[@formcontrolname='dob_mother']/descendant::input[1]"
     },
+    //Financial Advisory
     financialAdvisoryLink: {
 		xpath: "(//a[contains(., 'المستشار العقاري')])[3]",
 	},
+    startNowButton: { role: "button", name: "ابدأ الآن" },
+    startServiceLink: { role: "link", name: "بدء الخدمة" },
+	readyUnitsFromMarketText: "الوحدات الجاهزة من السوق",
+	readyUnitsCheckbox: { role: "checkbox" },
+	submitButton: { role: "button", name: "إرسال" },
+	typeOfWorkDropdwonList:{
+        xpath:"//app-label[@label='ELIGIBILITY.ADDITIONAL_QUESTIONS_FORM.LABEL.TYPE_OF_WORK']/parent::div/descendant::ng-select"
+    },
+    typeOfWorkOption: { role: "option", name: "مدني – قطاع حكومي" },
+    bankDropdownList:{
+        xpath:"//app-label[@label='ELIGIBILITY.ADDITIONAL_QUESTIONS_FORM.LABEL.SALARY_BANK']/parent::div/descendant::ng-select"
+    },
+    bankOption: { role: "option", name: "Bank Albilad" },
+    monthlySalaryInputfield:{
+        xpath:"//input[@formcontrolname='monthly_salary']"
+    },
+    homeAllowanceInputfield:{
+        xpath:"//input[@formcontrolname='home_allowance']"
+    },
+    additionalIncomeInputfield:{
+        xpath:"//input[@formcontrolname='additional_income']"
+    },
+    personalSavingsInputfield:{
+        xpath:"//input[@formcontrolname='personal_savings']"
+    },
+    downPaymentAmountInputfield:{
+        xpath:"//input[@formcontrolname='down_payment_amount']"
+    },
+    monthlyObligationsInputfield:{
+        xpath:"//input[@formcontrolname='monthly_obligations']"
+    },
+    monthRemainingInputfield:{
+        xpath:"//input[@formcontrolname='num_months_remaining']"
+    }
 } as const
