@@ -1,6 +1,6 @@
 import { type Page } from "@playwright/test";
 import { LoginPage } from '@pages/LoginPage';
-import {CommonMethods }from '@pages/utils/CommonMethods';
+import { CommonMethods } from '@pages/utils/CommonMethods';
 import { MarketplaceLandingPage } from '@pages/MarketplaceLandingPage';
 import { ProjectDetailsPage } from '@pages/ProjectDetailsPage';
 import { ProjectUnitsPage } from '@pages/ProjectUnitsPage';
@@ -41,10 +41,12 @@ import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { RegistrationPage } from '@pages/RegistrationPage';
 import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
-import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
-import {RealEstateTaxExemptionPage} from "@pages/RealEstateTaxExemptionPage";
+import { ReservationManagementFiltersPage } from "@pages/ReservationManagementFiltersPage";
+import { VoucherManagementPage } from "@pages/VoucherManagementPage";
+import { RealEstateTaxExemptionPage } from "@pages/RealEstateTaxExemptionPage";
 import { UserManagementPage } from "@pages/UserManagementPage";
 import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
+
 export class WebApp {
   page: Page;
   loginPage: InstanceType<typeof LoginPage>;
@@ -89,11 +91,12 @@ export class WebApp {
   requestPublishProjectPage: InstanceType<typeof RequestPublishProjectPage>;
   verifyingEligibilityForDevelopmentalHousingPage: InstanceType<typeof VerifyingEligibilityForDevelopmentalHousingPage>;
   reservationManagementFiltersPage: InstanceType<typeof ReservationManagementFiltersPage>;
+  voucherManagementPage: InstanceType<typeof VoucherManagementPage>;
   realEstateTaxExemptionPage: InstanceType<typeof RealEstateTaxExemptionPage>;
   userManagementPage: InstanceType<typeof UserManagementPage>;
   creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
   commonMethods: InstanceType<typeof CommonMethods>;
-  
+
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(page);
@@ -188,6 +191,7 @@ export class WebApp {
     this.partnersLoginPage = new PartnersLoginPage(page);
     this.stampManagementPage = new StampManagementPage(page);
     this.reservationManagementFiltersPage = new ReservationManagementFiltersPage(page);
+    this.voucherManagementPage = new VoucherManagementPage(page);
     this.realEstateTaxExemptionPage = new RealEstateTaxExemptionPage(page);
     this.userManagementPage = new UserManagementPage(page);
     this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);

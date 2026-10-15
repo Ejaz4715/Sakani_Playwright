@@ -204,4 +204,15 @@ export class MarketplaceLandingPage {
     return await this.page.locator(MarketplaceLandingObjects.landsProductHeaderText).isVisible();
   }
 
+  async clickFinancingShowMore() {
+    await this.page
+      .locator(MarketplaceLandingObjects.financingShowMore.container)
+      .getByText(MarketplaceLandingObjects.financingShowMore.text, { exact: true })
+      .click();
+  }
+
+  async expectUpdateProjectNameIsVisible(name: string) {
+    const bankName = await this.page.locator("#financing").getByText(name, { exact: true });
+    await expect (bankName, "The update bank is not present in the project details page").toBeVisible({timeout: 20000});
+  }
 }

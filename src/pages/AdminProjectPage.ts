@@ -9,29 +9,45 @@ export class AdminProjectPage {
 
   async login(url: string, username: string, password: string, otp = "1234") {
     await this.page.goto(url);
-    await this.page.locator('input[type="text"]').fill(username);
-    await this.page.locator('input[type="password"]').fill(password);
-    await this.page.getByRole("button", { name: "تسجيل الدخول" }).click();
-    const otpInput = this.page.locator("//app-sakani-otp//input[@type='text']");
+    await this.page.locator(AdminObjects.loginUsernameInput).fill(username);
+    await this.page.locator(AdminObjects.loginPasswordInput).fill(password);
+    await this.page
+      .getByRole(AdminObjects.loginButton.role, {
+        name: AdminObjects.loginButton.name,
+      })
+      .click();
+    const otpInput = this.page.locator(AdminObjects.otpInput);
     await expect(otpInput).toBeVisible({ timeout: 30000 });
     await otpInput.fill(otp);
-    await this.page.getByRole("button", { name: "تأكيد" }).click();
+    await this.page
+      .getByRole(AdminObjects.otpConfirmButton.role, {
+        name: AdminObjects.otpConfirmButton.name,
+      })
+      .click();
   }
 
   async openProjectCreation() {
-    await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
-    await this.page.getByRole("link", { name: "المشاريع" }).click();
-    await this.page.getByRole("button", { name: "إضافة مشروع جديد" }).click();
+    await this.clickInternalInventory();
+    await this.clickProjectsLink();
+    await this.clickAddNewProjectButton();
   }
 
   async clickProjectsLink() {
-    await this.page.getByRole("link", { name: "المشاريع" }).click();
+    await this.page
+      .getByRole(AdminObjects.projectsLink.role, {
+        name: AdminObjects.projectsLink.name,
+      })
+      .click();
   }
 
 
 
   async clickAddNewProjectButton() {
-    await this.page.getByRole("button", { name: "إضافة مشروع جديد" }).click();
+    await this.page
+      .getByRole(AdminObjects.addNewProjectButton.role, {
+        name: AdminObjects.addNewProjectButton.name,
+      })
+      .click();
   }
 
   async fillProjectName(projectName: string) {
@@ -215,6 +231,13 @@ export class AdminProjectPage {
     await this.page.getByText(AdminObjects.financingEntitiesHeading.text).click();
   }
 
+  async expectBankNameVisibility(targetName: string) {
+    const targetCell = this.page.locator(
+      AdminObjects.financialEntitiesBankNameCell(targetName)
+    );
+    await expect(targetCell, "The updated bank name is not present").toBeVisible({ timeout: 30000 });
+  }
+
   async expectSelectAllRowsVisible() {
     await expect(
       this.page.getByRole(AdminObjects.selectAllRowsCheckbox.role, {
@@ -302,9 +325,7 @@ export class AdminProjectPage {
       await this.page.reload();
       await this.page.waitForTimeout(3000);
       completed = await this.page
-        .getByText(AdminObjects.importCompleteMessage.text, {
-          exact: AdminObjects.importCompleteMessage.exact,
-        })
+        .getByText(AdminObjects.importCompleteMessage.text)
         .isVisible()
         .catch(() => false);
       if (!completed) {
@@ -606,35 +627,91 @@ export class AdminProjectPage {
   }
 
   async openProjects() {
-    await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
-    await this.page.getByRole("link", { name: "المشاريع" }).click();
+    await this.clickInternalInventory();
+    await this.clickProjectsLink();
   }
 
   async openResaleRequests() {
-    await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
-    await this.page.getByRole("link", { name: " طلب إعادة البيع " }).click();
+    await this.clickInternalInventory();
+    await this.page
+      .getByRole(AdminObjects.resaleRequestsLink.role, {
+        name: AdminObjects.resaleRequestsLink.name,
+      })
+      .click();
   }
 
   async clickInternalInventory() {
-    await this.page.locator("a").filter({ hasText: "المخزون الداخلي" }).click();
+    await this.page
+      .locator(AdminObjects.internalInventoryLink.selector)
+      .filter({ hasText: AdminObjects.internalInventoryLink.hasText })
+      .click();
   }
 
   async openAuctionCreation() {
-    await this.page.locator("a").filter({ hasText: "المزادات" }).click();
-    await this.page.getByRole("link", { name: "مشاريع المزاد" }).click();
-    await this.page.getByRole("button", { name: "مشروع مزاد جديد" }).click();
+    await this.page
+      .locator(AdminObjects.auctionsLink.selector)
+      .filter({ hasText: AdminObjects.auctionsLink.hasText })
+      .click();
+    await this.page
+      .getByRole(AdminObjects.auctionProjectsLink.role, {
+        name: AdminObjects.auctionProjectsLink.name,
+      })
+      .click();
+    await this.page
+      .getByRole(AdminObjects.newAuctionProjectButton.role, {
+        name: AdminObjects.newAuctionProjectButton.name,
+      })
+      .click();
+  }
+
+  async clickPartner() {
+    await this.clickPartnerLink();
+  }
+
+  async clickNeighbourGreeting() {
+    await this.page
+      .locator(AdminObjects.neighbourGreetingLink.selector)
+      .filter({ hasText: AdminObjects.neighbourGreetingLink.hasText })
+      .click();
+  }
+
+  async openVoucherManagement() {
+    await this.page
+      .getByRole(AdminObjects.voucherManagementLink.role, {
+        name: AdminObjects.voucherManagementLink.name,
+      })
+      .click();
+  }
+
+  async openFinancialInstitutes() {
+    await this.clickPartner();
+    await this.page
+      .getByRole(AdminObjects.financialInstitutesLink.role, {
+        name: AdminObjects.financialInstitutesLink.name,
+      })
+      .click();
   }
 
   async selectRegionAndCity(region = "الرياض") {
-    await this.page.locator("//ng-select[@formcontrolname='region_id']").getByRole("combobox").click();
+    await this.page
+      .locator(AdminObjects.regionDropdown)
+      .getByRole(AdminObjects.regionSelectCombobox.role)
+      .click();
     await this.page.getByText(region).click();
-    await this.page.locator("//input[@id='inputCity']").click();
-    await this.page.getByRole("option", { name: region, exact: true }).click();
+    await this.page.locator(AdminObjects.cityDropdown).click();
+    await this.page
+      .getByRole(AdminObjects.genericOption.role, {
+        name: region,
+        exact: AdminObjects.genericOption.exact,
+      })
+      .click();
   }
 
   async saveAndExpectSuccess() {
-    await this.page.getByRole("button", { name: "حفظ" }).click();
-    await expect(this.page.getByText("تم الحفظ بنجاح!")).toBeVisible({
+    await this.clickSaveButton();
+    await expect(
+      this.page.getByText(AdminObjects.saveSuccessMessage.text)
+    ).toBeVisible({
       timeout: 120000,
     });
   }
@@ -704,7 +781,9 @@ export class AdminProjectPage {
   async clickOnDeveloperNameResult(value: string | number) {
     const developerNameResult = this.page
       .locator(AdminObjects.devloperNameResult.xpath)
-      .getByText(String(value), { exact: true });
+      .getByText(String(value), {
+        exact: AdminObjects.devloperNameResult.exact,
+      });
     await expect(developerNameResult).toBeVisible({ timeout: 90000 });
     await developerNameResult.click();
   }
@@ -731,7 +810,6 @@ export class AdminProjectPage {
     const developarContactInofValue = this.page.locator(
       AdminObjects.developarContactInofValue.xpath
     );
-
     await expect(developarContactInofValue).toBeVisible();
     const isChecked =
       (await developarContactInofValue.getAttribute("aria-checked")) === "true";
@@ -742,5 +820,61 @@ export class AdminProjectPage {
       "aria-checked",
       String(shouldBeChecked),
     );
+  }
+
+  async searchFinancialInstitute(targetName: string) {
+    while (true) {
+      // 1. Parameterize the cell name and use .first()
+      const targetCell = this.page.locator(
+        AdminObjects.financialInstituteNameCell(targetName)
+      );
+
+      // 2. Check if the cell is visible on the current page
+      const isPresent = await targetCell.isVisible({ timeout: 20000 });
+      if (isPresent) {
+        await targetCell.click();
+        break;
+      }
+
+      // 3. Move to the next page using your exact Arabic locator
+      const nextButton = this.page.getByRole(
+        AdminObjects.financialInstitutesNextPageButton.role,
+        { name: AdminObjects.financialInstitutesNextPageButton.name }
+      );
+      await nextButton.click();
+      await this.page.waitForTimeout(3000);
+    }
+  }
+
+  async fillFinancialInstituteArabicName(name: string) {
+    await this.page
+      .locator(AdminObjects.financialInstituteArabicNameInput)
+      .fill(name);
+  }
+
+  async fillFinancialInstituteEnglishName(name: string) {
+    await this.page
+      .locator(AdminObjects.financialInstituteEnglishNameInput)
+      .fill(name);
+  }
+
+  async fillFinancialInstituteRealName(name: string) {
+    await this.page
+      .locator(AdminObjects.financialInstituteRealNameInput)
+      .fill(name);
+  }
+
+  async clickFinancialInstituteSaveButton() {
+    await this.page
+      .getByRole(AdminObjects.saveButton.role, {
+        name: AdminObjects.saveButton.name,
+      })
+      .click();
+  }
+
+  async expectFinancialInstituteSavedToast() {
+    await expect(
+      this.page.locator(AdminObjects.financialInstituteSavedToast)
+    ).toHaveText(AdminObjects.saveSuccessMessage.text);
   }
 }
