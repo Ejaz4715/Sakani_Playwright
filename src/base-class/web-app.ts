@@ -41,10 +41,10 @@ import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { RegistrationPage } from '@pages/RegistrationPage';
 import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
-import { ReservationManagementFiltersPage } from "@pages/ReservationManagementFiltersPage";
+import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
+import {RealEstateTaxExemptionPage} from "@pages/RealEstateTaxExemptionPage";
 import { UserManagementPage } from "@pages/UserManagementPage";
 import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
-
 export class WebApp {
   page: Page;
   loginPage: InstanceType<typeof LoginPage>;
@@ -89,10 +89,11 @@ export class WebApp {
   requestPublishProjectPage: InstanceType<typeof RequestPublishProjectPage>;
   verifyingEligibilityForDevelopmentalHousingPage: InstanceType<typeof VerifyingEligibilityForDevelopmentalHousingPage>;
   reservationManagementFiltersPage: InstanceType<typeof ReservationManagementFiltersPage>;
+  realEstateTaxExemptionPage: InstanceType<typeof RealEstateTaxExemptionPage>;
   userManagementPage: InstanceType<typeof UserManagementPage>;
   creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
   commonMethods: InstanceType<typeof CommonMethods>;
-
+  
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(page);
@@ -187,6 +188,7 @@ export class WebApp {
     this.partnersLoginPage = new PartnersLoginPage(page);
     this.stampManagementPage = new StampManagementPage(page);
     this.reservationManagementFiltersPage = new ReservationManagementFiltersPage(page);
+    this.realEstateTaxExemptionPage = new RealEstateTaxExemptionPage(page);
     this.userManagementPage = new UserManagementPage(page);
     this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);
     this.commonMethods = new CommonMethods(page);
