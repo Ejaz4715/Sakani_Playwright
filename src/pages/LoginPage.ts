@@ -25,8 +25,12 @@ export class LoginPage {
     const acceptCookiesButton = this.page.getByRole(
       LoginObjects.acceptCookiesButton.role,
       { name: LoginObjects.acceptCookiesButton.name },
-    );
+    ).filter({ visible: true }).first();
     await this.click(acceptCookiesButton);
+
+    // The cookie modal fades out; wait for it and its backdrop so they don't block the next click
+    await this.page.locator(LoginObjects.acceptCookiesModal).waitFor({ state: "hidden", timeout: 15000 }).catch(() => {});
+    await this.page.locator(".modal-backdrop").waitFor({ state: "detached", timeout: 15000 }).catch(() => {});
 
     // const closeCookiesModal = this.page.locator(LoginObjects.closeCookiesModal);
     // await this.click(closeCookiesModal);
