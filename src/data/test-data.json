@@ -237,14 +237,26 @@
       "developerUserId": "1023129537",
       "sakaniUserId": "1300070834"
     },
-      "verifying-eligibility-for-developmental-housing": {
+    "verifying-eligibility-for-developmental-housing": {
       "developerUserId": "1023129537",
       "sakaniUserId": "1059998823"
-      },
+    },
     "reservation-management-filters": {
       "developerUserId": "1023129537"
     },
     "news-housing-products-support": {
+      "sakaniUserId": "1300070834"
+    },
+    "metaverse-management": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "sapaCompanyAdmin": "1023129537",
+      "sapaCompanyUser": "1023129538"
+    },
+    "search-engine": {
+      "sakaniUserId": "1300070834"
+    },
+    "recommendations": {
       "sakaniUserId": "1300070834"
     }
   }

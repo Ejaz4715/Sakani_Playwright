@@ -36,7 +36,9 @@ export const MarketplaceLandingObjects = {
   offPlanProductHeaderText:"//h1[contains(text(),'وحدات البيع على الخارطة')]",
   readyUnitProductHeaderText:"//h1[contains(text(),'منتج الوحدات الجاهزة')]",
   landsProductHeaderText:"//h1[contains(text(),'أرضك دعمك')]",
-
-
+  searchTextField: "app-smart-search-input input",
+  searchResultsCard: "app-smart-search-dropdown-section",
+  searchResultsCardText: "app-smart-search-dropdown p",
+  searchIcon:".svg-icon.icon-search-gray",
 
 } as const;
