@@ -22,7 +22,6 @@ test.describe("Update Participated Bank", () => {
         const adminPassword = data.adminPassword;
         const projectName = data.projectName;
 
-
         await app.adminProjectPage.login(
             adminUrl,
             adminUsername,

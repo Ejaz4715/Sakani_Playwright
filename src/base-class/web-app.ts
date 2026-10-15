@@ -1,5 +1,6 @@
 import { type Page } from "@playwright/test";
 import { LoginPage } from '@pages/LoginPage';
+import {CommonMethods }from '@pages/utils/CommonMethods';
 import { MarketplaceLandingPage } from '@pages/MarketplaceLandingPage';
 import { ProjectDetailsPage } from '@pages/ProjectDetailsPage';
 import { ProjectUnitsPage } from '@pages/ProjectUnitsPage';
@@ -18,7 +19,7 @@ import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymen
 import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
 import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
-import {OffPlanBasketMultipleBookingPage} from "@pages/OffPlanBasketMultipleBooking";
+import { OffPlanBasketMultipleBookingPage } from "@pages/OffPlanBasketMultipleBooking";
 import { AdminLoyaltyPage } from '@pages/AdminLoyaltyPage'
 import { PaymentsAndTransactionsPage } from '@pages/PaymentsAndTransactionsPage';
 import { BuyDesignPage } from '@pages/BuyDesignPage';
@@ -26,23 +27,24 @@ import { WaitingListPage } from '@pages/WaitinListPage';
 import { DiscountOnReservedUnitsPage } from '@pages/DiscountOnReservedUnitsPage';
 import { CashPaymentPage } from '@pages/CashPaymentPage';
 import { PublishUnitPage } from '@pages/PublishUnitPage';
-import {UnitsDeliveryPage} from "@pages/UnitsDeliveryPage";
+import { UnitsDeliveryPage } from "@pages/UnitsDeliveryPage";
 import { UnitComparisonPage } from '@pages/UnitComparisonPage';
 import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
 import { PartnersLoginPage } from '@pages/PartnersLoginPage'
-import {StampManagementPage} from "@pages/StampManagementPage";
-import {DashboardViewPage} from "@pages/DashboardPageView";
-import {SalesChannel_TargetAudiencePage} from "@pages/SalesChannel_TargetAudiencePage";
+import { StampManagementPage } from "@pages/StampManagementPage";
+import { DashboardViewPage } from "@pages/DashboardPageView";
+import { SalesChannel_TargetAudiencePage } from "@pages/SalesChannel_TargetAudiencePage";
 import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { RegistrationPage } from '@pages/RegistrationPage';
 import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
 import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
 import {RealEstateTaxExemptionPage} from "@pages/RealEstateTaxExemptionPage";
-
+import { UserManagementPage } from "@pages/UserManagementPage";
+import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
 export class WebApp {
   page: Page;
   loginPage: InstanceType<typeof LoginPage>;
@@ -88,7 +90,10 @@ export class WebApp {
   verifyingEligibilityForDevelopmentalHousingPage: InstanceType<typeof VerifyingEligibilityForDevelopmentalHousingPage>;
   reservationManagementFiltersPage: InstanceType<typeof ReservationManagementFiltersPage>;
   realEstateTaxExemptionPage: InstanceType<typeof RealEstateTaxExemptionPage>;
-
+  userManagementPage: InstanceType<typeof UserManagementPage>;
+  creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
+  commonMethods: InstanceType<typeof CommonMethods>;
+  
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(page);
@@ -162,27 +167,30 @@ export class WebApp {
     this.registrationPage = new RegistrationPage(page);
     this.requestPublishProjectPage = new RequestPublishProjectPage(page);
     this.verifyingEligibilityForDevelopmentalHousingPage = new VerifyingEligibilityForDevelopmentalHousingPage(page);
-    this.createMegaProjectPage = new CreateMegaProjectPage (page);
-    this.flexiblePaymentPage = new FlexiblePaymentPage (page);
-    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage (page);
-    this.paymentTrackingPage = new PaymentTrackingPage (page);
-    this.rentalBehavrioPage = new RentalBehaviorPage (page);
-    this.resaleOfUnitsPage = new ResaleOfUnitsPage (page);
-    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage (page);
-    this.buyDesignPage = new BuyDesignPage (page);
-    this.waitingListPage = new WaitingListPage (page);
-    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage (page);
-    this.cashPaymentPage = new CashPaymentPage (page);
-    this.publishUnitPage = new PublishUnitPage (page);
-    this.unitsDeliveryPage = new UnitsDeliveryPage (page);
-    this.stampManagementPage = new StampManagementPage (page);
+    this.createMegaProjectPage = new CreateMegaProjectPage(page);
+    this.flexiblePaymentPage = new FlexiblePaymentPage(page);
+    this.bookingAndSelectPaymentMethodPage = new BookingAndSelectPaymentMethodPage(page);
+    this.paymentTrackingPage = new PaymentTrackingPage(page);
+    this.rentalBehavrioPage = new RentalBehaviorPage(page);
+    this.resaleOfUnitsPage = new ResaleOfUnitsPage(page);
+    this.offPlanBasketMultipleBookingPage = new OffPlanBasketMultipleBookingPage(page);
+    this.buyDesignPage = new BuyDesignPage(page);
+    this.waitingListPage = new WaitingListPage(page);
+    this.discountOnReservedUnitsPage = new DiscountOnReservedUnitsPage(page);
+    this.cashPaymentPage = new CashPaymentPage(page);
+    this.publishUnitPage = new PublishUnitPage(page);
+    this.unitsDeliveryPage = new UnitsDeliveryPage(page);
+    this.stampManagementPage = new StampManagementPage(page);
     this.dashboardViewPage = new DashboardViewPage(page);
     this.salesChannelTargetAudiencePage = new SalesChannel_TargetAudiencePage(page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
     this.updateUnitsPage = new UpdateUnitsPage(page);
     this.partnersLoginPage = new PartnersLoginPage(page);
-    this.stampManagementPage = new StampManagementPage (page);
+    this.stampManagementPage = new StampManagementPage(page);
     this.reservationManagementFiltersPage = new ReservationManagementFiltersPage(page);
     this.realEstateTaxExemptionPage = new RealEstateTaxExemptionPage(page);
+    this.userManagementPage = new UserManagementPage(page);
+    this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);
+    this.commonMethods = new CommonMethods(page);
   }
 }

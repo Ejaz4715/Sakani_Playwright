@@ -2,7 +2,8 @@
   "environments": {
     "sapaPortalUrl": "https://pre-sakani-partners.housingapps.sa/auth",
     "userPortalUrl": "https://pre-sakani.housingapps.sa",
-    "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth"
+    "adminPortalUrl": "https://pre-sakani-admin.housingapps.sa/auth",
+    "sayalUrl": "https://test-sayal.housingapps.sa/auth/Login"
   },
   "services": {
     "offplan-booking": {
@@ -183,6 +184,7 @@
     },
     "card-details": {
       "projectName": "Automation Project P_003",
+      "realEstateDataProjectName": "الهفوف - الفايزية - إسكان الجوهرة TEST",
       "sakaniUserId": "1441376098"
     },
     "list-of-real-estate-brokers-and-developers": {
@@ -219,7 +221,7 @@
       "developerUserId": "1023129537"
     },
     "registration": {
-      "newUserId": ""
+      "newUserId": "1119888076"
     },
     "developer-unit-reservation": {
       "sakaniUserIdEligible": "1330042042",
@@ -237,10 +239,10 @@
       "developerUserId": "1023129537",
       "sakaniUserId": "1300070834"
     },
-      "verifying-eligibility-for-developmental-housing": {
+    "verifying-eligibility-for-developmental-housing": {
       "developerUserId": "1023129537",
       "sakaniUserId": "1059998823"
-      },
+    },
     "reservation-management-filters": {
       "developerUserId": "1023129537"
     },
@@ -249,6 +251,20 @@
     },
     "real-estate-tax-exemption": {
       "sakaniUserId": "1119880074"
+    },
+    "user-management": {
+      "developerUserId": "1023129537",
+      "userId": "1028609657",
+      "crNumber": "1010486785",
+      "email": "testoneuser@test.com",
+      "phoneNumber": "509404040"
+    },
+    "creating-an-advertising-campaign": {
+      "developerUserId": "1023129537",
+      "requestNumber": "2610004",
+      "email": "Admin@sayal.sa",
+      "password": "Sayal@123",
+      "otp": "12345"
     }
   }
 }
