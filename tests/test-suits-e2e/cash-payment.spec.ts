@@ -8,25 +8,6 @@ import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
 import testDataCashPayment from "@data/test-data.json";
 
-const testDataPath = path.join(process.cwd(), "src", "data", "test-data.json");
-
-// function readTestData() {
-//     return JSON.parse(fs.readFileSync(testDataPath, "utf8"));
-// }
-
-// function writeTestData(data: any) {
-//     fs.writeFileSync(testDataPath, JSON.stringify(data, null, 2) + "\n", "utf8");
-// }
-
-// function updateCashPaymentTestData(key: string, value: string) {
-//     const testData = readTestData();
-//     testData.services["cash-payment"] = {
-//         ...testData.services["cash-payment"],
-//         [key]: value,
-//     };
-//     writeTestData(testData);
-// }
-
 test.describe("Cash Payment", () => {
 
     //tc1 add project
@@ -41,18 +22,6 @@ test.describe("Cash Payment", () => {
             .toISOString()
             .replace(/[-:T.]/g, "")
             .slice(0, 14)}`;
-        // const updatedData = {
-        //     ...testData,
-        //     projectName,
-        //     services: {
-        //         ...testData.services,
-        //         "cash-payment": {
-        //             ...testData.services["cash-payment"],
-        //             projectName,
-        //         },
-        //     },
-        // };
-        // writeTestData(updatedData);
 
         DataHelper.updateServiceData("cash-payment", "projectName", projectName);
 
@@ -365,9 +334,6 @@ test.describe("Cash Payment", () => {
         } else {
             await expect(publishProjectToggle).toHaveAttribute("aria-checked", "true");
         }
-
-
-
         await page.getByRole("button", { name: "حفظ" }).click();
         await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
     });

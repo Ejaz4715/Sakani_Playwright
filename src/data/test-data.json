@@ -26,9 +26,8 @@
     "moh-land-booking-journey": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "sakaniUserIdMoh": "1019075999",
-      "projectName": "Automation Moh Land Project 20261006145616",
-      "Name": "qqqqqqqqq"
+      "sakaniUserIdMoh": "1119880072",
+      "projectName": "Automation Moh Land Project 20261015084302"
     },
     "loyalty-sharrai": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
@@ -237,15 +236,27 @@
       "developerUserId": "1023129537",
       "sakaniUserId": "1300070834"
     },
-      "verifying-eligibility-for-developmental-housing": {
+    "verifying-eligibility-for-developmental-housing": {
       "developerUserId": "1023129537",
       "sakaniUserId": "1059998823"
-      },
+    },
     "reservation-management-filters": {
       "developerUserId": "1023129537"
     },
     "news-housing-products-support": {
       "sakaniUserId": "1300070834"
+    },
+    "update-financial-institute": {
+      "sakaniUserId": "1300070834",
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "bankName": "Test Automation Bank 20261015121126",
+      "projectName": "Automation Project Offplan 20261006132208"
+    },
+    "voucher-management": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "voucherName": "Test Automation Voucher 20261015142228"
     }
   }
 }

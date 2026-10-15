@@ -1,4 +1,58 @@
 export const AdminObjects = {
+  loginUsernameInput: 'input[type="text"]',
+  loginPasswordInput: 'input[type="password"]',
+  loginButton: {
+    role: "button",
+    name: "تسجيل الدخول",
+  },
+  otpInput: "//app-sakani-otp//input[@type='text']",
+  otpConfirmButton: {
+    role: "button",
+    name: "تأكيد",
+  },
+  internalInventoryLink: {
+    selector: "a",
+    hasText: "المخزون الداخلي",
+  },
+  projectsLink: {
+    role: "link",
+    name: "المشاريع",
+  },
+  resaleRequestsLink: {
+    role: "link",
+    name: " طلب إعادة البيع ",
+  },
+  addNewProjectButton: {
+    role: "button",
+    name: "إضافة مشروع جديد",
+  },
+  auctionsLink: {
+    selector: "a",
+    hasText: "المزادات",
+  },
+  auctionProjectsLink: {
+    role: "link",
+    name: "مشاريع المزاد",
+  },
+  newAuctionProjectButton: {
+    role: "button",
+    name: "مشروع مزاد جديد",
+  },
+  financialInstitutesLink: {
+    role: "link",
+    name: "المؤسسات التمويلية",
+  },
+  voucherManagementLink: {
+    role: "link",
+    name: "إدارة عروض سكني",
+  },
+  regionSelectCombobox: {
+    role: "combobox",
+  },
+  genericOption: {
+    role: "option",
+    exact: true,
+  },
   projectNameField: {
     container: "form-field-component",
     label: "إسم المشروع *",
@@ -91,10 +145,28 @@ export const AdminObjects = {
   saveSuccessMessage: {
     text: "تم الحفظ بنجاح!",
   },
+  financialInstituteArabicNameInput:
+    "//input[@formcontrolname='name']",
+  financialInstituteEnglishNameInput:
+    "//input[@formcontrolname='name_en']",
+  financialInstituteRealNameInput:
+    "//input[@formcontrolname='realname']",
+  financialInstituteSavedToast:
+    "//simple-snack-bar/child::div",
+  financialInstituteNameCell(text: string) {
+    return `//datatable-body-cell[2]/descendant::span[normalize-space() = '${text}']`;
+  },
+  financialInstitutesNextPageButton: {
+    role: "button",
+    name: "التالى",
+  },
   azmToggle:
     "//label[contains (text(), 'AZM')]/preceding-sibling::button",
   financingEntitiesHeading: {
     text: /قائمة الجهات التمويلية/i,
+  },
+  financialEntitiesBankNameCell(text: string) {
+    return `//datatable-body-cell[3]/descendant::span[normalize-space() = '${text}']`;
   },
   selectAllRowsCheckbox: {
     role: "checkbox",
@@ -128,8 +200,7 @@ export const AdminObjects = {
   importInProgressMessage:
     "//div[text() = 'الرمز المرجعي للعملية']",
   importCompleteMessage: {
-    text: "تم إكمال الإجراء",
-    exact: true,
+    text: "تم الاستيراد بواسطة",
   },
   approveButton: {
     role: "button",
@@ -267,12 +338,16 @@ export const AdminObjects = {
   completionPercentageValue: {
     xpath: "//mat-slide-toggle[@formcontrolname='completion_percentage_visible']/descendant::button"
   },
-
-  //Admin - list or real estate brokers and developers
   partnerLink: {
     selector: "a",
     hasText: "شريك",
   },
+  neighbourGreetingLink: {
+    selector: "a",
+    hasText: "تحية الجار",
+  },
+
+  //Admin - list or real estate brokers and developers
   realEstateDevelopersLink: {
     role: "link",
     name: "شركات التطوير العقارية",
@@ -281,7 +356,8 @@ export const AdminObjects = {
     xpath: "//input[@placeholder='اسم المطور']"
   },
   devloperNameResult: {
-    xpath: "//datatable-body-cell[2]"
+    xpath: "//datatable-body-cell[2]",
+    exact: true,
   },
   developerInformationPage: {
     xpath: "//app-page-header/descendant::p"

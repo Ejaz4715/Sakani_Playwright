@@ -41,6 +41,7 @@ import { RegistrationPage } from '@pages/RegistrationPage';
 import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
 import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
+import { VoucherManagementPage } from "@pages/VoucherManagementPage";
 
 export class WebApp {
   page: Page;
@@ -86,6 +87,7 @@ export class WebApp {
   requestPublishProjectPage: InstanceType<typeof RequestPublishProjectPage>;
   verifyingEligibilityForDevelopmentalHousingPage: InstanceType<typeof VerifyingEligibilityForDevelopmentalHousingPage>;
   reservationManagementFiltersPage: InstanceType<typeof ReservationManagementFiltersPage>;
+  voucherManagementPage: InstanceType<typeof VoucherManagementPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -181,5 +183,6 @@ export class WebApp {
     this.partnersLoginPage = new PartnersLoginPage(page);
     this.stampManagementPage = new StampManagementPage (page);
     this.reservationManagementFiltersPage = new ReservationManagementFiltersPage(page);
+    this.voucherManagementPage = new VoucherManagementPage(page);
   }
 }

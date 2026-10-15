@@ -30,8 +30,8 @@ test('test', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any
   await app.adminLoyaltyPage.clickLoyaltyProgram();
   await app.adminLoyaltyPage.clickManagePartners();
   await app.adminLoyaltyPage.clickAddNewPartner();
-
-  await logStep("Step 03: Fill company information");
+                                        
+  await logStep("Step 03: Fill company information");                           
   await app.adminLoyaltyPage.fillCompanyName(companyName);
   await app.adminLoyaltyPage.fillActivity("Automation Test Activity");
   await app.adminLoyaltyPage.selectIsActiveOption("نعم");
