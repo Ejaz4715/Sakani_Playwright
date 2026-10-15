@@ -6,7 +6,6 @@ import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
 import { DataHelper } from "@helpers/DataHelper";
-
 import { RegistrationObjects } from "@objects/RegistrationObjects";
 
 const SERVICE = "registration";
@@ -22,9 +21,7 @@ test.describe("User registration and check eligibility", () => {
         const environment = readEnvironments();
         const data = readServiceData();
         const app = new WebApp(page);
-
         const userPortalUrl = environment.userPortalUrl;
-
         await logStep("Step 01: Open the user portal and login as new user");
         await app.loginPage.gotoHomePage(userPortalUrl);
         await app.loginPage.acceptCookies();
@@ -41,8 +38,6 @@ test.describe("User registration and check eligibility", () => {
         await app.registrationPage.fillOtp("1234");
         await app.registrationPage.isNewUserContinueButtonVisible();
     });
-
-
     test("TC-02 - Check the eligibility for the user", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);
         //read data from json relative to the service
@@ -122,5 +117,29 @@ test.describe("User registration and check eligibility", () => {
         await app.loginPage.handlePushNotificationPopup();
         await logStep("Step 02: Navigate to user profile > Click on financial advisory");
         await app.marketplaceLandingPage.openProfileManagement();
+        await app.registrationPage.clickFinancialAdvisoryLink();
+        await logStep("Step 03: Start the service > Fill the required information");
+        await app.registrationPage.clickStartNowButton();
+        await app.registrationPage.clickStartServiceLink();
+        await app.registrationPage.selectDropdownOption(
+            RegistrationObjects.typeOfWorkDropdwonList,
+            RegistrationObjects.typeOfWorkOption,
+        );
+        await app.registrationPage.selectDropdownOption(
+            RegistrationObjects.bankDropdownList,
+            RegistrationObjects.bankOption,
+        );
+        await app.registrationPage.fillInputField(RegistrationObjects.monthlySalaryInputfield, 5000);
+        await app.registrationPage.fillInputField(RegistrationObjects.homeAllowanceInputfield, 3000);
+        await app.registrationPage.fillInputField(RegistrationObjects.additionalIncomeInputfield, 2500);
+        await app.registrationPage.fillInputField(RegistrationObjects.personalSavingsInputfield, 5000);
+        await app.registrationPage.fillInputField(RegistrationObjects.downPaymentAmountInputfield, 2500);
+        await app.registrationPage.fillInputField(RegistrationObjects.monthlyObligationsInputfield, 5000);
+        await app.registrationPage.fillInputField(RegistrationObjects.monthRemainingInputfield, 6);
+        await app.registrationPage.clickReadyUnitsFromMarketText();
+        await app.registrationPage.checkReadyUnitsCheckbox();
+        await logStep("Step 04: Submit then verify the success message");
+        await app.registrationPage.clickSubmitButton();
+        await app.auctionPage.validateCongratulationsMessaeg();
     });
 });
