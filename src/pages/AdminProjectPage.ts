@@ -206,9 +206,9 @@ export class AdminProjectPage {
       .click();
   }
 
-  async validateToastMessage() {
+  async validateProjectSavedToastMessage() {
     await expect(
-      this.page.locator(AdminObjects.saveSuccessToast).getByText(AdminObjects.saveSuccessMessage.text),
+      this.page.locator(AdminObjects.successToast).getByText(AdminObjects.saveSuccessMessage.text),
       "Project saved message is not displayed",
     ).toBeVisible({ timeout: 120000 });
   }
@@ -253,8 +253,6 @@ export class AdminProjectPage {
       })
       .click();
   }
-
-
 
   async clickUnitsTab() {
     await this.page
@@ -761,6 +759,7 @@ export class AdminProjectPage {
       }
     }
   }
+
   async clickPartnerLink() {
     await this.page
       .locator(AdminObjects.partnerLink.selector)
@@ -800,7 +799,6 @@ export class AdminProjectPage {
     await developerPhoneNumberInputfiled.fill(developerPhoneNumber);
   }
 
-
   async clickDeveloperContactInfoSwitch(shouldBeChecked: boolean) {
     const developarContactInofSwitch = this.page.getByRole(
       AdminObjects.developarContactInofSwitch.role,
@@ -824,7 +822,7 @@ export class AdminProjectPage {
 
   async searchFinancialInstitute(targetName: string) {
     while (true) {
-      // 1. Parameterize the cell name and use .first()
+
       const targetCell = this.page.locator(
         AdminObjects.financialInstituteNameCell(targetName)
       );
@@ -876,5 +874,20 @@ export class AdminProjectPage {
     await expect(
       this.page.locator(AdminObjects.financialInstituteSavedToast)
     ).toHaveText(AdminObjects.saveSuccessMessage.text);
+  }
+
+  async clickAcceptButton() {
+    await this.page
+      .getByRole(AdminObjects.accpetButton.role, {
+        name: AdminObjects.accpetButton.name,
+      })
+      .click();
+  }
+
+  async validateSuccessToastMessageText(text: string) {
+    await expect(
+      this.page.locator(AdminObjects.successToast).getByText(text),
+      "Success toast message is not preset",
+    ).toBeVisible({ timeout: 120000 });
   }
 }

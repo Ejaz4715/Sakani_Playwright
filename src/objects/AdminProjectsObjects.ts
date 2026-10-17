@@ -141,7 +141,7 @@ export const AdminObjects = {
     role: "button",
     name: "حفظ",
   },
-  saveSuccessToast: "//app-toasts",
+  successToast: "//app-toasts",
   saveSuccessMessage: {
     text: "تم الحفظ بنجاح!",
   },
@@ -377,4 +377,11 @@ export const AdminObjects = {
     "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
   rightTabArrow:
     "//mat-icon[contains (text(), 'chevron_right')]",
+
+  //** Add, update or delete unit requests */
+  accpetButton: {
+    role: "button",
+    name: "قبول"
+  },
+
 } as const;

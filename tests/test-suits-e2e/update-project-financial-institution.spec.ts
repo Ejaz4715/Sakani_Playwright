@@ -8,7 +8,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe("Update project financial institute", () => {
-    test("TC-01 Update the bank information", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+    test("TC-01 Update the bank information", { annotation: [{ product: 'Digitar', type: 'non-critical' }] as any }, async ({ page }) => {
         await logStep("Step 00: Read test data relative to the service");
         test.setTimeout(120000);
         const app = new WebApp(page);
@@ -41,7 +41,7 @@ test.describe("Update project financial institute", () => {
         DataHelper.updateServiceData(SERVICE, "bankName", bankName);
     });
 
-    test("TC-02 Check the updates are reflected in the project financial institutions page in admin portal", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+    test("TC-02 Check the updates are reflected in the project financial institutions page in admin portal", { annotation: [{ product: 'Digitar', type: 'non-critical' }] as any }, async ({ page }) => {
         await logStep("Step 00: Read test data relative to the service");
         test.setTimeout(120000);
         const app = new WebApp(page);
@@ -69,7 +69,7 @@ test.describe("Update project financial institute", () => {
         await app.adminProjectPage.expectBankNameVisibility(bankName);
     });
 
-    test("TC-03 Check the updates are reflected in the project financial institutions page in user portal", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
+    test("TC-03 Check the updates are reflected in the project financial institutions page in user portal", { annotation: [{ product: "Digitar", type: "critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);
         await logStep("Step 00: Read test data relative to the service");
         const environment = readEnvironments();

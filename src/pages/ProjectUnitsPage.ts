@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { expect, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 const path = require("path");
 import { ProjectUnitsObjects } from '@objects/ProjectUnitsObjects'
 
@@ -9,38 +8,35 @@ export class ProjectUnitsPage {
     this.page = page;
   }
 
-  async click(locator) {
-    await locator.click();
-  }
-
-  async check(locator) {
-    await locator.check();
-  }
-
-  async openUnitInPopup(unitIndex) {
+  async openUnitInPopup(unitIndex: number) {
     const unitCard = this.page
       .locator(ProjectUnitsObjects.unitCard).nth(unitIndex);
     await unitCard.waitFor({ state: "visible", timeout: 30000 });
-    await this.click(unitCard);
+    await unitCard.click();
   }
 
-
-  // async openUnitInPopup() {
-  // const unitCard = this.page.locator(
-  //     ProjectUnitsObjects.unitCard.xpath, {
-      
-  //   }
-  //   );
-  //   // await this.page.waitForTimeout(10000);
-  //   await expect(unitCard).toBeVisible({ timeout: 90000 });
-  //   await unitCard.click();
-  
-  // }
-
-  async selectLand(unitIndex) {
+  async selectLand(unitIndex: number) {
     const landCard = this.page
       .locator(ProjectUnitsObjects.landUnitCard).nth(unitIndex);
     await landCard.waitFor({ state: "visible", timeout: 30000 });
-    await this.click(landCard);
+    await landCard.click();
+  }
+
+  async validateTheUnitPresence(apartmentNumber: string) {
+    const unit = this.page.locator(ProjectUnitsObjects.unitCardApartmentNumber(apartmentNumber));
+    const nextPageButton = this.page.locator(ProjectUnitsObjects.nextPageButton);
+
+    while (true) {
+      const isVisible = await unit.isVisible().catch(() => false);
+      if (isVisible) {
+        break;
+      }
+      const isNextEnabled = await nextPageButton.isEnabled().catch(() => false);
+      if (!isNextEnabled) {
+        throw new Error(`The added unit '${apartmentNumber}' is not present in the units page of the project model.`);
+      }
+      await nextPageButton.click();
+    }
+    await expect(unit, "The added unit is not present in the units page of the project model").toBeVisible({ timeout: 20000 });
   }
 }

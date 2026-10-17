@@ -54,7 +54,7 @@ test.describe("Update unit price from partners", () => {
 
         await logStep('Step 06: Navigate to update unit price page > Upload updated unit price file');
         await app.updateUnitsPage.clickUpdateUnitPricesButton();
-        await app.updateUnitsPage.uploadUpdatedUnitPricesFile(filePath);
+        await app.updateUnitsPage.uploadFile(filePath);
         await page.waitForTimeout(1500);
         await app.updateUnitsPage.clickUpdatePricesButton();
         await app.updateUnitsPage.clickConfirmYesButton();
@@ -64,7 +64,7 @@ test.describe("Update unit price from partners", () => {
 
         await logStep('Step 07: Confirm the file and approve');
         await page.waitForTimeout(5000);
-        await app.updateUnitsPage.reloadPage();
+        await page.reload();
         await page.waitForTimeout(3000);
         await app.updateUnitsPage.clickConfirmUnitPriceUpdateButton();
         await app.updateUnitsPage.clickConfirmYesButton();

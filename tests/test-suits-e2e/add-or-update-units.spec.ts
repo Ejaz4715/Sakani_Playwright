@@ -1,106 +1,308 @@
-import { test } from '@playwright/test';
-const path = require("path");
+import { test, expect } from '@playwright/test';
+import path from 'node:path';
 import { WebApp } from "@base-class/web-app";
 import { DataHelper } from '@helpers/DataHelper'
 import { logStep } from '@helpers/LogSteps'
-import { ExcelUtils } from '@pages/utils/ExcelUtils';
 
 const SERVICE = "update-unit";
-
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
-const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
-
 
 test.describe("Add, update or delete the units of an offplan project through SAPA portal", () => {
-    test("TC-01 Add new unit to the project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-01 Developer adds new unit to the project", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
+        await logStep("Step 00: Read data from json relative to the service");
         const environment = readEnvironments();
         const data = readServiceData();
         const app = new WebApp(page);
         const projectName = data.projectName;
         const developerUserId = data.developerUserId;
         const sapaPortalUrl = environment.sapaPortalUrl;
-        const unitCode = data.unitCodeUpdatePrice;
-        const filePath = path.join(process.cwd(), "src", "downloads", "unit-prices.xlsx");
+        const filePath = path.join(process.cwd(), "src", "data", "add-unit.xlsx");
 
         await logStep("Step 01: Login as developer to sapa portal and open the project");
         await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-        await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        await page.pause();
+        await app.partnersLoginPage.switchRoleToDeveloper();
+
+        await logStep("Step 02: Search for project");
+        await app.developerProjectPage.openProjectBySearch(projectName);
+        
+        await logStep('Step 03: Navigate to add unit > Upload units file');
+        await app.updateUnitsPage.selectManageProjectOption("إضافة وحدات");
+        await app.updateUnitsPage.selectApartmentUnitType();
+        await app.updateUnitsPage.uploadFile(filePath);
+        
+        await logStep('Step 04: Add the file and confirm');
+        await app.updateUnitsPage.clickAddUnitFile();
+        await page.waitForTimeout(1500);
+        await app.updateUnitsPage.clickConfirmYesButton();
+        await page.waitForTimeout(3000);
+        await app.updateUnitsPage.clickConfirmYesButton();
+
+        await logStep('Step 07: Validate the analysis file is present');
+        await app.updateUnitsPage.verifyAddUnitsAnalysisIsVisible();
+    });
+
+
+    test("TC-02 Admin accepts the add new unit request", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+        await logStep("Step 00: Read test data relative to the service");
+        test.setTimeout(120000);
+        const app = new WebApp(page);
+        const environment = readEnvironments();
+        const data = readServiceData();
+        const adminUrl = environment.adminPortalUrl;
+        const adminUsername = data.adminUsername;
+        const adminPassword = data.adminPassword;
+        const projectName = data.projectName;
+
+        await logStep("Step 01: Login to admin portal as a super admin");
+        await app.adminProjectPage.login(adminUrl, adminUsername, adminPassword,);
+
+        await logStep("Step 02: Navigate to projects and search for a project");
+        await app.adminProjectPage.openProjects();
+        await app.resaleOfUnitsPage.fillProjectName(projectName);
+        await app.resaleOfUnitsPage.clickProjectSearchButton();
+        await app.resaleOfUnitsPage.clickSearchedProjectResult(projectName);
+        await page.waitForTimeout(10000);
+
+        await logStep("Step 03: Navigate to units tab");
+        await app.adminProjectPage.expectFinancingEntitiesVisible();
+        await app.adminProjectPage.clickUnitsTab();
+        
+        await logStep("Step 03: Accpet the add unit request and validate the toast message");
+        await app.adminProjectPage.clickAcceptButton();
+        await app.adminProjectPage.validateSuccessToastMessageText("لقد قمت بقبول طلب الحذف بنجاح");
+    });
+
+    test("TC-03 Developer checks the new unit is reflected under project units", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+        test.setTimeout(0);
+        await logStep("Step 00: Read data from json relative to the service");
+        const environment = readEnvironments();
+        const data = readServiceData();
+        const app = new WebApp(page);
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
+        const sapaPortalUrl = environment.sapaPortalUrl;
+        const unitCode = data.newUnitCode;
+
+        await logStep("Step 01: Login as developer to sapa portal and open the project");
+        await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
+        // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        await page.pause();
         await app.partnersLoginPage.switchRoleToDeveloper();
 
         await logStep("Step 02: Search for project");
         await app.developerProjectPage.openProjectBySearch(projectName);
 
-        await logStep('Step 03: Clear the downloads folder');
-        const downloadDirectory = path.join(process.cwd(), "src", "downloads");
-        await app.paymentsAndTransactionsPage.clearDownloadsFolder(downloadDirectory);
+        await logStep("Step 03: Navigate to project units");
+        await app.updateUnitsPage.clickUnitDetailsTab();
 
-        await logStep('Step 04: Download unit prices Excel file');
-        const excelDownloadPromise = ExcelUtils.waitForExcelDownload(page);
-        await app.updateUnitsPage.clickDownloadUnitPricesButton();
-        const excelDownload = await excelDownloadPromise;
-        const fileName = 'unit-prices.xlsx';
-        const downloadPath = path.join(downloadDirectory, fileName);
+        await logStep("Step 04: Search for a unit by unit code");
+        await app.updateUnitsPage.selectUnitCodeSearchCriteria();
+        await app.updateUnitsPage.fillUnitCode(unitCode);
+        await app.updateUnitsPage.clickSearchUnitButton();
 
-        await logStep('Step 05: Save the Excel file and verify it exists');
-        await ExcelUtils.saveExcelDownload(excelDownload, downloadPath);
-        await app.paymentsAndTransactionsPage.verifySavedFile(downloadPath, downloadDirectory);
-
-        await logStep('Step 05: Read excel file and retrive the exisitng price > Write updated prices to the excel file and save');
-        const exsitingPrice = app.updateUnitsPage.getUnitPriceFromWorkbook(filePath, unitCode);
-        writeServiceData("exsitingPrice", exsitingPrice);
-        const updatedPrice = Number(exsitingPrice) + 2;
-        writeServiceData("updatedPrice", updatedPrice);
-        await app.updateUnitsPage.updateUnitPricesWorkbook(filePath, unitCode, updatedPrice);
-
-        await logStep('Step 06: Navigate to update unit price page > Upload updated unit price file');
-        await app.updateUnitsPage.clickUpdateUnitPricesButton();
-        await app.updateUnitsPage.uploadUpdatedUnitPricesFile(filePath);
-        await page.waitForTimeout(1500);
-        await app.updateUnitsPage.clickUpdatePricesButton();
-        await app.updateUnitsPage.clickConfirmYesButton();
+        await logStep("Step 05: Validate the added unit is available");
         await page.waitForTimeout(3000);
-        await app.updateUnitsPage.clickConfirmYesButton();
-        await app.updateUnitsPage.verifyPriceAnalysisDetailsVisible();
-
-        await logStep('Step 07: Confirm the file and approve');
-        await page.waitForTimeout(5000);
-        await app.updateUnitsPage.reloadPage();
-        await page.waitForTimeout(3000);
-        await app.updateUnitsPage.clickConfirmUnitPriceUpdateButton();
-        await app.updateUnitsPage.clickConfirmYesButton();
+        await app.updateUnitsPage.validateUnitCodePresence();
     });
 
-    test("TC-01 Verify the price of the unit has been updated", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-04 Sakani user checks the added unit is reflected in the user platform", { annotation: [{ product: "Marketplace", type: "non-critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
+        const app = new WebApp(page);
+        await logStep("Step 00: Read data from json relative to the service");
+        const environment = readEnvironments();
+        const data = readServiceData();
+        const sakaniUserId = data.sakaniUserId;
+        const userPortalUrl = environment.userPortalUrl;
+        const projectName = data.projectName;
+        const unitCode = data.newUnitCode;
+        const apartmentNumber = unitCode.split("-").slice(-2).join("-");
+
+        await logStep("Step 01: Open the user portal and login");
+        await app.loginPage.gotoHomePage(userPortalUrl);
+        await app.loginPage.acceptCookies();
+        await app.loginPage.openLogin();
+        await app.loginPage.loginWithNafath(sakaniUserId);
+        await app.loginPage.waitForNafathPromptToDisappear();
+        await app.loginPage.continueNewUserPopup();
+        await app.loginPage.handlePushNotificationPopup();
+
+        await page.pause();
+        await logStep("Step 02: Find the project and open its unit model");
+        await app.marketplaceLandingPage.openSearch();
+        await app.marketplaceLandingPage.searchForProject(projectName);
+        await app.projectDetailsPage.openUnitsAndScroll();
+
+        await logStep("Step 03: Open a unit and start the booking");
+        const page1Promise = page.waitForEvent("popup");
+        await app.marketplaceLandingPage.openResidentialUnit();
+        const page1 = await page1Promise;
+        {
+            const unitApp = new WebApp(page1);
+            await unitApp.projectUnitsPage.validateTheUnitPresence(apartmentNumber);
+        }
+    });
+
+    test("TC-05 Developer update the unit channels and checks the update is successful", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+        test.setTimeout(0);
+        await logStep("Step 00: Read data from json relative to the service");
         const environment = readEnvironments();
         const data = readServiceData();
         const app = new WebApp(page);
         const projectName = data.projectName;
         const developerUserId = data.developerUserId;
         const sapaPortalUrl = environment.sapaPortalUrl;
-        const updatedPrice = data.updatedPrice;
-        const unitCode = data.unitCodeUpdatePrice;
+        const unitCode = data.newUnitCode;
+        const filePath = path.join(process.cwd(), "src", "data", "update-unit.xlsx");
 
         await logStep("Step 01: Login as developer to sapa portal and open the project");
         await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-        await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        await page.pause();
         await app.partnersLoginPage.switchRoleToDeveloper();
 
-        await logStep("Step 02: Search for project > Navigate to project units");
+        await logStep("Step 02: Search for project");
         await app.developerProjectPage.openProjectBySearch(projectName);
+
+        await logStep("Step 03: Navigate to project units");
         await app.updateUnitsPage.clickUnitDetailsTab();
 
-        await logStep('Step 03: Search unit with unit code > Navigate to the details of searched unit');
+        await logStep("Step 04: Search for a unit by unit code");
         await app.updateUnitsPage.selectUnitCodeSearchCriteria();
         await app.updateUnitsPage.fillUnitCode(unitCode);
         await app.updateUnitsPage.clickSearchUnitButton();
-        await app.updateUnitsPage.navigateToSearchedUnit();
 
-        await logStep('Step 04: Validate the prices are updated');
-        await app.updateUnitsPage.verifyUnitPricesAreUpdated(updatedPrice);
+        await logStep("Step 05: Get the current channels of the unit");
+        await page.waitForTimeout(3000);
+        const channelBefore = await app.updateUnitsPage.getUnitChannels();
+
+        await logStep('Step 06: Navigate to add unit > Upload units file');
+        await app.updateUnitsPage.selectManageProjectOption("تحديث وحدات المشروع");
+        await app.updateUnitsPage.selectApartmentUnitType();
+        await app.updateUnitsPage.uploadFile(filePath);
+
+        await logStep('Step 07: Add the file and confirm');
+        await app.updateUnitsPage.clickAddUnitFile();
+        await page.waitForTimeout(1500);
+        await app.updateUnitsPage.clickConfirmYesButton();
+        await page.waitForTimeout(3000);
+        await app.updateUnitsPage.clickConfirmYesButton();
+
+        await logStep('Step 08: Validate the analysis file is present');
+        await app.updateUnitsPage.verifyAddUnitsAnalysisIsVisible();
+
+        // this has to be after admin approves - needs to be checked
+        await logStep("Step 05: Validate the unit channel is updated");
+        await app.developerProjectPage.openProjectBySearch(projectName);
+        await app.updateUnitsPage.clickUnitDetailsTab();
+        await app.updateUnitsPage.selectUnitCodeSearchCriteria();
+        await app.updateUnitsPage.fillUnitCode(unitCode);
+        await app.updateUnitsPage.clickSearchUnitButton();
+        await page.waitForTimeout(3000);
+        const channelAfter = await app.updateUnitsPage.getUnitChannels();
+        expect(channelAfter).not.toEqual(channelBefore);
     });
+
+    test("TC-06 Developer deletes the unit", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+        test.setTimeout(0);
+        await logStep("Step 00: Read data from json relative to the service");
+        const environment = readEnvironments();
+        const data = readServiceData();
+        const app = new WebApp(page);
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
+        const sapaPortalUrl = environment.sapaPortalUrl;
+        const unitCode = data.newUnitCode;
+        const filePath = path.join(process.cwd(), "src", "data", "delete_unit.xlsx");
+
+        await logStep("Step 01: Login as developer to sapa portal and open the project");
+        await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
+        // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        await page.pause();
+        await app.partnersLoginPage.switchRoleToDeveloper();
+
+        await logStep("Step 02: Search for project");
+        await app.developerProjectPage.openProjectBySearch(projectName);
+
+        await logStep('Step 03: Navigate to add unit > Upload units file');
+        await app.updateUnitsPage.selectManageProjectOption("حذف وحدات");
+        await app.updateUnitsPage.uploadFile(filePath);
+
+        await logStep('Step 04: Confirm delete unit');
+        await app.updateUnitsPage.clickDeleteButton();
+        await page.waitForTimeout(1500);
+        await app.updateUnitsPage.clickConfirmYesButton();
+        await page.waitForTimeout(3000);
+        await app.updateUnitsPage.clickConfirmYesButton();
+
+        await logStep('Step 08: Validate the analysis file is present');
+        await app.updateUnitsPage.verifyDeleteUnitsAnalysisIsVisible();
+    });
+
+    test("TC-07 Admin accepts the delete unit request", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+        await logStep("Step 00: Read test data relative to the service");
+        test.setTimeout(120000);
+        const app = new WebApp(page);
+        const environment = readEnvironments();
+        const data = readServiceData();
+        const adminUrl = environment.adminPortalUrl;
+        const adminUsername = data.adminUsername;
+        const adminPassword = data.adminPassword;
+        const projectName = data.projectName;
+
+        await logStep("Step 01: Login to admin portal as a super admin");
+        await app.adminProjectPage.login(adminUrl, adminUsername, adminPassword,);
+
+        await logStep("Step 02: Navigate to projects and search for a project");
+        await app.adminProjectPage.openProjects();
+        await app.resaleOfUnitsPage.fillProjectName(projectName);
+        await app.resaleOfUnitsPage.clickProjectSearchButton();
+        await app.resaleOfUnitsPage.clickSearchedProjectResult(projectName);
+        await page.waitForTimeout(10000);
+
+        await logStep("Step 03: Navigate to units tab");
+        await app.adminProjectPage.expectFinancingEntitiesVisible();
+        await app.adminProjectPage.clickUnitsTab();
+
+        await logStep("Step 03: Accpet the add unit request and validate the toast message");
+        await app.adminProjectPage.clickAcceptButton();
+        await app.adminProjectPage.validateSuccessToastMessageText("لقد قمت بقبول طلب الحذف بنجاح");
+    });
+
+    test("TC-08 Developer checks the deleted unit is not found under project units", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+        test.setTimeout(0);
+        await logStep("Step 00: Read data from json relative to the service");
+        const environment = readEnvironments();
+        const data = readServiceData();
+        const app = new WebApp(page);
+        const projectName = data.projectName;
+        const developerUserId = data.developerUserId;
+        const sapaPortalUrl = environment.sapaPortalUrl;
+        const unitCode = data.newUnitCode;
+
+        await logStep("Step 01: Login as developer to sapa portal and open the project");
+        await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
+        // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        await page.pause();
+        await app.partnersLoginPage.switchRoleToDeveloper();
+
+        await logStep("Step 02: Search for project");
+        await app.developerProjectPage.openProjectBySearch(projectName);
+
+        await logStep("Step 03: Navigate to project units");
+        await app.updateUnitsPage.clickUnitDetailsTab();
+
+        await logStep("Step 04: Search for a unit by unit code");
+        await app.updateUnitsPage.selectUnitCodeSearchCriteria();
+        await app.updateUnitsPage.fillUnitCode(unitCode);
+        await app.updateUnitsPage.clickSearchUnitButton();
+
+        await logStep("Step 05: Validate the deletd unit is not available");
+        await page.waitForTimeout(3000);
+        await app.updateUnitsPage.validateUnitCodeIsNotPresent();
+    });
+
 });

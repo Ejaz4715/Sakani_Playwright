@@ -38,7 +38,7 @@ test.describe("MOH land full booking journey", () => {
     await app.adminProjectPage.selectCity("الخرج");
     await app.adminProjectPage.selectSubsidyType("دعم عيني كامل");
     await app.adminProjectPage.clickSaveButton();
-    await app.adminProjectPage.validateToastMessage();
+    await app.adminProjectPage.validateProjectSavedToastMessage();
 
     await logStep("Step 06: Import and commit project units");
     await app.adminProjectPage.clickUnitsTab();
@@ -88,7 +88,7 @@ test.describe("MOH land full booking journey", () => {
     await app.adminProjectPage.clickAcceptUploadedMediaButton();
     await app.adminProjectPage.clickKeepProjectUnpublishedButton();
     await app.adminProjectPage.clickSaveButton();
-    await app.adminProjectPage.validateToastMessage();
+    await app.adminProjectPage.validateProjectSavedToastMessage();
 
     await logStep("Step 10: Publish the unit model");
     await app.adminProjectPage.clickUnitModelsSection();
@@ -111,7 +111,7 @@ test.describe("MOH land full booking journey", () => {
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.publishProject();
     await app.adminProjectPage.clickSaveButton();
-    await app.adminProjectPage.validateToastMessage();
+    await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
   test("TC-02 - Book moh land", { annotation: [{ product: "Gov Support", type: "critical" }] as any }, async ({ page }) => {
