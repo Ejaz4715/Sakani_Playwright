@@ -305,4 +305,8 @@ test.describe("Add, update or delete the units of an offplan project through SAP
         await app.updateUnitsPage.validateUnitCodeIsNotPresent();
     });
 
+    //** // await page.getByRole("button", { name: "رفض" }).nth(1).click();
+    // page.getByRole("textbox", { name: "سبب الرفض" }).fill("Test reject reason from admin");
+        // await page.locator("//span[normalize-space() = 'رفض']").click(); */
+
 });
