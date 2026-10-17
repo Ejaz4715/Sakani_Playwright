@@ -52,7 +52,7 @@ test.describe("Offplan private land booking journey", () => {
     await app.adminProjectPage.fillDeedIssueCityEnglish("Riyadh");
     await app.adminProjectPage.fillDeedDate("01/01/2026");
     await app.adminProjectPage.clickSaveButton();
-    await app.adminProjectPage.validateToastMessage();
+    await app.adminProjectPage.validateProjectSavedToastMessage();
 
     await logStep("Step 04: Link the project to AZM");
     await app.adminProjectPage.linkProjectToAzm();
@@ -108,7 +108,7 @@ test.describe("Offplan private land booking journey", () => {
     await app.adminProjectPage.clickAcceptUploadedMediaButton();
     await app.adminProjectPage.clickKeepProjectUnpublishedButton();
     await app.adminProjectPage.clickSaveButton();
-    await app.adminProjectPage.validateToastMessage();
+    await app.adminProjectPage.validateProjectSavedToastMessage();
 
     await logStep("Step 09: Publish the unit model");
     await app.adminProjectPage.clickUnitModelsSection();
@@ -130,7 +130,7 @@ test.describe("Offplan private land booking journey", () => {
     await app.adminProjectPage.enableAvailableForBookingToggle();
     await app.adminProjectPage.publishProject();
     await app.adminProjectPage.clickSaveButton();
-    await app.adminProjectPage.validateToastMessage();
+    await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
   test(

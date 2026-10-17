@@ -19,7 +19,7 @@ export class UpdateUnitsPage {
     }).click();
   }
 
-  async uploadUpdatedUnitPricesFile(filePath: string) {
+  async uploadFile(filePath: string) {
     await this.page.locator(UpdateUnitsObjects.updateUnitPricesFileInput).setInputFiles(filePath);
   }
 
@@ -36,8 +36,14 @@ export class UpdateUnitsPage {
     ).toBeVisible({ timeout: 12000 });
   }
 
-  async reloadPage() {
-    await this.page.reload();
+  async verifyAddUnitsAnalysisIsVisible() {
+    const addUnitAnalysisContainer = this.page.locator(UpdateUnitsObjects.addUnitAnalysisContainer);
+    await expect(addUnitAnalysisContainer, "Add unit analysis page is not present").toBeVisible({ timeout: 12000 });
+  }
+
+  async verifyDeleteUnitsAnalysisIsVisible() {
+    const deleteUnitAnalysisContainer = this.page.locator(UpdateUnitsObjects.deleteUnitAnalysisContainer);
+    await expect(deleteUnitAnalysisContainer, "Add unit analysis page is not present").toBeVisible({ timeout: 12000 });
   }
 
   async clickConfirmUnitPriceUpdateButton() {
@@ -55,6 +61,7 @@ export class UpdateUnitsPage {
 
   getUnitPriceFromWorkbook(filePath: string, unitCode: string): string | null {
     const workbookObjects = UpdateUnitsObjects.unitPriceWorkbook;
+
     return ExcelUtils.getExcelCellValue(
       filePath,
       workbookObjects.sheetName,
@@ -293,4 +300,58 @@ export class UpdateUnitsPage {
     }
   }
 
+  async validateUnitCodePresence() {
+    const unitCodeCell = this.page
+      .locator(UpdateUnitsObjects.unitRows)
+      .first()
+      .locator("datatable-body-cell")
+      .first();
+    await expect(unitCodeCell).toBeVisible();
+  }
+
+  async validateUnitCodeIsNotPresent() {
+    const unitCodeCell = this.page
+      .locator(UpdateUnitsObjects.unitRows)
+      .first()
+      .locator("datatable-body-cell")
+      .first();
+    await expect(unitCodeCell).toBeHidden();
+  }
+
+  async getUnitChannels() {
+    const unitChannel = this.page
+      .locator(UpdateUnitsObjects.unitRows)
+      .first()
+      .locator("datatable-body-cell")
+      .nth(5);
+    await expect(unitChannel).toBeVisible();
+    return (await unitChannel.innerText()).trim();
+  }
+
+  async selectManageProjectOption(option: string) {
+    await this.page.getByRole(UpdateUnitsObjects.manageProjectButton.role, {
+      name: UpdateUnitsObjects.manageProjectButton.name,
+    }).click();
+    const optionButton = this.page.locator(UpdateUnitsObjects.manageProjectOptions(option));
+    await optionButton.click();
+  }
+
+  async selectApartmentUnitType() {
+    await this.page.locator(UpdateUnitsObjects.unitTypeDropdown).click();
+    await this.page.getByRole(UpdateUnitsObjects.apartmentUnitTypeOption.role, {
+      name: UpdateUnitsObjects.apartmentUnitTypeOption.name,
+    }).click();
+  }
+
+  async clickAddUnitFile() {
+    await this.page.getByRole(UpdateUnitsObjects.addUnitFileButton.role, {
+      name: UpdateUnitsObjects.addUnitFileButton.name,
+    }).click();
+  }
+
+  async clickDeleteButton() {
+    await this.page.getByRole(UpdateUnitsObjects.deleteButton.role, {
+      name: UpdateUnitsObjects.deleteButton.name,
+    }).click();
+  }
 }

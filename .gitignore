@@ -10,7 +10,6 @@ report-dashboard/dashboard.html
 
 # Certificates & Secrets
 certs/
-.env
 
 # AI & IDE Cache / Logs
 .claude/

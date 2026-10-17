@@ -179,7 +179,9 @@
       "projectCode": "02-01-0149",
       "availableUnitCode": "02-01-0149-5-101",
       "bookedUnitCode": "02-01-0149-6-102",
-      "developerUserId": "1023129537"
+      "developerUserId": "1023129537",
+      "sakaniUserId": "1300070834",
+      "newUnitCode": "02-01-0149-102-5555"
     },
     "card-details": {
       "projectName": "Automation Project P_003",
