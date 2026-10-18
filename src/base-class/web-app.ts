@@ -42,11 +42,12 @@ import { RegistrationPage } from '@pages/RegistrationPage';
 import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
 import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
+import {RealEstateTaxExemptionPage} from "@pages/RealEstateTaxExemptionPage";
+import {LoyaltyAdminDealsPage} from "@pages/LoyaltyAdminDealsPage";
 import {MetaverseManagementPage} from "@pages/MetaverseManagementPage";
 import {RecommendationsPage} from "@pages/RecommendationsPage";
 import {FavoritesPage} from "@pages/FavoritesPage";
 import { VoucherManagementPage } from "@pages/VoucherManagementPage";
-import { RealEstateTaxExemptionPage } from "@pages/RealEstateTaxExemptionPage";
 import { UserManagementPage } from "@pages/UserManagementPage";
 import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
 
@@ -100,6 +101,7 @@ export class WebApp {
 
   voucherManagementPage: InstanceType<typeof VoucherManagementPage>;
   realEstateTaxExemptionPage: InstanceType<typeof RealEstateTaxExemptionPage>;
+  loyaltyAdminDealsPage: InstanceType<typeof LoyaltyAdminDealsPage>;
   userManagementPage: InstanceType<typeof UserManagementPage>;
   creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
   commonMethods: InstanceType<typeof CommonMethods>;
@@ -203,6 +205,7 @@ export class WebApp {
     this.favoritesPage = new FavoritesPage(page);
     this.voucherManagementPage = new VoucherManagementPage(page);
     this.realEstateTaxExemptionPage = new RealEstateTaxExemptionPage(page);
+    this.loyaltyAdminDealsPage = new LoyaltyAdminDealsPage(page);
     this.userManagementPage = new UserManagementPage(page);
     this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);
     this.commonMethods = new CommonMethods(page);
