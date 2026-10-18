@@ -68,6 +68,14 @@
       "sakaniUserId": "1441376098",
       "bookedUnitCode": "01-01-0728-6-102"
     },
+    "contract-status-inquiry": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "developerUserId": "1023129537",
+      "projectName": "Automation Project Offplan 20261018083235",
+      "sakaniUserId": "1441376098",
+      "bookedUnitCode": "01-01-0728-6-102"
+    },
     "publish-unit": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
@@ -262,8 +270,7 @@
     "recommendations": {
       "sakaniUserId": "1300070834",
       "offPlanProjectId": 2896
-    }, 
-    
+    },
     "update-financial-institute": {
       "sakaniUserId": "1300070834",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",

@@ -5,7 +5,7 @@ import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 
-const SERVICE = 'cash-payment';
+const SERVICE = 'contract-status-inquiry';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
