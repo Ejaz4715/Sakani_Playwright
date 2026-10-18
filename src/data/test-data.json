@@ -262,6 +262,18 @@
       "email": "Admin@sayal.sa",
       "password": "Sayal@123",
       "otp": "12345"
+    },
+    "engineering-offices": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "engineeringOfficeName": "Engineering Office Name 20261018071409",
+      "designerNameInputfield": "Designer Name 20261018075539"
+    },
+    "self-build-land-project-creation": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "projectName": "SelfConstruction Prject Name 20261018103818",
+      "servicesPackegesUrl": "https://pre-sakani-admin.housingapps.sa/nrep/service_packages/45?tab=2"
     }
   }
 }
