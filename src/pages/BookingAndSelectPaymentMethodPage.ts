@@ -35,7 +35,7 @@ export class BookingAndSelectPaymentMethodPage {
             BookingAndSelectPaymentMethodObjects.approveAndcontinueButton.xpath
         );
 
-        await this.page.waitForTimeout(4000); // Wait for 5 seconds before checking visibility
+        await this.page.waitForTimeout(4000);
         if (await approveAndContinueButton.isVisible().catch(() => false)) {
             await this.clickVisibleButton(approveAndContinueButton);
         }
@@ -45,7 +45,6 @@ export class BookingAndSelectPaymentMethodPage {
         const selectPaymentMethodButton = this.page.locator(
             BookingAndSelectPaymentMethodObjects.selectPaymentMehtButton.xpath
         );
-
         await this.clickVisibleButton(selectPaymentMethodButton);
     }
 
@@ -53,7 +52,6 @@ export class BookingAndSelectPaymentMethodPage {
         const flexiblePaymentRadioButton = this.page.locator(
             BookingAndSelectPaymentMethodObjects.flexiblePaymentRadioButton.xpath
         );
-
         await this.clickVisibleButton(flexiblePaymentRadioButton);
     }
 

@@ -7,8 +7,6 @@ import offplanTestData from '@data/test-data.json';
 import { DataHelper } from "@helpers/DataHelper";
 
 test.describe("Offplan MOH land booking journey", () => {
-
-
   test("TC-01 Admin creates new offplan Moh land project", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     //read data from json relative to the service
@@ -43,7 +41,7 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.adminProjectPage.fillMaxSubsidyAmount("2");
     await app.adminProjectPage.fillProjectAgreementDate("2026-01-01");
     await app.adminProjectPage.fillProjectLicenseNumber("665334");
-    await app.adminProjectPage.fillProjectLicenseDate("2026-01-01");
+    await app.adminProjectPage.fillProjectLicenseDate(DateUtils.getDateWithOffsetAndFormat(600, "YYYY-MM-DD"));
     await app.adminProjectPage.fillEscrowAccountName("Sakani Test User");
     await app.adminProjectPage.fillEscrowAccountNumber("SA1111111111111111111111");
     await app.adminProjectPage.selectBank("بنك الأهلي السعودي");
@@ -124,7 +122,7 @@ test.describe("Offplan MOH land booking journey", () => {
     await logStep("Step 10: Set project availability");
     await app.adminProjectPage.clickProjectDetailsText();
     await app.adminProjectPage.selectProjectStatus("متاح");
-    // await app.adminProjectPage.selectAvailableProjectStatus();
+    await app.adminProjectPage.selectAvailableProjectStatus();
     await app.adminProjectPage.clickSaveButton();
 
     await logStep("Step 11: Publish the project and validate the toast message");
@@ -132,8 +130,7 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.adminProjectPage.publishProject();
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.validateProjectSavedToastMessage();
-  },
-  );
+  });
 
   test("TC-02 Developer adds cash and lending payment schedules to the project (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
@@ -176,8 +173,7 @@ test.describe("Offplan MOH land booking journey", () => {
       completionPercentageTwoValue: "100",
       percentageTwoValue: "50",
     });
-  },
-  );
+  });
 
   test("TC-03 Developer approves sales contract of project (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
@@ -206,8 +202,7 @@ test.describe("Offplan MOH land booking journey", () => {
 
     await logStep("Step 04: Verify contract approval message");
     await app.developerProjectPage.verifyApprovalSuccessMessage();
-  },
-  );
+  });
 
   test("TC-04 User books unit (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
@@ -293,8 +288,7 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.unitDetailsPage.openSalesContract();
     await app.unitBookingPage.signSalesContract();
     await app.unitBookingPage.expectSalesContractSuccess();
-  },
-  );
+  });
 
   test("TC-06 Developer confirms the booking and adds annex (Offplan Moh Land)", { annotation: [{ product: "Marketplace", type: "critical" }] as any }, async ({ page }) => {
     test.setTimeout(0);
@@ -334,6 +328,5 @@ test.describe("Offplan MOH land booking journey", () => {
     await app.developerProjectPage.fillOtp();
     await app.developerProjectPage.verifyOtp();
     await app.developerProjectPage.expectAnnexSuccess();
-  },
-  );
+  });
 });

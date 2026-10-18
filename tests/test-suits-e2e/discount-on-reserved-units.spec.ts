@@ -458,6 +458,7 @@ test.describe("Discount On Reserved Units", () => {
         await app.loginPage.waitForNafathPromptToDisappear();
         await app.loginPage.continueNewUserPopup();
         await app.loginPage.handlePushNotificationPopup();
+        
         await logStep("Step 02: Navigate to active bookings");
         await app.waitingListPage.clickOnUserIcon();
         await app.waitingListPage.ClickOnUserProfile();

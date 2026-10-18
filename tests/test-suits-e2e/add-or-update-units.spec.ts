@@ -146,7 +146,7 @@ test.describe("Add, update or delete the units of an offplan project through SAP
         }
     });
 
-    test("TC-05 Developer update the unit channels and checks the update is successful", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+    test("TC-05 Developer update the unit target segment and checks the update is reflected for the targetted unit", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         await logStep("Step 00: Read data from json relative to the service");
         const environment = readEnvironments();
@@ -177,7 +177,7 @@ test.describe("Add, update or delete the units of an offplan project through SAP
 
         await logStep("Step 05: Get the current channels of the unit");
         await page.waitForTimeout(3000);
-        const channelBefore = await app.updateUnitsPage.getUnitChannels();
+        const targetSegmentBefore = await app.updateUnitsPage.getUnitTargetSegment();
 
         await logStep('Step 06: Navigate to add unit > Upload units file');
         await app.updateUnitsPage.selectManageProjectOption("تحديث وحدات المشروع");
@@ -194,16 +194,22 @@ test.describe("Add, update or delete the units of an offplan project through SAP
         await logStep('Step 08: Validate the analysis file is present');
         await app.updateUnitsPage.verifyAddUnitsAnalysisIsVisible();
 
-        // this has to be after admin approves - needs to be checked
-        await logStep("Step 05: Validate the unit channel is updated");
+        await logStep('Step 09: Confirm the file and approve');
+        await page.waitForTimeout(5000);
+        await page.reload();
+        await page.waitForTimeout(3000);
+        await app.updateUnitsPage.clickConfirmUnitPriceUpdateButton();
+        await app.updateUnitsPage.clickConfirmYesButton();
+
+        await logStep("Step 10: Validate the unit target segment is updated");
         await app.developerProjectPage.openProjectBySearch(projectName);
         await app.updateUnitsPage.clickUnitDetailsTab();
         await app.updateUnitsPage.selectUnitCodeSearchCriteria();
         await app.updateUnitsPage.fillUnitCode(unitCode);
         await app.updateUnitsPage.clickSearchUnitButton();
         await page.waitForTimeout(3000);
-        const channelAfter = await app.updateUnitsPage.getUnitChannels();
-        expect(channelAfter).not.toEqual(channelBefore);
+        const targetSegmentAfter = await app.updateUnitsPage.getUnitTargetSegment();
+        expect(targetSegmentAfter).not.toEqual(targetSegmentBefore);
     });
 
     test("TC-06 Developer deletes the unit", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {

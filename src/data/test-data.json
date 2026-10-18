@@ -64,7 +64,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project 20261004105043",
+      "projectName": "Automation Project Offplan 20261018083235",
       "sakaniUserId": "1441376098",
       "bookedUnitCode": "01-01-0703-18-114"
     },
@@ -175,7 +175,7 @@
       "sakaniUserId": "1441376098"
     },
     "update-unit": {
-      "projectName": "Automation Project P_003",
+      "projectName": "Automation Project Offplan 20261018082240",
       "projectCode": "02-01-0149",
       "availableUnitCode": "02-01-0149-5-101",
       "bookedUnitCode": "02-01-0149-6-102",

@@ -10,8 +10,7 @@ import testDataCashPayment from "@data/test-data.json";
 
 test.describe("Cash Payment", () => {
 
-    //tc1 add project
-    test("TC-01 - Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    test("TC-01 Add new project", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);        
         const app = new WebApp(page);
         const environments = testDataCashPayment.environments;
@@ -25,7 +24,6 @@ test.describe("Cash Payment", () => {
 
         DataHelper.updateServiceData("cash-payment", "projectName", projectName);
 
-        // Project details
         await app.adminProjectPage.login(
             environments.adminPortalUrl,
             data.adminUsername,
@@ -404,7 +402,6 @@ test.describe("Cash Payment", () => {
         // const testData = readTestData();
         const data = testDataCashPayment.services["cash-payment"];
         const environments = testDataCashPayment.environments;
-        // const cashPaymentData = testData.services["cash-payment"];
         const app = new WebApp(page);
         const adminUrl = environments.adminPortalUrl;
         const adminUsername = data.adminUsername;
@@ -423,20 +420,17 @@ test.describe("Cash Payment", () => {
         await app.resaleOfUnitsPage.fillProjectName(projectName);
         await app.resaleOfUnitsPage.clickProjectSearchButton();
         await app.resaleOfUnitsPage.clickSearchedProjectResult(data.projectName);
-        // await page.locator('div').filter({ hasText: data.projectName }).click();
         await page.waitForTimeout(10000);
         await app.paymentTrackingPage.clickOnProjectSettings();
         await app.paymentTrackingPage.clickOnUseGeneralSettingSwitch();
         await app.paymentTrackingPage.clickOnSaveButton();
         await app.paymentTrackingPage.verifySaveSuccessToast();
-
     });
 
     test("TC-05 - User books and pays the fees", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         const data = testDataCashPayment.services["cash-payment"];
         const environments = testDataCashPayment.environments;
-        // const cashPaymentData = testData.services["cash-payment"];
         const app = new WebApp(page);
         const userPortalUrl = environments.userPortalUrl;
         const userID = data.sakaniUserId;
@@ -460,14 +454,11 @@ test.describe("Cash Payment", () => {
         await app.marketplaceLandingPage.openResidentialUnit();
         const page1 = await page1Promise;
         const page2Promise = page1.waitForEvent("popup");
-
         {
             const unitApp = new WebApp(page1);
             await unitApp.projectUnitsPage.openUnitInPopup(1);
         }
-
         const page2 = await page2Promise;
-
         {
             let bookingPage = page2;
             let bookingApp = new WebApp(bookingPage);
@@ -478,10 +469,7 @@ test.describe("Cash Payment", () => {
             await bookingApp.paymentGatewayPage.fillCardDetails();
             await bookingApp.paymentConfirmationPage.closePayment();
             await bookingApp.page.waitForTimeout(5000);
-
         }
-
-
     });
 
     test("TC-06 - User selects payment schedule and signs sales contract", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {

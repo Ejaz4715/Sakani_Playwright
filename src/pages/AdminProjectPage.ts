@@ -285,6 +285,7 @@ export class AdminProjectPage {
         name: AdminObjects.residentialUnitType.name,
       }),
     ).toBeVisible({ timeout: 30000 });
+    this.page.waitForTimeout(3000);
   }
 
   async openResidentialUnitTypeDropdown() {
@@ -579,7 +580,9 @@ export class AdminProjectPage {
   }
 
   async clickUnitModelLink() {
-    await this.page.locator(AdminObjects.unitModelLink.selector).filter({ hasText: AdminObjects.unitModelLink.text }).click();
+    const unitModelLink = this.page.locator(AdminObjects.unitModelLink.selector).filter({ hasText: AdminObjects.unitModelLink.text });
+    await unitModelLink.waitFor({ state: 'visible' });
+    await unitModelLink.click();
     await this.page.waitForTimeout(3000);
     const chevronElement = this.page.locator(AdminObjects.rightTabArrow);
     if (await chevronElement.isVisible().catch(() => false)) await chevronElement.click();
