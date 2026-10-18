@@ -204,6 +204,22 @@ export class MarketplaceLandingPage {
     return await this.page.locator(MarketplaceLandingObjects.landsProductHeaderText).isVisible();
   }
 
+  async searchFor(searchQuery:string){
+    await this.page.locator(MarketplaceLandingObjects.searchTextField).waitFor({state: "visible",timeout:this.DEFAULT_TIMEOUT});
+    await this.page.locator(MarketplaceLandingObjects.searchTextField).fill(searchQuery);
+    await this.page.locator(MarketplaceLandingObjects.searchIcon).click();
+  }
+
+  async isSearchResultsCardVisible(){
+    await this.page.locator(MarketplaceLandingObjects.searchResultsCard).waitFor({state: "visible",timeout:this.DEFAULT_TIMEOUT});
+    return await this.page.locator(MarketplaceLandingObjects.searchResultsCard).isVisible();
+  }
+
+  async getSearchResultsCardText(){
+    await this.page.locator(MarketplaceLandingObjects.searchResultsCardText).waitFor({state: "visible",timeout:this.DEFAULT_TIMEOUT});
+    return await this.page.locator(MarketplaceLandingObjects.searchResultsCardText).textContent();
+  }
+
   async clickFinancingShowMore() {
     await this.page
       .locator(MarketplaceLandingObjects.financingShowMore.container)

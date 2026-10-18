@@ -41,11 +41,16 @@ import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { RegistrationPage } from '@pages/RegistrationPage';
 import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
-import { ReservationManagementFiltersPage } from "@pages/ReservationManagementFiltersPage";
+import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
+import {RealEstateTaxExemptionPage} from "@pages/RealEstateTaxExemptionPage";
+import {LoyaltyAdminDealsPage} from "@pages/LoyaltyAdminDealsPage";
+import {MetaverseManagementPage} from "@pages/MetaverseManagementPage";
+import {RecommendationsPage} from "@pages/RecommendationsPage";
+import {FavoritesPage} from "@pages/FavoritesPage";
 import { VoucherManagementPage } from "@pages/VoucherManagementPage";
-import { RealEstateTaxExemptionPage } from "@pages/RealEstateTaxExemptionPage";
 import { UserManagementPage } from "@pages/UserManagementPage";
 import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
+import { SelfConstructionPage } from "@pages/SelfConstructionPage";
 
 export class WebApp {
   page: Page;
@@ -91,11 +96,17 @@ export class WebApp {
   requestPublishProjectPage: InstanceType<typeof RequestPublishProjectPage>;
   verifyingEligibilityForDevelopmentalHousingPage: InstanceType<typeof VerifyingEligibilityForDevelopmentalHousingPage>;
   reservationManagementFiltersPage: InstanceType<typeof ReservationManagementFiltersPage>;
+  metaverseManagementPage: InstanceType<typeof MetaverseManagementPage>;
+  recommendationsPage: InstanceType<typeof RecommendationsPage>;
+  favoritesPage: InstanceType<typeof FavoritesPage>;
+
   voucherManagementPage: InstanceType<typeof VoucherManagementPage>;
   realEstateTaxExemptionPage: InstanceType<typeof RealEstateTaxExemptionPage>;
+  loyaltyAdminDealsPage: InstanceType<typeof LoyaltyAdminDealsPage>;
   userManagementPage: InstanceType<typeof UserManagementPage>;
   creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
   commonMethods: InstanceType<typeof CommonMethods>;
+  selfConstructionPage: InstanceType<typeof SelfConstructionPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -191,10 +202,15 @@ export class WebApp {
     this.partnersLoginPage = new PartnersLoginPage(page);
     this.stampManagementPage = new StampManagementPage(page);
     this.reservationManagementFiltersPage = new ReservationManagementFiltersPage(page);
+    this.metaverseManagementPage = new MetaverseManagementPage(page);
+    this.recommendationsPage = new RecommendationsPage(page);
+    this.favoritesPage = new FavoritesPage(page);
     this.voucherManagementPage = new VoucherManagementPage(page);
     this.realEstateTaxExemptionPage = new RealEstateTaxExemptionPage(page);
+    this.loyaltyAdminDealsPage = new LoyaltyAdminDealsPage(page);
     this.userManagementPage = new UserManagementPage(page);
     this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);
     this.commonMethods = new CommonMethods(page);
+    this.selfConstructionPage = new SelfConstructionPage(page);
   }
 }

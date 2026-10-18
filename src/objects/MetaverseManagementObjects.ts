@@ -1,0 +1,17 @@
+export const MetaverseManagementObjects = {
+    metaverseManagementButton: "//div[contains(text(),'إدارة الميتافيرس')]",
+    metaversAccessLink: {role: 'link', name: 'الوصول'},
+    firstUserRow: {role: 'cell', name: 'نشط'},
+    blockButton: {role: 'button', name: 'حظر'},
+    confirmButton: {role: 'button', name: 'تأكيد'},
+    blockingCancelButton: {role: 'button', name: 'الغاء الحظر'},
+    sakniMetaverseLink: "a[href='/home/metaverse']",
+    sakaniMetverseAccessButton: ".metaverse-management button",
+    userBlockingText:"//h3[text()=' حسابك مقفل! ']",
+    metaverseRequests: "a[href='/home/metaverse-requests']",
+    identityNumberTextField: " app-sapa-input-with-icon[formcontrolname='identityNumber'] input",
+    searchButton:{role:'button', name:'بحث'},
+    blockedRadioButtonText:"محظور",
+    unBlockedRadioButtonText:"غير محجوب",
+    unBlockingConfirmationButton: "app-sapa-modal button:nth-child(2)",
+} as const;
