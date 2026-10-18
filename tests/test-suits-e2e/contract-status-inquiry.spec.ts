@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-const path = require('path');
+import path from 'node:path';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
@@ -12,10 +12,10 @@ const readEnvironments = () => DataHelper.readData().environments;
 test.describe('Contract status inquiry for financing', () => {
   test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
-    const currentDate = DateUtils.getCurrentDateISO();
     const projectName = `Automation Project Offplan ${new Date()
       .toISOString()
       .replace(/[-:T.]/g, '')
@@ -38,7 +38,7 @@ test.describe('Contract status inquiry for financing', () => {
     await app.adminProjectPage.selectDeveloperName('شركة الضاحية المثالية للتطوير والاستثمار العقاري');
     await app.adminProjectPage.toggleBookableOn();
     await app.adminProjectPage.selectProjectStatus('متاح');
-    await app.adminProjectPage.fillWafiLicenseExpiryDate(currentDate);
+    await app.adminProjectPage.fillWafiLicenseExpiryDate(DateUtils.getDateISO(600));
     await app.adminProjectPage.selectSubsidyType('دعم عيني كامل');
     await app.adminProjectPage.fillMaxSubsidyAmount('2');
     await app.adminProjectPage.fillProjectAgreementDate('2026-01-01');
@@ -136,6 +136,7 @@ test.describe('Contract status inquiry for financing', () => {
 
   test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
@@ -172,6 +173,7 @@ test.describe('Contract status inquiry for financing', () => {
 
   test('TC-03 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
@@ -198,6 +200,7 @@ test.describe('Contract status inquiry for financing', () => {
 
   test('TC-04 Admin enables comprehensive booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
@@ -227,6 +230,7 @@ test.describe('Contract status inquiry for financing', () => {
 
   test('TC-05 User books the unit and pays the fees', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
@@ -273,6 +277,7 @@ test.describe('Contract status inquiry for financing', () => {
 
   test('TC-06 User selects electronic finance payment and signs the sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
@@ -308,6 +313,7 @@ test.describe('Contract status inquiry for financing', () => {
 
   test('TC-07 User checks the selected payment is reflect on the booking details page', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
@@ -333,6 +339,7 @@ test.describe('Contract status inquiry for financing', () => {
 
   test('TC-07 Developer checks the selected payment method is lending and cancels the booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);

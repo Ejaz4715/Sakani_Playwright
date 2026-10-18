@@ -30,6 +30,13 @@
       "sakaniUserIdMoh": "1119880072",
       "projectName": "Automation Moh Land Project 20261015084302"
     },
+    "mega-project": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "megaProjectName": "",
+      "projectName": "Automation Moh Land Project 20261015084302",
+      "sakaniUserId": ""
+    },
     "loyalty-sharrai": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
@@ -316,6 +323,14 @@
       "adminPassword": "admin",
       "projectName": "SelfConstruction Prject Name 20261018103818",
       "servicesPackegesUrl": "https://pre-sakani-admin.housingapps.sa/nrep/service_packages/45?tab=2"
+    },
+    "payment-tracking": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "developerUserId": "1023129537",
+      "projectName": "Automation Project Offplan 20261018083235",
+      "sakaniUserId": "1441376098",
+      "bookedUnitCode": "01-01-0728-6-102"
     }
   }
 }

@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { expect, Page } from "@playwright/test";
-import { ElectronicAuctionProjectObjects } from "@objects/ElectronicAuctionProjectObjects";
+import { expect, Page } from '@playwright/test';
+import { ElectronicAuctionProjectObjects } from '@objects/AuctionsProjectObjects';
 
 export class ElectronicAuctionProjectPage {
   page: Page;
@@ -15,8 +14,8 @@ export class ElectronicAuctionProjectPage {
     await input.fill(projectName);
   }
 
-  async selectElectronicAuctionType() {
-    const option = this.page.getByRole(ElectronicAuctionProjectObjects.electronicAuctionOption.role, { name: ElectronicAuctionProjectObjects.electronicAuctionOption.name });
+  async selectAuctionType(auctionType: string) {
+    const option = this.page.locator(ElectronicAuctionProjectObjects.auctionTypeOptions(auctionType));
     const combobox = this.page.getByRole(ElectronicAuctionProjectObjects.auctionTypeCombobox.role, { name: ElectronicAuctionProjectObjects.auctionTypeCombobox.name });
     while (!(await option.isVisible().catch(() => false))) {
       await expect(combobox).toBeVisible({ timeout: 30000 });
@@ -40,7 +39,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openRegion() {
-    const combobox = this.page.locator("//ng-select[@formcontrolname='region_id']").getByRole("combobox");
+    const combobox = this.page.locator("//ng-select[@formcontrolname='region_id']").getByRole('combobox');
     await expect(combobox).toBeVisible({ timeout: 30000 });
     await combobox.click();
   }
@@ -59,8 +58,9 @@ export class ElectronicAuctionProjectPage {
 
   async selectCity() {
     const option = this.page.getByRole(ElectronicAuctionProjectObjects.cityOption.role, {
-       name: ElectronicAuctionProjectObjects.cityOption.name, 
-       exact: ElectronicAuctionProjectObjects.cityOption.exact });
+      name: ElectronicAuctionProjectObjects.cityOption.name,
+      exact: ElectronicAuctionProjectObjects.cityOption.exact,
+    });
     await expect(option).toBeVisible({ timeout: 30000 });
     await option.click();
   }
@@ -197,7 +197,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openUnitsSubTab() {
-    const subTab = this.page.locator(ElectronicAuctionProjectObjects.unitsSubTab.xpath).getByText("الوحدات");
+    const subTab = this.page.locator(ElectronicAuctionProjectObjects.unitsSubTab.xpath).getByText('الوحدات');
     await expect(subTab).toBeVisible({ timeout: 30000 });
     await subTab.click();
   }
@@ -231,14 +231,16 @@ export class ElectronicAuctionProjectPage {
   }
 
   async expectImportInProgress() {
-    const message = this.page.getByText(ElectronicAuctionProjectObjects.importInProgressMessage.name, { 
-      exact: true });
+    const message = this.page.getByText(ElectronicAuctionProjectObjects.importInProgressMessage.name, {
+      exact: true,
+    });
     await expect(message).toBeVisible({ timeout: 120000 });
   }
 
   async waitForUnitImportToComplete() {
-    const message = this.page.getByText(ElectronicAuctionProjectObjects.importCompletedMessage.text, { 
-      exact: true });
+    const message = this.page.getByText(ElectronicAuctionProjectObjects.importCompletedMessage.text, {
+      exact: true,
+    });
     while (!(await message.isVisible().catch(() => false))) {
       await this.page.reload();
       await this.page.waitForTimeout(3000);
@@ -363,7 +365,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openPublishedUnitModel() {
-    const modelLink = this.page.locator("a").filter({ hasText: ElectronicAuctionProjectObjects.unitModelLink.text });
+    const modelLink = this.page.locator('a').filter({ hasText: ElectronicAuctionProjectObjects.unitModelLink.text });
     await expect(modelLink).toBeVisible({ timeout: 30000 });
     await modelLink.click();
   }
@@ -395,7 +397,7 @@ export class ElectronicAuctionProjectPage {
 
   private async upload(xpath: string, filePath: string) {
     const locator = this.page.locator(xpath);
-    await locator.waitFor({ state: "attached", timeout: 30000 });
+    await locator.waitFor({ state: 'attached', timeout: 30000 });
     await locator.setInputFiles(filePath);
   }
 
@@ -404,7 +406,7 @@ export class ElectronicAuctionProjectPage {
       const tab = this.page.locator(xpath);
       await expect(tab).toBeVisible({ timeout: 30000 });
       const text = await tab.textContent();
-      if (text && text.includes("تمت الموافقة وتم النشر")) return;
+      if (text && text.includes('تمت الموافقة وتم النشر')) return;
       await this.page.reload();
       await this.page.waitForTimeout(3000);
     }
@@ -413,7 +415,7 @@ export class ElectronicAuctionProjectPage {
   private async setToggle(xpath: string) {
     const toggle = this.page.locator(xpath);
     await expect(toggle).toBeVisible({ timeout: 30000 });
-    if ((await toggle.getAttribute("aria-checked")) === "false") await toggle.click();
-    await expect(toggle).toHaveAttribute("aria-checked", "true");
+    if ((await toggle.getAttribute('aria-checked')) === 'false') await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-checked', 'true');
   }
 }
