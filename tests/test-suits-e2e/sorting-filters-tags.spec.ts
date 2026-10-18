@@ -224,7 +224,6 @@ test.describe("Sorting, Filters and Tags", () => {
         await app.filtersPage.clickElement(FiltersObjects.twoBathroomsCheckbox);
         await app.filtersPage.verifyElementValueAttribute(FiltersObjects.twoBathroomsValue, "true");
     });
-
     test("TC-09 - Verify that tags are present in unit card", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
         const environments = testData.environments;
@@ -248,9 +247,5 @@ test.describe("Sorting, Filters and Tags", () => {
         await app.filtersPage.clickElement(FiltersObjects.lastUnitsRemainingCheckbox);
         await app.filtersPage.clickOnSearchButton();
         await app.tagsPage.verifyLastUnitsRemainingTag();
-
-
     });
-
-
 });

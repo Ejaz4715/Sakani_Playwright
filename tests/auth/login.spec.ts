@@ -47,7 +47,7 @@ test.describe('User authentication validation', () => {
     await logStep('Step 04: Complete authentication and confirm marketplace entry');
     await loginPage.waitForAuthenticated();
     await expect(page).toHaveURL(/\/app\/marketplace/);
-    await new Header(page).expectAuthenticated(/ALSHAIKHA|اليامي/);
+    await new Header(page).expectAuthenticated();
   });
 
   test('TC-03 User can log out', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {

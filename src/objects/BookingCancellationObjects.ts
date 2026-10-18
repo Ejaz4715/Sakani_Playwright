@@ -174,4 +174,33 @@ export const BookingCancellationObjects = {
   unitResultDetailsPage: {
     xpath: "//app-property-dx-page"
   },
+  //Real Estat Data
+  insightAndTrendsSection:{
+    xpath:"//app-dx-insight-project-price-trends"
+  },
+  avaragePriceButton: {
+    xpath: "//app-dx-insight-project-price-trends/descendant::div[@role='radio'][1]"
+  },
+  avaragePricePerM2Button: {
+    xpath: "//app-dx-insight-project-price-trends/descendant::div[@role='radio'][2]"
+  },
+  avaragePriceSection: {
+    xpath: "//div[text()='متوسط ​​الأسعار']"
+  },
+  avaragePricePerM2Section: {
+    xpath: "//div[text()='متوسط الأسعار لكل م²']"
+  },
+  monthsDropdownList: {
+    xpath: "//app-dx-insight-time-range"
+  },
+  monthsOptions: {
+    xpath: "//div[@aria-labelledby='selectTimeRange']"
+  },
+  transactionSection: {
+    xpath: "//app-dx-insight-project-transactions"
+  },
+  demographicSection:{
+    xpath:"//app-dx-insight-demographic-overview"
+  }
+
 } as const;

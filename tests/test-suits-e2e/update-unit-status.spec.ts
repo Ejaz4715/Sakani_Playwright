@@ -1,17 +1,20 @@
 import { test } from '@playwright/test';
-import fs from "node:fs";
-import os from "node:os";
 const path = require("path");
 import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
+import { DataHelper } from '@helpers/DataHelper'; 
 import testDataUpdateUnit from '@data/test-data.json'
+
+const SERVICE = "update-unit";
+const readServiceData = () => DataHelper.readData().services[SERVICE];
+const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe("Update unit status (active/inactive) from partners", () => {
     test("TC-01 Developer updates the unit status active or inactive of available unit", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
-        const environment = testDataUpdateUnit.environments;
-        const data = testDataUpdateUnit.services["update-unit"];
+        await logStep("Step 00: Read data from json relative to the service");
+        const environment = readEnvironments();
+        const data = readServiceData();
         const app = new WebApp(page);
         const projectName = data.projectName;
         const developerUserId = data.developerUserId;
@@ -42,7 +45,6 @@ test.describe("Update unit status (active/inactive) from partners", () => {
         const projectCode = data.projectCode;
         const productCode = data.availableUnitCode;
 
-        
         await logStep("Step 03: Navigate to update units page");
         await app.updateUnitsPage.clickUpdateUnitStatusLink();
         await app.updateUnitsPage.clickPilotLaunchButton();
@@ -84,9 +86,9 @@ test.describe("Update unit status (active/inactive) from partners", () => {
 
     test("TC-02 Verify booked unit status can't be updated", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
-        const environment = testDataUpdateUnit.environments;
-        const data = testDataUpdateUnit.services["update-unit"];
+        await logStep("Step 00: Read data from json relative to the service");
+        const environment = readEnvironments();
+        const data = readServiceData();
         const app = new WebApp(page);
         const projectName = data.projectName;
         const developerUserId = data.developerUserId;

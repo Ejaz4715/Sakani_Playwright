@@ -17,6 +17,7 @@ type Fixtures = {
   mortgageCalculatorPage: MortgageCalculatorPage;
   header: Header;
   authenticatedPage: Page;
+  authenticatedPageCompanyUser: Page;
 };
 
 async function preAcceptCookies(page: Page): Promise<void> {
@@ -111,9 +112,27 @@ export const test = base.extend<Fixtures>({
   authenticatedPage: async ({ page }, use) => {
     const login = new LoginPage(page);
     await login.login(TEST_USER.nationalId);
-    await new Header(page).expectAuthenticated(/ALSHAIKHA|اليامي/);
+    await new Header(page).expectAuthenticated();
+    await page.waitForTimeout(3000);
+    const eligibilityPopup = page.getByRole("paragraph").filter({ hasText: "Application Pending" });
+    if (await eligibilityPopup.isVisible()) {
+      await page.getByRole("button", { name: "Cancel" }).click();
+    }
     await use(page);
   },
+
+  authenticatedPageCompanyUser: async ({ page }, use) => {
+    const login = new LoginPage(page);
+    await login.login(TEST_USER.companyUserId);
+    await new Header(page).expectAuthenticated();
+    await page.waitForTimeout(3000);
+    const eligibilityPopup = page.getByRole("paragraph").filter({ hasText: "Application Pending" });
+    if (await eligibilityPopup.isVisible()) {
+      await page.getByRole("button", { name: "Cancel" }).click();
+    }
+    await use(page);
+  },
+  
 });
 
 export { expect } from '@playwright/test';

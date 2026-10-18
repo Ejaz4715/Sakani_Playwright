@@ -199,6 +199,23 @@ export class RegistrationPage {
         return fieldCount;
     }
 
+    async fillInputField(
+        fieldObject: { readonly xpath: string },
+        value: string | number,
+    ) {
+        const field = this.page.locator(fieldObject.xpath);
+        const fieldCount = await field.count();
+
+        if (fieldCount !== 1) {
+            throw new Error(
+                `Expected one field for selector: ${fieldObject.xpath}, found ${fieldCount}`,
+            );
+        }
+
+        await field.waitFor({ state: "visible" });
+        await field.fill(String(value));
+    }
+
     async getEligibilityResult(): Promise<"eligible" | "not eligible"> {
         const eligibleMessage = this.page.getByText(
             RegistrationObjects.eligibilitySuccessMessage,
@@ -220,4 +237,55 @@ export class RegistrationPage {
         }
         throw new Error("Eligibility result message did not become visible");
     }
+async clickFinancialAdvisoryLink() {
+        const link = this.page.locator(
+            RegistrationObjects.financialAdvisoryLink.xpath,
+        );
+        await link.waitFor({ state: "visible" });
+        await link.click();
+    }
+
+    async clickStartNowButton() {
+        const button = this.page.getByRole(
+            RegistrationObjects.startNowButton.role,
+            { name: RegistrationObjects.startNowButton.name },
+        );
+        await button.waitFor({ state: "visible" });
+        await button.click();
+    }
+
+    async clickStartServiceLink() {
+        const link = this.page.getByRole(
+            RegistrationObjects.startServiceLink.role,
+            { name: RegistrationObjects.startServiceLink.name },
+        );
+        await link.waitFor({ state: "visible" });
+        await link.click();
+    }
+
+    async clickReadyUnitsFromMarketText() {
+        const text = this.page.getByText(
+            RegistrationObjects.readyUnitsFromMarketText,
+        );
+        await text.waitFor({ state: "visible" });
+        await text.click();
+    }
+
+    async checkReadyUnitsCheckbox() {
+        const checkbox = this.page.getByRole(
+            RegistrationObjects.readyUnitsCheckbox.role,
+        );
+        await checkbox.waitFor({ state: "visible" });
+        await checkbox.check();
+    }
+
+    async clickSubmitButton() {
+        const button = this.page.getByRole(
+            RegistrationObjects.submitButton.role,
+            { name: RegistrationObjects.submitButton.name },
+        );
+        await button.waitFor({ state: "visible" });
+        await button.click();
+    }
+    
 }
