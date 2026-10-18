@@ -1,4 +1,4 @@
-import { type Page } from "@playwright/test";
+import { type Page } from '@playwright/test';
 import { LoginPage } from '@pages/LoginPage';
 import { CommonMethods } from '@pages/utils/CommonMethods';
 import { MarketplaceLandingPage } from '@pages/MarketplaceLandingPage';
@@ -12,45 +12,45 @@ import { AdminProjectPage } from '@pages/AdminProjectPage';
 import { DeveloperProjectPage } from '@pages/DeveloperProjectPage';
 import { PaymentConfirmationPage } from '@pages/PaymentConfirmationPage';
 import { AuctionPage } from '@pages/AuctionPage';
-import { ElectronicAuctionProjectPage } from '@pages/ElectronicAuctionProjectPage';
+import { ElectronicAuctionProjectPage } from '@pages/AuctionsProjectPage';
 import { CreateMegaProjectPage } from '@pages/CreateMegaProjectPage';
 import { FlexiblePaymentPage } from '@pages/FlexiblePaymentPage';
 import { BookingAndSelectPaymentMethodPage } from '@pages/BookingAndSelectPaymentMethodPage';
 import { PaymentTrackingPage } from '@pages/PaymentTrackingPage';
 import { RentalBehaviorPage } from '@pages/RentalBehaviorPage';
 import { ResaleOfUnitsPage } from '@pages/ResaleOfUnitsPage';
-import { OffPlanBasketMultipleBookingPage } from "@pages/OffPlanBasketMultipleBooking";
-import { AdminLoyaltyPage } from '@pages/AdminLoyaltyPage'
+import { OffPlanBasketMultipleBookingPage } from '@pages/OffPlanBasketMultipleBooking';
+import { AdminLoyaltyPage } from '@pages/AdminLoyaltyPage';
 import { PaymentsAndTransactionsPage } from '@pages/PaymentsAndTransactionsPage';
 import { BuyDesignPage } from '@pages/BuyDesignPage';
 import { WaitingListPage } from '@pages/WaitinListPage';
 import { DiscountOnReservedUnitsPage } from '@pages/DiscountOnReservedUnitsPage';
 import { CashPaymentPage } from '@pages/CashPaymentPage';
 import { PublishUnitPage } from '@pages/PublishUnitPage';
-import { UnitsDeliveryPage } from "@pages/UnitsDeliveryPage";
+import { UnitsDeliveryPage } from '@pages/UnitsDeliveryPage';
 import { UnitComparisonPage } from '@pages/UnitComparisonPage';
 import { ReportTheUnitPage } from '@pages/ReportTheUnitPage';
 import { SortingPage } from '@pages/SortingPage';
 import { FiltersPage } from '@pages/FiltersPage';
 import { TagsPage } from '@pages/TagsPage';
-import { PartnersLoginPage } from '@pages/PartnersLoginPage'
-import { StampManagementPage } from "@pages/StampManagementPage";
-import { DashboardViewPage } from "@pages/DashboardPageView";
-import { SalesChannel_TargetAudiencePage } from "@pages/SalesChannel_TargetAudiencePage";
+import { PartnersLoginPage } from '@pages/PartnersLoginPage';
+import { StampManagementPage } from '@pages/StampManagementPage';
+import { DashboardViewPage } from '@pages/DashboardPageView';
+import { SalesChannel_TargetAudiencePage } from '@pages/SalesChannel_TargetAudiencePage';
 import { UpdateUnitsPage } from '@pages/UpdateUnitsPage';
 import { RegistrationPage } from '@pages/RegistrationPage';
 import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
-import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
-import {RealEstateTaxExemptionPage} from "@pages/RealEstateTaxExemptionPage";
-import {LoyaltyAdminDealsPage} from "@pages/LoyaltyAdminDealsPage";
-import {MetaverseManagementPage} from "@pages/MetaverseManagementPage";
-import {RecommendationsPage} from "@pages/RecommendationsPage";
-import {FavoritesPage} from "@pages/FavoritesPage";
-import { VoucherManagementPage } from "@pages/VoucherManagementPage";
-import { UserManagementPage } from "@pages/UserManagementPage";
-import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
-import { SelfConstructionPage } from "@pages/SelfConstructionPage";
+import { ReservationManagementFiltersPage } from '@pages/ReservationManagementFiltersPage';
+import { RealEstateTaxExemptionPage } from '@pages/RealEstateTaxExemptionPage';
+import { LoyaltyAdminDealsPage } from '@pages/LoyaltyAdminDealsPage';
+import { MetaverseManagementPage } from '@pages/MetaverseManagementPage';
+import { RecommendationsPage } from '@pages/RecommendationsPage';
+import { FavoritesPage } from '@pages/FavoritesPage';
+import { VoucherManagementPage } from '@pages/VoucherManagementPage';
+import { UserManagementPage } from '@pages/UserManagementPage';
+import { CreatingAnAdvertisingCampaignPage } from '@pages/CreatingAnAdvertisingCampaignPage';
+import { SelfConstructionPage } from '@pages/SelfConstructionPage';
 
 export class WebApp {
   page: Page;
@@ -87,8 +87,8 @@ export class WebApp {
   sortingPage: InstanceType<typeof SortingPage>;
   filtersPage: InstanceType<typeof FiltersPage>;
   tagsPage: InstanceType<typeof TagsPage>;
-  dashboardViewPage: InstanceType<typeof DashboardViewPage>
-  salesChannelTargetAudiencePage: InstanceType<typeof SalesChannel_TargetAudiencePage>
+  dashboardViewPage: InstanceType<typeof DashboardViewPage>;
+  salesChannelTargetAudiencePage: InstanceType<typeof SalesChannel_TargetAudiencePage>;
   updateUnitsPage: InstanceType<typeof UpdateUnitsPage>;
   partnersLoginPage: InstanceType<typeof PartnersLoginPage>;
   stampManagementPage: InstanceType<typeof StampManagementPage>;
