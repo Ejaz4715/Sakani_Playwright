@@ -1,9 +1,9 @@
-import { Page, expect, Locator } from "@playwright/test";
-const path = require("path");
-import { DeveloperObjects } from "@objects/DeveloperObjects";
-import { DevelopersPage } from "@pages/DevelopersPage";
+import { Page, expect, Locator } from '@playwright/test';
+const path = require('path');
+import { DeveloperObjects } from '@objects/DeveloperObjects';
+import { DevelopersPage } from '@pages/DevelopersPage';
 
-import * as timers from "node:timers";
+import * as timers from 'node:timers';
 const DEFAULT_TIMEOUT = 30_000;
 const LONG_TIMEOUT = 90_000;
 
@@ -42,27 +42,27 @@ export class DeveloperProjectPage {
     await this.waitForVisible(continueButton);
     await continueButton.click();
 
-    const nafathModal = this.page.locator("//app-nafath-login-modal");
-    await nafathModal.waitFor({ state: "visible", timeout: 10000 }).catch(() => { });
+    const nafathModal = this.page.locator('//app-nafath-login-modal');
+    await nafathModal.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
 
     while (await nafathModal.isVisible().catch(() => false)) {
       await this.page.waitForTimeout(3000);
     }
     await this.page.waitForTimeout(3000);
-    const verificationButton = this.page.getByRole("button", { name: "تحقق" });
+    const verificationButton = this.page.getByRole('button', { name: 'تحقق' });
     if (await verificationButton.isVisible({ timeout: 15000 }).catch(() => false)) {
       await verificationButton.click();
-      await this.page.getByRole("spinbutton", { name: "X" }).nth(0).fill("1");
-      await this.page.getByRole("spinbutton", { name: "X" }).nth(1).fill("2");
-      await this.page.getByRole("spinbutton", { name: "X" }).nth(2).fill("3");
-      await this.page.getByRole("spinbutton", { name: "X" }).nth(3).fill("4");
-      await this.page.getByRole("button", { name: "تأكيد ومتابعة" }).click();
-      await this.page.getByRole("button", { name: "انتقل إلى لوحة المعلومات" }).click();
+      await this.page.getByRole('spinbutton', { name: 'X' }).nth(0).fill('1');
+      await this.page.getByRole('spinbutton', { name: 'X' }).nth(1).fill('2');
+      await this.page.getByRole('spinbutton', { name: 'X' }).nth(2).fill('3');
+      await this.page.getByRole('spinbutton', { name: 'X' }).nth(3).fill('4');
+      await this.page.getByRole('button', { name: 'تأكيد ومتابعة' }).click();
+      await this.page.getByRole('button', { name: 'انتقل إلى لوحة المعلومات' }).click();
     }
     const profileIcon = this.page.locator(DeveloperObjects.profileIcon);
     await this.waitForVisible(profileIcon);
     await this.page.waitForTimeout(3000);
-    const cancelButton = this.page.getByRole("button", { name: "إلغاء" });
+    const cancelButton = this.page.getByRole('button', { name: 'إلغاء' });
     await this.clickIfVisible(cancelButton.first());
   }
 
@@ -79,7 +79,7 @@ export class DeveloperProjectPage {
     await this.waitForVisible(developerRole);
     await developerRole.click();
     await this.page.waitForTimeout(3000); // Wait for 3 seconds to ensure the page is fully loaded
-    const cancelButton = this.page.getByRole("button", { name: "إلغاء" });
+    const cancelButton = this.page.getByRole('button', { name: 'إلغاء' });
     await this.clickIfVisible(cancelButton.first());
   }
 
@@ -102,12 +102,12 @@ export class DeveloperProjectPage {
     await this.waitForVisible(projectNameOption);
     await projectNameOption.click();
 
-    const projectSearchInput = this.page.locator(DeveloperObjects.projectSearchInput).getByRole("combobox");
+    const projectSearchInput = this.page.locator(DeveloperObjects.projectSearchInput).getByRole('combobox');
     await this.waitForVisible(projectSearchInput);
     await projectSearchInput.click();
     await projectSearchInput.fill(projectName);
 
-    const projectOption = this.page.getByRole("option", { name: projectName });
+    const projectOption = this.page.getByRole('option', { name: projectName });
     await expect(projectOption).toBeVisible({ timeout: this.defaultTimeout });
     await projectOption.click({ force: true });
   }
@@ -129,8 +129,8 @@ export class DeveloperProjectPage {
 
   async openPaymentSchedulesTab() {
     const paymentScheduleTab = this.page
-      .getByRole("tab", { name: /جداول الدفع/ })
-      .or(this.page.getByText("جداول الدفع", { exact: true }))
+      .getByRole('tab', { name: /جداول الدفع/ })
+      .or(this.page.getByText('جداول الدفع', { exact: true }))
       .first();
     await this.waitForVisible(paymentScheduleTab);
     await paymentScheduleTab.click();
@@ -156,7 +156,7 @@ export class DeveloperProjectPage {
     await addUnitSpecificationButton.click();
   }
 
-  async fillOtp(code = "1234") {
+  async fillOtp(code = '1234') {
     const otpInput = this.page.locator(DeveloperObjects.otpInput);
     await this.waitForVisible(otpInput);
     await otpInput.fill(code);
@@ -184,7 +184,7 @@ export class DeveloperProjectPage {
   }
 
   async selectFirstUnit() {
-    const firstUnit = this.page.getByRole("cell").first();
+    const firstUnit = this.page.getByRole('cell').first();
     await this.waitForVisible(firstUnit);
     await firstUnit.click();
   }
@@ -200,8 +200,8 @@ export class DeveloperProjectPage {
   async uploadAnnexFile(filePath: string) {
     const fileInput = this.page.locator("//input[@type='file']");
     await fileInput.setInputFiles(filePath);
-    const attachmentText = this.page.getByText("الملف المرفق", { exact: true });
-    await attachmentText.waitFor({ state: "visible" });
+    const attachmentText = this.page.getByText('الملف المرفق', { exact: true });
+    await attachmentText.waitFor({ state: 'visible' });
   }
 
   async uploadAnnex() {
@@ -246,13 +246,13 @@ export class DeveloperProjectPage {
     percentageTwoValue: string;
   }) {
     const addScheduleButton = this.page
-      .getByRole("button", { name: /إضافة جدول جديد/ })
-      .or(this.page.getByText("إضافة جدول جديد", { exact: true }))
+      .getByRole('button', { name: /إضافة جدول جديد/ })
+      .or(this.page.getByText('إضافة جدول جديد', { exact: true }))
       .first();
     await this.waitForVisible(addScheduleButton);
     await addScheduleButton.click();
 
-    const scheduleType = type === "cash" ? this.page.getByText(DeveloperObjects.cashOption) : this.page.getByText(DeveloperObjects.lendingOption);
+    const scheduleType = type === 'cash' ? this.page.getByText(DeveloperObjects.cashOption) : this.page.getByText(DeveloperObjects.lendingOption);
     await this.waitForVisible(scheduleType);
     await scheduleType.click();
 
@@ -260,19 +260,19 @@ export class DeveloperProjectPage {
     await this.waitForVisible(scheduleNameInput);
     await scheduleNameInput.fill(scheduleName);
 
-    const completionPercentageOne = this.page.locator(DeveloperObjects.completionPercentageOne).getByRole("textbox", { name: "مثال: 15٪" });
+    const completionPercentageOne = this.page.locator(DeveloperObjects.completionPercentageOne).getByRole('textbox', { name: 'مثال: 15٪' });
     await this.waitForVisible(completionPercentageOne);
     await completionPercentageOne.fill(completionPercentageOneValue);
 
-    const percentageOne = this.page.locator(DeveloperObjects.percentageOne).getByRole("textbox", { name: "مثال: 15٪" });
+    const percentageOne = this.page.locator(DeveloperObjects.percentageOne).getByRole('textbox', { name: 'مثال: 15٪' });
     await this.waitForVisible(percentageOne);
     await percentageOne.fill(percentageOneValue);
 
-    const completionPercentagetwo = this.page.locator(DeveloperObjects.completionPercentageTwo).getByRole("textbox", { name: "مثال: 15٪" });
+    const completionPercentagetwo = this.page.locator(DeveloperObjects.completionPercentageTwo).getByRole('textbox', { name: 'مثال: 15٪' });
     await this.waitForVisible(completionPercentagetwo);
     await completionPercentagetwo.fill(completionPercentageTwoValue);
 
-    const percentageTwo = this.page.locator(DeveloperObjects.percentageTwo).getByRole("textbox", { name: "مثال: 15٪" });
+    const percentageTwo = this.page.locator(DeveloperObjects.percentageTwo).getByRole('textbox', { name: 'مثال: 15٪' });
     await this.waitForVisible(percentageTwo);
     await percentageTwo.fill(percentageTwoValue);
 
@@ -294,8 +294,7 @@ export class DeveloperProjectPage {
   }
 
   async searchBookingByUnitCode(unitCode: string) {
-    const searchInput = this.page.getByRole(DeveloperObjects.bookingSearchInput.role,
-      { name: DeveloperObjects.bookingSearchInput.name });
+    const searchInput = this.page.getByRole(DeveloperObjects.bookingSearchInput.role, { name: DeveloperObjects.bookingSearchInput.name });
     await this.waitForVisible(searchInput);
     await searchInput.fill(unitCode);
     await this.page.waitForTimeout(3000);
@@ -319,7 +318,6 @@ export class DeveloperProjectPage {
     await bookingTab.click();
   }
 
-
   async confirmBooking(unitCode: string) {
     // 1. Navigate to the manage reservations and individual booking section
     await this.navigateToIndividualBookings();
@@ -333,7 +331,7 @@ export class DeveloperProjectPage {
 
     // 4. Locate and click the confirm booking buttons (handling both first and last instances)
     const confirmBookingButton = this.page.getByRole(DeveloperObjects.confirmBookingActionButton.role, {
-      name: DeveloperObjects.confirmBookingActionButton.name
+      name: DeveloperObjects.confirmBookingActionButton.name,
     });
     await confirmBookingButton.first().click();
 
@@ -341,7 +339,7 @@ export class DeveloperProjectPage {
     await this.page.getByRole(DeveloperObjects.yesConfirmationButton.role, { name: DeveloperObjects.yesConfirmationButton.name }).click();
 
     // 6. Assert that the booking success message is visible on the screen
-    await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), "Confirmation booking success text is not visible").toBeVisible({ timeout: 20000 });
+    await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), 'Confirmation booking success text is not visible').toBeVisible({ timeout: 20000 });
   }
 
   async confirmCompanyBooking(unitCode: string) {
@@ -366,7 +364,7 @@ export class DeveloperProjectPage {
     await this.page.getByRole(DeveloperObjects.yesConfirmationButton.role, { name: DeveloperObjects.yesConfirmationButton.name }).click();
 
     // 6. Assert that the booking success message is visible on the screen
-    await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), "Confirmation booking success text is not visible").toBeVisible({ timeout: 20000 });
+    await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), 'Confirmation booking success text is not visible').toBeVisible({ timeout: 20000 });
   }
 
   async isSuccessfulConfirmationMessageVisible() {
@@ -378,7 +376,7 @@ export class DeveloperProjectPage {
   }
 
   async clickOnCompanies() {
-    await this.page.locator(DeveloperObjects.companiesButton).waitFor({ state: "visible" });
+    await this.page.locator(DeveloperObjects.companiesButton).waitFor({ state: 'visible' });
     await this.page.locator(DeveloperObjects.companiesButton).click();
   }
 
@@ -472,24 +470,24 @@ export class DeveloperProjectPage {
   }
 
   async isCompanyBookingConfirmed() {
-    await this.page.locator(DeveloperObjects.showBookingDetailsButton).waitFor({ state: "visible", timeout: 30000 });
+    await this.page.locator(DeveloperObjects.showBookingDetailsButton).waitFor({ state: 'visible', timeout: 30000 });
 
     return await this.page.locator(DeveloperObjects.showBookingDetailsButton).isVisible();
   }
 
   async clickOnConfirmationButton() {
     const confirmButton = this.page.getByRole(DeveloperObjects.confirmButton.role, { name: DeveloperObjects.confirmButton.name });
-    await confirmButton.waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
+    await confirmButton.waitFor({ state: 'visible', timeout: DEFAULT_TIMEOUT });
     await confirmButton.click();
   }
 
   async isBookingListButtonVisible() {
-    await this.page.locator(DeveloperObjects.bookingListButton).waitFor({ state: "visible", timeout: 90000 });
+    await this.page.locator(DeveloperObjects.bookingListButton).waitFor({ state: 'visible', timeout: 90000 });
     return await this.page.locator(DeveloperObjects.bookingListButton).isVisible();
   }
 
   async openTheFirstExistingProject() {
-    await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().waitFor({ state: "visible", timeout: DEFAULT_TIMEOUT });
+    await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().waitFor({ state: 'visible', timeout: DEFAULT_TIMEOUT });
     await this.page.locator(DeveloperObjects.showFirstProjectDetails).first().click();
   }
 
@@ -544,7 +542,7 @@ export class DeveloperProjectPage {
     const deadline = Date.now() + LONG_TIMEOUT;
 
     await this.waitForVisible(status);
-    while ((await status.innerText()).trim() === "تحت الإجراء") {
+    while ((await status.innerText()).trim() === 'تحت الإجراء') {
       const remainingTime = deadline - Date.now();
       if (remainingTime <= 0) {
         throw new Error(`Report status remained "تحت الإجراء" for ${LONG_TIMEOUT}ms`);
@@ -553,7 +551,7 @@ export class DeveloperProjectPage {
       await this.page.waitForTimeout(Math.min(2000, remainingTime));
       await this.page.reload();
       await status.waitFor({
-        state: "visible",
+        state: 'visible',
         timeout: Math.max(1, deadline - Date.now()),
       });
     }
@@ -597,7 +595,7 @@ export class DeveloperProjectPage {
 
   async validateSuccessReservationPopup() {
     const reservationSuccessPopup = this.page.locator(DeveloperObjects.reservationSuccessPopup);
-    await expect(reservationSuccessPopup, "Reservation successful message pop up is not present").toBeVisible({ timeout: 20000 });
+    await expect(reservationSuccessPopup, 'Reservation successful message pop up is not present').toBeVisible({ timeout: 20000 });
   }
 
   async clickOnIndividualBookings() {
@@ -608,5 +606,15 @@ export class DeveloperProjectPage {
   async clickOnCompanyBookings() {
     await this.waitAndClick(this.page.locator(DeveloperObjects.manageReservationsButton));
     await this.waitAndClick(this.page.locator(DeveloperObjects.companyBookings));
+  }
+
+  async validateSelectedPaymentMethodIsLending() {
+    const paymentMethod = this.page.locator(DeveloperObjects.selectedPaymentMethodLending.xpath);
+    await expect(paymentMethod, 'Selected payment method is not Lending').toBeVisible({ timeout: 20000 });
+  }
+
+  async validateSelectedPaymentMethodIsCash() {
+    const paymentMethod = this.page.locator(DeveloperObjects.selectedPaymentMethodCash.xpath);
+    await expect(paymentMethod, 'Selected payment method is not Cash').toBeVisible({ timeout: 20000 });
   }
 }

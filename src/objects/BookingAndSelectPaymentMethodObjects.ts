@@ -9,13 +9,19 @@ export const BookingAndSelectPaymentMethodObjects = {
     xpath: "//input[@formcontrolname='accepted_term']",
   },
   unitCode: {
-    xpath: "//app-offplan-comprehensive-information/descendant::h2",
+    xpath: '//app-offplan-comprehensive-information/descendant::h2',
   },
   selectPaymentMehtButton: {
     xpath: "//button[contains(text(),'اختر طريقة الدفع')]",
   },
   flexiblePaymentRadioButton: {
     xpath: "//input[contains(@id, 'flexible_payment_schedule')]",
+  },
+  electronicFinancePaymentRadioButton: {
+    xpath: "//input[@id='lendRadio']/preceding-sibling::label",
+  },
+  cashPaymentRadioButton: {
+    xpath: "//input[@id='cashRadio']/preceding-sibling::label",
   },
   saveAndContinueButton: {
     xpath: "//button[contains(text(), 'حفظ ومتابعة')]",
@@ -25,5 +31,8 @@ export const BookingAndSelectPaymentMethodObjects = {
   },
   bookingDetailsButton: {
     xpath: "//button[contains(text(), 'تفاصيل الحجز')]",
+  },
+  paymentTypeText(type: string) {
+    return `//app-offplan-payment-details-section/descendant::span[normalize-space() = '${type}']`;
   },
 } as const;
