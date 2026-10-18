@@ -250,6 +250,20 @@
     "news-housing-products-support": {
       "sakaniUserId": "1300070834"
     },
+    "metaverse-management": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "sapaCompanyAdmin": "1023129537",
+      "sapaCompanyUser": "1023129538"
+    },
+    "search-engine": {
+      "sakaniUserId": "1300070834"
+    },
+    "recommendations": {
+      "sakaniUserId": "1300070834",
+      "offPlanProjectId": 2896
+    }, 
+    
     "update-financial-institute": {
       "sakaniUserId": "1300070834",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",

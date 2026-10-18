@@ -18,6 +18,11 @@ export const MarketplaceLandingObjects = {
   readyMadeUnitCard: {
     xpath: "//app-dx-project-unit-card/descendant::span[text() ='SAR']"
   },
+  searchTextField: "app-smart-search-input input",
+  searchResultsCard: "app-smart-search-dropdown-section",
+  searchResultsCardText: "app-smart-search-dropdown p",
+  searchIcon:".svg-icon.icon-search-gray",
+
   financingShowMore: {
     container: "#financing",
     text: "شاهد المزيد",
