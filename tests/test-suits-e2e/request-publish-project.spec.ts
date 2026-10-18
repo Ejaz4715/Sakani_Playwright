@@ -1,7 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
-const fs = require("fs");
+import { test } from "@playwright/test";
 const path = require("path");
-const XLSX = require("xlsx");
 import { WebApp } from "@base-class/web-app";
 import { logStep } from '@helpers/LogSteps'
 import { DateUtils } from "@pages/utils/DateUtils";
@@ -20,7 +18,7 @@ test.describe("Request publish project", () => {
         const environment = readEnvironments();
         const data = readServiceData();
         const { faker } = await import('@faker-js/faker');
-        const currentDate = DateUtils.getDateISO(600);
+        const currentDate = DateUtils.getCurrentDateISO();
         const projectName = `Automation Developer Project Offplan ${new Date()
             .toISOString()
             .replace(/[-:T.]/g, "")
@@ -30,12 +28,15 @@ test.describe("Request publish project", () => {
         const sapaUrl = environment.sapaPortalUrl;
         const developerUserId = data.developerUserId;
         await logStep("Step 01: Navigate to partners portal > Login");
+
         await app.developerProjectPage.gotoAuth(sapaUrl);
         await app.developerProjectPage.loginDeveloper(developerUserId);
         await app.developerProjectPage.switchRoleToDeveloper();
         await logStep("Step 02: Navigate to create new project");
+
         await app.requestPublishProjectPage.clickProjectsLink();
         await app.requestPublishProjectPage.clickNewProjectButton();
+
         await logStep("Step 03: Fill project information > Next");
         await app.requestPublishProjectPage.fillAnyInputField(RequestPublishProjectObjects.projectNameInputfield, projectName);
         await app.requestPublishProjectPage.selectAnyDropdownOption(RequestPublishProjectObjects.proejctTypeDropddownList, RequestPublishProjectObjects.projectTypeOption);
@@ -54,9 +55,11 @@ test.describe("Request publish project", () => {
         await app.requestPublishProjectPage.fillAnyInputField(RequestPublishProjectObjects.deedCityInputfield, "الرباض");
         await app.requestPublishProjectPage.fillAnyInputField(RequestPublishProjectObjects.landDeliveryDateToDeveloperInputfield, currentDate);
         await app.requestPublishProjectPage.clickNextButton();
+
         await logStep("Step 04: Select financial institues > Next");
         await app.requestPublishProjectPage.clickBankCheckbox();
         await app.requestPublishProjectPage.clickNextButton();
+
         await logStep("Step 05: Fill payemnt schedules > confirm and send");
         await app.requestPublishProjectPage.clickLendingPaymentDropdownButton();
         await app.requestPublishProjectPage.fillAnyInputField(RequestPublishProjectObjects.templateNameForLendingInputfield, "Lending");
@@ -72,6 +75,7 @@ test.describe("Request publish project", () => {
         await app.requestPublishProjectPage.fillAnyInputField(RequestPublishProjectObjects.lastPayPaidPercentageForCash, 60);
         await app.requestPublishProjectPage.fillAnyInputField(RequestPublishProjectObjects.lastPayPaidPercentageForCash, 60);
         await app.requestPublishProjectPage.clickConfirmAndSendButton();
+        
         await logStep("Step 06: Send > Verify the project created successfully");
         await app.requestPublishProjectPage.clickSendButton();
         await app.requestPublishProjectPage.verifySuccessMessageIsVisible();
@@ -95,13 +99,13 @@ test.describe("Request publish project", () => {
             adminUsername,
             adminPassword,
         );
+
         await logStep("Step 02: Navigate to developer projects > Approve the the request > Verify the success message");
         await app.adminProjectPage.openProjects();
         await app.requestPublishProjectPage.clickDeveloperProjectsTab();
         await app.resaleOfUnitsPage.fillProjectName(projectName);
         await app.resaleOfUnitsPage.clickProjectSearchButton();
         await app.resaleOfUnitsPage.clickSearchedProjectResult(projectName);
-        // await page.locator('div').filter({ hasText: data.projectName }).click();
         await page.waitForTimeout(10000);
         await app.requestPublishProjectPage.clickApproveButton();
         await app.requestPublishProjectPage.verifySuccessApprovedToastMessageIsVisible();
@@ -109,31 +113,44 @@ test.describe("Request publish project", () => {
     });
     test("TC-03 - Developer adds units", { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
+        await logStep("Step 00: Read data from json relative to the service");
         const environment = readEnvironments();
         const data = readServiceData();
         const app = new WebApp(page);
         const projectName = data.projectName;
         const developerUserId = data.developerUserId;
         const sapaPortalUrl = environment.sapaPortalUrl;
-        const filePath = path.join(process.cwd(), "src", "data", "Offplan_MOH.xlsx");
+        const filePath = path.join(process.cwd(), "src", "data", "add-unit.xlsx");
 
         await logStep("Step 01: Login as developer to sapa portal and open the project");
         await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
         await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+        await page.pause();
         await app.partnersLoginPage.switchRoleToDeveloper();
 
         await logStep("Step 02: Search for project");
         await app.developerProjectPage.openProjectBySearch(projectName);
-        //continue upload units
+
+        await logStep('Step 03: Navigate to add unit > Upload units file');
+        await app.updateUnitsPage.selectManageProjectOption("إضافة وحدات");
+        await app.updateUnitsPage.selectApartmentUnitType();
+        await app.updateUnitsPage.uploadFile(filePath);
+
+        await logStep('Step 04: Add the file and confirm');
+        await app.updateUnitsPage.clickAddUnitFile();
+        await page.waitForTimeout(1500);
+        await app.updateUnitsPage.clickConfirmYesButton();
+        await page.waitForTimeout(3000);
+        await app.updateUnitsPage.clickConfirmYesButton();
+
+        await logStep('Step 07: Validate the analysis file is present');
+        await app.updateUnitsPage.verifyAddUnitsAnalysisIsVisible();
     });
 
     test("TC-04 - Admin approve the units and publish the project", { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        // const testData = readTestData();
         const environment = readEnvironments();
         const data = readServiceData();
-        // const cashPaymentData = testData.services["cash-payment"];
         const app = new WebApp(page);
         const adminUrl = environment.adminPortalUrl;
         const adminUsername = data.adminUsername;
@@ -146,6 +163,7 @@ test.describe("Request publish project", () => {
             adminUsername,
             adminPassword,
         );
+
         await logStep("Step 02: Navigate to developer projects > Approve the added units");
         await app.adminProjectPage.openProjects();
         await app.requestPublishProjectPage.clickDeveloperProjectsTab();
@@ -161,6 +179,7 @@ test.describe("Request publish project", () => {
         await app.adminProjectPage.clickUnitsTab();
         await app.requestPublishProjectPage.clickApproveButton();
         await app.requestPublishProjectPage.verifySuccessApprovedUnitsToastMessageIsVisible();
+
         await logStep("Step 03: Upload project media and enter media details");
         await app.adminProjectPage.clickProjectMediaTab();
         const bannerImagePath = path.join(process.cwd(), "src", "data", "Sample image.jpg");
@@ -216,7 +235,6 @@ test.describe("Request publish project", () => {
     });
     test("TC-05 - Verify the project is published in sakani portal", { annotation: [{ product: "Digitar Developer", type: "critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);
-        //read data from json relative to the service
         const environment = readEnvironments();
         const data = readServiceData();
         const app = new WebApp(page);

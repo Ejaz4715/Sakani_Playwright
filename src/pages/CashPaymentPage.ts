@@ -8,7 +8,7 @@ export class CashPaymentPage {
         this.page = page;
     }
 
-    clickOnSchedulePaymentCard() {
+    async clickOnSchedulePaymentCard() {
         const schedulePaymentCard = this.page.locator(
             CashPaymentObjects.sechudlePaymentCard.xpath
         );

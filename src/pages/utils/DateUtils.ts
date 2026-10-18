@@ -17,10 +17,6 @@
       .replace("DD", day);
   }
 
-  static getDate(format = "YYYY-MM-DD") {
-    return DateUtils.getDateWithOffsetAndFormat(0, format);
-  }
-
   static getDateISO(offsetDays = 0) {
     const date = new Date();
     date.setDate(date.getDate() + offsetDays);

@@ -43,7 +43,7 @@ test.describe("Offplan private land booking journey", () => {
     // await app.adminProjectPage.fillMaxSubsidyAmount("2");
     await app.adminProjectPage.fillProjectAgreementDate("2026-01-01");
     await app.adminProjectPage.fillProjectLicenseNumber("665334");
-    await app.adminProjectPage.fillProjectLicenseDate("2026-01-01");
+    await app.adminProjectPage.fillProjectLicenseDate(DateUtils.getDateWithOffsetAndFormat(600, "YYYY-MM-DD"));
     await app.adminProjectPage.fillEscrowAccountName("Sakani Test User");
     await app.adminProjectPage.fillEscrowAccountNumber("SA1111111111111111111111");
     await app.adminProjectPage.selectBank("بنك الأهلي السعودي");

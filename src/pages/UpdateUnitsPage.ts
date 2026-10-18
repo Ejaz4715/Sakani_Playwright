@@ -318,12 +318,12 @@ export class UpdateUnitsPage {
     await expect(unitCodeCell).toBeHidden();
   }
 
-  async getUnitChannels() {
+  async getUnitTargetSegment() {
     const unitChannel = this.page
       .locator(UpdateUnitsObjects.unitRows)
       .first()
       .locator("datatable-body-cell")
-      .nth(5);
+      .nth(7);
     await expect(unitChannel).toBeVisible();
     return (await unitChannel.innerText()).trim();
   }
