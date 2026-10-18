@@ -302,6 +302,7 @@ test.describe("Contract status inquiry for financing", () => {
         expect(bookedUnitCode).toBeTruthy();
         DataHelper.updateServiceData(SERVICE, "bookedUnitCode", bookedUnitCode);
         
+        await page.pause();
         await logStep("Step 03: Sign the sale contract > Verify the success message");
         await app.bookingPage.openBookingDetails();
         await app.bookingAndSelectPaymentMethodPage.clickOnSelectPaymentMethodButton();
