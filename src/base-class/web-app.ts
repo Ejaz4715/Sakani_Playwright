@@ -50,6 +50,7 @@ import {FavoritesPage} from "@pages/FavoritesPage";
 import { VoucherManagementPage } from "@pages/VoucherManagementPage";
 import { UserManagementPage } from "@pages/UserManagementPage";
 import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
+import { SelfConstructionPage } from "@pages/SelfConstructionPage";
 
 export class WebApp {
   page: Page;
@@ -105,6 +106,7 @@ export class WebApp {
   userManagementPage: InstanceType<typeof UserManagementPage>;
   creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
   commonMethods: InstanceType<typeof CommonMethods>;
+  selfConstructionPage: InstanceType<typeof SelfConstructionPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -209,5 +211,6 @@ export class WebApp {
     this.userManagementPage = new UserManagementPage(page);
     this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);
     this.commonMethods = new CommonMethods(page);
+    this.selfConstructionPage = new SelfConstructionPage(page);
   }
 }
