@@ -252,6 +252,11 @@
     "real-estate-tax-exemption": {
       "sakaniUserId": "1119880074"
     },
+    "loyalty-admin-deals": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "companyName": "Automation Test Company 20260928145234"
+    },
     "user-management": {
       "developerUserId": "1023129537",
       "userId": "1028609657",

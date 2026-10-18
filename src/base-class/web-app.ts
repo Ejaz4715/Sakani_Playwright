@@ -43,6 +43,7 @@ import { RequestPublishProjectPage } from '@pages/RequestPublishProjectPage';
 import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/VerifyingEligibilityForDevelopmentalHousingPage';
 import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
 import {RealEstateTaxExemptionPage} from "@pages/RealEstateTaxExemptionPage";
+import {LoyaltyAdminDealsPage} from "@pages/LoyaltyAdminDealsPage";
 import { UserManagementPage } from "@pages/UserManagementPage";
 import { CreatingAnAdvertisingCampaignPage } from "@pages/CreatingAnAdvertisingCampaignPage";
 export class WebApp {
@@ -90,6 +91,7 @@ export class WebApp {
   verifyingEligibilityForDevelopmentalHousingPage: InstanceType<typeof VerifyingEligibilityForDevelopmentalHousingPage>;
   reservationManagementFiltersPage: InstanceType<typeof ReservationManagementFiltersPage>;
   realEstateTaxExemptionPage: InstanceType<typeof RealEstateTaxExemptionPage>;
+  loyaltyAdminDealsPage: InstanceType<typeof LoyaltyAdminDealsPage>;
   userManagementPage: InstanceType<typeof UserManagementPage>;
   creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
   commonMethods: InstanceType<typeof CommonMethods>;
@@ -189,6 +191,7 @@ export class WebApp {
     this.stampManagementPage = new StampManagementPage(page);
     this.reservationManagementFiltersPage = new ReservationManagementFiltersPage(page);
     this.realEstateTaxExemptionPage = new RealEstateTaxExemptionPage(page);
+    this.loyaltyAdminDealsPage = new LoyaltyAdminDealsPage(page);
     this.userManagementPage = new UserManagementPage(page);
     this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);
     this.commonMethods = new CommonMethods(page);
