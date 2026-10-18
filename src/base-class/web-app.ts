@@ -43,6 +43,7 @@ import { VerifyingEligibilityForDevelopmentalHousingPage } from '@pages/Verifyin
 import {ReservationManagementFiltersPage} from "@pages/ReservationManagementFiltersPage";
 import {MetaverseManagementPage} from "@pages/MetaverseManagementPage";
 import {RecommendationsPage} from "@pages/RecommendationsPage";
+import {FavoritesPage} from "@pages/FavoritesPage";
 
 export class WebApp {
   page: Page;
@@ -90,6 +91,7 @@ export class WebApp {
   reservationManagementFiltersPage: InstanceType<typeof ReservationManagementFiltersPage>;
   metaverseManagementPage: InstanceType<typeof MetaverseManagementPage>;
   recommendationsPage: InstanceType<typeof RecommendationsPage>;
+  favoritesPage: InstanceType<typeof FavoritesPage>;
 
 
 
@@ -189,6 +191,7 @@ export class WebApp {
     this.reservationManagementFiltersPage = new ReservationManagementFiltersPage(page);
     this.metaverseManagementPage = new MetaverseManagementPage(page);
     this.recommendationsPage = new RecommendationsPage(page);
+    this.favoritesPage = new FavoritesPage(page);
 
   }
 }
