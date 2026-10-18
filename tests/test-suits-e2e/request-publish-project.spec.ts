@@ -157,7 +157,7 @@ test.describe("Request publish project", () => {
         await app.adminProjectPage.selectSubsidyType("دعم عيني كامل");
         await app.adminProjectPage.fillMaxSubsidyAmount("2");
         await app.adminProjectPage.clickSaveButton();
-        await app.adminProjectPage.validateToastMessage();
+        await app.adminProjectPage.validateProjectSavedToastMessage();
         await app.adminProjectPage.clickUnitsTab();
         await app.requestPublishProjectPage.clickApproveButton();
         await app.requestPublishProjectPage.verifySuccessApprovedUnitsToastMessageIsVisible();
@@ -189,7 +189,7 @@ test.describe("Request publish project", () => {
         await app.adminProjectPage.clickAcceptUploadedMediaButton();
         await app.adminProjectPage.clickKeepProjectUnpublishedButton();
         await app.adminProjectPage.clickSaveButton();
-        await app.adminProjectPage.validateToastMessage();
+        await app.adminProjectPage.validateProjectSavedToastMessage();
 
         await logStep("Step 05: Publish the unit model");
         await app.adminProjectPage.clickUnitModelsSection();
@@ -212,7 +212,7 @@ test.describe("Request publish project", () => {
         await app.adminProjectPage.enableAvailableForBookingToggle();
         await app.adminProjectPage.publishProject();
         await app.adminProjectPage.clickSaveButton();
-        await app.adminProjectPage.validateToastMessage();
+        await app.adminProjectPage.validateProjectSavedToastMessage();
     });
     test("TC-05 - Verify the project is published in sakani portal", { annotation: [{ product: "Digitar Developer", type: "critical" }] as any }, async ({ page }) => {
         test.setTimeout(0);

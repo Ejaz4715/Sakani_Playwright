@@ -1,7 +1,7 @@
-import {expect, test} from "@playwright/test";
-import {WebApp} from "@base-class/web-app";
-import {DataHelper} from "@helpers/DataHelper";
-import {logStep} from "@helpers/LogSteps";
+import { expect, test } from "@playwright/test";
+import { WebApp } from "@base-class/web-app";
+import { DataHelper } from "@helpers/DataHelper";
+import { logStep } from "@helpers/LogSteps";
 
 const fs = require("fs");
 const path = require("path");
@@ -14,9 +14,9 @@ test.describe("Stamp Management", () => {
 
     test("TC-01 View the last stamp ", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -37,9 +37,9 @@ test.describe("Stamp Management", () => {
 
     test("TC-02 Add a new stamp", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -68,8 +68,4 @@ test.describe("Stamp Management", () => {
         await logStep("Step 05: Verify the new stamp is added successfully");
         expect(await app.stampManagementPage.isTheNewStampAddedSuccessfully()).toBe(true);
     });
-
-
-
-
 });

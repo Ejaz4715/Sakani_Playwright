@@ -12,7 +12,7 @@ test.describe("Reservation Management Filters", () => {
 
     test("TC-01 Verify that the system can filter eligible and ineligible bookings", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
     }, async ({page}) => {
         const data = readServiceData();
@@ -44,7 +44,7 @@ test.describe("Reservation Management Filters", () => {
     });
     test("TC-02 Verify that the system can display all booking statuses and allow filtering based on them", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
     }, async ({page}) => {
         const data = readServiceData();
@@ -81,7 +81,7 @@ test.describe("Reservation Management Filters", () => {
     });
     test("TC-03 Verify that the system can display booking details", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
     }, async ({page}) => {
         const data = readServiceData();
@@ -107,7 +107,7 @@ test.describe("Reservation Management Filters", () => {
     });
     test("TC-04 Verify that the system can display all company booking statuses and allow filtering based on them", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
     }, async ({page}) => {
         const data = readServiceData();
@@ -144,7 +144,7 @@ test.describe("Reservation Management Filters", () => {
     });
     test("TC-05 Verify that the system can display the company booking details", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
     }, async ({page}) => {
         const data = readServiceData();

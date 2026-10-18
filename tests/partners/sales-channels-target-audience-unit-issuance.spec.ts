@@ -1,7 +1,7 @@
-import {expect, Locator, Page, test} from "@playwright/test";
-import {WebApp} from "@base-class/web-app";
-import {DataHelper} from "@helpers/DataHelper";
-import {logStep} from "@helpers/LogSteps";
+import { expect, Locator, Page, test } from "@playwright/test";
+import { WebApp } from "@base-class/web-app";
+import { DataHelper } from "@helpers/DataHelper";
+import { logStep } from "@helpers/LogSteps";
 
 const fs = require("fs");
 const path = require("path");
@@ -22,9 +22,9 @@ test.describe("Functionality of sales Channels, target Audience and tnit issuanc
 
     test("TC-01 Verify the developer is able filter the units based on sales channel and target audience", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -62,16 +62,15 @@ test.describe("Functionality of sales Channels, target Audience and tnit issuanc
     });
     test("TC-02 Verify the developer can't book a unit which does not have partners as a sales channel", {
         annotation: [{
-            product: 'Marketplace', type: 'critical'
+            product: 'Marketplace', type: 'non-critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
         const developerUserId = data.developerUserId;
         const unitWithoutSalesChannels = data.unitWithoutSalesChannels;
         const userId = data.userId;
-
 
         await logStep("Step 01: Navigate to partners portal > Login as developer");
         await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);

@@ -71,7 +71,11 @@ export const UpdateUnitsObjects = {
     name: "تحديث",
   },
   priceAnalysisDetailsContainer:
-    "app-project-update-unit-prices-detail",
+    "//app-project-update-unit-prices-detail",
+  addUnitAnalysisContainer:
+    "//app-project-add-units-detail",
+  deleteUnitAnalysisContainer:
+    "app-project-remove-units-detail",
   priceAnalysisDetailsText:
     "معلومات التحليل",
   confirmUnitPriceUpdateButton: {
@@ -79,8 +83,8 @@ export const UpdateUnitsObjects = {
     name: "تأكيد",
   },
   unitPriceWorkbook: {
-    sheetName:"Project Units Prices",
-    unitCodeColumn:"Product Code|Product Number",
+    sheetName: "Project Units Prices",
+    unitCodeColumn: "Product Code|Product Number",
     marketPriceColumn: "Market Price",
     priceColumns: [
       "Market Price",
@@ -91,4 +95,25 @@ export const UpdateUnitsObjects = {
       "Land Market Price",
     ],
   },
+  manageProjectButton: {
+    role: "button",
+    name: "إدارة المشروع"
+  },
+  manageProjectOptions(option: string) {
+    return `//button[normalize-space() = '${option}']`;
+  },
+  unitTypeDropdown: 
+  "//label[normalize-space() = 'نوع الوحدة']/ancestor::app-sapa-dropdown/descendant::ng-select",
+  apartmentUnitTypeOption:{
+    role: "option", 
+    name: "شقة"
+  },
+  addUnitFileButton: {
+    role : "button",
+    name: "أضف"
+  },
+  deleteButton: {
+    role : "button",
+    name: "حذف"
+  }
 } as const;

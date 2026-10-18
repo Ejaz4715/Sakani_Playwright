@@ -1,8 +1,8 @@
-import {expect, Locator, Page, test} from "@playwright/test";
-import {WebApp} from "@base-class/web-app";
-import {DateUtils} from "@pages/utils/DateUtils";
-import {DataHelper} from "@helpers/DataHelper";
-import {logStep} from "@helpers/LogSteps";
+import { expect, Locator, Page, test } from "@playwright/test";
+import { WebApp } from "@base-class/web-app";
+import { DateUtils } from "@pages/utils/DateUtils";
+import { DataHelper } from "@helpers/DataHelper";
+import { logStep } from "@helpers/LogSteps";
 
 const path = require("path");
 
@@ -28,16 +28,16 @@ async function waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TI
 const unitCheckbox = (page: Page, row: number) =>
     page.locator(`//datatable-row-wrapper[${row}]/datatable-body-row/div[3]/datatable-body-cell/div/div/app-sapa-checkbox-v2/div/div/input/..`);
 
-test.describe("OffPlan Basket Multiple Booking ", () => {
+test.describe("OffPlan unit basket - Multiple units booking ", () => {
     let unit1Code: string;
-    let unit2Code:string;
+    let unit2Code: string;
 
     test("TC-01 - Add new project", {
         annotation: [{
             product: 'Marketplace',
             type: 'critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -63,7 +63,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await app.adminProjectPage.openProjectCreation();
         await page
             .locator("form-field-component")
-            .filter({hasText: "إسم المشروع *"})
+            .filter({ hasText: "إسم المشروع *" })
             .getByPlaceholder("إسم المشروع")
             .fill(projectName);
         const projectTypeDropdown = page.locator(
@@ -71,7 +71,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         );
         const projectTypeOption = page.getByText(
             "مشاريع البيع على الخارطة على أراضي الوزارة",
-            {exact: true},
+            { exact: true },
         );
 
         let projectTypeVisible = false;
@@ -86,7 +86,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             await page.waitForTimeout(2000);
         }
 
-        await expect(projectTypeOption).toBeVisible({timeout: 30000});
+        await expect(projectTypeOption).toBeVisible({ timeout: 30000 });
         await projectTypeOption.click();
         await page
             .locator("//ng-select[@formcontrolname='region_id']")
@@ -94,18 +94,18 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             .click();
         await page.getByText("الرياض").click();
         await page.locator("//input[@id='inputCity']").click();
-        await page.getByRole("option", {name: "الخرج", exact: true}).click();
+        await page.getByRole("option", { name: "الخرج", exact: true }).click();
         await page
             .locator("//input[@id='inputDeveloper']")
             .fill("شركة الضاحية المثالية للتطوير والاستثمار العقاري");
         await page
             .getByText(/شركة الضاحية المثالية للتطوير والاستثمار العقاري.*/)
             .click();
-        await page.getByRole("switch", {name: "قابل للحجز؟"}).click();
+        await page.getByRole("switch", { name: "قابل للحجز؟" }).click();
         await page.locator("//mat-select[@formcontrolname='status']").click();
-        await page.getByRole("option", {name: "متاح"}).click();
+        await page.getByRole("option", { name: "متاح" }).click();
         await page
-            .getByRole("textbox", {name: "تاريخ انتهاء رخصة البيع في وافي"})
+            .getByRole("textbox", { name: "تاريخ انتهاء رخصة البيع في وافي" })
             .fill(currentDate);
         await page.locator("//mat-select[@formcontrolname='subsidy_type']").click();
         await page.getByText("دعم عيني كامل").click();
@@ -113,17 +113,17 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             .locator("//input[@formcontrolname='max_subsidy_amount']")
             .fill("2");
         await page
-            .getByRole("textbox", {name: "تاريخ توقيع الاتفاقيه للمشروع"})
+            .getByRole("textbox", { name: "تاريخ توقيع الاتفاقيه للمشروع" })
             .fill("2026-01-01");
-        await page.getByRole("textbox", {name: "رقم ترخيص المشروع"}).fill("665334");
+        await page.getByRole("textbox", { name: "رقم ترخيص المشروع" }).fill("665334");
         await page
-            .getByRole("textbox", {name: "تاريخ ترخيص المشروع"})
+            .getByRole("textbox", { name: "تاريخ ترخيص المشروع" })
             .fill("2026-01-01");
         await page
-            .getByRole("textbox", {name: "اسم حساب الضمان"})
+            .getByRole("textbox", { name: "اسم حساب الضمان" })
             .fill("Test user");
         await page
-            .getByRole("textbox", {name: "رقم حساب الضمان"})
+            .getByRole("textbox", { name: "رقم حساب الضمان" })
             .fill("SA1111111111111111111111");
         await page
             .locator(
@@ -134,15 +134,15 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await page.getByText("بنك الأهلي السعودي").click();
         await page.locator("//input[@formcontrolname='deduct_percentage']").fill("2");
         await page
-            .getByRole("textbox", {name: "المدينة المصدر منها الصك (بالعربية)"})
+            .getByRole("textbox", { name: "المدينة المصدر منها الصك (بالعربية)" })
             .fill("test");
         await page
-            .getByRole("textbox", {name: "المدينة المصدر منها الصك (بالإنجليزية)"})
+            .getByRole("textbox", { name: "المدينة المصدر منها الصك (بالإنجليزية)" })
             .fill("test");
-        await page.getByRole("textbox", {name: "DD/MM/YYYY"}).fill("01/01/2026");
-        await page.getByRole("button", {name: "حفظ"}).click();
+        await page.getByRole("textbox", { name: "DD/MM/YYYY" }).fill("01/01/2026");
+        await page.getByRole("button", { name: "حفظ" }).click();
         const saveSuccessToast = page.locator("//app-toasts").getByText("تم الحفظ بنجاح!");
-        await expect(saveSuccessToast).toBeVisible({timeout: 120000});
+        await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
 
 
         await logStep("Step 03: Link the project with AZM");
@@ -168,24 +168,24 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         });
         await page.getByText(/قائمة الجهات التمويلية/i).click();
         await expect(
-            page.getByRole("checkbox", {name: "Select all rows"}),
-        ).toBeVisible({timeout: 30000});
-        await page.getByRole("checkbox", {name: "Select all rows"}).click();
-        await page.getByRole("button", {name: "حفظ"}).click();
+            page.getByRole("checkbox", { name: "Select all rows" }),
+        ).toBeVisible({ timeout: 30000 });
+        await page.getByRole("checkbox", { name: "Select all rows" }).click();
+        await page.getByRole("button", { name: "حفظ" }).click();
 
         await logStep("Step 05: Import the project units > Approve the import");
         // Import units
-        await page.getByRole("tab", {name: "الوحدات", exact: true}).click();
+        await page.getByRole("tab", { name: "الوحدات", exact: true }).click();
         await expect(
-            page.getByRole("button", {name: "استيراد وحدة جديدة"}),
-        ).toBeVisible({timeout: 30000});
-        await page.getByRole("button", {name: "استيراد وحدة جديدة"}).click();
+            page.getByRole("button", { name: "استيراد وحدة جديدة" }),
+        ).toBeVisible({ timeout: 30000 });
+        await page.getByRole("button", { name: "استيراد وحدة جديدة" }).click();
         await expect(
-            page.getByRole("combobox", {name: "نوع الوحدة السكنية"}),
-        ).toBeVisible({timeout: 30000});
+            page.getByRole("combobox", { name: "نوع الوحدة السكنية" }),
+        ).toBeVisible({ timeout: 30000 });
         await page.waitForTimeout(3000);
-        await page.getByRole("combobox", {name: "نوع الوحدة السكنية"}).click();
-        await page.getByRole("option", {name: "شقة"}).click();
+        await page.getByRole("combobox", { name: "نوع الوحدة السكنية" }).click();
+        await page.getByRole("option", { name: "شقة" }).click();
         const unitsImportFilePath = path.join(
             process.cwd(), "src",
             "data",
@@ -194,10 +194,10 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await page
             .locator("//input[@type='file']")
             .setInputFiles(unitsImportFilePath);
-        await page.getByRole("button", {name: " حفظ"}).click();
+        await page.getByRole("button", { name: " حفظ" }).click();
 
-        const importInProgress = page.getByText("تحت الإجراء ...", {exact: true});
-        await expect(importInProgress).toBeVisible({timeout: 120000});
+        const importInProgress = page.getByText("تحت الإجراء ...", { exact: true });
+        await expect(importInProgress).toBeVisible({ timeout: 120000 });
         await page.waitForTimeout(5000);
         await page.reload();
         const fileProcessedMessage = page.getByText("تم إكمال الإجراء", {
@@ -215,16 +215,16 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
                 continue;
             }
         }
-        await page.getByRole("button", {name: "اعتماد"}).click();
-        await page.getByRole("button", {name: "موافق"}).click();
+        await page.getByRole("button", { name: "اعتماد" }).click();
+        await page.getByRole("button", { name: "موافق" }).click();
         await page.waitForTimeout(3000);
-        await page.getByRole("button", {name: "رجوع"}).click();
+        await page.getByRole("button", { name: "رجوع" }).click();
 
         await logStep("Step 06: Upload the project media");
         // //Upload media
         await page
             .locator("span")
-            .filter({hasText: /المحتوى المرئي/i})
+            .filter({ hasText: /المحتوى المرئي/i })
             .first()
             .click();
         const bannerImagePath = path.join(
@@ -241,51 +241,51 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await page.waitForTimeout(30000);
         await page
             .locator("div")
-            .filter({hasText: /^Display method$/})
+            .filter({ hasText: /^Display method$/ })
             .first()
             .click();
         await page.getByText("Hero").click();
         await page
-            .getByRole("textbox", {name: "عنوان صفحة التفاصيل (باللغة العربية)"})
+            .getByRole("textbox", { name: "عنوان صفحة التفاصيل (باللغة العربية)" })
             .fill(projectName);
         await page
-            .getByRole("textbox", {name: "عنوان صفحة التفاصيل (باللغة الإنجليزية)"})
+            .getByRole("textbox", { name: "عنوان صفحة التفاصيل (باللغة الإنجليزية)" })
             .fill(projectName);
         await page
-            .getByRole("textbox", {name: "تاريخ جهوزية أول وحدة"})
+            .getByRole("textbox", { name: "تاريخ جهوزية أول وحدة" })
             .fill("2026-01-01");
         await page
-            .getByRole("textbox", {name: "الاسم (باللغة العربية)"})
+            .getByRole("textbox", { name: "الاسم (باللغة العربية)" })
             .fill("test bb");
         await page
-            .getByRole("textbox", {name: "الاسم (باللغة الإنجليزية)"})
+            .getByRole("textbox", { name: "الاسم (باللغة الإنجليزية)" })
             .fill("test bb");
         await page
-            .getByRole("textbox", {name: "الملخص AR"})
+            .getByRole("textbox", { name: "الملخص AR" })
             .fill(
                 "الملخص ARالملخص ARالملخص ARالملخص ARالملخص ARالملخص ARالملخص ARالملخص AR",
             );
         await page
-            .getByRole("textbox", {name: "ملخص EN"})
+            .getByRole("textbox", { name: "ملخص EN" })
             .fill(
                 "Summary EN Summary EN Summary EN Summary EN Summary EN Summary EN Summary EN Summary EN Summary EN",
             );
         await page
-            .getByRole("textbox", {name: "الوصف (باللغة العربية)"})
+            .getByRole("textbox", { name: "الوصف (باللغة العربية)" })
             .fill(
                 "الوصف (باللغة العربية)الوصف (باللغة العربية)الوصف (باللغة العربية)الوصف (باللغة العربية)الوصف (باللغة العربية)الوصف (باللغة العربية)الوصف (باللغة العربية)",
             );
         await page
-            .getByRole("textbox", {name: "الوصف (باللغة الإنجليزية)"})
+            .getByRole("textbox", { name: "الوصف (باللغة الإنجليزية)" })
             .fill(
                 "Description EN Description EN Description EN Description EN Description EN Description EN Description EN Description EN Description EN",
             );
-        await page.getByRole("textbox", {name: "السعر يبدأ من"}).fill("500000");
-        await page.getByRole("spinbutton", {name: "خط العرض"}).fill("1.1");
-        await page.getByRole("spinbutton", {name: "خط الطول"}).fill("1.1");
+        await page.getByRole("textbox", { name: "السعر يبدأ من" }).fill("500000");
+        await page.getByRole("spinbutton", { name: "خط العرض" }).fill("1.1");
+        await page.getByRole("spinbutton", { name: "خط الطول" }).fill("1.1");
         await expect(
             page.locator("//button[contains (@class, 'uploadStatus')]"),
-        ).toBeVisible({timeout: 120000});
+        ).toBeVisible({ timeout: 120000 });
         await page.locator("input[formcontrolname='guarantees_after_service']").fill("الضمانات وخدمة ما بعد البيع");
         await page.waitForTimeout(1000);
         await page.locator("#save_btn").click();
@@ -293,36 +293,36 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
 
         await logStep("Step 07: Approve the uploaded media");
         // // Approve media
-        await page.getByRole("tab", {name: "تفاصيل المشروع"}).click();
+        await page.getByRole("tab", { name: "تفاصيل المشروع" }).click();
         await page.waitForTimeout(20000);
         await page
-            .getByRole("button", {name: "تقديم طلب موافقة على نشر المحتوى المرفوع"})
+            .getByRole("button", { name: "تقديم طلب موافقة على نشر المحتوى المرفوع" })
             .click();
         await page
-            .getByRole("button", {name: "قبول المحتوى المرئي المرفوع"})
+            .getByRole("button", { name: "قبول المحتوى المرئي المرفوع" })
             .click();
-        await page.getByRole("button", {name: "إبقاء المشروع غير منشور"}).click();
-        await page.getByRole("button", {name: "حفظ"}).click();
-        await expect(saveSuccessToast).toBeVisible({timeout: 120000});
+        await page.getByRole("button", { name: "إبقاء المشروع غير منشور" }).click();
+        await page.getByRole("button", { name: "حفظ" }).click();
+        await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
 
         await logStep("Step 08: Publish the unit model");
         // // Publish unit model
         await page.getByText("نماذج الوحدات").click();
-        await page.getByRole("cell", {name: "model_1"}).click();
-        await page.getByRole("button", {name: "حفظ"}).click();
+        await page.getByRole("cell", { name: "model_1" }).click();
+        await page.getByRole("button", { name: "حفظ" }).click();
         await page.getByText("المحتوى المرئي ( مسودة )").click();
-        await page.getByRole("button", {name: "حفظ"}).click();
+        await page.getByRole("button", { name: "حفظ" }).click();
         await page.waitForTimeout(30000);
         await page
-            .getByRole("button", {name: "تقديم طلب موافقة على نشر المحتوى المرفوع"})
+            .getByRole("button", { name: "تقديم طلب موافقة على نشر المحتوى المرفوع" })
             .click();
         await page.waitForTimeout(2000);
         await page
-            .getByRole("button", {name: "قبول المحتوى المرئي المرفوع"})
+            .getByRole("button", { name: "قبول المحتوى المرئي المرفوع" })
             .click();
         await page.waitForTimeout(2000);
-        await page.getByRole("button", {name: "وحدة النشر"}).click();
-        await page.locator("a").filter({hasText: "model_1 - شقة"}).click();
+        await page.getByRole("button", { name: "وحدة النشر" }).click();
+        await page.locator("a").filter({ hasText: "model_1 - شقة" }).click();
 
         await page.waitForTimeout(10000);
 
@@ -332,17 +332,17 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
 
         // Select status to be available
         await page.locator("//mat-select[@formcontrolname='status']").click();
-        await page.getByRole("option", {name: "متاح"}).click();
+        await page.getByRole("option", { name: "متاح" }).click();
 
         //Save project details
-        await page.getByRole("button", {name: "حفظ"}).click();
+        await page.getByRole("button", { name: "حفظ" }).click();
         // await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
 
         // Check the bookable toggle
         const bookingAvailableToggle = page.locator(
             "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
         );
-        await expect(bookingAvailableToggle).toBeVisible({timeout: 30000});
+        await expect(bookingAvailableToggle).toBeVisible({ timeout: 30000 });
         const isBookingAvailable =
             await bookingAvailableToggle.getAttribute("aria-checked");
         if (isBookingAvailable === "false") {
@@ -362,7 +362,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         const publishProjectToggle = page.locator(
             "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
         );
-        await expect(publishProjectToggle).toBeVisible({timeout: 30000});
+        await expect(publishProjectToggle).toBeVisible({ timeout: 30000 });
         const isPublished = await publishProjectToggle.getAttribute("aria-checked");
         if (isPublished === "false") {
             await publishProjectToggle.click();
@@ -372,8 +372,8 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         }
 
 
-        await page.getByRole("button", {name: "حفظ"}).click();
-        await expect(saveSuccessToast).toBeVisible({timeout: 120000});
+        await page.getByRole("button", { name: "حفظ" }).click();
+        await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
 
         await page.getByText("تفاصيل المشروع").click();
 
@@ -390,11 +390,11 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await waitAndClick(page.locator("//mat-tab-body[1]/div/div/form/div[2]/div[4]/div[2]/div/div[2]/div[5]/mat-slide-toggle[2]/div/button"));
 
         // عدد الحجوزات المسموح بها لغير المستفيد
-        await waitAndFill(page.locator("input[formcontrolname='maximum_booking_per_non_beneficiary']"),"5");
+        await waitAndFill(page.locator("input[formcontrolname='maximum_booking_per_non_beneficiary']"), "5");
 
         await page.keyboard.press('PageDown');
-        await page.getByRole("button", {name: "حفظ"}).click();
-        await expect(saveSuccessToast).toBeVisible({timeout: 120000});
+        await page.getByRole("button", { name: "حفظ" }).click();
+        await expect(saveSuccessToast).toBeVisible({ timeout: 120000 });
         await page.waitForTimeout(3000);
         expect(await page.locator("input[formcontrolname='maximum_booking_per_non_beneficiary']").inputValue()).toEqual("5");
     });
@@ -404,7 +404,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
             product: 'Marketplace',
             type: 'critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -428,12 +428,12 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await app.developerProjectPage.verifyApprovalSuccessMessage();
     });
 
-    test("TC-03 - Developer | Books multiple units", {
+    test("TC-03 - Developer books multiple units", {
         annotation: [{
             product: 'Marketplace',
             type: 'critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -448,7 +448,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await app.developerProjectPage.switchRoleToDeveloper();
 
         await logStep("Step 02: Start new booking > Search customer by ID > Select the project");
-        await app.developerProjectPage.bookUnitsForCustomers(nationalId,projectName);
+        await app.developerProjectPage.bookUnitsForCustomers(nationalId, projectName);
         await page.waitForTimeout(10000);
 
         await logStep("Step 03: Select multiple units");
@@ -462,12 +462,12 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         expect(await app.developerProjectPage.isBookingListButtonVisible()).toBe(true);
     });
 
-    test("TC-04 - User | Pays the invoices for all units", {
+    test("TC-04 - User pays the invoices for all units", {
         annotation: [{
             product: 'Marketplace',
             type: 'critical'
         }] as any
-    }, async ({page}) => {
+    }, async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -491,7 +491,6 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         await app.offPlanBasketMultipleBookingPage.clickOnNotBilled();
 
         await logStep("Step 03: Save the booked unit codes to test data");
-        // add the unit codes to json
         unit1Code = await app.offPlanBasketMultipleBookingPage.getUnit1Code();
         unit2Code = await app.offPlanBasketMultipleBookingPage.getUnit2Code();
         writeServiceData("unit1Code", unit1Code);
@@ -509,7 +508,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         ).toBe(true);
     });
 
-    test("TC-05 - User | Signs sale contract for all units", async ({page}) => {
+    test("TC-05 - User signs sale contract for all units", async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
@@ -550,7 +549,7 @@ test.describe("OffPlan Basket Multiple Booking ", () => {
         ).toBe(true);
     });
 
-    test("TC-06 - Developer | Confirms the bookings", async ({page}) => {
+    test("TC-06 - Developer confirms the bookings", async ({ page }) => {
         const data = readServiceData();
         const environments = readEnvironments();
         const app = new WebApp(page);
