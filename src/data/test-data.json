@@ -331,6 +331,11 @@
       "projectName": "Automation Project Offplan 20261018083235",
       "sakaniUserId": "1441376098",
       "bookedUnitCode": "01-01-0728-6-102"
+    },
+    "events-tags": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "tagName": "Tag 13a"
     }
   }
 }
