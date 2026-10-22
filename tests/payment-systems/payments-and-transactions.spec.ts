@@ -1,15 +1,21 @@
-const path = require("path");
-import { test, expect } from "@playwright/test";
-import { WebApp } from "@base-class/web-app";
-import { logStep } from '@helpers/LogSteps'
-import testDataPaymentsAndTransactions from '@data/test-data.json'
+const path = require('path');
+import { test, expect } from '@playwright/test';
+import { WebApp } from '@base-class/web-app';
+import { logStep } from '@helpers/LogSteps';
+import { DataHelper } from '@helpers/DataHelper';
 
+const SERVICE = 'payments-and-transactions';
+const readServiceData = () => DataHelper.readData().services[SERVICE];
+const readEnvironments = () => DataHelper.readData().environments;
 
-test.describe("Payments and transactions", () => {
-  test("TC-01 User preview and download the invoice and receipt", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+test.describe('Payments and transactions', () => {
+  test('TC-01 User preview and download the invoice and receipt', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
-    const sakaniUserId = testDataPaymentsAndTransactions.services['payments-and-transactions'].sakaniUserId;
-    const userPortalUrl = testDataPaymentsAndTransactions.environments.userPortalUrl;
+    const data = readServiceData();
+    const environments = readEnvironments();
+
+    const sakaniUserId = data.sakaniUserId;
+    const userPortalUrl = environments.userPortalUrl;
 
     await logStep('Step 01: Login to the user portal');
     await app.loginPage.gotoHomePage(userPortalUrl);
@@ -24,9 +30,9 @@ test.describe("Payments and transactions", () => {
 
     await logStep('Step 02: Open payments history');
     await app.paymentsAndTransactionsPage.clickPaymentHistoryLink();
-    
+
     await logStep('Step 03: Clear the downloads folder');
-    const downloadDirectory = path.join(process.cwd(), "src", "downloads");
+    const downloadDirectory = path.join(process.cwd(), 'src', 'downloads');
     await app.paymentsAndTransactionsPage.clearDownloadsFolder(downloadDirectory);
 
     await logStep('Step 04: Open the invoice preview and capture its PDF > Save pdf in download directory');
@@ -39,19 +45,19 @@ test.describe("Payments and transactions", () => {
     await logStep('Step 05: Save the invoice and verify it exists');
     await app.paymentsAndTransactionsPage.savePdfResponse(pdfResponse, downloadPath);
     await app.paymentsAndTransactionsPage.verifySavedFile(downloadPath, downloadDirectory);
-  })
+  });
 
-  test("TC-02 Withdraw funds from wallet", { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Withdraw funds from wallet', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const app = new WebApp(page);
-    const environment = testDataPaymentsAndTransactions.environments;
-    const data = testDataPaymentsAndTransactions.services['payments-and-transactions'];
+    const data = readServiceData();
+    const environment = readEnvironments();
 
     await logStep('Step 01: Open the user portal and log in');
     await app.loginPage.gotoHomePage(environment.userPortalUrl);
     await app.loginPage.acceptCookies();
     await app.loginPage.openLogin();
-    await app.loginPage.loginWithNafath("1129051502");
+    await app.loginPage.loginWithNafath('1129051502');
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
@@ -92,6 +98,5 @@ test.describe("Payments and transactions", () => {
     const rawUpdatedReservedBalance = await updatedReservedBalanceElement.textContent();
     const reservedBalanceAfterWithdraw = rawUpdatedReservedBalance ? rawUpdatedReservedBalance.trim() : '';
     expect(reservedBalanceBeforeWithdraw).not.toEqual(reservedBalanceAfterWithdraw);
-
   });
 });

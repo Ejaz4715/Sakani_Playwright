@@ -13,7 +13,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Completion Rate Management', () => {
-  test('TC-01  Admin enables completion percentage', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01  Admin enables completion percentage', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -43,7 +43,7 @@ test.describe('Completion Rate Management', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-02 Verify the completion percentage is present', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verify the completion percentage is present', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -86,7 +86,7 @@ test.describe('Completion Rate Management', () => {
     }
   });
 
-  test('TC-03  Admin disables completion percentage', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03  Admin disables completion percentage', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -116,7 +116,7 @@ test.describe('Completion Rate Management', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-04 Verify the completion percentage is hidden', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Verify the completion percentage is hidden', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

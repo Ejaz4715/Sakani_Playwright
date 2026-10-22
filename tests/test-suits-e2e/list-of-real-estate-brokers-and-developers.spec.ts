@@ -14,7 +14,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('List Of Real Estate Brokers And Developers', () => {
-  test('TC-01 - Admin view a broker/developer information', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 - Admin view a broker/developer information', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -39,7 +39,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
     await app.adminProjectPage.verifyDeveloperInformationPageText(developerName);
   });
 
-  test('TC-02 - Verify user viewing the broker/developer information details', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 - Verify user viewing the broker/developer information details', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -65,7 +65,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
     await app.bookingPage.verifyElementVisibility(BookingCancellationObjects.developerInfoPage, true);
   });
 
-  test('TC-03 - Admin disables developer contact information', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 - Admin disables developer contact information', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -93,7 +93,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-04 - Verify developer/broker contact information is hidden', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 - Verify developer/broker contact information is hidden', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -120,7 +120,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
     await app.bookingPage.verifyElementVisibility(BookingCancellationObjects.whatsAppButton, false);
   });
 
-  test('TC-05 - Admin enables developer contact information', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 - Admin enables developer contact information', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -149,7 +149,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-06 - Verify developer/broker contact information is present', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 - Verify developer/broker contact information is present', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

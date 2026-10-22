@@ -133,42 +133,48 @@ test.describe('Contract status inquiry for financing', () => {
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
+});
+test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test.setTimeout(0);
+  await logStep('Step 00: Read data from json relative to the service');
+  const environment = readEnvironments();
+  const data = readServiceData();
+  const app = new WebApp(page);
+  const sapaUrl = environment.sapaPortalUrl;
+  const projectName = data.projectName;
+  const developerUserId = data.developerUserId;
 
-  test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
-    await logStep('Step 00: Read data from json relative to the service');
-    const environment = readEnvironments();
-    const data = readServiceData();
-    const app = new WebApp(page);
-    const sapaUrl = environment.sapaPortalUrl;
-    const projectName = data.projectName;
-    const developerUserId = data.developerUserId;
+  await logStep('Step 01: Login to sapa portal as a developer');
+  await app.developerProjectPage.gotoAuth(sapaUrl);
+  await app.developerProjectPage.loginDeveloper(developerUserId);
+  await app.developerProjectPage.switchRoleToDeveloper();
 
-    await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
-    await app.developerProjectPage.openProjectBySearch(projectName);
+  await logStep('Step 02: Navigate to projects and search for a project');
+  await app.developerProjectPage.openProjectBySearch(projectName);
 
-    await app.developerProjectPage.openPaymentSchedulesTab();
-    await app.developerProjectPage.addPaymentSchedule({
-      type: 'cash',
-      scheduleName: 'Cash 22',
-      completionPercentageOneValue: '50',
-      percentageOneValue: '50',
-      completionPercentageTwoValue: '100',
-      percentageTwoValue: '50',
-    });
+  await logStep('Step 03: Navigate to add new payment schedule');
+  await app.developerProjectPage.openPaymentSchedulesTab();
 
-    await app.developerProjectPage.openProjectBySearch(projectName);
-    await app.developerProjectPage.openPaymentSchedulesTab();
-    await app.developerProjectPage.addPaymentSchedule({
-      type: 'lending',
-      scheduleName: 'Lending 22',
-      completionPercentageOneValue: '50',
-      percentageOneValue: '50',
-      completionPercentageTwoValue: '100',
-      percentageTwoValue: '50',
-    });
+  await logStep('Step 04: Add cash payment schedule');
+  await app.developerProjectPage.addPaymentSchedule({
+    type: 'cash',
+    scheduleName: 'Cash 22',
+    completionPercentageOneValue: '50',
+    percentageOneValue: '50',
+    completionPercentageTwoValue: '100',
+    percentageTwoValue: '50',
+  });
+
+  await logStep('Step 05: Add lending payment schedule');
+  await app.developerProjectPage.openProjectBySearch(projectName);
+  await app.developerProjectPage.openPaymentSchedulesTab();
+  await app.developerProjectPage.addPaymentSchedule({
+    type: 'lending',
+    scheduleName: 'Lending 22',
+    completionPercentageOneValue: '50',
+    percentageOneValue: '50',
+    completionPercentageTwoValue: '100',
+    percentageTwoValue: '50',
   });
 
   test('TC-03 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {

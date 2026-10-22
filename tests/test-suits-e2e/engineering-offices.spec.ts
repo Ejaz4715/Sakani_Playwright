@@ -56,7 +56,7 @@ test.describe('Engineering Office', () => {
   });
   test('TC-02 Add new interior design offers', { annotation: [{ product: 'Self-Construction', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
-    //read data from json relative to the service
+    await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
     const app = new WebApp(page);
