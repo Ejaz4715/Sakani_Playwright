@@ -12,7 +12,7 @@ const readEnvironments = () => DataHelper.readData().environments;
 const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 test.describe('Generate Reoprts', () => {
-  test('TC-01 Developer generate reoprt for a project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Developer generate reoprt for a project', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
