@@ -3,8 +3,7 @@ import { WebApp } from '@base-class/web-app';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
-
-const path = require('path');
+import path from 'node:path';
 
 const SERVICE = 'offPlan-basket-multiple-booking';
 

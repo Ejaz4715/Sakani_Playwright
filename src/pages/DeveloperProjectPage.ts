@@ -1,5 +1,4 @@
 import { Page, expect, Locator } from '@playwright/test';
-const path = require('path');
 import { DeveloperObjects } from '@objects/DeveloperObjects';
 import { DevelopersPage } from '@pages/DevelopersPage';
 

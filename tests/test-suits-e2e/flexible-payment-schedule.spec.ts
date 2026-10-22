@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-const path = require('path');
 import { WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';

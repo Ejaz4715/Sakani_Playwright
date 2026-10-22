@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-const path = require('path');
+import path from 'node:path';
 import { WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
@@ -9,7 +9,6 @@ const SERVICE = 'update-unit';
 
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
-const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 test.describe('Generate Reoprts', () => {
   test('TC-01 Developer generate reoprt for a project', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
