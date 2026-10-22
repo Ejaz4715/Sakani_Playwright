@@ -1,10 +1,6 @@
-import { test, expect, Page } from '@playwright/test';
-const fs = require('fs');
-const path = require('path');
-const XLSX = require('xlsx');
+import { test } from '@playwright/test';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
-import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 import { RegistrationObjects } from '@objects/RegistrationObjects';
 
@@ -12,7 +8,6 @@ const SERVICE = 'registration';
 
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
-const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 test.describe('User registration and check eligibility', () => {
   test('TC-01 New user register', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {

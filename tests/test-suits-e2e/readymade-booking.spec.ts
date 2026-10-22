@@ -1,13 +1,7 @@
-import { test, expect, Page } from '@playwright/test';
-const fs = require('fs');
-const path = require('path');
-const XLSX = require('xlsx');
+import { test, expect } from '@playwright/test';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
-import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
-import { BookingCancellationObjects } from '@objects/BookingCancellationObjects';
-import { AdminObjects } from '@objects/AdminProjectsObjects';
 
 const SERVICE = 'readymade';
 const readServiceData = () => DataHelper.readData().services[SERVICE];

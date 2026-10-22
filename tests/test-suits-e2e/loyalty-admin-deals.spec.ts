@@ -1,11 +1,13 @@
 import { test, expect, Page } from '@playwright/test';
-const path = require('path');
+import path from 'node:path';
 import { WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
+
 const SERVICE = 'loyalty-admin-deals';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
+
 // a date some days after today, kept inside the current month (never later than the last day of the month)
 const daysFromTodayInMonth = (days: number) => {
   const today = new Date();

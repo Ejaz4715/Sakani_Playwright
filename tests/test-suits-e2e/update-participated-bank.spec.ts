@@ -1,5 +1,4 @@
 import { test } from '@playwright/test';
-const path = require('path');
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';

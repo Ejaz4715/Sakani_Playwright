@@ -1,5 +1,5 @@
 ﻿import { test } from '@playwright/test';
-const path = require('path');
+import path from 'node:path';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';

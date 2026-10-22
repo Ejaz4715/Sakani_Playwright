@@ -1,4 +1,4 @@
-const path = require('path');
+import path from 'node:path';
 import { test, expect } from '@playwright/test';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';

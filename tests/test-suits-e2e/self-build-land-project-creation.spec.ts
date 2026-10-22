@@ -1,16 +1,14 @@
 import { test } from '@playwright/test';
-const path = require('path');
+import path from 'node:path';
 import { WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
-import { DateUtils } from '@pages/utils/DateUtils';
 import { SelfConstructionObjects } from '@objects/SelfConstructionObjects';
 
 const SERVICE = 'self-build-land-project-creation';
 
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
-const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 test.describe('Self-Build Land Project Creation', () => {
   test('TC-01 Admin creates self construction project', { annotation: [{ product: 'Self-Construction', type: 'critical' }] as any }, async ({ page }) => {
@@ -26,7 +24,7 @@ test.describe('Self-Build Land Project Creation', () => {
       .toISOString()
       .replace(/[-:T.]/g, '')
       .slice(0, 14)}`;
-    writeServiceData('projectName', projectName);
+    DataHelper.updateServiceData(SERVICE, 'projectName', projectName);
 
     await logStep('Step 01: Login to admin portal as a super admin');
     await app.adminProjectPage.login(adminPortalUrl, adminUsername, adminPassword);
@@ -130,6 +128,7 @@ test.describe('Self-Build Land Project Creation', () => {
     await logStep('Step 04: Verify the successful message');
     await app.commonMethods.verifyElementVisible(SelfConstructionObjects.succsessfullToasMessage);
   });
+
   test('TC-03  Admin approve media and publish the project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -198,6 +197,7 @@ test.describe('Self-Build Land Project Creation', () => {
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
+
   test('TC-04 Admin remove the project from linked services packeges', { annotation: [{ product: 'Self-Construction', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -212,11 +212,14 @@ test.describe('Self-Build Land Project Creation', () => {
 
     await logStep('Step 01: Login to admin portal as a super admin');
     await app.adminProjectPage.login(servicesPackegesUrl, adminUsername, adminPassword);
+
     await logStep('Step 02: Navigate to services packages');
     await app.commonMethods.clickElement(SelfConstructionObjects.linkedWithSection);
+
     await logStep('Step 03: Remove the project from the package');
     await app.commonMethods.clickElement(SelfConstructionObjects.deleteButton);
     await page.waitForTimeout(3000);
+
     await logStep('Step 04: Verify the successful message');
     await app.commonMethods.clickElement(SelfConstructionObjects.updateButton);
     await page.waitForTimeout(3000);

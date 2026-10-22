@@ -1,7 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
-const fs = require('fs');
-const path = require('path');
-const XLSX = require('xlsx');
+import { test, expect } from '@playwright/test';
+import path from 'node:path';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';

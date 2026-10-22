@@ -1,17 +1,12 @@
-import { test, expect, Page } from '@playwright/test';
-const fs = require('fs');
-const path = require('path');
-const XLSX = require('xlsx');
+import { test } from '@playwright/test';
+import path from 'node:path';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
-import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
-import { PublishUnitObjects } from '@objects/PublishUnitObjects';
 
 const SERVICE = 'publish-unit';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
-const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 const filePath = path.join(process.cwd(), 'src', 'data', 'Sample image.jpg');
 
 test.describe('Publish Unit', () => {

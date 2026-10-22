@@ -1,12 +1,7 @@
 import { test } from '@playwright/test';
-const fs = require('fs');
-const path = require('path');
-const XLSX = require('xlsx');
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
-import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
-import testData from '@data/test-data.json';
 
 const SERVICE = 'completion-rate-management';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
