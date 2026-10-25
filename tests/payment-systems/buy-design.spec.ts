@@ -57,7 +57,6 @@ test.describe('Order design', () => {
 
   test('TC-02 Admin adds an Moh land project (design only)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
-    test.setTimeout(120000);
     const app = new WebApp(page);
     const environment = readEnvironments();
     const data = readServiceData();
@@ -160,7 +159,6 @@ test.describe('Order design', () => {
   });
 
   test('TC-02 User books moh land unit (design only)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read test data relative to the service');
     const app = new WebApp(page);
     const data = readServiceData();
@@ -253,7 +251,6 @@ test.describe('Order design', () => {
 
   test('TC-04 Admin adds Moh land project (design with fitting)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
-    test.setTimeout(120000);
     const app = new WebApp(page);
     const environment = readEnvironments();
     const data = readServiceData();
@@ -356,7 +353,6 @@ test.describe('Order design', () => {
   });
 
   test('TC-05 User books moh land unit (design with fitting)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read test data relative to the service');
     const app = new WebApp(page);
     const data = readServiceData();
@@ -391,8 +387,7 @@ test.describe('Order design', () => {
     await expect(page.getByText('تهانينا!')).toBeVisible();
   });
 
-  test('TC-06 User buys a design (design with fitting and bulding permit)', { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-06 User buys a design (design with fitting and building permit)', { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     const data = buyDesignData.services['buy-design'];
     const userId = data['with-fitting-and-building-permit'].userId;
@@ -442,6 +437,7 @@ test.describe('Order design', () => {
     });
     await designApp.buyDesignPage.clickOnPayNowButton();
     await designApp.paymentGatewayPage.fillCardDetails();
+
     await logStep('Step 06: Verify successfully paid');
     await designApp.buyDesignPage.verifyPaymentSuccess();
   });

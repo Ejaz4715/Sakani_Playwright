@@ -25,7 +25,9 @@ test.describe('Payments and transactions', () => {
     await app.loginPage.waitForNafathPromptToDisappear();
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
+
     await app.bookingPage.clickProfileIcon();
+    await page.waitForTimeout(3000);
     await app.bookingPage.clickManageProfile();
 
     await logStep('Step 02: Open payments history');
@@ -48,7 +50,6 @@ test.describe('Payments and transactions', () => {
   });
 
   test('TC-02 Withdraw funds from wallet', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     const app = new WebApp(page);
     const data = readServiceData();
     const environment = readEnvironments();
@@ -67,7 +68,7 @@ test.describe('Payments and transactions', () => {
     await page.getByText('محفظة').click();
     const balanceElement = page.locator("(//p[contains(text(), 'الرصيد المتوفر')])[1]/parent::div/descendant::app-sar-currency/child::span");
     const rawBalanceText = await balanceElement.textContent();
-    const balanceBeforewithdraw = rawBalanceText ? rawBalanceText.trim() : '';
+    const balanceBeforeWithdraw = rawBalanceText ? rawBalanceText.trim() : '';
     const reservedBalanceElement = page.locator("(//p[contains(text(), 'رصيد محجوز')])[1]/parent::div/descendant::app-sar-currency/child::span");
     const rawReservedBalance = await reservedBalanceElement.textContent();
     const reservedBalanceBeforeWithdraw = rawReservedBalance ? rawReservedBalance.trim() : '';
@@ -92,7 +93,7 @@ test.describe('Payments and transactions', () => {
     const updatedBalanceElement = page.locator("(//p[contains(text(), 'الرصيد المتوفر')])[1]/parent::div/descendant::app-sar-currency/child::span");
     const rawUpdatedBalanceText = await updatedBalanceElement.textContent();
     const balanceAfterWithdraw = rawUpdatedBalanceText ? rawUpdatedBalanceText.trim() : '';
-    expect(balanceAfterWithdraw).not.toEqual(balanceBeforewithdraw);
+    expect(balanceAfterWithdraw).not.toEqual(balanceBeforeWithdraw);
 
     const updatedReservedBalanceElement = page.locator("(//p[contains(text(), 'رصيد محجوز')])[1]/parent::div/descendant::app-sar-currency/child::span");
     const rawUpdatedReservedBalance = await updatedReservedBalanceElement.textContent();

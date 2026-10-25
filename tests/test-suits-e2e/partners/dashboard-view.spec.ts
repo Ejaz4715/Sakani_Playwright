@@ -8,32 +8,21 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Dashboard View', () => {
-  test(
-    'TC-01 Verify that sapa user navigates to dashboard',
-    {
-      annotation: [
-        {
-          product: 'Marketplace',
-          type: 'non-critical',
-        },
-      ] as any,
-    },
-    async ({ page }) => {
-      const data = readServiceData();
-      const environments = readEnvironments();
-      const app = new WebApp(page);
-      const developerUserId = data.developerUserId;
+  test('TC-01 Verify that sapa user navigates to dashboard', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+    const data = readServiceData();
+    const environments = readEnvironments();
+    const app = new WebApp(page);
+    const developerUserId = data.developerUserId;
 
-      await logStep('Step 01: Navigate to partners portal > Login as developer');
-      await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.developerProjectPage.loginDeveloper(developerUserId);
-      await app.developerProjectPage.switchRoleToDeveloper();
+    await logStep('Step 01: Navigate to partners portal > Login as developer');
+    await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
+    await app.developerProjectPage.loginDeveloper(developerUserId);
+    await app.developerProjectPage.switchRoleToDeveloper();
 
-      await logStep('Step 02: Open dashboard view > Verify all dashboard elements are visible');
-      await app.dashboardViewPage.clickOnDashboardView();
-      expect(await app.dashboardViewPage.areAllDashboardViewElementsVisible()).toBe(true);
-    }
-  );
+    await logStep('Step 02: Open dashboard view > Verify all dashboard elements are visible');
+    await app.dashboardViewPage.clickOnDashboardView();
+    expect(await app.dashboardViewPage.areAllDashboardViewElementsVisible()).toBe(true);
+  });
 
   test(
     'TC-02 Verify that sapa user navigates to bookings page',
