@@ -19,7 +19,7 @@ test.describe('Request publish project', () => {
     const environment = readEnvironments();
     const data = readServiceData();
     const { faker } = await import('@faker-js/faker');
-    const currentDate = DateUtils.getCurrentDateISO();
+    const currentDate = DateUtils.getCurrentDate();
     const projectName = `Automation Developer Project Offplan ${new Date()
       .toISOString()
       .replace(/[-:T.]/g, '')
@@ -191,7 +191,7 @@ test.describe('Request publish project', () => {
     await app.adminProjectPage.fillLatitude('1.1');
     await app.adminProjectPage.fillLongitude('1.1');
     await app.adminProjectPage.expectMediaUploadComplete(0);
-    await app.adminProjectPage.fillGuarenteeAfterServices('Test guarantee after services');
+    await app.adminProjectPage.fillGuaranteeAfterServices('Test guarantee after services');
     await app.adminProjectPage.clickMediaSaveButton();
 
     await logStep('Step 04: Approve project media');

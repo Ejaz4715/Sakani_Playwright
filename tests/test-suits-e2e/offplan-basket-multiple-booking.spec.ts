@@ -68,7 +68,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
       await app.adminProjectPage.selectDeveloperName('شركة الضاحية المثالية للتطوير والاستثمار العقاري');
       await app.adminProjectPage.toggleBookableOn();
       await app.adminProjectPage.selectProjectStatus('متاح');
-      await app.adminProjectPage.fillWafiLicenseExpiryDate(DateUtils.getDateISO(600));
+      await app.adminProjectPage.fillWafiLicenseExpiryDate(DateUtils.getDateWithOffset(600));
       await app.adminProjectPage.selectSubsidyType('دعم عيني كامل');
       await app.adminProjectPage.fillMaxSubsidyAmount('2');
       await app.adminProjectPage.fillProjectAgreementDate('2026-01-01');
@@ -129,7 +129,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
       await app.adminProjectPage.fillLatitude('1.1');
       await app.adminProjectPage.fillLongitude('1.1');
       await app.adminProjectPage.expectMediaUploadComplete(0);
-      await app.adminProjectPage.fillGuarenteeAfterServices('Test guarantee after services');
+      await app.adminProjectPage.fillGuaranteeAfterServices('Test guarantee after services');
       await app.adminProjectPage.clickMediaSaveButton();
 
       await logStep('Step 08: Approve project media');

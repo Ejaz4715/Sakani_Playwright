@@ -485,7 +485,7 @@ export class AdminProjectPage {
     await this.page.waitForTimeout(1500);
   }
 
-  async fillGuarenteeAfterServices(value: string) {
+  async fillGuaranteeAfterServices(value: string) {
     await this.page.locator(AdminObjects.guarenteeAfterServices).fill(value);
   }
 

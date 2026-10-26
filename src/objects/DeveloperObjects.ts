@@ -2,12 +2,22 @@ export const DeveloperObjects = {
   usernameInput: {
     role: 'textbox',
     name: 'أدخل معرفك أو رقم هاتفك أو بريدك الإلكتروني',
+    xpath: "//input[@id='username']",
+  },
+  acceptCookiesModal: '#acceptCookiesModal',
+  acceptCookiesButton: {
+    role: 'button',
+    name: 'قبول ملفات تعريف الارتباط',
   },
   nafathModel: '//app-nafath-login-modal',
   continueButton: {
     role: 'button',
     name: 'المتابعة',
     exact: true,
+    xpath: "//button[text()=' المتابعة ']",
+  },
+  loginToButton: {
+    xpath: "(//button[text()=' تسجيل الدخول '])[2]",
   },
   profileIcon: '.svg-icon.svg-icon-v2-24.icon-profile-white-v2',
   switchRoleButton: {

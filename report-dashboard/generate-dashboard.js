@@ -14,41 +14,33 @@ const reportGeneratedAt = new Date().toLocaleString();
 const envMetadata = rawData.config?.metadata?.environments || {
   Sakani: 'Pre-Prod',
   Digitar: 'STG',
-  Sayal: 'Pre-Prod'
+  Sayal: 'Pre-Prod',
 };
 const globalEnv = rawData.config?.metadata?.environment || process.env.TEST_ENV || 'Pre-Prod';
 
 function formatDuration(ms) {
   if (!ms || ms <= 0) return '0s';
-  const totalSeconds = Math.floor(ms / 1000);
+  const totalSeconds = ms / 1000;
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = (ms % 60000 / 1000).toFixed(1);
+  const seconds = (totalSeconds % 60).toFixed(1);
 
-  if (hours > 0) return `${hours}h ${minutes > 0 ? minutes + 'm ' : ''}${seconds > 0 ? Math.floor(seconds) + 's' : ''}`.trim();
-  if (minutes > 0) return `${minutes}m ${Math.floor(seconds) > 0 ? Math.floor(seconds) + 's' : ''}`.trim();
-  return `${(ms / 1000).toFixed(2)}s`;
+  if (hours > 0) return `${hours}h ${minutes > 0 ? minutes + 'm ' : ''}${seconds}s`.trim();
+  if (minutes > 0) return `${minutes}m ${seconds}s`.trim();
+  return `${seconds}s`;
 }
 
 /**
- * Cleans suite names specifically for the "Suites Scope" card
- * by replacing hyphens, stripping out the word "suit" or "suite", and capitalizing.
+ * Converts hyphenated/lowercase suite names into clean Title Case (e.g. "banner-campaign" -> "Banner Campaign")
  */
-function formatSuiteScopeName(str) {
-  if (!str) return '';
-  return str
-    .replace(/-/g, ' ')
-    .replace(/\bsuit(e)?\b/gi, '') // Removes 'suit' or 'suite' case-insensitively
-    .toLowerCase()
-    .split(' ')
-    .filter(word => word.length > 0)
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+function formatSuiteName(name) {
+  if (!name) return 'General Suite';
+  return name
+    .split(/[-_]/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
 }
 
-/**
- * Traverses Playwright JSON results and resolves suite titles correctly.
- */
 function extractAllTests(suites, parentAnnotations = [], inheritedDescribe = '') {
   let testItems = [];
 
@@ -63,7 +55,7 @@ function extractAllTests(suites, parentAnnotations = [], inheritedDescribe = '')
     if (suite.specs) {
       for (const spec of suite.specs) {
         const specAnnotations = [...currentAnnotations, ...(spec.annotations || [])];
-        
+
         let finalSuiteTitle = spec.suiteTitle || currentDescribe || suite.title || 'General Suite';
 
         if (spec.tests && spec.tests.length > 0) {
@@ -72,7 +64,7 @@ function extractAllTests(suites, parentAnnotations = [], inheritedDescribe = '')
               suiteTitle: finalSuiteTitle,
               specTitle: spec.title,
               testObj: test,
-              annotations: [...specAnnotations, ...(test.annotations || [])]
+              annotations: [...specAnnotations, ...(test.annotations || [])],
             });
           }
         } else {
@@ -80,16 +72,14 @@ function extractAllTests(suites, parentAnnotations = [], inheritedDescribe = '')
             suiteTitle: finalSuiteTitle,
             specTitle: spec.title,
             testObj: { status: spec.ok ? 'passed' : 'skipped', results: [] },
-            annotations: specAnnotations
+            annotations: specAnnotations,
           });
         }
       }
     }
 
     if (suite.suites && suite.suites.length > 0) {
-      testItems = testItems.concat(
-        extractAllTests(suite.suites, currentAnnotations, currentDescribe)
-      );
+      testItems = testItems.concat(extractAllTests(suite.suites, currentAnnotations, currentDescribe));
     }
   }
 
@@ -129,12 +119,40 @@ function getEnvironmentName(annotations, productKey) {
 
 function isCriticalTest(annotations) {
   if (!annotations || !Array.isArray(annotations)) return false;
-  return annotations.some(a => 
-    a.type === 'critical' || 
-    a.type === 'Critical' || 
-    a.critical === true || 
-    (a.type === 'tag' && a.description && a.description.toLowerCase().includes('p1'))
-  );
+  return annotations.some((a) => a.type === 'critical' || a.type === 'Critical' || a.critical === true || (a.type === 'tag' && a.description && a.description.toLowerCase().includes('p1')));
+}
+
+function stripAnsi(str) {
+  if (!str) return '';
+  return str.replace(/\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])/g, '');
+}
+
+function summarizeError(rawMsg) {
+  if (!rawMsg) return 'Test execution failed.';
+  const cleaned = stripAnsi(rawMsg);
+  const mainErrorPart = cleaned.split('Call log:')[0].trim();
+
+  if (mainErrorPart.includes('TimeoutError') || mainErrorPart.includes('Timeout') || mainErrorPart.includes('exceeded')) {
+    const match = mainErrorPart.match(/locator\((['"])(.*?)\1\)/) || cleaned.match(/locator\((['"])(.*?)\1\)/);
+    const locatorInfo = match ? ` (${match[2]})` : '';
+    return `Element not found${locatorInfo}`;
+  }
+
+  if (mainErrorPart.includes('locator.check') || mainErrorPart.includes('did not change its state') || mainErrorPart.includes('clickable')) {
+    const match = cleaned.match(/locator\((['"])(.*?)\1\)/);
+    const locatorInfo = match ? ` (${match[2]})` : '';
+    return `Actionability failure: Element state did not change${locatorInfo}`;
+  }
+
+  if (mainErrorPart.includes('expect(') || mainErrorPart.includes('Received:')) {
+    return 'Assertion failure (Expected condition mismatch)';
+  }
+
+  if (mainErrorPart.includes('net::ERR_')) {
+    return 'Network request failure / Navigation error';
+  }
+
+  return mainErrorPart.split('\n')[0] || 'Test execution failed.';
 }
 
 const allTests = extractAllTests(rawData.suites || []);
@@ -145,10 +163,14 @@ allTests.forEach((item, index) => {
   const environmentKey = getEnvironmentName(item.annotations, productKey);
   const isCritical = isCriticalTest(item.annotations);
 
+  const rawSuite = item.suiteTitle || 'General Suite';
+  const formattedSuite = formatSuiteName(rawSuite);
+
   let status = 'Skipped';
   let testDurationMs = 0;
   let steps = [];
   let errorMessage = '';
+  let errorSummary = '';
   const lastResult = item.testObj.results?.[item.testObj.results.length - 1];
 
   if (lastResult) {
@@ -158,14 +180,14 @@ allTests.forEach((item, index) => {
     else if (lastResult.status === 'skipped') status = 'Skipped';
 
     if (status === 'Failed') {
-      errorMessage = lastResult.error?.message || 
-                     (lastResult.errors && lastResult.errors.map(e => e.message).join('\n')) || 
-                     'Test execution failed.';
+      const rawMsg = lastResult.error?.message || (lastResult.errors && lastResult.errors.map((e) => e.message).join('\n')) || 'Test execution failed.';
+      errorMessage = stripAnsi(rawMsg);
+      errorSummary = summarizeError(rawMsg);
     }
 
     if (lastResult.steps && Array.isArray(lastResult.steps)) {
-      steps = lastResult.steps.map(step => ({
-        title: step.title
+      steps = lastResult.steps.map((step) => ({
+        title: stripAnsi(step.title),
       }));
     }
   } else if (item.testObj.status === 'passed') {
@@ -174,8 +196,8 @@ allTests.forEach((item, index) => {
 
   rawProcessedSpecs.push({
     id: `tc-${index + 1}`,
-    suite: item.suiteTitle, // Unchanged direct value from results.json for table display
-    rawSuiteTitle: item.suiteTitle,
+    suite: formattedSuite,
+    rawSuiteTitle: formattedSuite,
     title: item.specTitle,
     product: productKey,
     environment: environmentKey,
@@ -184,14 +206,32 @@ allTests.forEach((item, index) => {
     status: status,
     isCritical: isCritical,
     steps: steps,
-    errorMessage: errorMessage
+    errorMessage: errorMessage,
+    errorSummary: errorSummary,
   });
 });
+
+const allProductKeys = Array.from(new Set(rawProcessedSpecs.map((s) => s.product || 'Sakani')));
+if (allProductKeys.length === 0) allProductKeys.push('Sakani');
 
 function buildProductData(specsList) {
   const productData = {};
 
-  specsList.forEach(spec => {
+  allProductKeys.forEach((pKey) => {
+    productData[pKey] = {
+      product: pKey,
+      environment: envMetadata[pKey] || globalEnv,
+      total: 0,
+      passed: 0,
+      failed: 0,
+      skipped: 0,
+      durationMs: 0,
+      suitesSet: new Set(),
+      specs: [],
+    };
+  });
+
+  specsList.forEach((spec) => {
     const pKey = spec.product || 'Sakani';
 
     if (!productData[pKey]) {
@@ -204,10 +244,11 @@ function buildProductData(specsList) {
         skipped: 0,
         durationMs: 0,
         suitesSet: new Set(),
-        specs: []
+        specs: [],
       };
     }
 
+    productData[pKey].environment = spec.environment || productData[pKey].environment;
     productData[pKey].total += 1;
     productData[pKey].durationMs += spec.durationMs;
     if (spec.rawSuiteTitle) productData[pKey].suitesSet.add(spec.rawSuiteTitle);
@@ -217,20 +258,26 @@ function buildProductData(specsList) {
     productData[pKey].specs.push(spec);
   });
 
-  Object.keys(productData).forEach(key => {
+  Object.keys(productData).forEach((key) => {
     productData[key].formattedDuration = formatDuration(productData[key].durationMs);
-    // Applies formatSuiteScopeName ONLY for the Suites Scope summary card
-    productData[key].suitesList = Array.from(productData[key].suitesSet)
-      .map(suiteName => formatSuiteScopeName(suiteName))
-      .filter(Boolean)
-      .join(', ') || 'N/A';
+    productData[key].suitesCount = productData[key].suitesSet.size;
   });
 
   return productData;
 }
 
 const healthCheckData = buildProductData(rawProcessedSpecs);
-const readinessData = buildProductData(rawProcessedSpecs.filter(s => s.isCritical));
+const readinessData = buildProductData(rawProcessedSpecs.filter((s) => s.isCritical));
+
+const productDropdownOptionsHtml = Object.keys(healthCheckData)
+  .map(
+    (key) => `
+  <div onclick="selectProductOption('${key}')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between">
+    <span>${healthCheckData[key].product}</span>
+  </div>
+`
+  )
+  .join('');
 
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -246,22 +293,18 @@ const htmlContent = `<!DOCTYPE html>
       -ms-overflow-style: scrollbar !important;
       scrollbar-width: auto !important;
     }
-
     ::-webkit-scrollbar {
       display: block !important;
       width: 10px !important;
       height: 10px !important;
     }
-
     ::-webkit-scrollbar-track {
       background: #f1f5f9 !important;
     }
-
     ::-webkit-scrollbar-thumb {
       background: #cbd5e1 !important;
       border-radius: 4px !important;
     }
-
     ::-webkit-scrollbar-thumb:hover {
       background: #166242 !important;
     }
@@ -290,11 +333,7 @@ const htmlContent = `<!DOCTYPE html>
         </button>
 
         <div id="productDropdownMenu" class="hidden absolute left-0 right-0 w-full mt-1.5 rounded-xl shadow-lg bg-white border border-slate-200 ring-1 ring-black ring-opacity-5 z-50 overflow-hidden">
-          ${Object.keys(healthCheckData).map(key => `
-            <div onclick="selectProductOption('${key}')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between">
-              <span>${healthCheckData[key].product}</span>
-            </div>
-          `).join('')}
+          ${productDropdownOptionsHtml}
         </div>
       </div>
     </header>
@@ -351,24 +390,27 @@ const htmlContent = `<!DOCTYPE html>
         <h2 class="text-base font-bold mb-4" style="color: #166242;">Test Run Information</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           
-          <div class="sm:col-span-2 bg-slate-50 p-4 rounded-lg border border-slate-200 h-auto">
-            <p class="text-slate-500 text-xs font-bold">Suites Scope</p>
-            <p id="suitesScopeValue" class="font-semibold text-slate-800 mt-1 leading-relaxed break-words">-</p>
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <p class="text-slate-500 text-xs font-bold">Total Test Suites Executed</p>
+            <p id="suitesScopeValue" class="font-semibold text-slate-800 mt-1">0</p>
           </div>
 
           <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
             <p class="text-slate-500 text-xs font-bold">Product Scope</p>
             <p id="productScopeValue" class="font-semibold text-slate-800 mt-1">-</p>
           </div>
+
           <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
             <p class="text-slate-500 text-xs font-bold">Environment</p>
             <p id="environmentValue" class="font-semibold text-slate-800 mt-1">Pre-Prod</p>
           </div>
+
           <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
             <p class="text-slate-500 text-xs font-bold">Total Duration</p>
             <p id="tagDurationValue" class="font-semibold text-indigo-600 mt-1">0s</p>
           </div>
-          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+
+          <div class="sm:col-span-2 bg-slate-50 p-4 rounded-lg border border-slate-200">
             <p class="text-slate-500 text-xs font-bold">Report Generated At</p>
             <p class="font-semibold text-slate-800 mt-1">${reportGeneratedAt}</p>
           </div>
@@ -376,48 +418,59 @@ const htmlContent = `<!DOCTYPE html>
       </div>
     </div>
 
-    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
+    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
         <h2 class="text-base font-bold" style="color: #166242;">Test Cases (<span id="tableTagTitle">-</span>)</h2>
         
-        <!-- Status Filter Dropdown -->
-        <div class="relative inline-block text-left w-full sm:w-auto min-w-[180px]" id="statusDropdownContainer">
-          <button id="statusDropdownBtn" onclick="toggleDropdown('statusDropdownMenu')" class="w-full bg-[#166242] hover:bg-[#125036] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm flex items-center justify-between gap-2.5">
-            <div class="flex items-center gap-2 truncate">
-              <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
+        <!-- Filters Container -->
+        <div class="flex flex-wrap items-center gap-3">
+          
+          <!-- Suite Filter Dropdown -->
+          <div class="relative inline-block text-left w-full sm:w-auto min-w-[200px]" id="suiteDropdownContainer">
+            <button id="suiteDropdownBtn" onclick="toggleDropdown('suiteDropdownMenu')" class="w-full bg-[#166242] hover:bg-[#125036] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm flex items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2 truncate">
+                <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
+                </svg>
+                <span class="truncate">Suite: <strong id="suiteDropdownSelected" class="font-bold">All Suites</strong></span>
+              </div>
+              <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
-              <span class="truncate">Status: <strong id="statusDropdownSelected" class="font-bold">All</strong></span>
-            </div>
-            <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+            </button>
 
-          <div id="statusDropdownMenu" class="hidden absolute left-0 right-0 w-full mt-1.5 rounded-xl shadow-lg bg-white border border-slate-200 ring-1 ring-black ring-opacity-5 z-50 overflow-hidden">
-            <div onclick="selectStatusOption('all', 'All')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">All</div>
-            <div onclick="selectStatusOption('passed', 'Passed')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">Passed</div>
-            <div onclick="selectStatusOption('failed', 'Failed')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">Failed</div>
-            <div onclick="selectStatusOption('skipped', 'Skipped')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">Skipped</div>
+            <div id="suiteDropdownMenu" class="hidden absolute left-0 right-0 w-full mt-1.5 rounded-lg shadow-lg bg-white border border-slate-200 ring-1 ring-black ring-opacity-5 z-50 overflow-hidden max-h-60 overflow-y-auto">
+            </div>
           </div>
+
+          <!-- Status Filter Dropdown -->
+          <div class="relative inline-block text-left w-full sm:w-auto min-w-[180px]" id="statusDropdownContainer">
+            <button id="statusDropdownBtn" onclick="toggleDropdown('statusDropdownMenu')" class="w-full bg-[#166242] hover:bg-[#125036] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm flex items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2 truncate">
+                <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
+                </svg>
+                <span class="truncate">Status: <strong id="statusDropdownSelected" class="font-bold">All</strong></span>
+              </div>
+              <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <div id="statusDropdownMenu" class="hidden absolute left-0 right-0 w-full mt-1.5 rounded-lg shadow-lg bg-white border border-slate-200 ring-1 ring-black ring-opacity-5 z-50 overflow-hidden">
+              <div onclick="selectStatusOption('all', 'All')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">All</div>
+              <div onclick="selectStatusOption('passed', 'Passed')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">Passed</div>
+              <div onclick="selectStatusOption('failed', 'Failed')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">Failed</div>
+              <div onclick="selectStatusOption('skipped', 'Skipped')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">Skipped</div>
+            </div>
+          </div>
+
         </div>
 
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm text-slate-700 table-fixed">
-          <thead class="bg-slate-100 text-slate-500 text-xs font-bold border-b border-slate-200">
-            <tr>
-              <th class="py-3 px-4 font-bold w-[25%]">Suite Name</th>
-              <th class="py-3 px-4 font-bold w-[40%]">Test Case</th>
-              <th class="py-3 px-4 font-bold w-[11%] text-center">Duration</th>
-              <th class="py-3 px-4 font-bold w-[11%] text-center">Status</th>
-              <th class="py-3 px-4 font-bold w-[13%] text-center">Test Steps</th>
-            </tr>
-          </thead>
-          <tbody id="testCasesTable" class="divide-y divide-slate-200"></tbody>
-        </table>
-      </div>
+      <!-- Container for dynamic Suite Tables -->
+      <div id="suitesContainer" class="space-y-6"></div>
     </div>
 
   </div>
@@ -428,8 +481,19 @@ const htmlContent = `<!DOCTYPE html>
     
     let currentMode = 'health';
     let currentStatusFilter = 'all';
+    let currentSuiteFilter = 'all';
     let selectedProductKey = "${Object.keys(healthCheckData)[0] || 'Sakani'}";
     let chartInstance = null;
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
     function toggleDropdown(menuId) {
       const menu = document.getElementById(menuId);
@@ -441,14 +505,21 @@ const htmlContent = `<!DOCTYPE html>
     }
 
     function closeAllDropdowns() {
-      document.getElementById('productDropdownMenu').classList.add('hidden');
-      document.getElementById('statusDropdownMenu').classList.add('hidden');
+      const pMenu = document.getElementById('productDropdownMenu');
+      const sMenu = document.getElementById('statusDropdownMenu');
+      const suiteMenu = document.getElementById('suiteDropdownMenu');
+      if (pMenu) pMenu.classList.add('hidden');
+      if (sMenu) sMenu.classList.add('hidden');
+      if (suiteMenu) suiteMenu.classList.add('hidden');
     }
 
     document.addEventListener('click', function(event) {
       const pContainer = document.getElementById('productDropdownContainer');
       const sContainer = document.getElementById('statusDropdownContainer');
-      if (!pContainer.contains(event.target) && !sContainer.contains(event.target)) {
+      const suiteContainer = document.getElementById('suiteDropdownContainer');
+      if ((!pContainer || !pContainer.contains(event.target)) && 
+          (!sContainer || !sContainer.contains(event.target)) &&
+          (!suiteContainer || !suiteContainer.contains(event.target))) {
         closeAllDropdowns();
       }
     });
@@ -457,8 +528,21 @@ const htmlContent = `<!DOCTYPE html>
       selectedProductKey = key;
       document.getElementById('productDropdownSelected').innerText = key;
       
+      if (currentMode === 'readiness') {
+        currentMode = 'health';
+        const btnReadiness = document.getElementById('btnReadiness');
+        const btnHealthCheck = document.getElementById('btnHealthCheck');
+        if (btnHealthCheck && btnReadiness) {
+          btnHealthCheck.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all border border-emerald-700 bg-[#166242] text-white shadow-sm";
+          btnReadiness.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all border border-emerald-700 text-emerald-800 bg-white hover:bg-emerald-50 shadow-sm";
+        }
+      }
+
       currentStatusFilter = 'all';
       document.getElementById('statusDropdownSelected').innerText = 'All';
+
+      currentSuiteFilter = 'all';
+      document.getElementById('suiteDropdownSelected').innerText = 'All Suites';
 
       closeAllDropdowns();
       renderDashboard(selectedProductKey);
@@ -467,6 +551,13 @@ const htmlContent = `<!DOCTYPE html>
     function selectStatusOption(value, label) {
       currentStatusFilter = value;
       document.getElementById('statusDropdownSelected').innerText = label;
+      closeAllDropdowns();
+      renderDashboard(selectedProductKey);
+    }
+
+    function selectSuiteOption(value, label) {
+      currentSuiteFilter = value;
+      document.getElementById('suiteDropdownSelected').innerText = label;
       closeAllDropdowns();
       renderDashboard(selectedProductKey);
     }
@@ -500,6 +591,9 @@ const htmlContent = `<!DOCTYPE html>
         btnReadiness.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all border border-emerald-700 text-emerald-800 bg-white hover:bg-emerald-50 shadow-sm";
       }
 
+      currentSuiteFilter = 'all';
+      document.getElementById('suiteDropdownSelected').innerText = 'All Suites';
+
       renderDashboard(selectedProductKey);
     }
 
@@ -507,17 +601,22 @@ const htmlContent = `<!DOCTYPE html>
       const activeDataMap = currentMode === 'readiness' ? readinessData : healthCheckData;
       const availableKeys = Object.keys(activeDataMap);
       const targetKey = activeDataMap[productKey] ? productKey : availableKeys[0];
-      const data = activeDataMap[targetKey];
+      const data = activeDataMap[targetKey] || {
+        product: targetKey || selectedProductKey,
+        environment: 'Pre-Prod',
+        total: 0,
+        passed: 0,
+        failed: 0,
+        skipped: 0,
+        formattedDuration: '0s',
+        suitesCount: 0,
+        specs: []
+      };
 
-      if (!data) {
-        document.getElementById("testCasesTable").innerHTML = \`<tr><td colspan="5" class="py-6 text-center text-slate-400 font-medium">No test cases available.</td></tr>\`;
-        return;
-      }
-
-      const total = data.total;
-      const passed = data.passed;
-      const failed = data.failed;
-      const skipped = data.skipped;
+      const total = data.total || 0;
+      const passed = data.passed || 0;
+      const failed = data.failed || 0;
+      const skipped = data.skipped || 0;
 
       document.getElementById("totalExecuted").innerText = total;
       document.getElementById("passedCount").innerText = passed;
@@ -525,92 +624,101 @@ const htmlContent = `<!DOCTYPE html>
       document.getElementById("skippedCount").innerText = skipped;
       document.getElementById("tableTagTitle").innerText = data.product;
 
-      document.getElementById("suitesScopeValue").innerText = data.suitesList || 'None';
+      document.getElementById("suitesScopeValue").innerText = data.suitesCount || 0;
       document.getElementById("productScopeValue").innerText = data.product;
       document.getElementById("environmentValue").innerText = data.environment || 'Pre-Prod';
-      document.getElementById("tagDurationValue").innerText = data.formattedDuration;
+      document.getElementById("tagDurationValue").innerText = data.formattedDuration || '0s';
 
-      const tableBody = document.getElementById("testCasesTable");
-      tableBody.innerHTML = "";
+      const suiteMenu = document.getElementById("suiteDropdownMenu");
+      const uniqueSuites = Array.from(new Set((data.specs || []).map(s => s.suite || 'General Suite')));
+      
+      let suiteMenuHtml = '<div onclick="selectSuiteOption(\\'all\\', \\'All Suites\\')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">All Suites</div>';
+      uniqueSuites.forEach(sName => {
+        const escapedName = escapeHtml(sName);
+        suiteMenuHtml += '<div onclick="selectSuiteOption(\\'' + escapedName + '\\', \\'' + escapedName + '\\')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">' + escapedName + '</div>';
+      });
+      suiteMenu.innerHTML = suiteMenuHtml;
 
-      const filteredSpecs = data.specs.filter(spec => {
-        if (currentStatusFilter === 'passed') return spec.status === 'Passed';
-        if (currentStatusFilter === 'failed') return spec.status === 'Failed';
-        if (currentStatusFilter === 'skipped') return spec.status === 'Skipped';
-        return true;
+      if (currentSuiteFilter !== 'all' && !uniqueSuites.includes(currentSuiteFilter)) {
+        currentSuiteFilter = 'all';
+        document.getElementById('suiteDropdownSelected').innerText = 'All Suites';
+      }
+
+      const container = document.getElementById("suitesContainer");
+      container.innerHTML = "";
+
+      const filteredSpecs = (data.specs || []).filter(spec => {
+        const matchesStatus = (currentStatusFilter === 'all') || 
+                              (currentStatusFilter === 'passed' && spec.status === 'Passed') || 
+                              (currentStatusFilter === 'failed' && spec.status === 'Failed') || 
+                              (currentStatusFilter === 'skipped' && spec.status === 'Skipped');
+        
+        const matchesSuite = (currentSuiteFilter === 'all') || (spec.suite === currentSuiteFilter);
+
+        return matchesStatus && matchesSuite;
       });
 
       if (filteredSpecs.length === 0) {
-        tableBody.innerHTML = \`<tr><td colspan="5" class="py-6 text-center text-slate-400 font-medium">No test cases found for this status filter.</td></tr>\`;
+        container.innerHTML = '<div class="py-6 text-center text-slate-400 font-medium">No test cases found for this scope.</div>';
       } else {
+        const groupedBySuite = {};
         filteredSpecs.forEach(spec => {
-          let statusBadgeClass = "bg-amber-100 text-amber-800 border-amber-300";
-          if (spec.status === "Passed") statusBadgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
-          if (spec.status === "Failed") statusBadgeClass = "bg-rose-100 text-rose-800 border-rose-300";
+          const sName = spec.suite || 'General Suite';
+          if (!groupedBySuite[sName]) groupedBySuite[sName] = [];
+          groupedBySuite[sName].push(spec);
+        });
 
-          const hasSteps = spec.steps && spec.steps.length > 0;
-          const hasDetails = hasSteps || (spec.status === 'Failed' && spec.errorMessage);
-          const stepRowId = \`steps-\${spec.id}\`;
+        Object.keys(groupedBySuite).forEach(suiteName => {
+          const specsInSuite = groupedBySuite[suiteName];
 
-          const actionCellHtml = hasDetails 
-            ? \`<button onclick="toggleSteps('\${stepRowId}', this)" class="w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm text-center">
-                Show steps
-               </button>\`
-            : \`<span class="text-xs text-slate-400 font-medium">No details</span>\`;
+          let rowsHtml = '';
+          specsInSuite.forEach(spec => {
+            let statusBadgeClass = "bg-amber-100 text-amber-800 border-amber-300";
+            if (spec.status === "Passed") statusBadgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
+            if (spec.status === "Failed") statusBadgeClass = "bg-rose-100 text-rose-800 border-rose-300";
 
-          const row = \`
-            <tr class="hover:bg-slate-50 transition-colors">
-              <td class="py-3.5 px-4 font-mono text-xs text-slate-600 break-words whitespace-normal">\${spec.suite}</td>
-              <td class="py-3.5 px-4 font-medium text-slate-900 break-words whitespace-normal">\${spec.title}</td>
-              <td class="py-3.5 px-4 text-slate-600 font-mono text-xs text-center break-words whitespace-normal">\${spec.durationStr}</td>
-              <td class="py-3.5 px-4 text-center">
-                <span class="inline-block px-2.5 py-1 text-xs font-semibold border rounded-full \${statusBadgeClass}">
-                  \${spec.status}
-                </span>
-              </td>
-              <td class="py-3.5 px-4 text-center">\${actionCellHtml}</td>
-            </tr>
-          \`;
-          tableBody.insertAdjacentHTML('beforeend', row);
+            const hasSteps = spec.steps && spec.steps.length > 0;
+            const hasDetails = hasSteps || (spec.status === 'Failed' && spec.errorMessage);
+            const stepRowId = 'steps-' + spec.id;
 
-          if (hasDetails) {
-            const stepsListHtml = spec.steps.map((step, idx) => \`
-              <li class="py-1.5 border-b border-slate-200 last:border-0">
-                <span class="text-slate-800 font-medium break-words whitespace-normal">
-                  <strong class="text-emerald-800 font-bold mr-1.5">Step \${idx + 1}:</strong> \${step.title}
-                </span>
-              </li>
-            \`).join('');
+            const actionCellHtml = hasDetails 
+              ? '<button onclick="toggleSteps(\\'' + stepRowId + '\\', this)" class="w-32 inline-block py-1.5 text-xs font-semibold rounded-md border border-emerald-700 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm text-center">Show steps</button>'
+              : '<span class="text-xs text-slate-400 font-medium">No details</span>';
 
-            const failureReasonHtml = spec.status === 'Failed' && spec.errorMessage ? \`
-              <div class="mb-3 p-3 bg-rose-50 border border-rose-200 rounded-md">
-                <p class="text-xs font-bold text-rose-800 mb-1 flex items-center gap-1">
-                  <svg class="w-4 h-4 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Failure Reason
-                </p>
-                <pre class="text-xs text-rose-900 font-mono whitespace-pre-wrap break-words bg-rose-100/50 p-2 rounded max-h-60 overflow-y-auto">\${spec.errorMessage}</pre>
-              </div>
-            \` : '';
+            rowsHtml += '<tr class="hover:bg-slate-50 transition-colors">' +
+              '<td class="py-3.5 px-4 font-medium text-slate-900 break-words whitespace-normal w-[53%]" title="' + escapeHtml(spec.title) + '">' + escapeHtml(spec.title) + '</td>' +
+              '<td class="py-3.5 px-4 text-slate-600 font-mono text-xs text-center break-words whitespace-normal w-[15%]">' + spec.durationStr + '</td>' +
+              '<td class="py-3.5 px-4 text-center w-[15%]"><span class="inline-block px-2.5 py-1 text-xs font-semibold border rounded-full ' + statusBadgeClass + '">' + spec.status + '</span></td>' +
+              '<td class="py-3.5 px-4 text-center w-[17%]">' + actionCellHtml + '</td>' +
+            '</tr>';
 
-            const stepRowHtml = \`
-              <tr id="\${stepRowId}" class="hidden bg-slate-100/70 border-b border-slate-200">
-                <td colspan="5" class="py-3 px-6">
-                  <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-inner">
-                    \${failureReasonHtml}
-                    \${hasSteps ? \`
-                      <p class="text-xs font-bold text-slate-700 mb-2 pb-1 border-b border-slate-100">Execution Steps</p>
-                      <ul class="space-y-0.5">
-                        \${stepsListHtml}
-                      </ul>
-                    \` : ''}
-                  </div>
-                </td>
-              </tr>
-            \`;
-            tableBody.insertAdjacentHTML('beforeend', stepRowHtml);
-          }
+            if (hasDetails) {
+              const stepsListHtml = spec.steps.map((step, idx) => '<li class="py-1.5 border-b border-slate-200 last:border-0"><span class="text-slate-800 font-medium break-words whitespace-normal"><strong class="text-emerald-800 font-bold mr-1.5">Step ' + (idx + 1) + ':</strong> ' + escapeHtml(step.title) + '</span></li>').join('');
+
+              const failureReasonHtml = spec.status === 'Failed' && spec.errorMessage ? '<div class="mb-3 p-3 bg-rose-50 border border-rose-200 rounded-md"><p class="text-xs font-bold text-rose-800 mb-1 flex items-center gap-1"><svg class="w-4 h-4 inline shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Failure Reason: <span class="font-bold text-rose-900">' + escapeHtml(spec.errorSummary) + '</span></p><details class="mt-2"><summary class="text-xs font-semibold text-rose-700 cursor-pointer hover:underline">Toggle Full Technical Stack Trace</summary><pre class="mt-1 text-xs text-rose-900 font-mono whitespace-pre-wrap break-words bg-rose-100/50 p-2 rounded max-h-60 overflow-y-auto">' + escapeHtml(spec.errorMessage) + '</pre></details></div>' : '';
+
+              rowsHtml += '<tr id="' + stepRowId + '" class="hidden bg-slate-100/70 border-b border-slate-200"><td colspan="4" class="py-3 px-6"><div class="bg-white rounded-lg border border-slate-200 p-3 shadow-inner">' + failureReasonHtml + (hasSteps ? '<p class="text-xs font-bold text-slate-700 mb-2 pb-1 border-b border-slate-100">Execution Steps</p><ul class="space-y-0.5">' + stepsListHtml + '</ul>' : '') + '</div></td></tr>';
+            }
+          });
+
+          const suiteTableHtml = '<div class="space-y-2">' +
+            '<h3 class="text-sm font-bold text-slate-800 px-1">' + escapeHtml(suiteName) + '</h3>' +
+            '<div class="overflow-x-auto border border-slate-200 rounded-xl">' +
+              '<table class="w-full text-left text-sm text-slate-700 table-fixed">' +
+                '<thead class="bg-slate-100 text-slate-500 text-xs font-bold border-b border-slate-200">' +
+                  '<tr>' +
+                    '<th class="py-3 px-4 font-bold w-[53%]">Test Case</th>' +
+                    '<th class="py-3 px-4 font-bold w-[15%] text-center">Duration</th>' +
+                    '<th class="py-3 px-4 font-bold w-[15%] text-center">Status</th>' +
+                    '<th class="py-3 px-4 font-bold w-[17%] text-center">Test Steps</th>' +
+                  '</tr>' +
+                '</thead>' +
+                '<tbody class="divide-y divide-slate-200">' + rowsHtml + '</tbody>' +
+              '</table>' +
+            '</div>' +
+          '</div>';
+
+          container.insertAdjacentHTML('beforeend', suiteTableHtml);
         });
       }
 
@@ -619,31 +727,9 @@ const htmlContent = `<!DOCTYPE html>
       const skippedPct = total > 0 ? ((skipped / total) * 100).toFixed(1) + '%' : '0.0%';
 
       const legendContainer = document.getElementById('customLegend');
-      legendContainer.innerHTML = \`
-        <div class="flex flex-col items-center text-center">
-          <div class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-sm bg-[#10B981] inline-block"></span>
-            <span class="text-xs font-semibold" style="color: #166242;">Passed</span>
-          </div>
-          <span class="text-sm font-bold text-slate-900 mt-0.5">\${passedPct}</span>
-        </div>
-
-        <div class="flex flex-col items-center text-center">
-          <div class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-sm bg-[#EF4444] inline-block"></span>
-            <span class="text-xs font-semibold" style="color: #166242;">Failed</span>
-          </div>
-          <span class="text-sm font-bold text-slate-900 mt-0.5">\${failedPct}</span>
-        </div>
-
-        <div class="flex flex-col items-center text-center">
-          <div class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-sm bg-[#F59E0B] inline-block"></span>
-            <span class="text-xs font-semibold" style="color: #166242;">Skipped</span>
-          </div>
-          <span class="text-sm font-bold text-slate-900 mt-0.5">\${skippedPct}</span>
-        </div>
-      \`;
+      legendContainer.innerHTML = '<div class="flex flex-col items-center text-center"><div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#10B981] inline-block"></span><span class="text-xs font-semibold" style="color: #166242;">Passed</span></div><span class="text-sm font-bold text-slate-900 mt-0.5">' + passedPct + '</span></div>' +
+        '<div class="flex flex-col items-center text-center"><div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#EF4444] inline-block"></span><span class="text-xs font-semibold" style="color: #166242;">Failed</span></div><span class="text-sm font-bold text-slate-900 mt-0.5">' + failedPct + '</span></div>' +
+        '<div class="flex flex-col items-center text-center"><div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-[#F59E0B] inline-block"></span><span class="text-xs font-semibold" style="color: #166242;">Skipped</span></div><span class="text-sm font-bold text-slate-900 mt-0.5">' + skippedPct + '</span></div>';
 
       if (chartInstance) chartInstance.destroy();
 
@@ -671,7 +757,7 @@ const htmlContent = `<!DOCTYPE html>
                   const value = context.raw || 0;
                   const totalVal = context.dataset.data.reduce((a, b) => a + b, 0);
                   const percentage = totalVal > 0 ? ((value / totalVal) * 100).toFixed(1) + '%' : '0.0%';
-                  return \`\${label}: \${value} (\${percentage})\`;
+                  return label + ': ' + value + ' (' + percentage + ')';
                 }
               }
             }

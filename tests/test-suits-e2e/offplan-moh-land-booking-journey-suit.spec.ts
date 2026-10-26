@@ -12,7 +12,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Offplan MOH land booking journey', () => {
   test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -39,7 +38,7 @@ test.describe('Offplan MOH land booking journey', () => {
     await app.adminProjectPage.selectDeveloperName('شركة الضاحية المثالية للتطوير والاستثمار العقاري');
     await app.adminProjectPage.toggleBookableOn();
     await app.adminProjectPage.selectProjectStatus('متاح');
-    await app.adminProjectPage.fillWafiLicenseExpiryDate(DateUtils.getDateISO(600));
+    await app.adminProjectPage.fillWafiLicenseExpiryDate(DateUtils.getDateWithOffset(600));
     await app.adminProjectPage.selectSubsidyType('دعم عيني كامل');
     await app.adminProjectPage.fillMaxSubsidyAmount('2');
     await app.adminProjectPage.fillProjectAgreementDate('2026-01-01');
@@ -100,7 +99,7 @@ test.describe('Offplan MOH land booking journey', () => {
     await app.adminProjectPage.fillLatitude('1.1');
     await app.adminProjectPage.fillLongitude('1.1');
     await app.adminProjectPage.expectMediaUploadComplete(0);
-    await app.adminProjectPage.fillGuarenteeAfterServices('Test guarantee after services');
+    await app.adminProjectPage.fillGuaranteeAfterServices('Test guarantee after services');
     await app.adminProjectPage.clickMediaSaveButton();
 
     await logStep('Step 08: Approve project media');

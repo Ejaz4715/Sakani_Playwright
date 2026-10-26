@@ -37,7 +37,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.messageTitleInputfield, 'Message Title');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.messageContentTextarea, 'Message Content');
     await app.creatingAnAdvertisingCampaignPage.selectAllInputFieldText(CreatingAnAdvertisingCampaignObjects.dateInputField);
-    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateISO(1));
+    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateWithOffset(1));
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.dateInputField);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.nextButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.sendButton);
@@ -71,7 +71,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.headingButton);
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.smsContentTextarea, 'SMS Message Content');
     await app.creatingAnAdvertisingCampaignPage.selectAllInputFieldText(CreatingAnAdvertisingCampaignObjects.dateInputField);
-    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateISO(1));
+    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateWithOffset(1));
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.dateInputField);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.nextButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.sendButton);
@@ -106,7 +106,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.emailTitleInputfield, 'Email Message Tile');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.emailContectTextarea, 'Email Message Content');
     await app.creatingAnAdvertisingCampaignPage.selectAllInputFieldText(CreatingAnAdvertisingCampaignObjects.dateInputField);
-    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateISO(1));
+    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateWithOffset(1));
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.dateInputField);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.nextButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.sendButton);
@@ -142,7 +142,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.messageTitleInputfield, 'Message Title');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.messageContentTextarea, 'Message Content');
     await app.creatingAnAdvertisingCampaignPage.selectAllInputFieldText(CreatingAnAdvertisingCampaignObjects.dateInputField);
-    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateISO(1));
+    await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.dateInputField, DateUtils.getDateWithOffset(1));
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.dateInputField);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.nextButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.sendButton);
