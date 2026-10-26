@@ -39,12 +39,21 @@ async function openAdminPortal(page: Page, app: WebApp) {
   const environment = readEnvironments();
   const data = readServiceData();
   await page.goto(new URL(environment.adminPortalUrl).origin);
-  await page.waitForLoadState('load');
-  if (/\/auth/.test(page.url())) {
+
+  // with an expired session the site first shows the menu, then the server rejects the session and it redirects to login,
+  // so wait until the site stops talking to the server before deciding
+  await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
+
+  // wait until it shows either the login form or the logged-in menu
+  const loginHeading = page.getByRole('heading', { name: 'لتسجيل الدخول' });
+  const loyaltyMenu = page.locator('a').filter({ hasText: 'برنامج شراي' });
+  await expect(loginHeading.or(loyaltyMenu)).toBeVisible({ timeout: 30_000 });
+
+  if (await loginHeading.isVisible()) {
     await app.adminProjectPage.login(environment.adminPortalUrl, data.adminUsername, data.adminPassword);
     await page.context().storageState({ path: adminSessionFile });
   }
-  await expect(page).not.toHaveURL(/\/auth/, { timeout: 30_000 });
+  await expect(loyaltyMenu).toBeVisible({ timeout: 30_000 });
 }
 // Opens the admin portal and goes to the deals list
 async function openDealsList(page: Page, app: WebApp) {
