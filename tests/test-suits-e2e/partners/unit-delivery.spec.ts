@@ -187,8 +187,8 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
 
       await logStep('Step 01: Navigate to partners portal > Login as developer');
       await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.developerProjectPage.loginDeveloper(developerUserId);
-      await app.developerProjectPage.switchRoleToDeveloper();
+      await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+      await app.partnersLoginPage.switchRoleToDeveloper();
 
       await logStep('Step 02: Search for the project > Open it');
       await app.developerProjectPage.openProjectBySearch(projectName);
@@ -212,8 +212,8 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to bookings management > Individual bookings > New booking');
     await waitAndClick(page.locator("//span[contains(text(),' إدارة الحجوزات')]/../.."));
@@ -336,8 +336,8 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Open financial management > Cash payment > Search customer by ID');
     await app.flexiblePaymentPage.clickOnFinancialManagement();
@@ -362,8 +362,8 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Open units delivery > Start preparing > Search by project name > Select the unit');
     await app.unitsDeliveryPage.clickOnUnitsDelivery();
@@ -392,8 +392,8 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Open units delivery > Ready units > Search by unit code');
     await app.unitsDeliveryPage.clickOnUnitsDelivery();

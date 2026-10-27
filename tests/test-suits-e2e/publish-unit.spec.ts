@@ -28,7 +28,7 @@ test.describe('Publish Unit', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.publishUnitPage.switchRoleToDeveloperBroker();
 
     await logStep('Step 02: Navigate to publish unit page > Select publish unit > Fill request information');
@@ -97,7 +97,7 @@ test.describe('Publish Unit', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.publishUnitPage.switchRoleToDeveloperBroker();
 
     await logStep('Step 02: Navigate to publish unit page > Search for approved request by ad license number');

@@ -1,5 +1,9 @@
 import { expect, Page } from '@playwright/test';
 import { ElectronicAuctionProjectObjects } from '@objects/AuctionsProjectObjects';
+import { AdminLoyaltyPage } from './AdminLoyaltyPage';
+import { AdminProjectPage } from './AdminProjectPage';
+import { AdminLoyaltyObjects } from '@objects/AdminLoyaltyObjects';
+import { AdminObjects } from '@objects/AdminProjectsObjects';
 
 export class ElectronicAuctionProjectPage {
   page: Page;
@@ -102,9 +106,15 @@ export class ElectronicAuctionProjectPage {
   }
 
   async saveProject() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.saveButton);
-    await expect(button).toBeVisible({ timeout: 30000 });
-    await button.click();
+    const saveButton = this.getLocator(ElectronicAuctionProjectObjects.saveButton);
+    await expect(saveButton).toBeVisible({ timeout: 30000 });
+    await saveButton.click();
+    const toast = this.page.getByText(AdminObjects.saveSuccessMessage.text);
+    let isToastVisible = await toast.isVisible({ timeout: 30000 });
+    if (!isToastVisible) {
+      await saveButton.click();
+      await expect(toast).toBeVisible({ timeout: 30000 });
+    }
   }
 
   async openProjectMedia() {
@@ -209,6 +219,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openUnitType() {
+    await this.page.waitForTimeout(3000);
     const combobox = this.getLocator(ElectronicAuctionProjectObjects.unitTypeCombobox);
     await expect(combobox).toBeVisible({ timeout: 30000 });
     await combobox.click();

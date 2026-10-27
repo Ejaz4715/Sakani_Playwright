@@ -147,8 +147,8 @@ test.describe('Resale Of Units - With Known Buyer', () => {
 
     await logStep('Step 01: Login to sapa portal as a developer');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to projects and search for a project');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -189,8 +189,8 @@ test.describe('Resale Of Units - With Known Buyer', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to searched project > Navigate to sale contracts ');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -289,8 +289,8 @@ test.describe('Resale Of Units - With Known Buyer', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to booking page > Confirm booking');
     await app.developerProjectPage.confirmBooking(bookedUnitCode);
@@ -395,8 +395,8 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
 
     await logStep('Step 02: Login to the platfrom');
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 03: Click on resale requests from side menu');
     await app.resaleOfUnitsPage.clickOnResaleRequestSideMenu();
@@ -659,8 +659,8 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     const developerUserId = readResaleData.services['resale-of-units'].developerUserId;
 
     await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
     await app.developerProjectPage.openProjectBySearch(projectName);
 
     await app.developerProjectPage.openPaymentSchedulesTab();
@@ -694,8 +694,8 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to searched project > Navigate to sale contracts ');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -794,8 +794,8 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to booking page > Confirm booking');
     await app.developerProjectPage.confirmBooking(bookedUnitCode);
@@ -894,8 +894,8 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
 
     await logStep('Step 02: Login to the platfrom');
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 03: Click on resale requests from side menu');
     await app.resaleOfUnitsPage.clickOnResaleRequestSideMenu();

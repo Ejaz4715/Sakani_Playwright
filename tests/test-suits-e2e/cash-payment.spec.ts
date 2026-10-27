@@ -145,8 +145,8 @@ test.describe('Cash Payment', () => {
     const developerUserId = data.developerUserId;
 
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
     await app.developerProjectPage.openProjectBySearch(projectName);
 
     await app.developerProjectPage.openPaymentSchedulesTab();
@@ -183,8 +183,8 @@ test.describe('Cash Payment', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to searched project > Navigate to sale contracts ');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -350,8 +350,8 @@ test.describe('Cash Payment', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Open financial management > cash payment');
     await app.flexiblePaymentPage.clickOnFinancialManagement();

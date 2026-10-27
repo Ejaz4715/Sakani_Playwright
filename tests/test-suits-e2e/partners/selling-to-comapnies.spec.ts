@@ -272,8 +272,8 @@ test.describe('Selling to companies', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for the project > Open it');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -299,8 +299,8 @@ test.describe('Selling to companies', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for the project > Open it');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -323,8 +323,8 @@ test.describe('Selling to companies', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Start new booking for a company user > Search by ID and CR');
     await app.developerProjectPage.bookUnitsForCompanies(data.companyUser, data.companyCR, projectName);
@@ -431,8 +431,8 @@ test.describe('Selling to companies', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Confirm the company booking > Verify success message');
     await app.developerProjectPage.confirmCompanyBooking(data.companyUnitCode);

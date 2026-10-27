@@ -21,9 +21,10 @@ test.describe('Creating an advertising campaign', () => {
 
     await logStep('Step 01: Login as developer to sapa portal');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
 
+    await page.pause();
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select WhatsApp channel');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.advertisingCampaigntLink);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.newRequestButton);
@@ -44,6 +45,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.viewRequestButton);
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
+
   test('TC-02 Developer creates an advirtising campaign with SMS Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -56,7 +58,7 @@ test.describe('Creating an advertising campaign', () => {
 
     await logStep('Step 01: Login as developer to sapa portal');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select SMS channel');
 
@@ -78,6 +80,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.viewRequestButton);
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
+
   test('TC-02 Developer creates an advirtising campaign with Email Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -90,7 +93,7 @@ test.describe('Creating an advertising campaign', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select Email channel');
@@ -113,6 +116,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.viewRequestButton);
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
+
   test('TC-04 Developer creates an advirtising campaign with Sakani App Notification Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -125,7 +129,7 @@ test.describe('Creating an advertising campaign', () => {
 
     await logStep('Step 01: Login as developer to sapa portal');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select Sakani App Notification  channel');
@@ -149,6 +153,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.viewRequestButton);
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
+
   test('TC-05 Developer creates an advirtising campaign with Sakani Platform Banner Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -161,7 +166,7 @@ test.describe('Creating an advertising campaign', () => {
 
     await logStep('Step 01: Login as developer to sapa portal');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select Sakani Platform Banner channel');
 
@@ -181,6 +186,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.viewRequestButton);
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
+
   test('TC-06 Developer creates an advirtising campaign with Pop Up Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -193,7 +199,7 @@ test.describe('Creating an advertising campaign', () => {
 
     await logStep('Step 01: Login as developer to sapa portal');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select Pop Up channel');
 
@@ -213,6 +219,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.viewRequestButton);
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
+
   test('TC-07 Admin rejects the request', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
@@ -258,7 +265,7 @@ test.describe('Creating an advertising campaign', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select Pop Up channel');
@@ -278,6 +285,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.viewRequestButton);
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
+
   test('TC-09 Admin approves the request', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');

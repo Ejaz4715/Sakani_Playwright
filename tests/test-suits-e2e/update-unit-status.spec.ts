@@ -21,8 +21,8 @@ test.describe('Update unit status (active/inactive) from partners', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for project and unit > Get the current unit status');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -90,8 +90,8 @@ test.describe('Update unit status (active/inactive) from partners', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for project and unit > Get the current unit status');
     await app.developerProjectPage.openProjectBySearch(projectName);

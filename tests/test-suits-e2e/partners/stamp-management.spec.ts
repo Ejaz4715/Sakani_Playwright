@@ -18,8 +18,8 @@ test.describe('Stamp Management', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Open stamp management');
     await app.stampManagementPage.clickOnStampManagement();
@@ -37,8 +37,8 @@ test.describe('Stamp Management', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Open stamp management > Click update');
     await app.stampManagementPage.clickOnStampManagement();

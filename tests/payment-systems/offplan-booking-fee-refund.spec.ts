@@ -150,8 +150,8 @@ test.describe('Offplan booking fees refund', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search and open the project');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -192,8 +192,8 @@ test.describe('Offplan booking fees refund', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search and open the project');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -308,8 +308,8 @@ test.describe('Offplan booking fees refund', () => {
 
     await logStep('Step 01: Login as developer to sapa portal');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Confirm the booking');
     await app.developerProjectPage.confirmBooking(bookedUnitCode);

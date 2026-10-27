@@ -15,14 +15,14 @@
       "bookedUnitCode": "01-01-0674-7-103"
     },
     "auction-journey": {
-      "projectName": "",
+      "projectName": "Automation Auction 20261027134543",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserId": "1300061022",
-      "auctionStartDate": "22-09-2026",
-      "auctionEndDate": "22-09-2026",
-      "auctionStartTime": "11:41",
-      "auctionEndTime": "11:45"
+      "auctionStartDate": "28-10-2026",
+      "auctionEndDate": "28-10-2026",
+      "auctionStartTime": "16:50",
+      "auctionEndTime": "16:54"
     },
     "moh-land-booking-journey": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
@@ -147,11 +147,11 @@
       "bookedUnitCode": ""
     },
     "auction": {
-      "projectName": "Automation Auction 20261006095226",
-      "auctionStartDate": "07-10-2026",
-      "auctionEndDate": "07-10-2026",
-      "auctionStartTime": "12:57",
-      "auctionEndTime": "13:01"
+      "projectName": "Automation Auction 20261027132307",
+      "auctionStartDate": "28-10-2026",
+      "auctionEndDate": "28-10-2026",
+      "auctionStartTime": "16:28",
+      "auctionEndTime": "16:32"
     },
     "unit-comparison": {
       "projectName": "Automation Project 20261004105043",
@@ -190,13 +190,16 @@
       "sakaniUserId": "1441376098"
     },
     "update-unit": {
-      "projectName": "Automation Project Offplan 20261018082240",
+      "projectName": "Automation Project P_003",
       "projectCode": "02-01-0149",
       "availableUnitCode": "02-01-0149-5-101",
       "bookedUnitCode": "02-01-0149-6-102",
       "developerUserId": "1023129537",
       "sakaniUserId": "1300070834",
-      "newUnitCode": "02-01-0149-102-5555"
+      "newUnitCode": "02-01-0149-102-5555",
+      "unitCodeUpdatePrice": "02-01-0149-8-104",
+      "exsitingPrice": "28010",
+      "updatedPrice": 28012
     },
     "card-details": {
       "projectName": "Automation Project P_003",
@@ -229,8 +232,8 @@
     "flexible-payment-schedule": {
       "projectName": "Automation Project P_003",
       "developerUserId": "1023129537",
-      "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261012104113",
-      "scheduleTitleEn": "Automation Flexible Payment Schedule 20261012104113"
+      "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261027124521",
+      "scheduleTitleEn": "Automation Flexible Payment Schedule 20261027124521"
     },
     "generate-reports": {
       "projectName": "Automation Project P_003",

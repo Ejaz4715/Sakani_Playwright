@@ -22,7 +22,7 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    // await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
@@ -88,7 +88,7 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
@@ -162,7 +162,7 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
       await logStep('Step 01: Login as developer to sapa portal and open the project');
       await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-      // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+      await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
       await page.pause();
       await app.partnersLoginPage.switchRoleToDeveloper();
 
@@ -229,7 +229,7 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
@@ -294,7 +294,7 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    // await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 

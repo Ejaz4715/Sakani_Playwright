@@ -146,8 +146,8 @@ test.describe('Discount On Reserved Units', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to searched project > Navigate to sale contracts ');
     await app.developerProjectPage.openProjectBySearch(projectName);
@@ -174,8 +174,8 @@ test.describe('Discount On Reserved Units', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to new booking page');
     await app.discountOnReservedUnitsPage.clickOnManageBookingsButton();
@@ -286,8 +286,8 @@ test.describe('Discount On Reserved Units', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to the booked unit details');
     await app.discountOnReservedUnitsPage.clickOnManageBookingsButton();

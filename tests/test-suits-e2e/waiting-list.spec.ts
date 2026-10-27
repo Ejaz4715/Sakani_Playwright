@@ -19,8 +19,8 @@ test.describe('Waiting List', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Navigate to waiting list > Click on new register');
     await app.waitingListPage.clickOnWaitingListSideButton();

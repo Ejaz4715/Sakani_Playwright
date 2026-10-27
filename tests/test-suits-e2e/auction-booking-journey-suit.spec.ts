@@ -5,7 +5,7 @@ import { WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
-const SERVICE = 'auction';
+const SERVICE = 'auction-journey';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 

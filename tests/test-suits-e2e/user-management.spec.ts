@@ -24,7 +24,7 @@ test.describe('User Management', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
     await logStep('Step 02: Search for the user > Check if exists remove him');
     await app.userManagementPage.clickUserManagementLink();

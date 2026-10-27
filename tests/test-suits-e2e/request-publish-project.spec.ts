@@ -31,8 +31,8 @@ test.describe('Request publish project', () => {
     await logStep('Step 01: Navigate to partners portal > Login');
 
     await app.developerProjectPage.gotoAuth(sapaUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
     await logStep('Step 02: Navigate to create new project');
 
     await app.requestPublishProjectPage.clickProjectsLink();
@@ -119,7 +119,7 @@ test.describe('Request publish project', () => {
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortal(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 

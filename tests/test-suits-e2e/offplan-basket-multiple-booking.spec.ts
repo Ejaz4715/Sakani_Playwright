@@ -195,8 +195,8 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
 
       await logStep('Step 01: Navigate to partners portal > Login as developer');
       await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.developerProjectPage.loginDeveloper(developerUserId);
-      await app.developerProjectPage.switchRoleToDeveloper();
+      await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+      await app.partnersLoginPage.switchRoleToDeveloper();
 
       await logStep('Step 02: Search for the project > Open it');
       await app.developerProjectPage.openProjectBySearch(projectName);
@@ -232,8 +232,8 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
 
       await logStep('Step 01: Navigate to partners portal > Login as developer');
       await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.developerProjectPage.loginDeveloper(developerUserId);
-      await app.developerProjectPage.switchRoleToDeveloper();
+      await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+      await app.partnersLoginPage.switchRoleToDeveloper();
 
       await logStep('Step 02: Start new booking > Search customer by ID > Select the project');
       await app.developerProjectPage.bookUnitsForCustomers(nationalId, projectName);
@@ -346,8 +346,8 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
 
     await logStep('Step 01: Navigate to partners portal > Login as developer');
     await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.developerProjectPage.loginDeveloper(developerUserId);
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Confirm the first unit booking > Verify success message');
     await app.developerProjectPage.confirmBooking(data.unit1Code);
@@ -356,7 +356,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
     await logStep('Step 03: Confirm the second unit booking > Verify success message');
     await app.developerProjectPage.closeConfirmationModal();
 
-    await app.developerProjectPage.switchRoleToDeveloper();
+    await app.partnersLoginPage.switchRoleToDeveloper();
     await app.developerProjectPage.confirmBooking(data.unit2Code);
     await expect.poll(() => app.developerProjectPage.isSuccessfulConfirmationMessageVisible(), { timeout: LONG_TIMEOUT }).toBe(true);
   });

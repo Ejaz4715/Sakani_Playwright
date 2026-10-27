@@ -9,6 +9,9 @@ export const DeveloperObjects = {
     role: 'button',
     name: 'قبول ملفات تعريف الارتباط',
   },
+  loginButton: {
+    xpath: "//*[text()='تسجيل الدخول']",
+  },
   nafathModel: '//app-nafath-login-modal',
   continueButton: {
     role: 'button',
