@@ -135,7 +135,6 @@ test.describe('Offplan MOH land booking journey', () => {
   });
 
   test('TC-02 Developer adds cash and lending payment schedules to the project (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -177,7 +176,6 @@ test.describe('Offplan MOH land booking journey', () => {
   });
 
   test('TC-03 Developer approves sales contract of project (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -206,7 +204,6 @@ test.describe('Offplan MOH land booking journey', () => {
   });
 
   test('TC-04 User books unit (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -255,7 +252,6 @@ test.describe('Offplan MOH land booking journey', () => {
   });
 
   test('TC-05 User signs sales contract of booked unit (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(30000);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -292,7 +288,6 @@ test.describe('Offplan MOH land booking journey', () => {
   });
 
   test('TC-06 Developer confirms the booking and adds annex (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

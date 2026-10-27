@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 const path = require('path');
 import { WebApp } from '@base-class/web-app';
-import testData from '@data/test-data.json';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
@@ -12,7 +11,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 test.describe('MOH land full booking journey', () => {
   test('TC-01 Admin adds new Moh land project', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
-    test.setTimeout(120000);
     const app = new WebApp(page);
     const environment = readEnvironments();
     const data = readServiceData();
@@ -116,7 +114,6 @@ test.describe('MOH land full booking journey', () => {
 
   test('TC-02 - Book moh land', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
-    test.setTimeout(0);
     const app = new WebApp(page);
     const environment = readEnvironments();
     const data = readServiceData();
@@ -149,7 +146,6 @@ test.describe('MOH land full booking journey', () => {
 
   test('TC-03 - Cancel moh land booking', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
-    test.setTimeout(0);
     const app = new WebApp(page);
     const environment = readEnvironments();
     const data = readServiceData();

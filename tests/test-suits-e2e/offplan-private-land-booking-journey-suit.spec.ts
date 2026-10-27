@@ -11,7 +11,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Offplan private land booking journey', () => {
   test('TC-01 Admin adds new offplan private land project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -137,7 +136,6 @@ test.describe('Offplan private land booking journey', () => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
-    test.setTimeout(0);
     const app = new WebApp(page);
     const projectName = data.projectName;
     const developerUserId = data.developerUserId;
@@ -176,7 +174,6 @@ test.describe('Offplan private land booking journey', () => {
   });
 
   test('TC-03 Developer approves sales contract of project (Offplan Private Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -205,7 +202,6 @@ test.describe('Offplan private land booking journey', () => {
   });
 
   test('TC-04 User books unit (Offplan Private Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -254,7 +250,6 @@ test.describe('Offplan private land booking journey', () => {
   });
 
   test('TC-05 User cancels a booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

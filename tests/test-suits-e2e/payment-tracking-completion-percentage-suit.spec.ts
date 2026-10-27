@@ -136,7 +136,6 @@ test.describe('Payment tracking - completion percentage', () => {
   });
 
   test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -173,7 +172,6 @@ test.describe('Payment tracking - completion percentage', () => {
   });
 
   test('TC-03 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -200,7 +198,6 @@ test.describe('Payment tracking - completion percentage', () => {
   });
 
   test('TC-04 Admin enables comprehensive and automation payment', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -230,7 +227,6 @@ test.describe('Payment tracking - completion percentage', () => {
   });
 
   test('TC-05 Developer adds flexible payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
