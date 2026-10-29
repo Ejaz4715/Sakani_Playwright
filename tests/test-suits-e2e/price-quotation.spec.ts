@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 
@@ -9,7 +9,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Price Quotation', () => {
-  test('TC-01 User download the price quotation and verify it', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 User download the price quotation and verify it', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

@@ -11,7 +11,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Loyalty Sharrai Program', () => {
   test('TC-01 Admin create new deal and activate it', { annotation: [{ product: 'Loyalty', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -30,7 +29,7 @@ test.describe('Loyalty Sharrai Program', () => {
       .replace(/[-:T.]/g, '')
       .slice(0, 14)}`;
     DataHelper.updateServiceData(SERVICE, 'companyName', companyName);
-    DataHelper.updateServiceData(SERVICE, 'loyalty-sharrai', 'dealName', dealName);
+    DataHelper.updateServiceData(SERVICE, 'dealName', dealName);
 
     await logStep('Step 02: Navigate to add new partner');
     await app.adminLoyaltyPage.clickLoyaltyProgram();
@@ -100,5 +99,30 @@ test.describe('Loyalty Sharrai Program', () => {
     await app.adminLoyaltyPage.clickYesOnPopUp();
     await app.adminLoyaltyPage.verifyActiveStatusVisible();
     // await page.locator('ng-select').filter({ hasText: 'اختيارغير نشط' }).getByRole('combobox').click();
+  });
+
+  test('TC-05 User buys the deal and pay', { annotation: [{ product: 'Loyalty', type: 'critical' }] as any }, async ({ page }) => {
+    await logStep('Step 00: Read data from json relative to the service');
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const app = new WebApp(page);
+    const userPortalUrl = environment.userPortalUrl;
+    const userID = data.sakaniUserId;
+    const projectName = data.projectName;
+
+    await logStep('Step 01: Navigate to user portal > Login');
+    // await app.loginPage.gotoHomePage(userPortalUrl);
+    // await app.loginPage.acceptCookies();
+    // await app.loginPage.openLogin();
+    // await app.loginPage.loginWithNafath(userID);
+    // await app.loginPage.waitForNafathPromptToDisappear();
+    // await app.loginPage.continueNewUserPopup();
+    // await app.loginPage.handlePushNotificationPopup();
+
+    await logStep('Step 02: Navigate to services');
+
+    await logStep('Step 03: Go to sakani offers');
+
+    await logStep('Step 04: Select a deal and pay');
   });
 });

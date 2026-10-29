@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
+import { Products } from '@base-class/web-app';
 
 dotenv.config();
 
@@ -21,9 +22,16 @@ export default defineConfig({
 
     // Per-product environment mapping
     environments: {
-      Sakani: process.env.MARKETPLACE_ENV || 'Pre-Prod',
-      Digitar: process.env.DIGITAR_ENV || 'STG',
-      Sayal: process.env.SAYAL_ENV || 'Pre-Prod',
+      [Products.Marketplace]: process.env.MARKETPLACE_ENV || 'Pre-Prod',
+      [Products.GovProducts]: process.env.GOV_PRODUCTS_ENV || 'Pre-Prod',
+      [Products.SharedProducts]: process.env.SHARED_PRODUCTS_ENV || 'Pre-Prod',
+      [Products.MarketService]: process.env.MARKET_SERVICE_ENV || 'Pre-Prod',
+      [Products.Sayal]: process.env.SAYAL_ENV || 'Pre-Prod',
+      [Products.SelfConstruction]: process.env.SELF_CONSTRUCTION_ENV || 'Pre-Prod',
+      [Products.DigitarBroker]: process.env.DIGITAR_BROKER_ENV || 'STG',
+      [Products.DigitarDeveloper]: process.env.DIGITAR_DEVELOPER_ENV || 'STG',
+      [Products.Loyalty]: process.env.LOYALTY_ENV || 'Pre-Prod',
+      [Products.RealEstateData]: process.env.REAL_ESTATE_DATA_ENV || 'Pre-Prod',
     },
   },
 

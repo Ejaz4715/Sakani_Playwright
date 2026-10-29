@@ -41,7 +41,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserId": "1019075926",
-      "companyName": "Automation Test Company 20261025230110",
+      "companyName": "Automation Test Company 20261029154813",
       "dealName": "Automation Test Deal 20260928145426"
     },
     "waiting-list": {
@@ -63,7 +63,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project 20261028134757",
+      "projectName": "Automation Project 20261029172456",
       "sakaniUserId": "1119800005",
       "bookedUnitCode": "01-01-0752-17-113"
     },
@@ -79,7 +79,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261018083235",
+      "projectName": "Automation Project Offplan 20261029163843",
       "sakaniUserId": "1441376098",
       "bookedUnitCode": "01-01-0728-6-102"
     },
