@@ -4,6 +4,7 @@ import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import path from 'node:path';
+import { AdminProjectObjects } from '@objects/AdminProjectsObjects';
 
 const SERVICE = 'unit-delivery';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
@@ -22,8 +23,6 @@ async function waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TI
   await locator.waitFor({ state: 'visible', timeout });
   await locator.fill(value);
 }
-
-const unitCheckbox = (page: Page, row: number) => page.locator(`//datatable-row-wrapper[${row}]/datatable-body-row/div[3]/datatable-body-cell/div/div/app-sapa-checkbox-v2/div/div/input/..`);
 
 test.describe('Unit Delivery Partner/Marketplace', () => {
   let deliveryUnitCode: string;
@@ -150,60 +149,17 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
 
     await logStep('Step 12: Activate multiple units booking for non-beneficiary > Verify setting is saved');
-    // Project settings
     await page.keyboard.press('PageDown');
-    await waitAndClick(page.locator("//span[contains(text(), 'إعدادات المشاريع')]"));
-    // تفعيل الحجز المتعدد في سكني (الويب، تطبيقات الهاتف المحمول)
-    //await page.locator("//label[contains(text(), ' تفعيل الحجز المتعدد في سكني (الويب، تطبيقات الهاتف المحمول) ')]/../button/div").click();
-    await waitAndClick(page.locator('//mat-tab-body[1]/div/div/form/div[2]/div[4]/div[2]/div/div[2]/div[5]/mat-slide-toggle[1]/div/button'));
-    // تفعيل الحجز المتعدد في بوابة شركاء
-    //await page.locator("//label[contains(text(), ' تفعيل الحجز المتعدد في بوابة شركاء ')]/../button/div").click();
-    await waitAndClick(page.locator('//mat-tab-body[1]/div/div/form/div[2]/div[4]/div[2]/div/div[2]/div[5]/mat-slide-toggle[2]/div/button'));
-    await waitAndFill(page.locator("input[formcontrolname='maximum_booking_per_non_beneficiary']"), '5');
-
+    await app.adminProjectPage.expandProjectSettingsSection();
+    await app.adminProjectPage.fillMaxBookingPerNonBene('5');
     await page.keyboard.press('PageDown');
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.validateProjectSavedToastMessage();
     await page.waitForTimeout(3000);
-    expect(await page.locator("input[formcontrolname='maximum_booking_per_non_beneficiary']").inputValue()).toEqual('5');
+    await expect(page.locator(AdminProjectObjects.maxBookingsPerNonBeneInput)).toHaveValue('5');
   });
 
-  test(
-    'TC-02 Developer approves sales contract',
-    {
-      annotation: [
-        {
-          product: 'Marketplace',
-          type: 'critical',
-        },
-      ] as any,
-    },
-    async ({ page }) => {
-      const data = readServiceData();
-      const environments = readEnvironments();
-      const app = new WebApp(page);
-      const projectName = data.projectName;
-      const developerUserId = data.developerUserId;
-
-      await logStep('Step 01: Navigate to partners portal > Login as developer');
-      await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-      await app.partnersLoginPage.switchRoleToDeveloper();
-
-      await logStep('Step 02: Search for the project > Open it');
-      await app.developerProjectPage.openProjectBySearch(projectName);
-
-      await logStep('Step 03: Approve the sales contract > Verify approval success message');
-      await app.developerProjectPage.openSalesContractsTab();
-      await app.developerProjectPage.viewAndApproveSalesContract();
-      await app.developerProjectPage.approveUnitSpecification();
-      await app.developerProjectPage.fillOtp('1234');
-      await app.developerProjectPage.verifyOtp();
-      await app.developerProjectPage.verifyApprovalSuccessMessage();
-    }
-  );
-
-  test('TC-03 Developer books one unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer approves sales contract for unit delivery project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -215,48 +171,53 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
 
-    await logStep('Step 02: Navigate to bookings management > Individual bookings > New booking');
-    await waitAndClick(page.locator("//span[contains(text(),' إدارة الحجوزات')]/../.."));
-    await waitAndClick(page.locator("//span[contains(text(),'الحجوزات الفردية')]/../.."));
+    await logStep('Step 02: Search for the project > Open it');
+    await app.developerProjectPage.openProjectBySearch(projectName);
 
-    await waitAndClick(page.locator("//span[contains(text(),' حجز جديد ')]/.."), LONG_TIMEOUT);
-
-    await logStep('Step 03: Search for the customer by ID');
-    await waitAndFill(page.locator("//label[contains(text(),' رقم الهوية ')]/../..//input"), '1300070834');
-    await waitAndClick(page.locator("//button[contains(text(),' بحث ')]"));
-
-    const nextButton = page.locator("//button[contains(text(), 'التالي')]");
-    await expect(nextButton).toBeEnabled({ timeout: DEFAULT_TIMEOUT });
-    await nextButton.click();
-
-    await page.waitForTimeout(3000);
-
-    await logStep('Step 04: Select the project > Select one unit > Keep booking');
-    await page.locator("(//input[@aria-autocomplete='list'])[1]").fill(projectName);
-
-    await page.waitForTimeout(2000);
-
-    await page.locator("div[role='listbox'] span").click();
-
-    await page.waitForTimeout(10000);
-    await waitAndClick(unitCheckbox(page, 1));
-    await nextButton.click();
-    await waitAndClick(page.locator("//button[contains(text(),' مواصلة الحجز')]"));
-
-    await logStep('Step 05: Select the bank');
-    // Select the bank
-    await waitAndClick(page.locator("app-bank-list-dropdown-control input[role='combobox']"));
-    await waitAndClick(page.locator("//span[contains(text(),'CRM Bank Test')]"));
-    await nextButton.click();
-    await page.waitForTimeout(1000);
-
-    await logStep('Step 06: Confirm the booking > Verify booking details are visible');
-    await waitAndClick(page.locator("//span[contains(text(),'تأكيد')]/.."), DEFAULT_TIMEOUT);
-
-    await expect(page.locator("//button[contains(text(),'عرض التفاصيل')]")).toBeVisible({ timeout: DEFAULT_TIMEOUT });
+    await logStep('Step 03: Approve the sales contract > Verify approval success message');
+    await app.developerProjectPage.openSalesContractsTab();
+    await app.developerProjectPage.viewAndApproveSalesContract();
+    await app.developerProjectPage.approveUnitSpecification();
+    await app.developerProjectPage.fillOtp('1234');
+    await app.developerProjectPage.verifyOtp();
+    await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 - User Pays the invoices for a unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer books one unit for delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    await logStep('Step 00: Read data from json relative to the service');
+    const data = readServiceData();
+    const environments = readEnvironments();
+    const app = new WebApp(page);
+    const nationalId = data.sakaniUserIdEligible;
+    const unitCode = data.unitCodeOffplanMoh;
+    const developerUserId = data.developerUserId;
+    const bankName = 'بنك الأهلي السعودي';
+
+    await logStep('Step 01: Navigate to partners portal > Login as developer');
+    await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
+
+    await logStep('Step 02: Start new individual booking > Enter user id');
+    await app.developerProjectPage.bookUnitsForCustomersUsingUnitCode(nationalId, unitCode);
+    await page.waitForTimeout(5000);
+
+    await logStep('Step 03: Select unit and move to financial information page');
+    await app.developerProjectPage.selectUnitCheckbox(1);
+    await app.developerProjectPage.clickOnNextButton();
+    await app.developerProjectPage.clickSelectAndContinue();
+    await app.developerProjectPage.clickContinueBookingButton();
+
+    await logStep('Step 04: Select the bank and confirm the booking > Verify booking list is visible');
+    await app.developerProjectPage.selectBank(bankName);
+    await app.developerProjectPage.clickOnNextButton();
+    await app.developerProjectPage.clickOnConfirmationButton();
+
+    await logStep('Step 05: Verify the reservation is successful');
+    await app.developerProjectPage.validateSuccessReservationPopup();
+  });
+
+  test('TC-04 User Pays the invoice of the booked unit for delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -291,7 +252,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await page.waitForTimeout(10000);
   });
 
-  test('TC-05 - User Signs sale contract for a unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User Signs sale contract of booked unit for delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -324,11 +285,10 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
 
     await app.offPlanBasketMultipleBookingPage.typeVerifyOtpCode();
     await app.offPlanBasketMultipleBookingPage.clickOnVerify();
-
     await expect.poll(() => app.offPlanBasketMultipleBookingPage.isSuccessfulContractSignMessage(), { timeout: LONG_TIMEOUT }).toBe(true);
   });
 
-  test('TC-06 Confirm the cash payment from the developer side', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer confirms the cash payment for unit delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -380,7 +340,6 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await app.unitsDeliveryPage.selectDeliveryDate();
     await app.unitsDeliveryPage.selectDeliveryTime();
     await app.unitsDeliveryPage.clickOnSend();
-
     expect(await app.unitsDeliveryPage.isUnitReadyForDelivery()).toBe(true);
   });
 
@@ -404,7 +363,6 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
 
     await logStep('Step 03: Send the unit to the customer for delivery > Verify unit is delivered');
     await app.unitsDeliveryPage.sendToCustomerForDelivery();
-
     expect(await app.unitsDeliveryPage.isUnitDelivered()).toBe(true);
   });
 
@@ -443,7 +401,6 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await logStep('Step 05: Verify OTP > Verify unit is delivered and accepted');
     await app.unitsDeliveryPage.typeVerifyOtpCode();
     await app.unitsDeliveryPage.clickOnVerify();
-
     expect(await app.unitsDeliveryPage.isUnitDeliveredAndAcceptedFromSakani()).toBe(true);
   });
 });

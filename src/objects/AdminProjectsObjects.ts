@@ -1,167 +1,153 @@
-export const AdminObjects = {
+export const AdminProjectObjects = {
   loginUsernameInput: 'input[type="text"]',
   loginPasswordInput: 'input[type="password"]',
   loginButton: {
-    role: "button",
-    name: "تسجيل الدخول",
+    role: 'button',
+    name: 'تسجيل الدخول',
   },
   otpInput: "//app-sakani-otp//input[@type='text']",
   otpConfirmButton: {
-    role: "button",
-    name: "تأكيد",
+    role: 'button',
+    name: 'تأكيد',
   },
   internalInventoryLink: {
-    selector: "a",
-    hasText: "المخزون الداخلي",
+    selector: 'a',
+    hasText: 'المخزون الداخلي',
   },
   projectsLink: {
-    role: "link",
-    name: "المشاريع",
+    role: 'link',
+    name: 'المشاريع',
   },
   resaleRequestsLink: {
-    role: "link",
-    name: " طلب إعادة البيع ",
+    role: 'link',
+    name: ' طلب إعادة البيع ',
   },
   addNewProjectButton: {
-    role: "button",
-    name: "إضافة مشروع جديد",
+    role: 'button',
+    name: 'إضافة مشروع جديد',
   },
   auctionsLink: {
-    selector: "a",
-    hasText: "المزادات",
+    selector: 'a',
+    hasText: 'المزادات',
   },
   auctionProjectsLink: {
-    role: "link",
-    name: "مشاريع المزاد",
+    role: 'link',
+    name: 'مشاريع المزاد',
   },
   newAuctionProjectButton: {
-    role: "button",
-    name: "مشروع مزاد جديد",
+    role: 'button',
+    name: 'مشروع مزاد جديد',
   },
   financialInstitutesLink: {
-    role: "link",
-    name: "المؤسسات التمويلية",
+    role: 'link',
+    name: 'المؤسسات التمويلية',
   },
   voucherManagementLink: {
-    role: "link",
-    name: "إدارة عروض سكني",
+    role: 'link',
+    name: 'إدارة عروض سكني',
   },
   regionSelectCombobox: {
-    role: "combobox",
+    role: 'combobox',
   },
   genericOption: {
-    role: "option",
+    role: 'option',
     exact: true,
   },
   projectNameField: {
-    container: "form-field-component",
-    label: "إسم المشروع *",
-    placeholder: "إسم المشروع",
+    container: 'form-field-component',
+    label: 'إسم المشروع *',
+    placeholder: 'إسم المشروع',
   },
-  projectTypeDropdown:
-    "//mat-select[@formcontrolname='project_type']",
+  projectTypeDropdown: "//mat-select[@formcontrolname='project_type']",
   async projectTypeOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
-  regionDropdown:
-    "//ng-select[@formcontrolname='region_id']",
+  regionDropdown: "//ng-select[@formcontrolname='region_id']",
   async regionOption(text: string) {
     return `//div[@role='option']/child::span[normalize-space() ='${text}']`;
   },
-  cityDropdown:
-    "//input[@id='inputCity']",
+  cityDropdown: "//input[@id='inputCity']",
   async cityOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
-  developerInput:
-    "//input[@id='inputDeveloper']",
+  developerInput: "//input[@id='inputDeveloper']",
   async developerOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
   bookableSwitch: {
-    role: "switch",
-    name: "قابل للحجز؟",
+    role: 'switch',
+    name: 'قابل للحجز؟',
   },
-  statusDropdown:
-    "//mat-select[@formcontrolname='status']",
+  statusDropdown: "//mat-select[@formcontrolname='status']",
   async projectStatusOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
   wafiExpiryDate: {
-    role: "textbox",
-    name: "تاريخ انتهاء رخصة البيع في وافي",
+    role: 'textbox',
+    name: 'تاريخ انتهاء رخصة البيع في وافي',
   },
-  subsidyTypeDropdown:
-    "//mat-select[@formcontrolname='subsidy_type']",
+  subsidyTypeDropdown: "//mat-select[@formcontrolname='subsidy_type']",
   async subsidyTypeOption(text: string) {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
-  maxSubsidyAmountField:
-    "//input[@formcontrolname='max_subsidy_amount']",
+  maxSubsidyAmountField: "//input[@formcontrolname='max_subsidy_amount']",
   projectAgreementDate: {
-    role: "textbox",
-    name: "تاريخ توقيع الاتفاقيه للمشروع",
+    role: 'textbox',
+    name: 'تاريخ توقيع الاتفاقيه للمشروع',
   },
   projectLicenseNumber: {
-    role: "textbox",
-    name: "رقم ترخيص المشروع",
+    role: 'textbox',
+    name: 'رقم ترخيص المشروع',
   },
   projectLicenseDate: {
-    role: "textbox",
-    name: "تاريخ ترخيص المشروع",
+    role: 'textbox',
+    name: 'تاريخ ترخيص المشروع',
   },
   escrowAccountName: {
-    role: "textbox",
-    name: "اسم حساب الضمان",
+    role: 'textbox',
+    name: 'اسم حساب الضمان',
   },
   escrowAccountNumber: {
-    role: "textbox",
-    name: "رقم حساب الضمان",
+    role: 'textbox',
+    name: 'رقم حساب الضمان',
   },
-  bankDropdown:
-    "//app-nsar-dropdown[@formcontrolname='bank_name']/descendant::ng-select",
+  bankDropdown: "//app-nsar-dropdown[@formcontrolname='bank_name']/descendant::ng-select",
   async bankOption(text: string) {
     return `//div[@role = 'option']/descendant::span[normalize-space() ='${text}']`;
   },
-  deductionPercentageField:
-    "//input[@formcontrolname='deduct_percentage']",
+  deductionPercentageField: "//input[@formcontrolname='deduct_percentage']",
   deedIssueCityArabic: {
-    role: "textbox",
-    name: "المدينة المصدر منها الصك (بالعربية)",
+    role: 'textbox',
+    name: 'المدينة المصدر منها الصك (بالعربية)',
   },
   deedIssueCityEnglish: {
-    role: "textbox",
-    name: "المدينة المصدر منها الصك (بالإنجليزية)",
+    role: 'textbox',
+    name: 'المدينة المصدر منها الصك (بالإنجليزية)',
   },
   deedDate: {
-    role: "textbox",
-    name: "DD/MM/YYYY",
+    role: 'textbox',
+    name: 'DD/MM/YYYY',
   },
   saveButton: {
-    role: "button",
-    name: "حفظ",
+    role: 'button',
+    name: 'حفظ',
   },
-  successToast: "//app-toasts",
+  successToast: '//app-toasts',
   saveSuccessMessage: {
-    text: "تم الحفظ بنجاح!",
+    text: 'تم الحفظ بنجاح!',
   },
-  financialInstituteArabicNameInput:
-    "//input[@formcontrolname='name']",
-  financialInstituteEnglishNameInput:
-    "//input[@formcontrolname='name_en']",
-  financialInstituteRealNameInput:
-    "//input[@formcontrolname='realname']",
-  financialInstituteSavedToast:
-    "//simple-snack-bar/child::div",
+  financialInstituteArabicNameInput: "//input[@formcontrolname='name']",
+  financialInstituteEnglishNameInput: "//input[@formcontrolname='name_en']",
+  financialInstituteRealNameInput: "//input[@formcontrolname='realname']",
+  financialInstituteSavedToast: '//simple-snack-bar/child::div',
   financialInstituteNameCell(text: string) {
     return `//datatable-body-cell[2]/descendant::span[normalize-space() = '${text}']`;
   },
   financialInstitutesNextPageButton: {
-    role: "button",
-    name: "التالى",
+    role: 'button',
+    name: 'التالى',
   },
-  azmToggle:
-    "//label[contains (text(), 'AZM')]/preceding-sibling::button",
+  azmToggle: "//label[contains (text(), 'AZM')]/preceding-sibling::button",
   financingEntitiesHeading: {
     text: /قائمة الجهات التمويلية/i,
   },
@@ -169,219 +155,213 @@ export const AdminObjects = {
     return `//datatable-body-cell[3]/descendant::span[normalize-space() = '${text}']`;
   },
   selectAllRowsCheckbox: {
-    role: "checkbox",
-    name: "Select all rows",
+    role: 'checkbox',
+    name: 'Select all rows',
   },
   banksCheckboxesValue: {
-    xpath: "//datatable-body-row"
+    xpath: '//datatable-body-row',
   },
   unitsTab: {
-    role: "tab",
-    name: "الوحدات",
+    role: 'tab',
+    name: 'الوحدات',
     exact: true,
   },
   importNewUnitButton: {
-    role: "button",
-    name: "استيراد وحدة جديدة",
+    role: 'button',
+    name: 'استيراد وحدة جديدة',
   },
   residentialUnitType: {
-    role: "combobox",
-    name: "نوع الوحدة السكنية",
+    role: 'combobox',
+    name: 'نوع الوحدة السكنية',
   },
   apartmentOption: {
-    role: "option",
-    name: "شقة",
+    role: 'option',
+    name: 'شقة',
   },
   unitsFileInput: "//input[@type='file']",
   importSaveButton: {
-    role: "button",
-    name: " حفظ",
+    role: 'button',
+    name: ' حفظ',
   },
-  importInProgressMessage:
-    "//div[text() = 'الرمز المرجعي للعملية']",
+  importInProgressMessage: "//div[text() = 'الرمز المرجعي للعملية']",
   importCompleteMessage: {
-    text: "تم الاستيراد بواسطة",
+    text: 'تم الاستيراد بواسطة',
   },
   approveButton: {
-    role: "button",
-    name: "اعتماد",
+    role: 'button',
+    name: 'اعتماد',
   },
   confirmButton: {
-    role: "button",
-    name: "موافق",
+    role: 'button',
+    name: 'موافق',
   },
   backButton: {
-    role: "button",
-    name: "رجوع",
+    role: 'button',
+    name: 'رجوع',
   },
   visualContentTab: {
-    selector: "span",
+    selector: 'span',
     text: /المحتوى المرئي/i,
   },
-  bannerImageInput:
-    "//h1[contains (text(), 'الصورة الإعلانية')]/parent::div/following-sibling::div/child::input[@type='file']",
-  masterPlanImageInput:
-    "//h1[contains (text(), 'ملف المخطط الرئيسي ')]/parent::div/following-sibling::div/child::input[@type='file']",
-  aerialImageInput:
-    "//h1[contains (text(), 'صورة العر')]/parent::div/following-sibling::div/child::input[@type='file']",
-  uploadButton:
-    "//mat-icon[contains (text(), 'file_upload')]",
+  bannerImageInput: "//h1[contains (text(), 'الصورة الإعلانية')]/parent::div/following-sibling::div/child::input[@type='file']",
+  masterPlanImageInput: "//h1[contains (text(), 'ملف المخطط الرئيسي ')]/parent::div/following-sibling::div/child::input[@type='file']",
+  aerialImageInput: "//h1[contains (text(), 'صورة العر')]/parent::div/following-sibling::div/child::input[@type='file']",
+  uploadButton: "//mat-icon[contains (text(), 'file_upload')]",
   displayMethodDropdown: {
-    selector: "div",
+    selector: 'div',
     text: /^Display method$/,
   },
   async displayMethodOption(text: string) {
     return `//div[@role='option']/child::span[normalize-space()='${text}']`;
   },
   detailsTitleArabic: {
-    role: "textbox",
-    name: "عنوان صفحة التفاصيل (باللغة العربية)",
+    role: 'textbox',
+    name: 'عنوان صفحة التفاصيل (باللغة العربية)',
   },
   detailsTitleEnglish: {
-    role: "textbox",
-    name: "عنوان صفحة التفاصيل (باللغة الإنجليزية)",
+    role: 'textbox',
+    name: 'عنوان صفحة التفاصيل (باللغة الإنجليزية)',
   },
   firstUnitReadyDate: {
-    role: "textbox",
-    name: "تاريخ جهوزية أول وحدة",
+    role: 'textbox',
+    name: 'تاريخ جهوزية أول وحدة',
   },
   nameArabic: {
-    role: "textbox",
-    name: "الاسم (باللغة العربية)",
+    role: 'textbox',
+    name: 'الاسم (باللغة العربية)',
   },
   nameEnglish: {
-    role: "textbox",
-    name: "الاسم (باللغة الإنجليزية)",
+    role: 'textbox',
+    name: 'الاسم (باللغة الإنجليزية)',
   },
   summaryArabic: {
-    role: "textbox",
-    name: "الملخص AR",
+    role: 'textbox',
+    name: 'الملخص AR',
   },
   summaryEnglish: {
-    role: "textbox",
-    name: "ملخص EN",
+    role: 'textbox',
+    name: 'ملخص EN',
   },
   descriptionArabic: {
-    role: "textbox",
-    name: "الوصف (باللغة العربية)",
+    role: 'textbox',
+    name: 'الوصف (باللغة العربية)',
   },
   descriptionEnglish: {
-    role: "textbox",
-    name: "الوصف (باللغة الإنجليزية)",
+    role: 'textbox',
+    name: 'الوصف (باللغة الإنجليزية)',
   },
   startingPrice: {
-    role: "textbox",
-    name: "السعر يبدأ من",
+    role: 'textbox',
+    name: 'السعر يبدأ من',
   },
   latitude: {
-    role: "spinbutton",
-    name: "خط العرض",
+    role: 'spinbutton',
+    name: 'خط العرض',
   },
   longitude: {
-    role: "spinbutton",
-    name: "خط الطول",
+    role: 'spinbutton',
+    name: 'خط الطول',
   },
-  uploadStatus:
-    "//button[contains (@class, 'uploadStatus')]",
-  guarenteeAfterServices:
-    "//input[@formcontrolname='guarantees_after_service']",
-  mediaSaveButton:
-    "#save_btn",
+  uploadStatus: "//button[contains (@class, 'uploadStatus')]",
+  guarenteeAfterServices: "//input[@formcontrolname='guarantees_after_service']",
+  mediaSaveButton: '#save_btn',
   projectDetailsTab: {
-    role: "tab",
-    name: "تفاصيل المشروع",
+    role: 'tab',
+    name: 'تفاصيل المشروع',
   },
   projectDetailsText: {
-    text: "تفاصيل المشروع",
+    text: 'تفاصيل المشروع',
   },
   requestMediaApprovalButton: {
-    role: "button",
-    name: "تقديم طلب موافقة على نشر المحتوى المرفوع",
+    role: 'button',
+    name: 'تقديم طلب موافقة على نشر المحتوى المرفوع',
   },
   acceptUploadedMediaButton: {
-    role: "button",
-    name: "قبول المحتوى المرئي المرفوع",
+    role: 'button',
+    name: 'قبول المحتوى المرئي المرفوع',
   },
   keepProjectUnpublishedButton: {
-    role: "button",
-    name: "إبقاء المشروع غير منشور",
+    role: 'button',
+    name: 'إبقاء المشروع غير منشور',
   },
   unitModelsSection: {
-    text: "نماذج الوحدات",
+    text: 'نماذج الوحدات',
   },
   unitModelCell: {
-    role: "cell",
-    name: "model_1",
+    role: 'cell',
+    name: 'model_1',
   },
   mediaDraftSection: {
-    text: "المحتوى المرئي ( مسودة )",
+    text: 'المحتوى المرئي ( مسودة )',
   },
   publishUnitButton: {
-    role: "button",
-    name: "وحدة النشر",
+    role: 'button',
+    name: 'وحدة النشر',
   },
   unitModelLink: {
-    selector: "a",
+    selector: 'a',
     text: /^model_\d+/,
   },
   projectStatusAvailableOption: {
-    role: "option",
-    name: "متاح",
+    role: 'option',
+    name: 'متاح',
   },
   mediaApprovalText: {
-    role: "tab",
-    name: "تمت الموافقة",
+    role: 'tab',
+    name: 'تمت الموافقة',
   },
   completionPercentageSwitch: {
-    role: "switch", name: "إظهار نسبة الإنجاز"
+    role: 'switch',
+    name: 'إظهار نسبة الإنجاز',
   },
   completionPercentageValue: {
-    xpath: "//mat-slide-toggle[@formcontrolname='completion_percentage_visible']/descendant::button"
+    xpath: "//mat-slide-toggle[@formcontrolname='completion_percentage_visible']/descendant::button",
   },
   partnerLink: {
-    selector: "a",
-    hasText: "شريك",
+    selector: 'a',
+    hasText: 'شريك',
   },
   neighbourGreetingLink: {
-    selector: "a",
-    hasText: "تحية الجار",
+    selector: 'a',
+    hasText: 'تحية الجار',
   },
 
   //Admin - list or real estate brokers and developers
   realEstateDevelopersLink: {
-    role: "link",
-    name: "شركات التطوير العقارية",
+    role: 'link',
+    name: 'شركات التطوير العقارية',
   },
   devloperNameInputField: {
-    xpath: "//input[@placeholder='اسم المطور']"
+    xpath: "//input[@placeholder='اسم المطور']",
   },
   devloperNameResult: {
-    xpath: "//datatable-body-cell[2]",
+    xpath: '//datatable-body-cell[2]',
     exact: true,
   },
   developerInformationPage: {
-    xpath: "//app-page-header/descendant::p"
+    xpath: '//app-page-header/descendant::p',
   },
   developarContactInofSwitch: {
-    role: "switch", name: "إظهار معلومات الاتصال"
+    role: 'switch',
+    name: 'إظهار معلومات الاتصال',
   },
   developarContactInofValue: {
-    xpath: "//mat-slide-toggle[@formcontrolname='show_contact_information']/descendant::button"
+    xpath: "//mat-slide-toggle[@formcontrolname='show_contact_information']/descendant::button",
   },
   developerPhoneNumberInputfiled: {
-    xpath: "//app-phone-input/descendant::input"
+    xpath: '//app-phone-input/descendant::input',
   },
-  bookingAvailableToggle:
-    "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
-  projectPublishedToggle:
-    "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
-  rightTabArrow:
-    "//mat-icon[contains (text(), 'chevron_right')]",
+  bookingAvailableToggle: "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
+  projectPublishedToggle: "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
+  rightTabArrow: "//mat-icon[contains (text(), 'chevron_right')]",
+  settingsSectionHeading: "//span[contains(text(), 'إعدادات المشاريع')]",
+  maxBookingsPerNonBeneInput: "//input[formcontrolname='maximum_booking_per_non_beneficiary']",
+  activateMultipleBookingToggleMob: "//mat-slide-toggle[@formcontrolname='active_multiple_bookings_for_web_mobile']/descendant::button",
+  activateMultipleBookingTogglePartner: "//mat-slide-toggle[@formcontrolname='active_multiple_bookings_for_partner']/descendant::button",
 
   //** Add, update or delete unit requests */
   accpetButton: {
-    role: "button",
-    name: "قبول"
+    role: 'button',
+    name: 'قبول',
   },
-
 } as const;

@@ -4,7 +4,7 @@ import { AdminLoyaltyPage } from './AdminLoyaltyPage';
 import { AdminProjectPage } from './AdminProjectPage';
 import { AdminLoyaltyObjects } from '@objects/AdminLoyaltyObjects';
 import { CommonMethods } from './utils/CommonMethods';
-import { AdminObjects } from '@objects/AdminProjectsObjects';
+import { AdminProjectObjects } from '@objects/AdminProjectsObjects';
 
 export class ElectronicAuctionProjectPage {
   private readonly page: Page;
@@ -112,7 +112,7 @@ export class ElectronicAuctionProjectPage {
     const saveButton = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.saveButton);
     await expect(saveButton).toBeVisible({ timeout: 30000 });
     await saveButton.click();
-    const toast = this.page.getByText(AdminObjects.saveSuccessMessage.text);
+    const toast = this.page.getByText(AdminProjectObjects.saveSuccessMessage.text);
     let isToastVisible = await toast.isVisible({ timeout: 30000 });
     if (!isToastVisible) {
       await saveButton.click();

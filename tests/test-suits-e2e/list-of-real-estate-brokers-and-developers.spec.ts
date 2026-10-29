@@ -3,7 +3,7 @@ import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects';
-import { AdminObjects } from '@objects/AdminProjectsObjects';
+import { AdminProjectObjects } from '@objects/AdminProjectsObjects';
 
 const SERVICE = 'list-of-real-estate-brokers-and-developers';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
@@ -25,7 +25,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
     await app.adminProjectPage.login(adminUrl, adminUsername, adminPassword);
     await logStep('Step 02: Navigate to brokers and developers page');
     await app.adminProjectPage.clickPartnerLink();
-    await app.filtersPage.clickElement(AdminObjects.realEstateDevelopersLink);
+    await app.filtersPage.clickElement(AdminProjectObjects.realEstateDevelopersLink);
 
     await logStep('Step 03: Search for developer/broker company');
     await app.adminProjectPage.fillDeveloperName(developerName);
@@ -77,7 +77,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
 
     await logStep('Step 02: Navigate to brokers and developers page');
     await app.adminProjectPage.clickPartnerLink();
-    await app.filtersPage.clickElement(AdminObjects.realEstateDevelopersLink);
+    await app.filtersPage.clickElement(AdminProjectObjects.realEstateDevelopersLink);
 
     await logStep('Step 03: Search for developer/broker company');
     await app.adminProjectPage.fillDeveloperName(developerName);
@@ -132,7 +132,7 @@ test.describe('List Of Real Estate Brokers And Developers', () => {
 
     await logStep('Step 02: Navigate to brokers and developers page');
     await app.adminProjectPage.clickPartnerLink();
-    await app.filtersPage.clickElement(AdminObjects.realEstateDevelopersLink);
+    await app.filtersPage.clickElement(AdminProjectObjects.realEstateDevelopersLink);
 
     await logStep('Step 03: Search for developer/broker company');
     await app.adminProjectPage.fillDeveloperName(developerName);

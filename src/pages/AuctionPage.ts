@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { expect } from '@playwright/test';
-import { AdminObjects } from '@objects/AdminProjectsObjects';
+import { AdminProjectObjects } from '@objects/AdminProjectsObjects';
 
 export class AuctionPage {
   constructor(page) {

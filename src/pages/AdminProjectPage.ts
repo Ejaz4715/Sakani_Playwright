@@ -1,4 +1,4 @@
-import { AdminObjects } from '@objects/AdminProjectsObjects';
+import { AdminProjectObjects } from '@objects/AdminProjectsObjects';
 import { expect, Page } from '@playwright/test';
 
 export class AdminProjectPage {
@@ -9,19 +9,19 @@ export class AdminProjectPage {
 
   async login(url: string, username: string, password: string, otp = '1234') {
     await this.page.goto(url);
-    await this.page.locator(AdminObjects.loginUsernameInput).fill(username);
-    await this.page.locator(AdminObjects.loginPasswordInput).fill(password);
+    await this.page.locator(AdminProjectObjects.loginUsernameInput).fill(username);
+    await this.page.locator(AdminProjectObjects.loginPasswordInput).fill(password);
     await this.page
-      .getByRole(AdminObjects.loginButton.role, {
-        name: AdminObjects.loginButton.name,
+      .getByRole(AdminProjectObjects.loginButton.role, {
+        name: AdminProjectObjects.loginButton.name,
       })
       .click();
-    const otpInput = this.page.locator(AdminObjects.otpInput);
+    const otpInput = this.page.locator(AdminProjectObjects.otpInput);
     await expect(otpInput).toBeVisible({ timeout: 30000 });
     await otpInput.fill(otp);
     await this.page
-      .getByRole(AdminObjects.otpConfirmButton.role, {
-        name: AdminObjects.otpConfirmButton.name,
+      .getByRole(AdminProjectObjects.otpConfirmButton.role, {
+        name: AdminProjectObjects.otpConfirmButton.name,
       })
       .click();
   }
@@ -34,31 +34,31 @@ export class AdminProjectPage {
 
   async clickProjectsLink() {
     await this.page
-      .getByRole(AdminObjects.projectsLink.role, {
-        name: AdminObjects.projectsLink.name,
+      .getByRole(AdminProjectObjects.projectsLink.role, {
+        name: AdminProjectObjects.projectsLink.name,
       })
       .click();
   }
 
   async clickAddNewProjectButton() {
     await this.page
-      .getByRole(AdminObjects.addNewProjectButton.role, {
-        name: AdminObjects.addNewProjectButton.name,
+      .getByRole(AdminProjectObjects.addNewProjectButton.role, {
+        name: AdminProjectObjects.addNewProjectButton.name,
       })
       .click();
   }
 
   async fillProjectName(projectName: string) {
     await this.page
-      .locator(AdminObjects.projectNameField.container)
-      .filter({ hasText: AdminObjects.projectNameField.label })
-      .getByPlaceholder(AdminObjects.projectNameField.placeholder)
+      .locator(AdminProjectObjects.projectNameField.container)
+      .filter({ hasText: AdminProjectObjects.projectNameField.label })
+      .getByPlaceholder(AdminProjectObjects.projectNameField.placeholder)
       .fill(projectName);
   }
 
   async selectProjectType(projectType: string) {
-    const projectTypeDropdown = this.page.locator(AdminObjects.projectTypeDropdown);
-    const projectTypeOption = this.page.locator(await AdminObjects.projectTypeOption(projectType));
+    const projectTypeDropdown = this.page.locator(AdminProjectObjects.projectTypeDropdown);
+    const projectTypeOption = this.page.locator(await AdminProjectObjects.projectTypeOption(projectType));
     for (let attempt = 0; attempt < 5; attempt++) {
       await projectTypeDropdown.click();
       if (await projectTypeOption.isVisible().catch(() => false)) {
@@ -71,145 +71,145 @@ export class AdminProjectPage {
   }
 
   async selectRegion(region: string) {
-    await this.page.locator(AdminObjects.regionDropdown).click();
-    const regionOption = await AdminObjects.regionOption(region);
+    await this.page.locator(AdminProjectObjects.regionDropdown).click();
+    const regionOption = await AdminProjectObjects.regionOption(region);
     await this.page.waitForTimeout(2000);
     await this.page.locator(regionOption).click();
   }
 
   async selectCity(city: string) {
-    await this.page.locator(AdminObjects.cityDropdown).click();
-    const cityOption = await AdminObjects.cityOption(city);
+    await this.page.locator(AdminProjectObjects.cityDropdown).click();
+    const cityOption = await AdminProjectObjects.cityOption(city);
     await this.page.locator(cityOption).click();
   }
 
   async selectDeveloperName(developerName: string) {
-    await this.page.locator(AdminObjects.developerInput).fill(developerName);
-    const developerOption = await AdminObjects.developerOption(developerName);
+    await this.page.locator(AdminProjectObjects.developerInput).fill(developerName);
+    const developerOption = await AdminProjectObjects.developerOption(developerName);
     await this.page.locator(developerOption).click();
   }
 
   async toggleBookableOn() {
     await this.page
-      .getByRole(AdminObjects.bookableSwitch.role, {
-        name: AdminObjects.bookableSwitch.name,
+      .getByRole(AdminProjectObjects.bookableSwitch.role, {
+        name: AdminProjectObjects.bookableSwitch.name,
       })
       .click();
   }
 
   async selectProjectStatus(status: string) {
-    await this.page.locator(AdminObjects.statusDropdown).click();
-    const projectStatusOption = await AdminObjects.projectStatusOption(status);
+    await this.page.locator(AdminProjectObjects.statusDropdown).click();
+    const projectStatusOption = await AdminProjectObjects.projectStatusOption(status);
     await this.page.locator(projectStatusOption).click();
   }
 
   async fillWafiLicenseExpiryDate(date: string) {
     await this.page
-      .getByRole(AdminObjects.wafiExpiryDate.role, {
-        name: AdminObjects.wafiExpiryDate.name,
+      .getByRole(AdminProjectObjects.wafiExpiryDate.role, {
+        name: AdminProjectObjects.wafiExpiryDate.name,
       })
       .fill(date);
   }
 
   async selectSubsidyType(option: string) {
-    await this.page.locator(AdminObjects.subsidyTypeDropdown).click();
-    const subsidyTypeOption = await AdminObjects.subsidyTypeOption(option);
+    await this.page.locator(AdminProjectObjects.subsidyTypeDropdown).click();
+    const subsidyTypeOption = await AdminProjectObjects.subsidyTypeOption(option);
     await this.page.locator(subsidyTypeOption).click();
   }
 
   async fillMaxSubsidyAmount(amount: string) {
-    await this.page.locator(AdminObjects.maxSubsidyAmountField).fill(amount);
+    await this.page.locator(AdminProjectObjects.maxSubsidyAmountField).fill(amount);
   }
 
   async fillProjectAgreementDate(date: string) {
     await this.page
-      .getByRole(AdminObjects.projectAgreementDate.role, {
-        name: AdminObjects.projectAgreementDate.name,
+      .getByRole(AdminProjectObjects.projectAgreementDate.role, {
+        name: AdminProjectObjects.projectAgreementDate.name,
       })
       .fill(date);
   }
 
   async fillProjectLicenseNumber(licenseNumber: string) {
     await this.page
-      .getByRole(AdminObjects.projectLicenseNumber.role, {
-        name: AdminObjects.projectLicenseNumber.name,
+      .getByRole(AdminProjectObjects.projectLicenseNumber.role, {
+        name: AdminProjectObjects.projectLicenseNumber.name,
       })
       .fill(licenseNumber);
   }
 
   async fillProjectLicenseDate(date: string) {
     await this.page
-      .getByRole(AdminObjects.projectLicenseDate.role, {
-        name: AdminObjects.projectLicenseDate.name,
+      .getByRole(AdminProjectObjects.projectLicenseDate.role, {
+        name: AdminProjectObjects.projectLicenseDate.name,
       })
       .fill(date);
   }
 
   async fillEscrowAccountName(accountName: string) {
     await this.page
-      .getByRole(AdminObjects.escrowAccountName.role, {
-        name: AdminObjects.escrowAccountName.name,
+      .getByRole(AdminProjectObjects.escrowAccountName.role, {
+        name: AdminProjectObjects.escrowAccountName.name,
       })
       .fill(accountName);
   }
 
   async fillEscrowAccountNumber(accountNumber: string) {
     await this.page
-      .getByRole(AdminObjects.escrowAccountNumber.role, {
-        name: AdminObjects.escrowAccountNumber.name,
+      .getByRole(AdminProjectObjects.escrowAccountNumber.role, {
+        name: AdminProjectObjects.escrowAccountNumber.name,
       })
       .fill(accountNumber);
   }
 
   async selectBank(bankName: string) {
-    await this.page.locator(AdminObjects.bankDropdown).first().click();
-    const bankOption = await AdminObjects.bankOption(bankName);
+    await this.page.locator(AdminProjectObjects.bankDropdown).first().click();
+    const bankOption = await AdminProjectObjects.bankOption(bankName);
     await this.page.locator(bankOption).click();
   }
 
   async fillDeductionPercentage(percentage: string) {
-    await this.page.locator(AdminObjects.deductionPercentageField).fill(percentage);
+    await this.page.locator(AdminProjectObjects.deductionPercentageField).fill(percentage);
   }
 
   async fillDeedIssueCityArabic(city: string) {
     await this.page
-      .getByRole(AdminObjects.deedIssueCityArabic.role, {
-        name: AdminObjects.deedIssueCityArabic.name,
+      .getByRole(AdminProjectObjects.deedIssueCityArabic.role, {
+        name: AdminProjectObjects.deedIssueCityArabic.name,
       })
       .fill(city);
   }
 
   async fillDeedIssueCityEnglish(city: string) {
     await this.page
-      .getByRole(AdminObjects.deedIssueCityEnglish.role, {
-        name: AdminObjects.deedIssueCityEnglish.name,
+      .getByRole(AdminProjectObjects.deedIssueCityEnglish.role, {
+        name: AdminProjectObjects.deedIssueCityEnglish.name,
       })
       .fill(city);
   }
 
   async fillDeedDate(date: string) {
     await this.page
-      .getByRole(AdminObjects.deedDate.role, {
-        name: AdminObjects.deedDate.name,
+      .getByRole(AdminProjectObjects.deedDate.role, {
+        name: AdminProjectObjects.deedDate.name,
       })
       .fill(date);
   }
 
   async clickSaveButton() {
     await this.page
-      .getByRole(AdminObjects.saveButton.role, {
-        name: AdminObjects.saveButton.name,
+      .getByRole(AdminProjectObjects.saveButton.role, {
+        name: AdminProjectObjects.saveButton.name,
       })
       .click();
   }
 
   async validateProjectSavedToastMessage() {
-    await expect(this.page.locator(AdminObjects.successToast).getByText(AdminObjects.saveSuccessMessage.text), 'Project saved message is not displayed').toBeVisible({ timeout: 120000 });
+    await expect(this.page.locator(AdminProjectObjects.successToast).getByText(AdminProjectObjects.saveSuccessMessage.text), 'Project saved message is not displayed').toBeVisible({ timeout: 120000 });
   }
 
   async linkProjectToAzm() {
     await this.page.waitForTimeout(3000);
-    const azmToggle = this.page.locator(AdminObjects.azmToggle);
+    const azmToggle = this.page.locator(AdminProjectObjects.azmToggle);
     if ((await azmToggle.getAttribute('aria-checked')) === 'false') {
       await azmToggle.click();
       await this.page.waitForTimeout(5000);
@@ -218,55 +218,55 @@ export class AdminProjectPage {
   }
 
   async expectFinancingEntitiesVisible() {
-    await expect(this.page.getByText(AdminObjects.financingEntitiesHeading.text)).toBeVisible({ timeout: 30000 });
+    await expect(this.page.getByText(AdminProjectObjects.financingEntitiesHeading.text)).toBeVisible({ timeout: 30000 });
   }
 
   async clickFinancingEntities() {
-    await this.page.getByText(AdminObjects.financingEntitiesHeading.text).click();
+    await this.page.getByText(AdminProjectObjects.financingEntitiesHeading.text).click();
   }
 
   async expectBankNameVisibility(targetName: string) {
-    const targetCell = this.page.locator(AdminObjects.financialEntitiesBankNameCell(targetName));
+    const targetCell = this.page.locator(AdminProjectObjects.financialEntitiesBankNameCell(targetName));
     await expect(targetCell, 'The updated bank name is not present').toBeVisible({ timeout: 30000 });
   }
 
   async expectSelectAllRowsVisible() {
     await expect(
-      this.page.getByRole(AdminObjects.selectAllRowsCheckbox.role, {
-        name: AdminObjects.selectAllRowsCheckbox.name,
+      this.page.getByRole(AdminProjectObjects.selectAllRowsCheckbox.role, {
+        name: AdminProjectObjects.selectAllRowsCheckbox.name,
       })
     ).toBeVisible({ timeout: 30000 });
   }
 
   async clickSelectAllRows() {
     await this.page
-      .getByRole(AdminObjects.selectAllRowsCheckbox.role, {
-        name: AdminObjects.selectAllRowsCheckbox.name,
+      .getByRole(AdminProjectObjects.selectAllRowsCheckbox.role, {
+        name: AdminProjectObjects.selectAllRowsCheckbox.name,
       })
       .click();
   }
 
   async clickUnitsTab() {
     await this.page
-      .getByRole(AdminObjects.unitsTab.role, {
-        name: AdminObjects.unitsTab.name,
-        exact: AdminObjects.unitsTab.exact,
+      .getByRole(AdminProjectObjects.unitsTab.role, {
+        name: AdminProjectObjects.unitsTab.name,
+        exact: AdminProjectObjects.unitsTab.exact,
       })
       .click();
   }
 
   async expectImportNewUnitButtonVisible() {
     await expect(
-      this.page.getByRole(AdminObjects.importNewUnitButton.role, {
-        name: AdminObjects.importNewUnitButton.name,
+      this.page.getByRole(AdminProjectObjects.importNewUnitButton.role, {
+        name: AdminProjectObjects.importNewUnitButton.name,
       })
     ).toBeVisible({ timeout: 30000 });
   }
 
   async clickImportNewUnitButton() {
     await this.page
-      .getByRole(AdminObjects.importNewUnitButton.role, {
-        name: AdminObjects.importNewUnitButton.name,
+      .getByRole(AdminProjectObjects.importNewUnitButton.role, {
+        name: AdminProjectObjects.importNewUnitButton.name,
       })
       .click();
   }
@@ -274,8 +274,8 @@ export class AdminProjectPage {
   async expectResidentialUnitTypeVisible() {
     this.page.waitForTimeout(3000);
     await expect(
-      this.page.getByRole(AdminObjects.residentialUnitType.role, {
-        name: AdminObjects.residentialUnitType.name,
+      this.page.getByRole(AdminProjectObjects.residentialUnitType.role, {
+        name: AdminProjectObjects.residentialUnitType.name,
       })
     ).toBeVisible({ timeout: 30000 });
   }
@@ -283,8 +283,8 @@ export class AdminProjectPage {
   async openResidentialUnitTypeDropdown() {
     this.page.waitForTimeout(7000);
     await this.page
-      .getByRole(AdminObjects.residentialUnitType.role, {
-        name: AdminObjects.residentialUnitType.name,
+      .getByRole(AdminProjectObjects.residentialUnitType.role, {
+        name: AdminProjectObjects.residentialUnitType.name,
       })
       .click();
   }
@@ -292,21 +292,21 @@ export class AdminProjectPage {
   async selectApartmentUnitType() {
     this.page.waitForTimeout(1000);
     await this.page
-      .getByRole(AdminObjects.apartmentOption.role, {
-        name: AdminObjects.apartmentOption.name,
+      .getByRole(AdminProjectObjects.apartmentOption.role, {
+        name: AdminProjectObjects.apartmentOption.name,
       })
       .click();
   }
 
   async uploadUnitsFile(filePath: string) {
-    const fileInput = this.page.locator(AdminObjects.unitsFileInput);
+    const fileInput = this.page.locator(AdminProjectObjects.unitsFileInput);
     await fileInput.setInputFiles(filePath);
   }
 
   async clickImportSaveButton() {
     await this.page
-      .getByRole(AdminObjects.importSaveButton.role, {
-        name: AdminObjects.importSaveButton.name,
+      .getByRole(AdminProjectObjects.importSaveButton.role, {
+        name: AdminProjectObjects.importSaveButton.name,
       })
       .click();
   }
@@ -318,7 +318,7 @@ export class AdminProjectPage {
       await this.page.reload();
       await this.page.waitForTimeout(3000);
       completed = await this.page
-        .getByText(AdminObjects.importCompleteMessage.text)
+        .getByText(AdminProjectObjects.importCompleteMessage.text)
         .isVisible()
         .catch(() => false);
       if (!completed) {
@@ -329,16 +329,16 @@ export class AdminProjectPage {
 
   async clickApproveButton() {
     await this.page
-      .getByRole(AdminObjects.approveButton.role, {
-        name: AdminObjects.approveButton.name,
+      .getByRole(AdminProjectObjects.approveButton.role, {
+        name: AdminProjectObjects.approveButton.name,
       })
       .click();
   }
 
   async clickConfirmButton() {
     await this.page
-      .getByRole(AdminObjects.confirmButton.role, {
-        name: AdminObjects.confirmButton.name,
+      .getByRole(AdminProjectObjects.confirmButton.role, {
+        name: AdminProjectObjects.confirmButton.name,
       })
       .click();
   }
@@ -349,209 +349,209 @@ export class AdminProjectPage {
 
   async clickBackButton() {
     await this.page
-      .getByRole(AdminObjects.backButton.role, {
-        name: AdminObjects.backButton.name,
+      .getByRole(AdminProjectObjects.backButton.role, {
+        name: AdminProjectObjects.backButton.name,
       })
       .click();
   }
 
   async clickProjectMediaTab() {
-    await this.page.locator(AdminObjects.visualContentTab.selector).filter({ hasText: AdminObjects.visualContentTab.text }).first().click();
+    await this.page.locator(AdminProjectObjects.visualContentTab.selector).filter({ hasText: AdminProjectObjects.visualContentTab.text }).first().click();
   }
 
   async uploadBannerImage(filePath: string) {
-    const bannerImageInput = this.page.locator(AdminObjects.bannerImageInput);
+    const bannerImageInput = this.page.locator(AdminProjectObjects.bannerImageInput);
     await bannerImageInput.setInputFiles(filePath);
   }
 
   async uploadMasterPlanImage(filePath: string) {
-    const masterPlanImageInput = this.page.locator(AdminObjects.masterPlanImageInput);
+    const masterPlanImageInput = this.page.locator(AdminProjectObjects.masterPlanImageInput);
     await masterPlanImageInput.setInputFiles(filePath);
   }
 
   async uploadAerialImage(filePath: string) {
-    const aerialImageInput = this.page.locator(AdminObjects.aerialImageInput);
+    const aerialImageInput = this.page.locator(AdminProjectObjects.aerialImageInput);
     await aerialImageInput.setInputFiles(filePath);
   }
 
   async clickUploadButton() {
-    await this.page.locator(AdminObjects.uploadButton).click();
+    await this.page.locator(AdminProjectObjects.uploadButton).click();
     await this.page.waitForTimeout(2000);
   }
 
   async selectDisplayMethod(option: string) {
-    await this.page.locator(AdminObjects.displayMethodDropdown.selector).filter({ hasText: AdminObjects.displayMethodDropdown.text }).first().click();
-    const displayMethodOption = await AdminObjects.displayMethodOption(option);
+    await this.page.locator(AdminProjectObjects.displayMethodDropdown.selector).filter({ hasText: AdminProjectObjects.displayMethodDropdown.text }).first().click();
+    const displayMethodOption = await AdminProjectObjects.displayMethodOption(option);
     await this.page.locator(displayMethodOption).click();
   }
 
   async fillDetailsTitleArabic(value: string) {
     await this.page
-      .getByRole(AdminObjects.detailsTitleArabic.role, {
-        name: AdminObjects.detailsTitleArabic.name,
+      .getByRole(AdminProjectObjects.detailsTitleArabic.role, {
+        name: AdminProjectObjects.detailsTitleArabic.name,
       })
       .fill(value);
   }
 
   async fillDetailsTitleEnglish(value: string) {
     await this.page
-      .getByRole(AdminObjects.detailsTitleEnglish.role, {
-        name: AdminObjects.detailsTitleEnglish.name,
+      .getByRole(AdminProjectObjects.detailsTitleEnglish.role, {
+        name: AdminProjectObjects.detailsTitleEnglish.name,
       })
       .fill(value);
   }
 
   async fillFirstUnitReadyDate(value: string) {
     await this.page
-      .getByRole(AdminObjects.firstUnitReadyDate.role, {
-        name: AdminObjects.firstUnitReadyDate.name,
+      .getByRole(AdminProjectObjects.firstUnitReadyDate.role, {
+        name: AdminProjectObjects.firstUnitReadyDate.name,
       })
       .fill(value);
   }
 
   async fillNameArabic(value: string) {
     await this.page
-      .getByRole(AdminObjects.nameArabic.role, {
-        name: AdminObjects.nameArabic.name,
+      .getByRole(AdminProjectObjects.nameArabic.role, {
+        name: AdminProjectObjects.nameArabic.name,
       })
       .fill(value);
   }
 
   async fillNameEnglish(value: string) {
     await this.page
-      .getByRole(AdminObjects.nameEnglish.role, {
-        name: AdminObjects.nameEnglish.name,
+      .getByRole(AdminProjectObjects.nameEnglish.role, {
+        name: AdminProjectObjects.nameEnglish.name,
       })
       .fill(value);
   }
 
   async fillSummaryArabic(value: string) {
     await this.page
-      .getByRole(AdminObjects.summaryArabic.role, {
-        name: AdminObjects.summaryArabic.name,
+      .getByRole(AdminProjectObjects.summaryArabic.role, {
+        name: AdminProjectObjects.summaryArabic.name,
       })
       .fill(value);
   }
 
   async fillSummaryEnglish(value: string) {
     await this.page
-      .getByRole(AdminObjects.summaryEnglish.role, {
-        name: AdminObjects.summaryEnglish.name,
+      .getByRole(AdminProjectObjects.summaryEnglish.role, {
+        name: AdminProjectObjects.summaryEnglish.name,
       })
       .fill(value);
   }
 
   async fillDescriptionArabic(value: string) {
     await this.page
-      .getByRole(AdminObjects.descriptionArabic.role, {
-        name: AdminObjects.descriptionArabic.name,
+      .getByRole(AdminProjectObjects.descriptionArabic.role, {
+        name: AdminProjectObjects.descriptionArabic.name,
       })
       .fill(value);
   }
 
   async fillDescriptionEnglish(value: string) {
     await this.page
-      .getByRole(AdminObjects.descriptionEnglish.role, {
-        name: AdminObjects.descriptionEnglish.name,
+      .getByRole(AdminProjectObjects.descriptionEnglish.role, {
+        name: AdminProjectObjects.descriptionEnglish.name,
       })
       .fill(value);
   }
 
   async fillStartingPrice(value: string) {
     await this.page
-      .getByRole(AdminObjects.startingPrice.role, {
-        name: AdminObjects.startingPrice.name,
+      .getByRole(AdminProjectObjects.startingPrice.role, {
+        name: AdminProjectObjects.startingPrice.name,
       })
       .fill(value);
   }
 
   async fillLatitude(value: string) {
     await this.page
-      .getByRole(AdminObjects.latitude.role, {
-        name: AdminObjects.latitude.name,
+      .getByRole(AdminProjectObjects.latitude.role, {
+        name: AdminProjectObjects.latitude.name,
       })
       .fill(value);
   }
 
   async fillLongitude(value: string) {
     await this.page
-      .getByRole(AdminObjects.longitude.role, {
-        name: AdminObjects.longitude.name,
+      .getByRole(AdminProjectObjects.longitude.role, {
+        name: AdminProjectObjects.longitude.name,
       })
       .fill(value);
   }
   async expectMediaUploadComplete(index: number) {
-    await expect(this.page.locator(AdminObjects.uploadStatus).nth(index)).toBeVisible({
+    await expect(this.page.locator(AdminProjectObjects.uploadStatus).nth(index)).toBeVisible({
       timeout: 120000,
     });
     await this.page.waitForTimeout(1500);
   }
 
   async fillGuaranteeAfterServices(value: string) {
-    await this.page.locator(AdminObjects.guarenteeAfterServices).fill(value);
+    await this.page.locator(AdminProjectObjects.guarenteeAfterServices).fill(value);
   }
 
   async clickMediaSaveButton() {
-    await this.page.locator(AdminObjects.mediaSaveButton).click();
+    await this.page.locator(AdminProjectObjects.mediaSaveButton).click();
     await this.page.waitForTimeout(3000);
   }
 
   async clickProjectDetailsTab() {
     await this.page
-      .getByRole(AdminObjects.projectDetailsTab.role, {
-        name: AdminObjects.projectDetailsTab.name,
+      .getByRole(AdminProjectObjects.projectDetailsTab.role, {
+        name: AdminProjectObjects.projectDetailsTab.name,
       })
       .click();
   }
 
   async clickProjectDetailsText() {
-    await this.page.getByText(AdminObjects.projectDetailsText.text).click();
+    await this.page.getByText(AdminProjectObjects.projectDetailsText.text).click();
   }
 
   async clickRequestMediaApprovalButton() {
     await this.page
-      .getByRole(AdminObjects.requestMediaApprovalButton.role, {
-        name: AdminObjects.requestMediaApprovalButton.name,
+      .getByRole(AdminProjectObjects.requestMediaApprovalButton.role, {
+        name: AdminProjectObjects.requestMediaApprovalButton.name,
       })
       .click();
   }
 
   async clickAcceptUploadedMediaButton() {
     await this.page
-      .getByRole(AdminObjects.acceptUploadedMediaButton.role, {
-        name: AdminObjects.acceptUploadedMediaButton.name,
+      .getByRole(AdminProjectObjects.acceptUploadedMediaButton.role, {
+        name: AdminProjectObjects.acceptUploadedMediaButton.name,
       })
       .click();
   }
 
   async clickKeepProjectUnpublishedButton() {
     await this.page
-      .getByRole(AdminObjects.keepProjectUnpublishedButton.role, {
-        name: AdminObjects.keepProjectUnpublishedButton.name,
+      .getByRole(AdminProjectObjects.keepProjectUnpublishedButton.role, {
+        name: AdminProjectObjects.keepProjectUnpublishedButton.name,
       })
       .click();
   }
 
   async clickUnitModelsSection() {
-    await this.page.getByText(AdminObjects.unitModelsSection.text).click();
+    await this.page.getByText(AdminProjectObjects.unitModelsSection.text).click();
   }
 
   async clickUnitModelCell() {
     await this.page
-      .getByRole(AdminObjects.unitModelCell.role, {
-        name: AdminObjects.unitModelCell.name,
+      .getByRole(AdminProjectObjects.unitModelCell.role, {
+        name: AdminProjectObjects.unitModelCell.name,
       })
       .click();
   }
 
   async clickMediaDraftSection() {
-    await this.page.getByText(AdminObjects.mediaDraftSection.text).click();
+    await this.page.getByText(AdminProjectObjects.mediaDraftSection.text).click();
   }
 
   async clickPublishUnitButton() {
     this.checkMediaApproveButton();
-    const publishButton = this.page.getByRole(AdminObjects.publishUnitButton.role, {
-      name: AdminObjects.publishUnitButton.name,
+    const publishButton = this.page.getByRole(AdminProjectObjects.publishUnitButton.role, {
+      name: AdminProjectObjects.publishUnitButton.name,
     });
     await publishButton.click();
     while (true) {
@@ -562,8 +562,8 @@ export class AdminProjectPage {
   }
 
   async checkMediaApproveButton() {
-    const approveMediaButton = this.page.getByRole(AdminObjects.acceptUploadedMediaButton.role, {
-      name: AdminObjects.acceptUploadedMediaButton.name,
+    const approveMediaButton = this.page.getByRole(AdminProjectObjects.acceptUploadedMediaButton.role, {
+      name: AdminProjectObjects.acceptUploadedMediaButton.name,
     });
     while (true) {
       await this.page.waitForTimeout(3000);
@@ -573,17 +573,17 @@ export class AdminProjectPage {
   }
 
   async clickUnitModelLink() {
-    const unitModelLink = this.page.locator(AdminObjects.unitModelLink.selector).filter({ hasText: AdminObjects.unitModelLink.text });
+    const unitModelLink = this.page.locator(AdminProjectObjects.unitModelLink.selector).filter({ hasText: AdminProjectObjects.unitModelLink.text });
     await unitModelLink.waitFor({ state: 'visible' });
     await unitModelLink.click();
     await this.page.waitForTimeout(3000);
-    const chevronElement = this.page.locator(AdminObjects.rightTabArrow);
+    const chevronElement = this.page.locator(AdminProjectObjects.rightTabArrow);
     if (await chevronElement.isVisible().catch(() => false)) await chevronElement.click();
   }
 
   async waitForMediaApproval() {
-    const visualContentTab = this.page.getByRole(AdminObjects.mediaApprovalText.role, {
-      name: AdminObjects.mediaApprovalText.name,
+    const visualContentTab = this.page.getByRole(AdminProjectObjects.mediaApprovalText.role, {
+      name: AdminProjectObjects.mediaApprovalText.name,
     });
     while (!(await visualContentTab.isVisible().catch(() => false))) {
       await this.page.reload();
@@ -593,16 +593,16 @@ export class AdminProjectPage {
   }
 
   async selectAvailableProjectStatus() {
-    await this.page.locator(AdminObjects.statusDropdown).click();
+    await this.page.locator(AdminProjectObjects.statusDropdown).click();
     await this.page
-      .getByRole(AdminObjects.projectStatusAvailableOption.role, {
-        name: AdminObjects.projectStatusAvailableOption.name,
+      .getByRole(AdminProjectObjects.projectStatusAvailableOption.role, {
+        name: AdminProjectObjects.projectStatusAvailableOption.name,
       })
       .click();
   }
 
   async enableAvailableForBookingToggle() {
-    const bookingToggle = this.page.locator(AdminObjects.bookingAvailableToggle);
+    const bookingToggle = this.page.locator(AdminProjectObjects.bookingAvailableToggle);
     await expect(bookingToggle).toBeVisible({ timeout: 30000 });
     if ((await bookingToggle.getAttribute('aria-checked')) === 'false') {
       await bookingToggle.click();
@@ -612,7 +612,7 @@ export class AdminProjectPage {
 
   async publishProject() {
     await this.waitForMediaApproval();
-    const publishedToggle = this.page.locator(AdminObjects.projectPublishedToggle);
+    const publishedToggle = this.page.locator(AdminProjectObjects.projectPublishedToggle);
     await expect(publishedToggle).toBeVisible({ timeout: 30000 });
     if ((await publishedToggle.getAttribute('aria-checked')) === 'false') {
       await publishedToggle.click();
@@ -644,26 +644,26 @@ export class AdminProjectPage {
   async openResaleRequests() {
     await this.clickInternalInventory();
     await this.page
-      .getByRole(AdminObjects.resaleRequestsLink.role, {
-        name: AdminObjects.resaleRequestsLink.name,
+      .getByRole(AdminProjectObjects.resaleRequestsLink.role, {
+        name: AdminProjectObjects.resaleRequestsLink.name,
       })
       .click();
   }
 
   async clickInternalInventory() {
-    await this.page.locator(AdminObjects.internalInventoryLink.selector).filter({ hasText: AdminObjects.internalInventoryLink.hasText }).click();
+    await this.page.locator(AdminProjectObjects.internalInventoryLink.selector).filter({ hasText: AdminProjectObjects.internalInventoryLink.hasText }).click();
   }
 
   async openAuctionCreation() {
-    await this.page.locator(AdminObjects.auctionsLink.selector).filter({ hasText: AdminObjects.auctionsLink.hasText }).click();
+    await this.page.locator(AdminProjectObjects.auctionsLink.selector).filter({ hasText: AdminProjectObjects.auctionsLink.hasText }).click();
     await this.page
-      .getByRole(AdminObjects.auctionProjectsLink.role, {
-        name: AdminObjects.auctionProjectsLink.name,
+      .getByRole(AdminProjectObjects.auctionProjectsLink.role, {
+        name: AdminProjectObjects.auctionProjectsLink.name,
       })
       .click();
     await this.page
-      .getByRole(AdminObjects.newAuctionProjectButton.role, {
-        name: AdminObjects.newAuctionProjectButton.name,
+      .getByRole(AdminProjectObjects.newAuctionProjectButton.role, {
+        name: AdminProjectObjects.newAuctionProjectButton.name,
       })
       .click();
   }
@@ -673,13 +673,13 @@ export class AdminProjectPage {
   }
 
   async clickNeighbourGreeting() {
-    await this.page.locator(AdminObjects.neighbourGreetingLink.selector).filter({ hasText: AdminObjects.neighbourGreetingLink.hasText }).click();
+    await this.page.locator(AdminProjectObjects.neighbourGreetingLink.selector).filter({ hasText: AdminProjectObjects.neighbourGreetingLink.hasText }).click();
   }
 
   async openVoucherManagement() {
     await this.page
-      .getByRole(AdminObjects.voucherManagementLink.role, {
-        name: AdminObjects.voucherManagementLink.name,
+      .getByRole(AdminProjectObjects.voucherManagementLink.role, {
+        name: AdminProjectObjects.voucherManagementLink.name,
       })
       .click();
   }
@@ -687,35 +687,35 @@ export class AdminProjectPage {
   async openFinancialInstitutes() {
     await this.clickPartner();
     await this.page
-      .getByRole(AdminObjects.financialInstitutesLink.role, {
-        name: AdminObjects.financialInstitutesLink.name,
+      .getByRole(AdminProjectObjects.financialInstitutesLink.role, {
+        name: AdminProjectObjects.financialInstitutesLink.name,
       })
       .click();
   }
 
   async selectRegionAndCity(region = 'الرياض') {
-    await this.page.locator(AdminObjects.regionDropdown).getByRole(AdminObjects.regionSelectCombobox.role).click();
+    await this.page.locator(AdminProjectObjects.regionDropdown).getByRole(AdminProjectObjects.regionSelectCombobox.role).click();
     await this.page.getByText(region).click();
-    await this.page.locator(AdminObjects.cityDropdown).click();
+    await this.page.locator(AdminProjectObjects.cityDropdown).click();
     await this.page
-      .getByRole(AdminObjects.genericOption.role, {
+      .getByRole(AdminProjectObjects.genericOption.role, {
         name: region,
-        exact: AdminObjects.genericOption.exact,
+        exact: AdminProjectObjects.genericOption.exact,
       })
       .click();
   }
 
   async saveAndExpectSuccess() {
     await this.clickSaveButton();
-    await expect(this.page.getByText(AdminObjects.saveSuccessMessage.text)).toBeVisible({
+    await expect(this.page.getByText(AdminProjectObjects.saveSuccessMessage.text)).toBeVisible({
       timeout: 120000,
     });
   }
 
   async clickCompletionPercentageSwitch(shouldBeChecked: boolean) {
-    const completionPercentageSwitch = this.page.getByRole(AdminObjects.completionPercentageSwitch.role, { name: AdminObjects.completionPercentageSwitch.name });
+    const completionPercentageSwitch = this.page.getByRole(AdminProjectObjects.completionPercentageSwitch.role, { name: AdminProjectObjects.completionPercentageSwitch.name });
 
-    const completionPercentageValue = this.page.locator(AdminObjects.completionPercentageValue.xpath);
+    const completionPercentageValue = this.page.locator(AdminProjectObjects.completionPercentageValue.xpath);
 
     await expect(completionPercentageValue).toBeVisible();
     const isChecked = (await completionPercentageValue.getAttribute('aria-checked')) === 'true';
@@ -726,7 +726,7 @@ export class AdminProjectPage {
   }
 
   async clickSelectAllRowsForBankClassState(shouldNotContainActive: boolean) {
-    const bankRows = this.page.locator(AdminObjects.banksCheckboxesValue.xpath);
+    const bankRows = this.page.locator(AdminProjectObjects.banksCheckboxesValue.xpath);
     await expect(bankRows.first()).toBeVisible({ timeout: 30000 });
     const rowCount = await bankRows.count();
 
@@ -750,10 +750,10 @@ export class AdminProjectPage {
   }
 
   async clickPartnerLink() {
-    await this.page.locator(AdminObjects.partnerLink.selector).filter({ hasText: AdminObjects.partnerLink.hasText }).click();
+    await this.page.locator(AdminProjectObjects.partnerLink.selector).filter({ hasText: AdminProjectObjects.partnerLink.hasText }).click();
   }
   async fillDeveloperName(developerName: string) {
-    const developerNameInputfield = this.page.locator(AdminObjects.devloperNameInputField.xpath);
+    const developerNameInputfield = this.page.locator(AdminProjectObjects.devloperNameInputField.xpath);
     await this.page.waitForTimeout(2000);
     await expect(developerNameInputfield).toBeVisible({ timeout: 90000 });
     await developerNameInputfield.fill(developerName);
@@ -762,27 +762,27 @@ export class AdminProjectPage {
   }
 
   async clickOnDeveloperNameResult(value: string | number) {
-    const developerNameResult = this.page.locator(AdminObjects.devloperNameResult.xpath).getByText(String(value), {
-      exact: AdminObjects.devloperNameResult.exact,
+    const developerNameResult = this.page.locator(AdminProjectObjects.devloperNameResult.xpath).getByText(String(value), {
+      exact: AdminProjectObjects.devloperNameResult.exact,
     });
     await expect(developerNameResult).toBeVisible({ timeout: 90000 });
     await developerNameResult.click();
   }
 
   async verifyDeveloperInformationPageText(expectedText: string) {
-    await expect(this.page.locator(AdminObjects.developerInformationPage.xpath)).toHaveText(expectedText);
+    await expect(this.page.locator(AdminProjectObjects.developerInformationPage.xpath)).toHaveText(expectedText);
   }
   async fillDeveloperPhoneNumber(developerPhoneNumber: string) {
-    const developerPhoneNumberInputfiled = this.page.locator(AdminObjects.developerPhoneNumberInputfiled.xpath);
+    const developerPhoneNumberInputfiled = this.page.locator(AdminProjectObjects.developerPhoneNumberInputfiled.xpath);
 
     await expect(developerPhoneNumberInputfiled).toBeVisible({ timeout: 90000 });
     await developerPhoneNumberInputfiled.fill(developerPhoneNumber);
   }
 
   async clickDeveloperContactInfoSwitch(shouldBeChecked: boolean) {
-    const developarContactInofSwitch = this.page.getByRole(AdminObjects.developarContactInofSwitch.role, { name: AdminObjects.developarContactInofSwitch.name });
+    const developarContactInofSwitch = this.page.getByRole(AdminProjectObjects.developarContactInofSwitch.role, { name: AdminProjectObjects.developarContactInofSwitch.name });
 
-    const developarContactInofValue = this.page.locator(AdminObjects.developarContactInofValue.xpath);
+    const developarContactInofValue = this.page.locator(AdminProjectObjects.developarContactInofValue.xpath);
     await expect(developarContactInofValue).toBeVisible();
     const isChecked = (await developarContactInofValue.getAttribute('aria-checked')) === 'true';
     if (isChecked !== shouldBeChecked) {
@@ -793,7 +793,7 @@ export class AdminProjectPage {
 
   async searchFinancialInstitute(targetName: string) {
     while (true) {
-      const targetCell = this.page.locator(AdminObjects.financialInstituteNameCell(targetName));
+      const targetCell = this.page.locator(AdminProjectObjects.financialInstituteNameCell(targetName));
 
       // 2. Check if the cell is visible on the current page
       const isPresent = await targetCell.isVisible({ timeout: 20000 });
@@ -803,45 +803,65 @@ export class AdminProjectPage {
       }
 
       // 3. Move to the next page using your exact Arabic locator
-      const nextButton = this.page.getByRole(AdminObjects.financialInstitutesNextPageButton.role, { name: AdminObjects.financialInstitutesNextPageButton.name });
+      const nextButton = this.page.getByRole(AdminProjectObjects.financialInstitutesNextPageButton.role, { name: AdminProjectObjects.financialInstitutesNextPageButton.name });
       await nextButton.click();
       await this.page.waitForTimeout(3000);
     }
   }
 
   async fillFinancialInstituteArabicName(name: string) {
-    await this.page.locator(AdminObjects.financialInstituteArabicNameInput).fill(name);
+    await this.page.locator(AdminProjectObjects.financialInstituteArabicNameInput).fill(name);
   }
 
   async fillFinancialInstituteEnglishName(name: string) {
-    await this.page.locator(AdminObjects.financialInstituteEnglishNameInput).fill(name);
+    await this.page.locator(AdminProjectObjects.financialInstituteEnglishNameInput).fill(name);
   }
 
   async fillFinancialInstituteRealName(name: string) {
-    await this.page.locator(AdminObjects.financialInstituteRealNameInput).fill(name);
+    await this.page.locator(AdminProjectObjects.financialInstituteRealNameInput).fill(name);
   }
 
   async clickFinancialInstituteSaveButton() {
     await this.page
-      .getByRole(AdminObjects.saveButton.role, {
-        name: AdminObjects.saveButton.name,
+      .getByRole(AdminProjectObjects.saveButton.role, {
+        name: AdminProjectObjects.saveButton.name,
       })
       .click();
   }
 
   async expectFinancialInstituteSavedToast() {
-    await expect(this.page.locator(AdminObjects.financialInstituteSavedToast)).toHaveText(AdminObjects.saveSuccessMessage.text);
+    await expect(this.page.locator(AdminProjectObjects.financialInstituteSavedToast)).toHaveText(AdminProjectObjects.saveSuccessMessage.text);
   }
 
   async clickAcceptButton() {
     await this.page
-      .getByRole(AdminObjects.accpetButton.role, {
-        name: AdminObjects.accpetButton.name,
+      .getByRole(AdminProjectObjects.accpetButton.role, {
+        name: AdminProjectObjects.accpetButton.name,
       })
       .click();
   }
 
   async validateSuccessToastMessageText(text: string) {
-    await expect(this.page.locator(AdminObjects.successToast).getByText(text), 'Success toast message is not preset').toBeVisible({ timeout: 120000 });
+    await expect(this.page.locator(AdminProjectObjects.successToast).getByText(text), 'Success toast message is not preset').toBeVisible({ timeout: 120000 });
+  }
+
+  async expandProjectSettingsSection() {
+    const settings = this.page.locator(AdminProjectObjects.settingsSectionHeading);
+    await settings.waitFor({ state: 'visible', timeout: 20000 });
+    await settings.click();
+  }
+
+  async activateMultipleBookingToggles() {
+    const partnerMultipleBooking = this.page.locator(AdminProjectObjects.activateMultipleBookingToggleMob);
+    const mobMultipleBooking = this.page.locator(AdminProjectObjects.activateMultipleBookingTogglePartner);
+    await partnerMultipleBooking.waitFor({ state: 'visible', timeout: 20000 });
+    await partnerMultipleBooking.click();
+    await mobMultipleBooking.click();
+  }
+
+  async fillMaxBookingPerNonBene(maxBookings: string) {
+    const maxBookingTextbox = this.page.locator(AdminProjectObjects.maxBookingsPerNonBeneInput);
+    await maxBookingTextbox.waitFor({ state: 'visible', timeout: 20000 });
+    await maxBookingTextbox.fill(maxBookings);
   }
 }

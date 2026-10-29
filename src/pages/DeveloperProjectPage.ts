@@ -430,14 +430,6 @@ export class DeveloperProjectPage {
     await this.waitAndClick(this.page.locator(DeveloperObjects.continueBookingButton));
   }
 
-  async clickOnBankDropdown() {
-    await this.waitAndClick(this.page.locator(DeveloperObjects.bankSelector));
-  }
-
-  async selectCRMBank() {
-    await this.waitAndClick(this.page.locator(DeveloperObjects.crmBankSelector));
-  }
-
   async confirmBookingForCompanies() {
     await this.waitAndClick(this.page.locator(DeveloperObjects.confirmCompanyBooking));
   }

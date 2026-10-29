@@ -4,14 +4,13 @@ import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
-import readResaleData from '@data/test-data.json';
 
 const SERVICE = 'resale-of-units';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Resale Of Units - With Unknown Buyer', () => {
-  test('TC-01 Admin creates new offplan Moh land project - relase of units', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin creates new offplan Moh land project for relase of units with unknown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -134,7 +133,7 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Developer adds payment schedules - relase of units', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer adds payment schedules for relase of units with unknown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -177,12 +176,13 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     });
   });
 
-  test('TC-03 - Developer approves sales contract', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer approves sales contract for relase of units with unknown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
-    const environment = readResaleData.environments;
-    const projectName = readResaleData.services['resale-of-units'].projectName;
-    const developerUserId = readResaleData.services['resale-of-units'].developerUserId;
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const projectName = data.projectName;
+    const developerUserId = data.developerUserId;
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
@@ -201,12 +201,13 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 - Seller books offplan unit and pay the fees', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Seller books offplan unit and pay the fees for relase of units with unknown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
-    const environment = readResaleData.environments;
-    const projectName = readResaleData.services['resale-of-units'].projectName;
-    const seller = readResaleData.services['resale-of-units'].sellerUserId;
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const projectName = data.projectName;
+    const seller = data.sellerUserId;
     const userPortalUrl = environment.userPortalUrl;
 
     await logStep('Step 01: Navigate to user portal > Login');
@@ -244,11 +245,13 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     }
   });
 
-  test('TC-05 - Seller signs sales contract', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Seller signs sales contract for relase of units with unknown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
-    const seller = readResaleData.services['resale-of-units'].sellerUserId;
-    const userPortalUrl = readResaleData.environments.userPortalUrl;
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const seller = data.sellerUserId;
+    const userPortalUrl = environment.userPortalUrl;
 
     await logStep('Step 01: Open user portal');
     await app.loginPage.gotoHomePage(userPortalUrl);
@@ -274,12 +277,14 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.unitBookingPage.expectSalesContractSuccess();
   });
 
-  test('TC-06 - Developer confirms the booking', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer confirms the booking for relase of units with unknown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
-    const developerUserId = readResaleData.services['resale-of-units'].developerUserId;
-    const sapaPortalUrl = readResaleData.environments.sapaPortalUrl;
-    const bookedUnitCode = readResaleData.services['resale-of-units'].bookedUnitCode;
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const developerUserId = data.developerUserId;
+    const sapaPortalUrl = environment.sapaPortalUrl;
+    const bookedUnitCode = data.bookedUnitCode;
 
     await logStep('Step 01: Navigate to partners portal > Login');
     await app.developerProjectPage.gotoAuth(sapaPortalUrl);
@@ -290,37 +295,45 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.developerProjectPage.confirmBooking(bookedUnitCode);
   });
 
-  test('TC-07 - Admin configures project-level of resale settings', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
-    const app = new WebApp(page);
+  test(
+    'TC-07 - Admin configures project-level of resale settings for relase of units with unknown buyer',
+    { annotation: [{ product: 'Shared Product', type: 'critical' }] as any },
+    async ({ page }) => {
+      const app = new WebApp(page);
+      await logStep('Step 00: Read data from json relative to the service');
+      const environment = readEnvironments();
+      const data = readServiceData();
+      const adminPortalUrl = environment.adminPortalUrl;
+      const adminUsername = data.adminUsername;
+      const adminPassword = data.adminPassword;
+      const projectName = data.projectName;
+
+      await logStep('Step 01: Login to admin platform');
+      await app.adminProjectPage.login(adminPortalUrl, adminUsername, adminPassword);
+
+      await logStep('Step 02: Search for project > navigate to resale settings');
+      await app.adminProjectPage.openProjects();
+      await app.resaleOfUnitsPage.fillProjectName(projectName);
+      await app.resaleOfUnitsPage.clickProjectSearchButton();
+      await app.resaleOfUnitsPage.clickSearchedProjectResult(projectName);
+      await app.resaleOfUnitsPage.clickOnResaleSettingTab();
+
+      await logStep('Step 03: Apply the confiqguartion and save');
+      await app.resaleOfUnitsPage.clickOnuseGeneralResaleSettingsSwitch();
+      await app.resaleOfUnitsPage.selectResaleFeeType();
+      await app.resaleOfUnitsPage.fillResaleFeeValue(10);
+      await app.resaleOfUnitsPage.clickOnSaveButton();
+      await app.resaleOfUnitsPage.verifyTheToastMessage();
+    }
+  );
+
+  test('TC-08 Seller submits new resale request for unkown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
-    const adminPortalUrl = readResaleData.environments.adminPortalUrl;
-    const adminUsername = readResaleData.services['resale-of-units'].adminUsername;
-    const adminPassword = readResaleData.services['resale-of-units'].adminPassword;
-    const projectName = readResaleData.services['resale-of-units'].projectName;
-
-    await logStep('Step 01: Login to admin platform');
-    await app.adminProjectPage.login(adminPortalUrl, adminUsername, adminPassword);
-
-    await logStep('Step 02: Search for project > navigate to resale settings');
-    await app.adminProjectPage.openProjects();
-    await app.resaleOfUnitsPage.fillProjectName(projectName);
-    await app.resaleOfUnitsPage.clickProjectSearchButton();
-    await app.resaleOfUnitsPage.clickSearchedProjectResult(projectName);
-    await app.resaleOfUnitsPage.clickOnResaleSettingTab();
-
-    await logStep('Step 03: Apply the confiqguartion and save');
-    await app.resaleOfUnitsPage.clickOnuseGeneralResaleSettingsSwitch();
-    await app.resaleOfUnitsPage.selectResaleFeeType();
-    await app.resaleOfUnitsPage.fillResaleFeeValue(10);
-    await app.resaleOfUnitsPage.clickOnSaveButton();
-    await app.resaleOfUnitsPage.verifyTheToastMessage();
-  });
-
-  test('TC-08 - Seller submits new resale request for unkown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
-    await logStep('Step 00: Read data from json relative to the service');
-    const seller = readResaleData.services['resale-of-units'].sellerUserId;
-    const userPortalUrl = readResaleData.environments.userPortalUrl;
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const seller = data.sellerUserId;
+    const userPortalUrl = environment.userPortalUrl;
 
     await logStep('Step 01: Open user portal');
     await app.loginPage.gotoHomePage(userPortalUrl);
@@ -370,13 +383,14 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.resaleOfUnitsPage.getAndSaveRequestNumber();
   });
 
-  test('TC-09 - Developer approves unknown-buyer request', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-09 Developer approves unknown-buyer request', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
-    const environment = readResaleData.environments;
-    const projectName = readResaleData.services['resale-of-units'].projectName;
-    const developerUserId = readResaleData.services['resale-of-units'].developerUserId;
-    const requestNumber = readResaleData.services['resale-of-units'].requestNumber;
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const projectName = data.projectName;
+    const developerUserId = data.developerUserId;
+    const requestNumber = data.requestNumber;
 
     await logStep('Step 01: Open partners portal');
     await app.developerProjectPage.gotoAuth(environment.sapaPortalUrl);
@@ -399,15 +413,17 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.resaleOfUnitsPage.verifyTheRequestisApproved();
   });
 
-  test('TC-10 - Admin adds a buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-10 Admin adds a buyer to resale request', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
-    const adminPortalUrl = readResaleData.environments.adminPortalUrl;
-    const adminUsername = readResaleData.services['resale-of-units'].adminUsername;
-    const adminPassword = readResaleData.services['resale-of-units'].adminPassword;
-    const buyerId = readResaleData.services['resale-of-units'].buyerUserId;
-    const buyerDob = readResaleData.services['resale-of-units'].buyerDOB;
-    const requestNumber = readResaleData.services['resale-of-units'].requestNumber;
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const adminPortalUrl = environment.adminPortalUrl;
+    const adminUsername = data.adminUsername;
+    const adminPassword = data.adminPassword;
+    const buyerId = data.buyerUserId;
+    const buyerDob = data.buyerDOB;
+    const requestNumber = data.requestNumber;
 
     await logStep('Step 01: Login to admin platform');
     await app.adminProjectPage.login(adminPortalUrl, adminUsername, adminPassword);
@@ -429,11 +445,13 @@ test.describe('Resale Of Units - With Unknown Buyer', () => {
     await app.resaleOfUnitsPage.verifyBuyerAddedToastMessage();
   });
 
-  test('TC-11 - Buyer signs contract and pays waiver', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
-    const app = new WebApp(page);
+  test('TC-11 Buyer signs contract and pays waiver for relase of units with unknown buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
-    const buyerId = readResaleData.services['resale-of-units'].buyerUserId;
-    const userPortalUrl = readResaleData.environments.userPortalUrl;
+    const app = new WebApp(page);
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const buyerId = data.buyerUserId;
+    const userPortalUrl = environment.userPortalUrl;
 
     await logStep('Step 01: Open user portal');
     await app.loginPage.gotoHomePage(userPortalUrl);

@@ -104,16 +104,16 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project 20261006110013",
+      "projectName": "Automation Project 20261029102937",
       "companyUser": "1001234342",
       "companyCR": "7001234342",
-      "companyUnitCode": "01-01-0702-7-103"
+      "companyUnitCode": "01-01-0761-5-101"
     },
     "unit-delivery": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project 20261007095117",
+      "projectName": "Automation Project 20261029152936",
       "sakaniUserId": "1300070834",
       "deliveryUnitCode": "01-01-0709-6-102"
     },
@@ -137,7 +137,7 @@
     },
     "resale-of-units": {
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261028145057",
+      "projectName": "Automation Project Offplan 20261029095725",
       "sellerUserId": "1300061022",
       "buyerUserId": "1300067088",
       "buyerDOB": "16051428",

@@ -106,7 +106,7 @@ export class PartnersLoginPage {
     // await loginButton.click();
 
     const acceptCookiesButton = this.page.getByRole(DeveloperObjects.acceptCookiesButton.role, { name: DeveloperObjects.acceptCookiesButton.name }).first();
-    await acceptCookiesButton.waitFor({ state: 'visible', timeout: 20000 });
+    await acceptCookiesButton.waitFor({ state: 'visible', timeout: 120000 });
     await this.page.waitForTimeout(2000);
     await acceptCookiesButton.click();
 
