@@ -20,9 +20,8 @@ export class AdminLoyaltyPage {
   }
 
   async clickAddNewPartner() {
-    const addPartnerLink = this.page.getByRole(AdminLoyaltyObjects.addPartnerLink.role, { name: AdminLoyaltyObjects.addPartnerLink.name });
     await this.page.waitForTimeout(3000);
-    await this.commonMethods.clickIfVisible(addPartnerLink);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.addPartnerLink);
   }
 
   async fillCompanyName(text: string) {
@@ -42,8 +41,7 @@ export class AdminLoyaltyPage {
   }
 
   async selectListOption(optionText: string) {
-    const dropdownOption = this.page.locator(AdminLoyaltyObjects.dropdownOption).filter({ hasText: new RegExp(`^${optionText}$`) });
-    await this.commonMethods.clickIfVisible(dropdownOption);
+    await this.commonMethods.clickIfVisible({ xpath: `${AdminLoyaltyObjects.dropdownOption}[normalize-space()='${optionText}']` });
   }
 
   async fillContactPerson(text: string) {
@@ -84,8 +82,7 @@ export class AdminLoyaltyPage {
   }
 
   async clickSave() {
-    const saveButton = this.page.getByRole(AdminLoyaltyObjects.saveButton.role, { name: AdminLoyaltyObjects.saveButton.name });
-    await this.commonMethods.clickIfVisible(saveButton);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.saveButton);
   }
 
   async validatePartnerAddedSuccessMessage() {
@@ -98,14 +95,12 @@ export class AdminLoyaltyPage {
   }
 
   async clickAddNewOffer() {
-    const addNewOfferLink = this.page.getByRole(AdminLoyaltyObjects.addNewOfferLink.role, { name: AdminLoyaltyObjects.addNewOfferLink.name });
     await this.page.waitForTimeout(3000);
-    await this.commonMethods.clickIfVisible(addNewOfferLink);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.addNewOfferLink);
   }
 
   async selectCompanyName(optionText: string) {
-    const companyNameDropdown = this.page.locator(AdminLoyaltyObjects.companyNameDropdown);
-    await this.commonMethods.clickIfVisible(companyNameDropdown);
+    await this.commonMethods.clickIfVisible({ xpath: AdminLoyaltyObjects.companyNameDropdown });
     await this.selectListOption(optionText);
   }
 
@@ -135,8 +130,7 @@ export class AdminLoyaltyPage {
   }
 
   async selectSakaniCommissionType(optionText: string) {
-    const sakaniCommissionTypeDropdown = this.page.locator(AdminLoyaltyObjects.sakaniCommissionTypeDropdown);
-    await this.commonMethods.clickIfVisible(sakaniCommissionTypeDropdown);
+    await this.commonMethods.clickIfVisible({ xpath: AdminLoyaltyObjects.sakaniCommissionTypeDropdown });
     await this.selectListOption(optionText);
   }
 
@@ -168,13 +162,11 @@ export class AdminLoyaltyPage {
   }
 
   async clickDealIdentifiersTab() {
-    const dealIdentifiersTab = this.page.getByRole(AdminLoyaltyObjects.dealIdentifiersTab.role, { name: AdminLoyaltyObjects.dealIdentifiersTab.name });
-    await this.commonMethods.clickIfVisible(dealIdentifiersTab);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.dealIdentifiersTab);
   }
 
   async clickImportOfferCodes() {
-    const importOfferCodesButton = this.page.getByRole(AdminLoyaltyObjects.importOfferCodesButton.role, { name: AdminLoyaltyObjects.importOfferCodesButton.name });
-    await this.commonMethods.clickIfVisible(importOfferCodesButton);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.importOfferCodesButton);
   }
 
   async uploadDealFile(filePath: string) {
@@ -193,18 +185,15 @@ export class AdminLoyaltyPage {
     await this.page.waitForTimeout(5000);
     await this.page.reload();
     await this.page.waitForTimeout(2000);
-    const statusCell = this.page.getByRole(AdminLoyaltyObjects.processedStatusCell.role, { name: AdminLoyaltyObjects.processedStatusCell.name }).first();
-    await this.commonMethods.clickIfVisible(statusCell);
+    await this.commonMethods.clickIfVisible({ xpath: `(//*[normalize-space(text())='${AdminLoyaltyObjects.processedStatusCell.name}'])[1]` });
   }
 
   async clickApprove() {
-    const approveButton = this.page.getByRole(AdminLoyaltyObjects.approveButton.role, { name: AdminLoyaltyObjects.approveButton.name });
-    await this.commonMethods.clickIfVisible(approveButton);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.approveButton);
   }
 
   async clickConfirm() {
-    const confirmButton = this.page.getByRole(AdminLoyaltyObjects.confirmButton.role, { name: AdminLoyaltyObjects.confirmButton.name });
-    await this.commonMethods.clickIfVisible(confirmButton);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.confirmButton);
   }
 
   async validateSendImportApprovalRequestToastMessageIsDisplayed() {
@@ -214,36 +203,30 @@ export class AdminLoyaltyPage {
 
   async searchAndNavigateToDeal(searchText: string) {
     const searchInput = this.page.getByRole(AdminLoyaltyObjects.searchInput.role, { name: AdminLoyaltyObjects.searchInput.name });
-    const searchButton = this.page.getByRole(AdminLoyaltyObjects.searchButton.role, { name: AdminLoyaltyObjects.searchButton.name });
-    const resultItem = this.page.locator(AdminLoyaltyObjects.searchResultContainer).filter({ hasText: new RegExp(`^${searchText}$`) });
     await searchInput.fill(searchText);
-    await this.commonMethods.clickIfVisible(searchButton);
-    await this.commonMethods.clickIfVisible(resultItem);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.searchButton);
+    const resultItem = `//${AdminLoyaltyObjects.searchResultContainer}[normalize-space()='${searchText}'][not(.//${AdminLoyaltyObjects.searchResultContainer}[normalize-space()='${searchText}'])]`;
+    await this.commonMethods.clickIfVisible({ xpath: resultItem });
   }
 
   async clickEdit() {
-    const editButton = this.page.getByRole(AdminLoyaltyObjects.editButton.role, { name: AdminLoyaltyObjects.editButton.name });
-    await this.commonMethods.clickIfVisible(editButton);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.editButton);
   }
 
   async selectStatusToActive(optionText: string) {
-    const statusDropdown = this.page
-      .locator(AdminLoyaltyObjects.statusDropdown.selector)
-      .filter({ hasText: AdminLoyaltyObjects.statusDropdown.text })
-      .getByRole(AdminLoyaltyObjects.statusDropdownCombobox.role);
-    await this.commonMethods.clickIfVisible(statusDropdown);
+    const statusDropdown = `//${AdminLoyaltyObjects.statusDropdown.selector}[contains(normalize-space(.), '${AdminLoyaltyObjects.statusDropdown.text}')]//*[@role='${AdminLoyaltyObjects.statusDropdownCombobox.role}']`;
+    await this.commonMethods.clickIfVisible({ xpath: statusDropdown });
     await this.selectListOption(optionText);
   }
 
   async selectActiveStatusOption() {
-    const activeOption = this.page.getByRole(AdminLoyaltyObjects.activeStatusOption.role, { name: AdminLoyaltyObjects.activeStatusOption.name, exact: AdminLoyaltyObjects.activeStatusOption.exact });
-    await this.commonMethods.clickIfVisible(activeOption);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.activeStatusOption);
   }
 
   async clickYesOnPopUp() {
     const yesButton = this.page.getByRole(AdminLoyaltyObjects.yesButton.role, { name: AdminLoyaltyObjects.yesButton.name });
     if (await yesButton.isVisible({ timeout: 3000 })) {
-      await this.commonMethods.clickIfVisible(yesButton);
+      await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.yesButton);
     }
   }
 

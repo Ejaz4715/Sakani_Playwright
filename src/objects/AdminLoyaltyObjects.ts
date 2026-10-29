@@ -24,7 +24,7 @@ export const AdminLoyaltyObjects = {
   fileInput: "//input[@type='file']",
   saveButton: {
     role: 'button',
-    name: /حفظ/,
+    name: 'حفظ',
   },
   partnerAddedSuccessMessage: 'تمت إضافة الشريك الجديد بنجاح',
   manageDealsLink: {
@@ -100,7 +100,7 @@ export const AdminLoyaltyObjects = {
   },
   yesButton: {
     role: 'button',
-    name: /نعم/,
+    name: 'نعم',
   },
   activeStatusTable: {
     role: 'table',
