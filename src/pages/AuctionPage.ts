@@ -60,7 +60,7 @@ export class AuctionPage {
     await this.page.getByRole('button', { name: buttonName }).click();
   }
 
-  async validateCongratulationsMessaeg() {
+  async validateCongratulationsMessage() {
     const congratulationsText = this.page.getByText('تهانينا!', {
       exact: true,
     });

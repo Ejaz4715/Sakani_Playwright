@@ -222,7 +222,7 @@ test.describe('Auction booking journey', () => {
 
     await logStep('Step 04: Pay the auction fee and verify the payment status');
     await app.paymentGatewayPage.fillCardDetails();
-    await app.auctionPage.validateCongratulationsMessaeg();
+    await app.auctionPage.validateCongratulationsMessage();
     await app.auctionPage.returnToAuction('العودة إلى وحدة المزاد');
     await app.auctionPage.expectAuctionPaymentPending();
   });
@@ -604,7 +604,7 @@ test.describe('Auction booking journey', () => {
 
     await logStep('Step 04: Pay the auction fee');
     await app.paymentGatewayPage.fillCardDetails();
-    await app.auctionPage.validateCongratulationsMessaeg();
+    await app.auctionPage.validateCongratulationsMessage();
     await app.auctionPage.returnToAuction('العودة إلى وحدة المزاد');
 
     await logStep('Step 05: Verify the auction payment status');

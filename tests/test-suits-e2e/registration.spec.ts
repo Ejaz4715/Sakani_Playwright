@@ -121,6 +121,6 @@ test.describe('User registration and check eligibility', () => {
 
     await logStep('Step 04: Submit then verify the success message');
     await app.registrationPage.clickSubmitButton();
-    await app.auctionPage.validateCongratulationsMessaeg();
+    await app.auctionPage.validateCongratulationsMessage();
   });
 });
