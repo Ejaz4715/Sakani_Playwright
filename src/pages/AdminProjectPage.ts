@@ -272,15 +272,16 @@ export class AdminProjectPage {
   }
 
   async expectResidentialUnitTypeVisible() {
+    this.page.waitForTimeout(3000);
     await expect(
       this.page.getByRole(AdminObjects.residentialUnitType.role, {
         name: AdminObjects.residentialUnitType.name,
       })
     ).toBeVisible({ timeout: 30000 });
-    this.page.waitForTimeout(3000);
   }
 
   async openResidentialUnitTypeDropdown() {
+    this.page.waitForTimeout(7000);
     await this.page
       .getByRole(AdminObjects.residentialUnitType.role, {
         name: AdminObjects.residentialUnitType.name,
@@ -289,6 +290,7 @@ export class AdminProjectPage {
   }
 
   async selectApartmentUnitType() {
+    this.page.waitForTimeout(1000);
     await this.page
       .getByRole(AdminObjects.apartmentOption.role, {
         name: AdminObjects.apartmentOption.name,
@@ -491,6 +493,7 @@ export class AdminProjectPage {
 
   async clickMediaSaveButton() {
     await this.page.locator(AdminObjects.mediaSaveButton).click();
+    await this.page.waitForTimeout(3000);
   }
 
   async clickProjectDetailsTab() {

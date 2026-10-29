@@ -1,9 +1,8 @@
 ﻿import { test, expect } from '@playwright/test';
-const path = require('path');
+import path from 'node:path';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
-import offplanTestData from '@data/test-data.json';
 import { DataHelper } from '@helpers/DataHelper';
 
 const SERVICE = 'offplan-booking';
@@ -287,7 +286,7 @@ test.describe('Offplan MOH land booking journey', () => {
     await app.unitBookingPage.expectSalesContractSuccess();
   });
 
-  test('TC-06 Developer confirms the booking and adds annex (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer confirms the booking and adds annex - Offplan Moh Land', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

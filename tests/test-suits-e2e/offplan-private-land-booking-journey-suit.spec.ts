@@ -201,7 +201,7 @@ test.describe('Offplan private land booking journey', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 User books unit (Offplan Private Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 User books unit - Offplan Private Land', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

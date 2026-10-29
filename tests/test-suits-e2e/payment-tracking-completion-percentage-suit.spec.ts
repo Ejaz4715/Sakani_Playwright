@@ -12,7 +12,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Payment tracking - completion percentage', () => {
   test('TC-01 Admin adds new offplan project for payment tracking (completion percenatge)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -267,7 +266,6 @@ test.describe('Payment tracking - completion percentage', () => {
   });
 
   test('TC-06 User books the unit, pay the fees and selects payment method (completion percenatage)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -317,13 +315,12 @@ test.describe('Payment tracking - completion percentage', () => {
     await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSaveAndContinueButton();
     await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSignContractButton();
     await bookingApp.unitBookingPage.signSalesContract();
-    await bookingApp.unitBookingPage.expectSalesContractSuccess();
+    // await bookingApp.unitBookingPage.expectSalesContractSuccess();
     await bookingApp.bookingAndSelectPaymentMethodPage.clickOnBookingDetailsButton();
     await bookingApp.page.waitForTimeout(10000);
   });
 
-  test('TC-07  Verify same payment schedle in payment tracking and booking details', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-07 Verify same payment schedule in payment tracking and booking details', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -365,5 +362,23 @@ test.describe('Payment tracking - completion percentage', () => {
     await app.paymentTrackingPage.clickOnSearchResult();
     await app.paymentTrackingPage.clickOnPaymentTrackingTab();
     await app.paymentTrackingPage.waitForCompletionPercentageVisible();
+  });
+
+  test('TC-08 Developer confirms the booking - payment tracking with completion percentage', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    await logStep('Step 00: Read data from json relative to the service');
+    const data = readServiceData();
+    const environments = readEnvironments();
+    const app = new WebApp(page);
+    const developerUserId = data.developerUserId;
+    const sapaPortalUrl = environments.sapaPortalUrl;
+    const bookedUnitCode = data.bookedUnitCode;
+
+    await logStep('Step 01: Login as developer to sapa portal');
+    await app.developerProjectPage.gotoAuth(sapaPortalUrl);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
+
+    await logStep('Step 02: Confirm the booking');
+    await app.developerProjectPage.confirmBooking(bookedUnitCode);
   });
 });

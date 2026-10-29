@@ -126,6 +126,7 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.saveProject();
     await page.waitForTimeout(1000);
     await electronicAuctionPage.expectMediaSaved();
+    await page.waitForTimeout(3000);
     await electronicAuctionPage.openProjectDetails();
     await electronicAuctionPage.submitMediaForApproval();
     await electronicAuctionPage.approveProjectMedia();
@@ -134,13 +135,11 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.openUnits();
     await electronicAuctionPage.openUnitsSubTab();
     await electronicAuctionPage.openNewUnitImport();
-    await page.waitForTimeout(2000);
     await electronicAuctionPage.openUnitType();
     await electronicAuctionPage.selectApartmentUnitType();
     const unitsImportFilePath = path.join(process.cwd(), 'src', 'data', 'Auction_Units.xlsx');
     await electronicAuctionPage.uploadUnitsFile(unitsImportFilePath);
     await electronicAuctionPage.saveUnitImport();
-    await page.waitForTimeout(5000);
     await electronicAuctionPage.waitForUnitImportToComplete();
     await electronicAuctionPage.approveUnitImport();
     await electronicAuctionPage.confirmUnitImport();
@@ -328,14 +327,12 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.openUnits();
     await electronicAuctionPage.openUnitsSubTab();
     await electronicAuctionPage.openNewUnitImport();
-    await page.waitForTimeout(2000);
     await electronicAuctionPage.openUnitType();
     await electronicAuctionPage.selectApartmentUnitType();
 
     const unitsImportFilePath = path.join(process.cwd(), 'src', 'data', 'Auction_Units.xlsx');
     await electronicAuctionPage.uploadUnitsFile(unitsImportFilePath);
     await electronicAuctionPage.saveUnitImport();
-    await page.waitForTimeout(5000);
     await electronicAuctionPage.waitForUnitImportToComplete();
     await electronicAuctionPage.approveUnitImport();
     await electronicAuctionPage.confirmUnitImport();
@@ -351,6 +348,8 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.openUnitVisualMedia();
     await electronicAuctionPage.fillLatitude('1.1');
     await electronicAuctionPage.fillLongitude('1.2');
+    await electronicAuctionPage.fillVideoLink('https://pre-sakani-admin.housingapps.sa/');
+    await electronicAuctionPage.fillLocation('Riyadh');
     await electronicAuctionPage.saveUnitModel();
     await page.waitForTimeout(1000);
     await electronicAuctionPage.submitUnitMediaForApproval();
@@ -359,6 +358,7 @@ test.describe('Auction booking journey', () => {
     await page.waitForTimeout(1000);
     await electronicAuctionPage.publishUnitModel();
     await electronicAuctionPage.waitForUnitMediaApproval();
+    await page.pause();
 
     await logStep('Step 12: Upload and save the auction legal documents');
     await page.waitForTimeout(1000);
@@ -405,7 +405,7 @@ test.describe('Auction booking journey', () => {
 
     await logStep('Step 03: Join the hybrid auction');
     await app.auctionPage.openUnit();
-    await app.auctionPage.joinHybridAuction();
+    await app.auctionPage.joinHybridAuctionWithoutFee();
 
     await logStep('Step 04: Open and approve the winner contract');
     await app.auctionPage.returnToAuction('العودة الى المزاد');
@@ -516,14 +516,12 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.openUnits();
     await electronicAuctionPage.openUnitsSubTab();
     await electronicAuctionPage.openNewUnitImport();
-    await page.waitForTimeout(2000);
     await electronicAuctionPage.openUnitType();
     await electronicAuctionPage.selectApartmentUnitType();
 
     const unitsImportFilePath = path.join(process.cwd(), 'src', 'data', 'Auction_Units.xlsx');
     await electronicAuctionPage.uploadUnitsFile(unitsImportFilePath);
     await electronicAuctionPage.saveUnitImport();
-    await page.waitForTimeout(5000);
     await electronicAuctionPage.waitForUnitImportToComplete();
     await electronicAuctionPage.approveUnitImport();
     await electronicAuctionPage.confirmUnitImport();
@@ -539,6 +537,8 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.openUnitVisualMedia();
     await electronicAuctionPage.fillLatitude('1.1');
     await electronicAuctionPage.fillLongitude('1.2');
+    await electronicAuctionPage.fillVideoLink('https://pre-sakani-admin.housingapps.sa/');
+    await electronicAuctionPage.fillLocation('Riyadh');
     await electronicAuctionPage.saveUnitModel();
     await page.waitForTimeout(1000);
     await electronicAuctionPage.submitUnitMediaForApproval();
@@ -600,7 +600,7 @@ test.describe('Auction booking journey', () => {
 
     await logStep('Step 03: Join the hybrid auction');
     await app.auctionPage.openUnit();
-    await app.auctionPage.joinHybridAuction();
+    await app.auctionPage.joinHybridAuctionWithFee();
 
     await logStep('Step 04: Pay the auction fee');
     await app.paymentGatewayPage.fillCardDetails();

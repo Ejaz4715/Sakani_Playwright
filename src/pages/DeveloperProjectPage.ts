@@ -160,7 +160,7 @@ export class DeveloperProjectPage {
   }
 
   async uploadAnnexFile(filePath: string) {
-    const fileInput = this.page.locator("//input[@type='file']");
+    const fileInput = this.page.locator(DeveloperObjects.uploadFile);
     await fileInput.setInputFiles(filePath);
     const attachmentText = this.page.getByText('الملف المرفق', { exact: true });
     await attachmentText.waitFor({ state: 'visible' });
@@ -292,15 +292,21 @@ export class DeveloperProjectPage {
     await this.switchToBookingTab();
 
     // 4. Locate and click the confirm booking buttons (handling both first and last instances)
-    const confirmBookingButton = this.page.getByRole(DeveloperObjects.confirmBookingActionButton.role, {
-      name: DeveloperObjects.confirmBookingActionButton.name,
+    const confirmBookingButton = this.page.locator(DeveloperObjects.confirmBookingActionButton);
+    await confirmBookingButton.nth(0).click();
+
+    // 5. Click the confirmation popup/button ("Confirm")
+    await confirmBookingButton.nth(1).click();
+
+    // 6. Click the confirmation popup/button ("Yes") if present
+    const yesButton = this.page.getByRole(DeveloperObjects.yesConfirmationButton.role, {
+      name: DeveloperObjects.yesConfirmationButton.name,
     });
-    await confirmBookingButton.first().click();
+    if (await yesButton.isVisible()) {
+      await yesButton.click();
+    }
 
-    // 5. Click the confirmation popup/button ("Yes")
-    await this.page.getByRole(DeveloperObjects.yesConfirmationButton.role, { name: DeveloperObjects.yesConfirmationButton.name }).click();
-
-    // 6. Assert that the booking success message is visible on the screen
+    // 7. Assert that the booking success message is visible on the screen
     await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), 'Confirmation booking success text is not visible').toBeVisible({ timeout: 20000 });
   }
 
@@ -316,16 +322,21 @@ export class DeveloperProjectPage {
     await this.page.getByRole(DeveloperObjects.bookingsTab.role, { name: DeveloperObjects.bookingsTab.name }).click();
 
     // 4. Locate and click the confirm booking buttons (handling both first and last instances)
-    const confirmBookingButton = this.page.getByRole(DeveloperObjects.confirmBookingActionButton.role, {
-      name: DeveloperObjects.confirmBookingActionButton.name,
+    const confirmBookingButton = this.page.locator(DeveloperObjects.confirmBookingActionButton);
+    await confirmBookingButton.nth(0).click();
+
+    // 5. Click the confirmation popup/button ("Confirm")
+    await confirmBookingButton.nth(1).click();
+
+    // 6. Click the confirmation popup/button ("Yes") if present
+    const yesButton = this.page.getByRole(DeveloperObjects.yesConfirmationButton.role, {
+      name: DeveloperObjects.yesConfirmationButton.name,
     });
-    await confirmBookingButton.first().click();
-    await confirmBookingButton.last().click();
+    if (await yesButton.isVisible()) {
+      await yesButton.click();
+    }
 
-    // 5. Click the confirmation popup/button ("Yes")
-    await this.page.getByRole(DeveloperObjects.yesConfirmationButton.role, { name: DeveloperObjects.yesConfirmationButton.name }).click();
-
-    // 6. Assert that the booking success message is visible on the screen
+    // 7. Assert that the booking success message is visible on the screen
     await expect(this.page.getByText(DeveloperObjects.confirmBookingSuccessText), 'Confirmation booking success text is not visible').toBeVisible({ timeout: 20000 });
   }
 

@@ -109,6 +109,7 @@ export const DeveloperObjects = {
     role: 'button',
     name: 'إضافة ملحق للوحدات المختارة',
   },
+  uploadFile: "//input[@type='file']",
   uploadButton: {
     role: 'button',
     name: 'رفع',
@@ -179,10 +180,7 @@ export const DeveloperObjects = {
     role: 'tab',
     name: 'حجوزات',
   },
-  confirmBookingActionButton: {
-    role: 'button',
-    name: 'تأكيد الحجز',
-  },
+  confirmBookingActionButton: "//button[normalize-space()='تأكيد الحجز']",
   yesConfirmationButton: {
     role: 'button',
     name: 'نعم',

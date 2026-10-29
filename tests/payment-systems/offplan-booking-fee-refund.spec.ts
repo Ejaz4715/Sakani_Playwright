@@ -10,7 +10,6 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 test.describe('Offplan booking fees refund', () => {
   test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -138,50 +137,52 @@ test.describe('Offplan booking fees refund', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Developer adds cash and lending payment schedules to the project (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
-    await logStep('Step 00: Read data from json relative to the service');
-    const data = readServiceData();
-    const environments = readEnvironments();
-    const app = new WebApp(page);
-    const projectName = data.projectName;
-    const developerUserId = data.developerUserId;
-    const sapaPortalUrl = environments.sapaPortalUrl;
+  test(
+    'TC-02 Developer adds cash and lending payment schedules to the project - Offplan Moh Land - refund',
+    { annotation: [{ product: 'Marketplace', type: 'critical' }] as any },
+    async ({ page }) => {
+      await logStep('Step 00: Read data from json relative to the service');
+      const data = readServiceData();
+      const environments = readEnvironments();
+      const app = new WebApp(page);
+      const projectName = data.projectName;
+      const developerUserId = data.developerUserId;
+      const sapaPortalUrl = environments.sapaPortalUrl;
 
-    await logStep('Step 01: Login as developer to sapa portal and open the project');
-    await app.developerProjectPage.gotoAuth(sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-    await app.partnersLoginPage.switchRoleToDeveloper();
+      await logStep('Step 01: Login as developer to sapa portal and open the project');
+      await app.developerProjectPage.gotoAuth(sapaPortalUrl);
+      await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+      await app.partnersLoginPage.switchRoleToDeveloper();
 
-    await logStep('Step 02: Search and open the project');
-    await app.developerProjectPage.openProjectBySearch(projectName);
+      await logStep('Step 02: Search and open the project');
+      await app.developerProjectPage.openProjectBySearch(projectName);
 
-    await logStep('Step 03: Add a cash payment schedule and verify it is added successfully');
-    await app.developerProjectPage.openPaymentSchedulesTab();
-    await app.developerProjectPage.addPaymentSchedule({
-      type: 'cash',
-      scheduleName: 'Cash 22',
-      completionPercentageOneValue: '50',
-      percentageOneValue: '50',
-      completionPercentageTwoValue: '100',
-      percentageTwoValue: '50',
-    });
+      await logStep('Step 03: Add a cash payment schedule and verify it is added successfully');
+      await app.developerProjectPage.openPaymentSchedulesTab();
+      await app.developerProjectPage.addPaymentSchedule({
+        type: 'cash',
+        scheduleName: 'Cash 22',
+        completionPercentageOneValue: '50',
+        percentageOneValue: '50',
+        completionPercentageTwoValue: '100',
+        percentageTwoValue: '50',
+      });
 
-    await logStep('Step 04: Add a lending payment schedule and verify it is added successfully');
-    await app.developerProjectPage.openProjectBySearch(projectName);
-    await app.developerProjectPage.openPaymentSchedulesTab();
-    await app.developerProjectPage.addPaymentSchedule({
-      type: 'lending',
-      scheduleName: 'Lending 22',
-      completionPercentageOneValue: '50',
-      percentageOneValue: '50',
-      completionPercentageTwoValue: '100',
-      percentageTwoValue: '50',
-    });
-  });
+      await logStep('Step 04: Add a lending payment schedule and verify it is added successfully');
+      await app.developerProjectPage.openProjectBySearch(projectName);
+      await app.developerProjectPage.openPaymentSchedulesTab();
+      await app.developerProjectPage.addPaymentSchedule({
+        type: 'lending',
+        scheduleName: 'Lending 22',
+        completionPercentageOneValue: '50',
+        percentageOneValue: '50',
+        completionPercentageTwoValue: '100',
+        percentageTwoValue: '50',
+      });
+    }
+  );
 
-  test('TC-03 Developer approves sales contract of project (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-03 Developer approves sales contract of project  - Offplan Moh Land - refund)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -209,8 +210,7 @@ test.describe('Offplan booking fees refund', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 User books unit (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-04 User books unit - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -258,8 +258,7 @@ test.describe('Offplan booking fees refund', () => {
     }
   });
 
-  test('TC-05 User signs sales contract of booked unit (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(30000);
+  test('TC-05 User signs sales contract of booked unit - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -295,8 +294,7 @@ test.describe('Offplan booking fees refund', () => {
     await app.unitBookingPage.expectSalesContractSuccess();
   });
 
-  test('TC-06 Developer confirms the booking and adds annex (Offplan Moh Land)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-06 Developer confirms the booking - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -313,29 +311,9 @@ test.describe('Offplan booking fees refund', () => {
 
     await logStep('Step 02: Confirm the booking');
     await app.developerProjectPage.confirmBooking(bookedUnitCode);
-
-    await logStep('Step 03: Navigate to add annex page');
-    await app.developerProjectPage.openProjectBySearch(projectName);
-    await app.developerProjectPage.openSalesContractsTab();
-    const unitsImportFilePath = path.join(process.cwd(), 'src', 'data', 'Sample pdf.pdf');
-
-    await logStep('Step 04: Add annex to the booked unit');
-    await app.developerProjectPage.openAddAnnexDialog();
-    await app.developerProjectPage.searchUnitByCode(bookedUnitCode);
-    await app.developerProjectPage.selectFirstUnit();
-    await app.developerProjectPage.openSelectedUnitsAnnexDialog();
-    await app.developerProjectPage.uploadAnnexFile(unitsImportFilePath);
-    await app.developerProjectPage.uploadAnnex();
-
-    await logStep('Step 05: Approve the annex');
-    await app.developerProjectPage.approveAnnex();
-    await app.developerProjectPage.fillOtp();
-    await app.developerProjectPage.verifyOtp();
-    await app.developerProjectPage.expectAnnexSuccess();
   });
 
-  test('TC-07 User verifies the refundable status is present for the booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-07 User verifies the refundable status is present for the booking - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

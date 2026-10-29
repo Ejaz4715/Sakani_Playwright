@@ -170,6 +170,12 @@ export const ElectronicAuctionProjectObjects = {
     role: 'button',
     name: 'وحدة النشر',
   },
+  liveVideoLink: {
+    xpath: "//input[@formcontrolname='live_video_link']",
+  },
+  auctionLocation: {
+    xpath: "//input[@formcontrolname='auction_conduction_location']",
+  },
   approvedMediaTab: {
     xpath: "//div[@role='tab']/descendant::span[contains (text(), 'المحتوى المرئي')]",
   },

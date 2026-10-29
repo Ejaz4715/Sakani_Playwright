@@ -161,7 +161,7 @@ test.describe('Discount On Reserved Units', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-03 - Developer discounts the price on reserved unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer discounts the price on reserved unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -243,7 +243,7 @@ test.describe('Discount On Reserved Units', () => {
     await app.paymentConfirmationPage.expectSuccessMessage();
   });
 
-  test('TC-05 User signs sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User signs sales contract for discount on reserved unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

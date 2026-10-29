@@ -271,7 +271,6 @@ test.describe('Payment tracking - specified period', () => {
   });
 
   test('TC-06 User books the unit, pay the fees and selects payment method (specified period)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -374,4 +373,22 @@ test.describe('Payment tracking - specified period', () => {
       await app.paymentTrackingPage.waitForSpecifiedPeriodVisible();
     }
   );
+
+  test('TC-08 Developer confirms the booking - payment tracking with specified period', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+    await logStep('Step 00: Read data from json relative to the service');
+    const data = readServiceData();
+    const environments = readEnvironments();
+    const app = new WebApp(page);
+    const developerUserId = data.developerUserId;
+    const sapaPortalUrl = environments.sapaPortalUrl;
+    const bookedUnitCode = data.bookedUnitCode;
+
+    await logStep('Step 01: Login as developer to sapa portal');
+    await app.developerProjectPage.gotoAuth(sapaPortalUrl);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
+
+    await logStep('Step 02: Confirm the booking');
+    await app.developerProjectPage.confirmBooking(bookedUnitCode);
+  });
 });

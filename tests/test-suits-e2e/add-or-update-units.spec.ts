@@ -10,7 +10,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Add, update or delete the units of an offplan project through SAPA portal', () => {
   test('TC-01 Developer adds new unit to the project', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -22,7 +21,7 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
-    // await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
@@ -47,7 +46,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
   test('TC-02 Admin accepts the add new unit request', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
-    test.setTimeout(120000);
     const app = new WebApp(page);
     const environment = readEnvironments();
     const data = readServiceData();
@@ -76,7 +74,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
   });
 
   test('TC-03 Developer checks the new unit is reflected under project units', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -109,7 +106,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
   });
 
   test('TC-04 Sakani user checks the added unit is reflected in the user platform', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -149,7 +145,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
     'TC-05 Developer update the unit target segment and checks the update is reflected for the targetted unit',
     { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any },
     async ({ page }) => {
-      test.setTimeout(0);
       await logStep('Step 00: Read data from json relative to the service');
       const environment = readEnvironments();
       const data = readServiceData();
@@ -216,7 +211,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
   );
 
   test('TC-06 Developer deletes the unit', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -253,7 +247,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
 
   test('TC-07 Admin accepts the delete unit request', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
-    test.setTimeout(120000);
     const app = new WebApp(page);
     const environment = readEnvironments();
     const data = readServiceData();

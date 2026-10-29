@@ -228,7 +228,7 @@ test.describe('Cash Payment', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-05 - User books and pays the fees', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User books and pays the fees', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -275,7 +275,7 @@ test.describe('Cash Payment', () => {
     }
   });
 
-  test('TC-06 - User selects cash payment schedule and signs sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 User selects cash payment schedule and signs sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -338,7 +338,7 @@ test.describe('Cash Payment', () => {
     await app.bookingAndSelectPaymentMethodPage.validateSelectedPaymentType('نقدي');
   });
 
-  test('TC-07 - Developer documents the cash payment', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 Developer documents the cash payment', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

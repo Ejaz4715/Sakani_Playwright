@@ -3,13 +3,16 @@ import { ElectronicAuctionProjectObjects } from '@objects/AuctionsProjectObjects
 import { AdminLoyaltyPage } from './AdminLoyaltyPage';
 import { AdminProjectPage } from './AdminProjectPage';
 import { AdminLoyaltyObjects } from '@objects/AdminLoyaltyObjects';
+import { CommonMethods } from './utils/CommonMethods';
 import { AdminObjects } from '@objects/AdminProjectsObjects';
 
 export class ElectronicAuctionProjectPage {
-  page: Page;
+  private readonly page: Page;
+  private readonly commonMethods: CommonMethods;
 
   constructor(page: Page) {
     this.page = page;
+    this.commonMethods = new CommonMethods(page);
   }
 
   async fillProjectName(projectName: string) {
@@ -106,7 +109,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async saveProject() {
-    const saveButton = this.getLocator(ElectronicAuctionProjectObjects.saveButton);
+    const saveButton = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.saveButton);
     await expect(saveButton).toBeVisible({ timeout: 30000 });
     await saveButton.click();
     const toast = this.page.getByText(AdminObjects.saveSuccessMessage.text);
@@ -118,61 +121,61 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openProjectMedia() {
-    const tab = this.getLocator(ElectronicAuctionProjectObjects.projectMediaTab);
+    const tab = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.projectMediaTab);
     await expect(tab).toBeVisible({ timeout: 30000 });
     await tab.click();
   }
 
   async fillArabicDetailsTitle(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.arabicDetailsTitleInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.arabicDetailsTitleInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillEnglishDetailsTitle(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.englishDetailsTitleInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.englishDetailsTitleInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillArabicName(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.arabicNameInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.arabicNameInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillEnglishName(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.englishNameInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.englishNameInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillArabicDescription(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.arabicDescriptionInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.arabicDescriptionInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillEnglishDescription(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.englishDescriptionInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.englishDescriptionInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillLatitude(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.latitudeInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.latitudeInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillLongitude(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.longitudeInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.longitudeInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
 
   async fillAssetCount(value: string) {
-    const input = this.getLocator(ElectronicAuctionProjectObjects.assetCountInput);
+    const input = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.assetCountInput);
     await expect(input).toBeVisible({ timeout: 30000 });
     await input.fill(value);
   }
@@ -183,25 +186,25 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openProjectDetails() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.projectDetailsButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.projectDetailsButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async submitMediaForApproval() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.submitMediaButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.submitMediaButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async approveProjectMedia() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.approveMediaButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.approveMediaButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async openUnits() {
-    const tab = this.getLocator(ElectronicAuctionProjectObjects.unitsTab);
+    const tab = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.unitsTab);
     await expect(tab).toBeVisible({ timeout: 30000 });
     await tab.click();
   }
@@ -213,20 +216,20 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openNewUnitImport() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.newUnitImportButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.newUnitImportButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async openUnitType() {
-    await this.page.waitForTimeout(3000);
-    const combobox = this.getLocator(ElectronicAuctionProjectObjects.unitTypeCombobox);
+    await this.page.waitForTimeout(7000);
+    const combobox = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.unitTypeCombobox);
     await expect(combobox).toBeVisible({ timeout: 30000 });
     await combobox.click();
   }
 
   async selectApartmentUnitType() {
-    const option = this.getLocator(ElectronicAuctionProjectObjects.apartmentOption);
+    const option = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.apartmentOption);
     await expect(option).toBeVisible({ timeout: 30000 });
     await option.click();
   }
@@ -236,7 +239,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async saveUnitImport() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.importSaveButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.importSaveButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
@@ -249,6 +252,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async waitForUnitImportToComplete() {
+    await this.page.waitForTimeout(10000);
     const message = this.page.getByText(ElectronicAuctionProjectObjects.importCompletedMessage.text, {
       exact: true,
     });
@@ -260,61 +264,73 @@ export class ElectronicAuctionProjectPage {
   }
 
   async approveUnitImport() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.approveButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.approveButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async confirmUnitImport() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.confirmButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.confirmButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async returnFromUnitImport() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.backButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.backButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async openUnitModels() {
-    const tab = this.getLocator(ElectronicAuctionProjectObjects.unitModelsTab);
+    const tab = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.unitModelsTab);
     await expect(tab).toBeVisible({ timeout: 30000 });
     await tab.click();
   }
 
   async openApartmentModel() {
-    const cell = this.getLocator(ElectronicAuctionProjectObjects.modelCell);
+    const cell = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.modelCell);
     await expect(cell).toBeVisible({ timeout: 30000 });
     await cell.click();
   }
 
   async saveUnitModel() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.saveButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.saveButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async openUnitVisualMedia() {
-    const tab = this.getLocator(ElectronicAuctionProjectObjects.visualMediaTab);
+    const tab = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.visualMediaTab);
     await expect(tab).toBeVisible({ timeout: 30000 });
     await tab.click();
   }
 
+  async fillVideoLink(link: string) {
+    const videoLinkInput = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.liveVideoLink);
+    await expect(videoLinkInput).toBeVisible({ timeout: 30000 });
+    await videoLinkInput.fill(link);
+  }
+
+  async fillLocation(link: string) {
+    const locationInput = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.auctionLocation);
+    await expect(locationInput).toBeVisible({ timeout: 30000 });
+    await locationInput.fill(link);
+  }
+
   async submitUnitMediaForApproval() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.submitMediaButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.submitMediaButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async approveUnitMedia() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.approveMediaButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.approveMediaButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async publishUnitModel() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.unitPublishButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.unitPublishButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
@@ -324,7 +340,7 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openAuctionLegal() {
-    const tab = this.getLocator(ElectronicAuctionProjectObjects.auctionLegalTab);
+    const tab = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.auctionLegalTab);
     await expect(tab).toBeVisible({ timeout: 30000 });
     await tab.click();
   }
@@ -343,25 +359,25 @@ export class ElectronicAuctionProjectPage {
   }
 
   async openAuctionSettings() {
-    const tab = this.getLocator(ElectronicAuctionProjectObjects.auctionSettingsTab);
+    const tab = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.auctionSettingsTab);
     await expect(tab).toBeVisible({ timeout: 30000 });
     await tab.click();
   }
 
   async openSettingsEdit() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.editButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.editButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
 
   async enableGeneralAuctionSetting() {
-    const settingSwitch = this.getLocator(ElectronicAuctionProjectObjects.generalSettingSwitch);
+    const settingSwitch = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.generalSettingSwitch);
     await expect(settingSwitch).toBeVisible({ timeout: 30000 });
     await settingSwitch.click();
   }
 
   async updateAuctionSettings() {
-    const button = this.getLocator(ElectronicAuctionProjectObjects.updateButton);
+    const button = this.commonMethods.getLocator(ElectronicAuctionProjectObjects.updateButton);
     await expect(button).toBeVisible({ timeout: 30000 });
     await button.click();
   }
@@ -386,24 +402,10 @@ export class ElectronicAuctionProjectPage {
   }
 
   async publishProject() {
+    await this.page.waitForTimeout(2000);
+    await this.page.reload();
+    await this.page.waitForTimeout(3000);
     await this.setToggle(ElectronicAuctionProjectObjects.publishProjectToggle.xpath);
-  }
-
-  private getLocator(locatorDefinition: any) {
-    if (locatorDefinition.xpath) {
-      return this.page.locator(locatorDefinition.xpath);
-    }
-
-    if (locatorDefinition.text) {
-      return this.page.getByText(locatorDefinition.text, {
-        exact: locatorDefinition.exact,
-      });
-    }
-
-    return this.page.getByRole(locatorDefinition.role, {
-      name: locatorDefinition.name,
-      exact: locatorDefinition.exact,
-    });
   }
 
   private async upload(xpath: string, filePath: string) {

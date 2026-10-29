@@ -11,7 +11,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Reissue Price Quotation For The Beneficiaries', () => {
   test('TC-01 Admin adds new ofplan project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -135,7 +134,6 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
   });
 
   test('TC-02 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -162,7 +160,6 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
   });
 
   test('TC-03 User books offplan unit and pay the fees', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -207,7 +204,6 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
   });
 
   test('TC-04 User signs sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -238,7 +234,6 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
   });
 
   test('TC-05 Developer reissue price quotation', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -264,8 +259,8 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
     await app.discountOnReservedUnitsPage.clickOnReissuePriceQuotationButton();
     await app.discountOnReservedUnitsPage.verifyPriceQuotationReissueSuccessMessage();
   });
+
   test('TC-06 - Developer cancel the booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();

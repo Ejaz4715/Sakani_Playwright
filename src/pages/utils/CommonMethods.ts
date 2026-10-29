@@ -89,4 +89,21 @@ export class CommonMethods {
     const input = this.getElement(inputField);
     await input.setInputFiles(file);
   }
+
+  getLocator(locatorDefinition: any) {
+    if (locatorDefinition.xpath) {
+      return this.page.locator(locatorDefinition.xpath);
+    }
+
+    if (locatorDefinition.text) {
+      return this.page.getByText(locatorDefinition.text, {
+        exact: locatorDefinition.exact,
+      });
+    }
+
+    return this.page.getByRole(locatorDefinition.role, {
+      name: locatorDefinition.name,
+      exact: locatorDefinition.exact,
+    });
+  }
 }
