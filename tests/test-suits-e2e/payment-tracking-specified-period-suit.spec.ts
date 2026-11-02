@@ -1,7 +1,7 @@
 ﻿import { test, expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { DateUtils } from '@pages/utils/DateUtils';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import path from 'node:path';
@@ -11,7 +11,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Payment tracking - specified period', () => {
-  test('TC-01 Admin adds new offplan project for payment tracking (specified period)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin adds new offplan project for payment tracking (specified period)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -135,7 +135,7 @@ test.describe('Payment tracking - specified period', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer adds payment schedules', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -172,7 +172,7 @@ test.describe('Payment tracking - specified period', () => {
     });
   });
 
-  test('TC-03 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer approves sales contract', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -199,7 +199,7 @@ test.describe('Payment tracking - specified period', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 Admin enables comprehensive and automation payment', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Admin enables comprehensive and automation payment', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -229,7 +229,7 @@ test.describe('Payment tracking - specified period', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-05 Developer adds flexible payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
+  test('TC-05 Developer adds flexible payment schedules', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
@@ -270,7 +270,7 @@ test.describe('Payment tracking - specified period', () => {
     await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
   });
 
-  test('TC-06 User books the unit, pay the fees and selects payment method (specified period)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 User books the unit, pay the fees and selects payment method (specified period)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -327,7 +327,7 @@ test.describe('Payment tracking - specified period', () => {
 
   test(
     'TC-07 Admin checks the user selected payment schedule is reflected in (Payment Tracking) and (Booking Details) pages',
-    { annotation: [{ product: 'Marketplace', type: 'critical' }] as any },
+    { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any },
     async ({ page }) => {
       test.setTimeout(0);
       await logStep('Step 00: Read data from json relative to the service');
@@ -374,7 +374,7 @@ test.describe('Payment tracking - specified period', () => {
     }
   );
 
-  test('TC-08 Developer confirms the booking - payment tracking with specified period', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-08 Developer confirms the booking - payment tracking with specified period', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

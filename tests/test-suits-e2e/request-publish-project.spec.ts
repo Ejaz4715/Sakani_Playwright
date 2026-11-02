@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
@@ -13,7 +13,7 @@ const readEnvironments = () => DataHelper.readData().environments;
 const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 test.describe('Request publish project', () => {
-  test('TC-01 Developer creates offplan project', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Developer creates offplan project', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -82,7 +82,7 @@ test.describe('Request publish project', () => {
     await app.requestPublishProjectPage.verifySuccessMessageIsVisible();
   });
 
-  test('TC-02 Admin approves create new project request', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Admin approves create new project request', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -106,7 +106,7 @@ test.describe('Request publish project', () => {
     await app.requestPublishProjectPage.clickApproveButton();
     await app.requestPublishProjectPage.verifySuccessApprovedToastMessageIsVisible();
   });
-  test('TC-03 Developer adds units', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer adds units', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -142,7 +142,7 @@ test.describe('Request publish project', () => {
     await app.updateUnitsPage.verifyAddUnitsAnalysisIsVisible();
   });
 
-  test('TC-04 Admin approve the units and publish the project', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Admin approve the units and publish the project', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -225,7 +225,7 @@ test.describe('Request publish project', () => {
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
-  test('TC-05 Verify the project is published in sakani portal', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Verify the project is published in sakani portal', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const environment = readEnvironments();
     const data = readServiceData();

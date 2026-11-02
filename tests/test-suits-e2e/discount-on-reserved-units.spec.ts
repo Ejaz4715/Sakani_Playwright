@@ -1,6 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
@@ -10,7 +10,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Discount On Reserved Units', () => {
-  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -134,7 +134,7 @@ test.describe('Discount On Reserved Units', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer approves sales contract', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -161,7 +161,7 @@ test.describe('Discount On Reserved Units', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-03 Developer discounts the price on reserved unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer discounts the price on reserved unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -209,7 +209,7 @@ test.describe('Discount On Reserved Units', () => {
     await app.discountOnReservedUnitsPage.verifyTheUnitIsBooked();
   });
 
-  test('TC-04 User books the unit and pay the booking fees', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 User books the unit and pay the booking fees', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -243,7 +243,7 @@ test.describe('Discount On Reserved Units', () => {
     await app.paymentConfirmationPage.expectSuccessMessage();
   });
 
-  test('TC-05 User signs sales contract for discount on reserved unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User signs sales contract for discount on reserved unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -273,7 +273,7 @@ test.describe('Discount On Reserved Units', () => {
     await app.unitBookingPage.expectSalesContractSuccess();
   });
 
-  test('TC-06 Developer download price quotation and verify the discounted amount', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer download price quotation and verify the discounted amount', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

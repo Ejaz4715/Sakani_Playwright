@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import { SelfConstructionObjects } from '@objects/SelfConstructionObjects';
@@ -12,7 +12,7 @@ const readEnvironments = () => DataHelper.readData().environments;
 const writeServiceData = (key: string, value: any) => DataHelper.updateServiceData(SERVICE, key, value);
 
 test.describe('Engineering Office', () => {
-  test('TC-01 Add new engineering office', { annotation: [{ product: 'Self-Construction', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Add new engineering office', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -53,7 +53,7 @@ test.describe('Engineering Office', () => {
     await app.adminProjectPage.clickSaveButton();
     await app.commonMethods.verifyElementVisible(SelfConstructionObjects.succsessfullToasMessage);
   });
-  test('TC-02 Add new interior design offers', { annotation: [{ product: 'Self-Construction', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Add new interior design offers', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

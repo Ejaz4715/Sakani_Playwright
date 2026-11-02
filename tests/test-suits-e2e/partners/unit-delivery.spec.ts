@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
@@ -27,7 +27,7 @@ async function waitAndFill(locator: Locator, value: string, timeout = DEFAULT_TI
 test.describe('Unit Delivery Partner/Marketplace', () => {
   let deliveryUnitCode: string;
 
-  test('TC-01 Admin adds new offplan project for unit delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin adds new offplan project for unit delivery', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -159,7 +159,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await expect(page.locator(AdminProjectObjects.maxBookingsPerNonBeneInput)).toHaveValue('5');
   });
 
-  test('TC-02 Developer approves sales contract for unit delivery project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer approves sales contract for unit delivery project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -183,7 +183,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-03 Developer books one unit for delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer books one unit for delivery', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -217,7 +217,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await app.developerProjectPage.validateSuccessReservationPopup();
   });
 
-  test('TC-04 User Pays the invoice of the booked unit for delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 User Pays the invoice of the booked unit for delivery', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -252,7 +252,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await page.waitForTimeout(10000);
   });
 
-  test('TC-05 User Signs sale contract of booked unit for delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User Signs sale contract of booked unit for delivery', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -288,7 +288,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await expect.poll(() => app.offPlanBasketMultipleBookingPage.isSuccessfulContractSignMessage(), { timeout: LONG_TIMEOUT }).toBe(true);
   });
 
-  test('TC-06 Developer confirms the cash payment for unit delivery', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer confirms the cash payment for unit delivery', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -313,7 +313,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await app.cashPaymentPage.expectCashPaymentSuccess();
   });
 
-  test('TC-07 Unit delivery preparation by the developer', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 Unit delivery preparation by the developer', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const projectName = data.projectName;
@@ -343,7 +343,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     expect(await app.unitsDeliveryPage.isUnitReadyForDelivery()).toBe(true);
   });
 
-  test('TC-08 Delivery of the ready units from Partner', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-08 Delivery of the ready units from Partner', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -366,7 +366,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     expect(await app.unitsDeliveryPage.isUnitDelivered()).toBe(true);
   });
 
-  test('TC-09 Delivery confirmation from the sakani user side', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-09 Delivery confirmation from the sakani user side', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);

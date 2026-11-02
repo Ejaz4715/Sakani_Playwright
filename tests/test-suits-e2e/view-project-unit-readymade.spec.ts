@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects';
 import { DataHelper } from '@helpers/DataHelper';
@@ -9,7 +9,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('View Proejct and unit of Readymade', () => {
-  test('TC-01 Verify user viewing the project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Verify user viewing the project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -41,7 +41,7 @@ test.describe('View Proejct and unit of Readymade', () => {
     await app.bookingPage.verifyElementVisibility(BookingCancellationObjects.projectUnitsSection, true);
   });
 
-  test('TC-02 Verify user viewing the unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verify user viewing the unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

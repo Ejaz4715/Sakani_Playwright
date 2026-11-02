@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 import { AssetAndServiceProvidersObjects } from '@objects/AssetAndServiceProvidersObjects';
@@ -7,7 +7,7 @@ import { AssetAndServiceProvidersObjects } from '@objects/AssetAndServiceProvide
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Asset and service providers', () => {
-  test('TC-01 Verify user navigate to asset facility page', { annotation: [{ product: 'Market Service', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 Verify user navigate to asset facility page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -24,7 +24,7 @@ test.describe('Asset and service providers', () => {
     await app.commonMethods.verifyElementVisible(AssetAndServiceProvidersObjects.assetAndFacilitesPage);
   });
 
-  test('TC-02 Verify the user view the service provider - Munjz', { annotation: [{ product: 'Market Service', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verify the user view the service provider - Munjz', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -45,7 +45,7 @@ test.describe('Asset and service providers', () => {
     await expect(providerPage.locator(AssetAndServiceProvidersObjects.munjzPage.xpath)).toBeVisible();
   });
 
-  test('TC-03 Verify the user navigate to assets page', { annotation: [{ product: 'Market Service', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-03 Verify the user navigate to assets page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();

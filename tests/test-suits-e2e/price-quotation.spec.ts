@@ -10,7 +10,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Price Quotation', () => {
   test('TC-01 User download the price quotation and verify it', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

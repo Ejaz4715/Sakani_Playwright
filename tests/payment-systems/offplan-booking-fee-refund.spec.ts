@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { test, expect } from '@playwright/test';
 import { DateUtils } from '@pages/utils/DateUtils';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
@@ -9,7 +9,7 @@ const SERVICE = 'offplan-booking';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 test.describe('Offplan booking fees refund', () => {
-  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -139,7 +139,7 @@ test.describe('Offplan booking fees refund', () => {
 
   test(
     'TC-02 Developer adds cash and lending payment schedules to the project - Offplan Moh Land - refund',
-    { annotation: [{ product: 'Marketplace', type: 'critical' }] as any },
+    { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any },
     async ({ page }) => {
       await logStep('Step 00: Read data from json relative to the service');
       const data = readServiceData();
@@ -182,9 +182,9 @@ test.describe('Offplan booking fees refund', () => {
     }
   );
 
-  test('TC-03 Developer approves sales contract of project  - Offplan Moh Land - refund)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    const app = new WebApp(page);
+  test('TC-03 Developer approves sales contract of project  - Offplan Moh Land - refund)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
+    const app = new WebApp(page);
     const data = readServiceData();
     const environments = readEnvironments();
     const projectName = data.projectName;
@@ -210,7 +210,7 @@ test.describe('Offplan booking fees refund', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 User books unit - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 User books unit - Offplan Moh Land - refund', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -258,7 +258,7 @@ test.describe('Offplan booking fees refund', () => {
     }
   });
 
-  test('TC-05 User signs sales contract of booked unit - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User signs sales contract of booked unit - Offplan Moh Land - refund', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -294,7 +294,7 @@ test.describe('Offplan booking fees refund', () => {
     await app.unitBookingPage.expectSalesContractSuccess();
   });
 
-  test('TC-06 Developer confirms the booking - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer confirms the booking - Offplan Moh Land - refund', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -313,32 +313,36 @@ test.describe('Offplan booking fees refund', () => {
     await app.developerProjectPage.confirmBooking(bookedUnitCode);
   });
 
-  test('TC-07 User verifies the refundable status is present for the booking - Offplan Moh Land - refund', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    await logStep('Step 00: Read data from json relative to the service');
-    const data = readServiceData();
-    const environments = readEnvironments();
-    const app = new WebApp(page);
-    const sakaniUserId = data.sakaniUserId;
-    const userPortalUrl = environments.userPortalUrl;
+  test(
+    'TC-07 User verifies the refundable status is present for the booking - Offplan Moh Land - refund',
+    { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any },
+    async ({ page }) => {
+      await logStep('Step 00: Read data from json relative to the service');
+      const data = readServiceData();
+      const environments = readEnvironments();
+      const app = new WebApp(page);
+      const sakaniUserId = data.sakaniUserId;
+      const userPortalUrl = environments.userPortalUrl;
 
-    await logStep('Step 01: Open user portal');
-    await app.loginPage.gotoHomePage(userPortalUrl);
-    await app.loginPage.acceptCookies();
+      await logStep('Step 01: Open user portal');
+      await app.loginPage.gotoHomePage(userPortalUrl);
+      await app.loginPage.acceptCookies();
 
-    await logStep('Step 02: Log in with Nafath');
-    await app.loginPage.openLogin();
-    await app.loginPage.loginWithNafath(sakaniUserId);
-    await app.loginPage.waitForNafathPromptToDisappear();
-    await app.loginPage.continueNewUserPopup();
-    await app.loginPage.handlePushNotificationPopup();
+      await logStep('Step 02: Log in with Nafath');
+      await app.loginPage.openLogin();
+      await app.loginPage.loginWithNafath(sakaniUserId);
+      await app.loginPage.waitForNafathPromptToDisappear();
+      await app.loginPage.continueNewUserPopup();
+      await app.loginPage.handlePushNotificationPopup();
 
-    await logStep('Step 03: Open completed bookings');
-    await app.bookingPage.openCompletedBookings();
+      await logStep('Step 03: Open completed bookings');
+      await app.bookingPage.openCompletedBookings();
 
-    await logStep('Step 04: Open booking details');
-    await app.bookingPage.openBookingDetails();
+      await logStep('Step 04: Open booking details');
+      await app.bookingPage.openBookingDetails();
 
-    await logStep('Step 05: Verify the refunded status that the amount is refunded');
-    await app.bookingPage.verifyTheRefundedStatus();
-  });
+      await logStep('Step 05: Verify the refunded status that the amount is refunded');
+      await app.bookingPage.verifyTheRefundedStatus();
+    }
+  );
 });

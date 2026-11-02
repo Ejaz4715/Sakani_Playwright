@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 
@@ -7,7 +7,7 @@ import { BookingCancellationObjects } from '@objects/BookingCancellationObjects'
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Marketplace Units', () => {
-  test('TC-01 Verify user filter for a unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Verify user filter for a unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -29,7 +29,7 @@ test.describe('Marketplace Units', () => {
     await expect(unitDetailsPage.locator(BookingCancellationObjects.unitResultDetailsPage.xpath)).toBeVisible();
   });
 
-  test('TC-02 Verify user filter by register of interest', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verify user filter by register of interest', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

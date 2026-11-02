@@ -1,9 +1,10 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { SupportPage } from '@pages/SupportPage';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 test.describe('FAQs', () => {
-  test('TC-01 FAQ list renders with pagination', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-01 FAQ list renders with pagination', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the FAQ page');
     await support.openFaqs();
@@ -14,7 +15,7 @@ test.describe('FAQs', () => {
     expect(await support.faqPagination.count()).toBeGreaterThan(0);
   });
 
-  test('TC-02 FAQ search is disabled until a term is entered', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-02 FAQ search is disabled until a term is entered', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the FAQ page');
     await support.openFaqs();
@@ -24,7 +25,7 @@ test.describe('FAQs', () => {
     await expect(support.faqSearchButton).toBeDisabled();
   });
 
-  test('TC-03 Searching a keyword returns matching questions', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-03 Searching a keyword returns matching questions', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the FAQ page');
     await support.openFaqs();
@@ -42,7 +43,7 @@ test.describe('FAQs', () => {
       .not.toBe(before.join(' | '));
   });
 
-  test('TC-04 A no-match search shows an empty result set', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-04 A no-match search shows an empty result set', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the FAQ page');
     await support.openFaqs();
@@ -51,12 +52,10 @@ test.describe('FAQs', () => {
     await logStep('Step 02: Search for a term with no matches');
     await support.searchFaqs('zzzzzzzzzzqqq');
 
-    await expect
-      .poll(async () => support.faqCount(), { timeout: 30_000 })
-      .toBe(0);
+    await expect.poll(async () => support.faqCount(), { timeout: 30_000 }).toBe(0);
   });
 
-  test('TC-05 A question expands to reveal its answer', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-05 A question expands to reveal its answer', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open FAQs');
     await support.openFaqs();
@@ -69,7 +68,7 @@ test.describe('FAQs', () => {
     await expect(first).toBeVisible();
   });
 
-  test('TC-06 The "was this helpful" control is offered', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-06 The "was this helpful" control is offered', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the FAQ page');
     await support.openFaqs();
@@ -82,7 +81,7 @@ test.describe('FAQs', () => {
 });
 
 test.describe('Contact us', () => {
-  test('TC-01 Send is disabled while the form is empty', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-01 Send is disabled while the form is empty', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the contact form');
     await support.openContactUs();
@@ -92,19 +91,23 @@ test.describe('Contact us', () => {
     await expect(support.sendButton).toBeDisabled();
   });
 
-  test('TC-02 All six fields are marked mandatory (Type of request, National ID, Beneficiary Name, Region, City, Message)', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
-    const support = new SupportPage(page);
-    await logStep('Step 01: Open the contact form');
-    await support.openContactUs();
-    await support.expectContactLoaded();
+  test(
+    'TC-02 All six fields are marked mandatory (Type of request, National ID, Beneficiary Name, Region, City, Message)',
+    { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] },
+    async ({ page }) => {
+      const support = new SupportPage(page);
+      await logStep('Step 01: Open the contact form');
+      await support.openContactUs();
+      await support.expectContactLoaded();
 
-    await logStep('Step 02: Confirm required labels are marked as mandatory');
-    const labels = await page.locator('label').allInnerTexts();
-    const required = labels.filter((l) => l.includes('*'));
-    expect(required.length).toBeGreaterThanOrEqual(6);
-  });
+      await logStep('Step 02: Confirm required labels are marked as mandatory');
+      const labels = await page.locator('label').allInnerTexts();
+      const required = labels.filter((l) => l.includes('*'));
+      expect(required.length).toBeGreaterThanOrEqual(6);
+    }
+  );
 
-  test('TC-03 Filling only some fields leaves Send disabled', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-03 Filling only some fields leaves Send disabled', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the contact form');
     await support.openContactUs();
@@ -117,7 +120,7 @@ test.describe('Contact us', () => {
     await expect(support.sendButton).toBeDisabled();
   });
 
-  test('TC-04 A malformed national ID does not enable submission', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-04 A malformed national ID does not enable submission', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the contact form');
     await support.openContactUs();
@@ -130,9 +133,7 @@ test.describe('Contact us', () => {
     await expect(support.sendButton).toBeDisabled();
   });
 
-  test('TC-05 A very long message is accepted or capped without breaking', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({
-    page,
-  }) => {
+  test('TC-05 A very long message is accepted or capped without breaking', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the contact form');
     await support.openContactUs();
@@ -145,7 +146,7 @@ test.describe('Contact us', () => {
     await expect(support.messageInput).toBeVisible();
   });
 
-  test('TC-06 Script-like input in the message is not executed', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-06 Script-like input in the message is not executed', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the contact form');
     await support.openContactUs();
@@ -165,7 +166,7 @@ test.describe('Contact us', () => {
     expect(await support.messageInput.inputValue()).toContain('script');
   });
 
-  test('TC-07 The request-type dropdown offers options', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-07 The request-type dropdown offers options', { annotation: [{ product: Products.SharedProducts, type: 'non-critical' } as any] }, async ({ page }) => {
     const support = new SupportPage(page);
     await logStep('Step 01: Open the contact form');
     await support.openContactUs();

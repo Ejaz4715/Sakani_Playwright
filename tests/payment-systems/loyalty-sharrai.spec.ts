@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
@@ -10,7 +10,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Loyalty Sharrai Program', () => {
-  test('TC-01 Admin create new deal and activate it', { annotation: [{ product: 'Loyalty', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin create new deal and activate it', { annotation: [{ product: Products.Loyalty, type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -101,7 +101,7 @@ test.describe('Loyalty Sharrai Program', () => {
     // await page.locator('ng-select').filter({ hasText: 'اختيارغير نشط' }).getByRole('combobox').click();
   });
 
-  test('TC-05 User buys the deal and pay', { annotation: [{ product: 'Loyalty', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User buys the deal and pay', { annotation: [{ product: Products.Loyalty, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();

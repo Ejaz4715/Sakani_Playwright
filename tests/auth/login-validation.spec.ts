@@ -3,9 +3,10 @@ import { findBookableUnit } from '@helpers/marketplaceApi';
 import { PROJECTS } from '@data/testData';
 import { TEST_USER, API } from '@data/testData';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 test.describe('Authentication - validation', () => {
-    test('TC-01 Continue is disabled until an identifier is entered', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ loginPage }) => {
+  test('TC-01 Continue is disabled until an identifier is entered', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ loginPage }) => {
     await logStep('Step 01: Open the login form');
     await loginPage.open();
 
@@ -14,7 +15,7 @@ test.describe('Authentication - validation', () => {
     await expect(loginPage.continueButton).toBeDisabled();
   });
 
-  test('TC-02 Continue enables after entering the national ID', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ loginPage }) => {
+  test('TC-02 Continue enables after entering the national ID', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ loginPage }) => {
     await logStep('Step 01: Open the login page');
     await loginPage.open();
 
@@ -23,10 +24,7 @@ test.describe('Authentication - validation', () => {
     await expect(loginPage.continueButton).toBeEnabled();
   });
 
-  test('TC-03 guest booking redirects to login and preserves the return url', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({
-    page,
-    browser,
-  }) => {
+  test('TC-03 guest booking redirects to login and preserves the return url', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page, browser }) => {
     // The inventory lookup needs a session; the journey itself must be a guest.
     const lookupContext = await browser.newContext();
     const lookupPage = await lookupContext.newPage();
@@ -39,10 +37,7 @@ test.describe('Authentication - validation', () => {
     } finally {
       await lookupContext.close();
     }
-    test.skip(
-      !unitId,
-      `TEST DATA BLOCKER: project ${PROJECTS.bookable} exposes no bookable unit for a guest journey`,
-    );
+    test.skip(!unitId, `TEST DATA BLOCKER: project ${PROJECTS.bookable} exposes no bookable unit for a guest journey`);
 
     await logStep('Step 02: Deep-link the unit as a guest and trigger booking');
     await page.goto(`/app/units/${unitId}?lang=en`, { waitUntil: 'commit' });
@@ -52,6 +47,6 @@ test.describe('Authentication - validation', () => {
     await bookButton.press('Enter');
 
     await logStep('Step 03: Confirm the login modal appears');
-    await expect(page.locator("//app-nafath-login-modal")).toBeVisible({ timeout: 60_000 });
+    await expect(page.locator('//app-nafath-login-modal')).toBeVisible({ timeout: 60_000 });
   });
 });

@@ -2,12 +2,11 @@ import { test, expect } from '@fixtures/pages.fixture';
 import { ActivitiesPage } from '@pages/ActivitiesPage';
 import { ACTIVITY_MODULES } from '@data/testData';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 test.describe('Account - activities modules', () => {
   for (const module of ACTIVITY_MODULES) {
-    test(`TC-01 ${module.key} ${module.label} loads with its tabs and state`, {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
-      authenticatedPage,
-    }) => {
+    test(`TC-01 ${module.key} ${module.label} loads with its tabs and state`, { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
       const activities = new ActivitiesPage(authenticatedPage, module);
 
       await logStep('Step 01: Open the activities module');
@@ -20,19 +19,14 @@ test.describe('Account - activities modules', () => {
       if (module.tabs.length) {
         await logStep('Step 03: Confirm documented tabs are visible');
         const visible = await activities.visibleTabLabels();
-        expect(visible, `${module.label} should expose all documented tabs`).toEqual(
-          expect.arrayContaining([...module.tabs]),
-        );
+        expect(visible, `${module.label} should expose all documented tabs`).toEqual(expect.arrayContaining([...module.tabs]));
       }
 
       await logStep('Step 04: Wait for the listing to resolve');
       await activities.waitForListing();
       if (module.emptyText) {
         await logStep('Step 05: Check the empty state for the module');
-        expect(
-          await activities.isEmpty(),
-          `${module.label} should show its empty state for the fixture account`,
-        ).toBeTruthy();
+        expect(await activities.isEmpty(), `${module.label} should show its empty state for the fixture account`).toBeTruthy();
       }
 
       if (module.action) {
@@ -42,7 +36,7 @@ test.describe('Account - activities modules', () => {
     });
   }
 
-  test('TC-02 Activities modules are not reachable when logged out', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ page }) => {
+  test('TC-02 Activities modules are not reachable when logged out', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page }) => {
     const module = ACTIVITY_MODULES[0];
 
     await logStep('Step 01: Open the activities module URL while logged out');
@@ -55,7 +49,7 @@ test.describe('Account - activities modules', () => {
     await expect(page.locator('#username')).toBeVisible({ timeout: 60_000 });
   });
 
-  test('TC-03 Selected tab survives a reload', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
+  test('TC-03 Selected tab survives a reload', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const module = ACTIVITY_MODULES.find((m) => m.key === 'conveyance')!;
     const activities = new ActivitiesPage(authenticatedPage, module);
 

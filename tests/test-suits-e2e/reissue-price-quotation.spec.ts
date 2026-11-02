@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
@@ -10,7 +10,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Reissue Price Quotation For The Beneficiaries', () => {
-  test('TC-01 Admin adds new ofplan project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin adds new ofplan project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -133,7 +133,7 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer approves sales contract', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -159,7 +159,7 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-03 User books offplan unit and pay the fees', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 User books offplan unit and pay the fees', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -203,7 +203,7 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
     }
   });
 
-  test('TC-04 User signs sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 User signs sales contract', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -233,7 +233,7 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
     await app.unitBookingPage.expectSalesContractSuccess();
   });
 
-  test('TC-05 Developer reissue price quotation', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Developer reissue price quotation', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -260,7 +260,7 @@ test.describe('Reissue Price Quotation For The Beneficiaries', () => {
     await app.discountOnReservedUnitsPage.verifyPriceQuotationReissueSuccessMessage();
   });
 
-  test('TC-06 - Developer cancel the booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 - Developer cancel the booking', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();

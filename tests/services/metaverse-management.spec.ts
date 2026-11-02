@@ -1,7 +1,7 @@
 import { expect, test } from '@fixtures/pages.fixture';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 
 const SERVICE = 'metaverse-management';
 
@@ -14,7 +14,7 @@ test.describe('Metaverse Management', () => {
     {
       annotation: [
         {
-          product: 'Marketplace',
+          product: Products.SharedProducts,
           type: 'non-critical',
         } as any,
       ],
@@ -39,7 +39,7 @@ test.describe('Metaverse Management', () => {
     {
       annotation: [
         {
-          product: 'Marketplace',
+          product: Products.SharedProducts,
           type: 'non-critical',
         } as any,
       ],
@@ -64,7 +64,7 @@ test.describe('Metaverse Management', () => {
     {
       annotation: [
         {
-          product: 'Marketplace',
+          product: Products.SharedProducts,
           type: 'non-critical',
         } as any,
       ],
@@ -96,7 +96,7 @@ test.describe('Metaverse Management', () => {
     {
       annotation: [
         {
-          product: 'Marketplace',
+          product: Products.SharedProducts,
           type: 'non-critical',
         } as any,
       ],
@@ -121,7 +121,7 @@ test.describe('Metaverse Management', () => {
     {
       annotation: [
         {
-          product: 'Marketplace',
+          product: Products.SharedProducts,
           type: 'non-critical',
         } as any,
       ],

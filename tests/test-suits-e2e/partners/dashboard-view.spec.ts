@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
@@ -8,7 +8,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Dashboard View', () => {
-  test('TC-01 Verify that sapa user navigates to dashboard', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 Verify that sapa user navigates to dashboard', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -24,7 +24,7 @@ test.describe('Dashboard View', () => {
     expect(await app.dashboardViewPage.areAllDashboardViewElementsVisible()).toBe(true);
   });
 
-  test('TC-02 Verify that sapa user navigates to bookings page', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verify that sapa user navigates to bookings page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -43,7 +43,7 @@ test.describe('Dashboard View', () => {
     expect(await app.dashboardViewPage.areAllReservationsElementsVisible()).toBe(true);
   });
 
-  test('TC-03 Verify that sapa user navigates to the projects page', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-03 Verify that sapa user navigates to the projects page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -62,7 +62,7 @@ test.describe('Dashboard View', () => {
     expect(await app.dashboardViewPage.areAllProjectsVisible()).toBe(true);
   });
 
-  test('TC-04 Verify that sapa user navigates to all updated bookings page', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-04 Verify that sapa user navigates to all updated bookings page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -81,7 +81,7 @@ test.describe('Dashboard View', () => {
     expect(await app.dashboardViewPage.areAllUpdatedBookingsVisible()).toBe(true);
   });
 
-  test('TC-05 Verify that sapa user navigates to projects page', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-05 Verify that sapa user navigates to projects page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -100,7 +100,7 @@ test.describe('Dashboard View', () => {
     expect(await app.dashboardViewPage.areAllProjectsVisible()).toBe(true);
   });
 
-  test('TC-06 Verify that sapa user navigates to payments page', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-06 Verify that sapa user navigates to payments page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);

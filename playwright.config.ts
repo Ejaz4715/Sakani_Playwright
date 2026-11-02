@@ -23,7 +23,7 @@ export default defineConfig({
     // Per-product environment mapping
     environments: {
       [Products.Marketplace]: process.env.MARKETPLACE_ENV || 'Pre-Prod',
-      [Products.GovProducts]: process.env.GOV_PRODUCTS_ENV || 'Pre-Prod',
+      [Products.GovSupport]: process.env.GOV_PRODUCTS_ENV || 'Pre-Prod',
       [Products.SharedProducts]: process.env.SHARED_PRODUCTS_ENV || 'Pre-Prod',
       [Products.MarketService]: process.env.MARKET_SERVICE_ENV || 'Pre-Prod',
       [Products.Sayal]: process.env.SAYAL_ENV || 'Pre-Prod',

@@ -1,7 +1,7 @@
 ﻿import { test, expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { DateUtils } from '@pages/utils/DateUtils';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import path from 'node:path';
@@ -11,7 +11,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Payment tracking - completion percentage', () => {
-  test('TC-01 Admin adds new offplan project for payment tracking (completion percenatge)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin adds new offplan project for payment tracking (completion percenatge)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -134,7 +134,7 @@ test.describe('Payment tracking - completion percentage', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer adds payment schedules', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -170,7 +170,7 @@ test.describe('Payment tracking - completion percentage', () => {
     });
   });
 
-  test('TC-03 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer approves sales contract', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -196,7 +196,7 @@ test.describe('Payment tracking - completion percentage', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 Admin enables comprehensive and automation payment', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Admin enables comprehensive and automation payment', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -225,7 +225,7 @@ test.describe('Payment tracking - completion percentage', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-05 Developer adds flexible payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
+  test('TC-05 Developer adds flexible payment schedules', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -265,62 +265,66 @@ test.describe('Payment tracking - completion percentage', () => {
     await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
   });
 
-  test('TC-06 User books the unit, pay the fees and selects payment method (completion percenatage)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    await logStep('Step 00: Read data from json relative to the service');
-    const app = new WebApp(page);
-    const environment = readEnvironments();
-    const data = readServiceData();
-    const userPortalUrl = environment.userPortalUrl;
-    const sakaniUserId = data.sakaniUserId;
-    const projectName = data.projectName;
+  test(
+    'TC-06 User books the unit, pay the fees and selects payment method (completion percenatage)',
+    { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any },
+    async ({ page }) => {
+      await logStep('Step 00: Read data from json relative to the service');
+      const app = new WebApp(page);
+      const environment = readEnvironments();
+      const data = readServiceData();
+      const userPortalUrl = environment.userPortalUrl;
+      const sakaniUserId = data.sakaniUserId;
+      const projectName = data.projectName;
 
-    await logStep('Step 01: Navigate to user portal > Login');
-    await app.loginPage.gotoHomePage(userPortalUrl);
-    await app.loginPage.acceptCookies();
-    await app.loginPage.openLogin();
-    await app.loginPage.loginWithNafath(sakaniUserId);
-    await app.loginPage.waitForNafathPromptToDisappear();
-    await app.loginPage.continueNewUserPopup();
-    await app.loginPage.handlePushNotificationPopup();
+      await logStep('Step 01: Navigate to user portal > Login');
+      await app.loginPage.gotoHomePage(userPortalUrl);
+      await app.loginPage.acceptCookies();
+      await app.loginPage.openLogin();
+      await app.loginPage.loginWithNafath(sakaniUserId);
+      await app.loginPage.waitForNafathPromptToDisappear();
+      await app.loginPage.continueNewUserPopup();
+      await app.loginPage.handlePushNotificationPopup();
 
-    await logStep('Step 02: Search for project > View units');
-    await app.marketplaceLandingPage.openSearch();
-    await app.marketplaceLandingPage.searchForProject(projectName);
-    await app.projectDetailsPage.openUnitsAndScroll();
+      await logStep('Step 02: Search for project > View units');
+      await app.marketplaceLandingPage.openSearch();
+      await app.marketplaceLandingPage.searchForProject(projectName);
+      await app.projectDetailsPage.openUnitsAndScroll();
 
-    await logStep('Step 03: Reserve unit > Pay the fees and verify the unit is booked');
-    const page1Promise = page.waitForEvent('popup');
-    await app.marketplaceLandingPage.openResidentialUnit();
-    const page1 = await page1Promise;
-    const page2Promise = page1.waitForEvent('popup');
-    {
-      const unitApp = new WebApp(page1);
-      await unitApp.projectUnitsPage.openUnitInPopup(1);
+      await logStep('Step 03: Reserve unit > Pay the fees and verify the unit is booked');
+      const page1Promise = page.waitForEvent('popup');
+      await app.marketplaceLandingPage.openResidentialUnit();
+      const page1 = await page1Promise;
+      const page2Promise = page1.waitForEvent('popup');
+      {
+        const unitApp = new WebApp(page1);
+        await unitApp.projectUnitsPage.openUnitInPopup(1);
+      }
+      const page2 = await page2Promise;
+      const bookingApp = new WebApp(page2);
+      await bookingApp.unitDetailsPage.reserveUnit();
+      await bookingApp.bookingAndSelectPaymentMethodPage.checkOnTermAndCondition();
+      await bookingApp.bookingAndSelectPaymentMethodPage.clickOnApproveAndContinueIfVisible();
+      await bookingApp.bookingAndSelectPaymentMethodPage.clickOnPayBookingFeesButton();
+      await bookingApp.paymentGatewayPage.fillCardDetails();
+      await bookingApp.paymentConfirmationPage.closePayment();
+      const bookedCodeNew = await bookingApp.bookingAndSelectPaymentMethodPage.getUnitCode();
+      expect(bookedCodeNew).toBeTruthy();
+      DataHelper.updateServiceData(SERVICE, 'bookedUnitCode', bookedCodeNew);
+
+      await logStep('Step 04: Select the payment method and sign the sales contract');
+      await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSelectPaymentMethodButton();
+      await bookingApp.bookingAndSelectPaymentMethodPage.clickOnFlexiblePaymentRadioButton();
+      await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSaveAndContinueButton();
+      await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSignContractButton();
+      await bookingApp.unitBookingPage.signSalesContract();
+      // await bookingApp.unitBookingPage.expectSalesContractSuccess();
+      await bookingApp.bookingAndSelectPaymentMethodPage.clickOnBookingDetailsButton();
+      await bookingApp.page.waitForTimeout(10000);
     }
-    const page2 = await page2Promise;
-    const bookingApp = new WebApp(page2);
-    await bookingApp.unitDetailsPage.reserveUnit();
-    await bookingApp.bookingAndSelectPaymentMethodPage.checkOnTermAndCondition();
-    await bookingApp.bookingAndSelectPaymentMethodPage.clickOnApproveAndContinueIfVisible();
-    await bookingApp.bookingAndSelectPaymentMethodPage.clickOnPayBookingFeesButton();
-    await bookingApp.paymentGatewayPage.fillCardDetails();
-    await bookingApp.paymentConfirmationPage.closePayment();
-    const bookedCodeNew = await bookingApp.bookingAndSelectPaymentMethodPage.getUnitCode();
-    expect(bookedCodeNew).toBeTruthy();
-    DataHelper.updateServiceData(SERVICE, 'bookedUnitCode', bookedCodeNew);
+  );
 
-    await logStep('Step 04: Select the payment method and sign the sales contract');
-    await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSelectPaymentMethodButton();
-    await bookingApp.bookingAndSelectPaymentMethodPage.clickOnFlexiblePaymentRadioButton();
-    await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSaveAndContinueButton();
-    await bookingApp.bookingAndSelectPaymentMethodPage.clickOnSignContractButton();
-    await bookingApp.unitBookingPage.signSalesContract();
-    // await bookingApp.unitBookingPage.expectSalesContractSuccess();
-    await bookingApp.bookingAndSelectPaymentMethodPage.clickOnBookingDetailsButton();
-    await bookingApp.page.waitForTimeout(10000);
-  });
-
-  test('TC-07 Verify same payment schedule in payment tracking and booking details', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 Verify same payment schedule in payment tracking and booking details', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -364,7 +368,7 @@ test.describe('Payment tracking - completion percentage', () => {
     await app.paymentTrackingPage.waitForCompletionPercentageVisible();
   });
 
-  test('TC-08 Developer confirms the booking - payment tracking with completion percentage', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-08 Developer confirms the booking - payment tracking with completion percentage', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

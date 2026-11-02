@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 const SERVICE = 'sales-channels-target-audience-unit-issuance';
@@ -18,7 +18,7 @@ async function waitAndClick(locator: Locator, timeout = DEFAULT_TIMEOUT) {
 test.describe('Functionality of sales Channels, target Audience and tnit issuance ', () => {
   test(
     'TC-01 Verify the developer is able filter the units based on sales channel and target audience',
-    { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any },
+    { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any },
     async ({ page }) => {
       const data = readServiceData();
       const environments = readEnvironments();
@@ -56,37 +56,41 @@ test.describe('Functionality of sales Channels, target Audience and tnit issuanc
     }
   );
 
-  test("TC-02 Verify the developer can't book a unit which does not have partners as a sales channel", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
-    const data = readServiceData();
-    const environments = readEnvironments();
-    const app = new WebApp(page);
-    const developerUserId = data.developerUserId;
-    const unitWithoutSalesChannels = data.unitWithoutSalesChannels;
-    const userId = data.userId;
+  test(
+    "TC-02 Verify the developer can't book a unit which does not have partners as a sales channel",
+    { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any },
+    async ({ page }) => {
+      const data = readServiceData();
+      const environments = readEnvironments();
+      const app = new WebApp(page);
+      const developerUserId = data.developerUserId;
+      const unitWithoutSalesChannels = data.unitWithoutSalesChannels;
+      const userId = data.userId;
 
-    await logStep('Step 01: Navigate to partners portal > Login as developer');
-    await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-    await app.partnersLoginPage.switchRoleToDeveloper();
+      await logStep('Step 01: Navigate to partners portal > Login as developer');
+      await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
+      await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+      await app.partnersLoginPage.switchRoleToDeveloper();
 
-    await logStep('Step 02: Open projects > Open the first project > Unit details');
-    await app.developerProjectPage.openProjectsPage();
-    await app.developerProjectPage.openTheFirstExistingProject();
-    await app.salesChannelTargetAudiencePage.clickOnUnitDetails();
+      await logStep('Step 02: Open projects > Open the first project > Unit details');
+      await app.developerProjectPage.openProjectsPage();
+      await app.developerProjectPage.openTheFirstExistingProject();
+      await app.salesChannelTargetAudiencePage.clickOnUnitDetails();
 
-    await logStep('Step 03: Search by the unit code without partners sales channel > Verify no results are shown');
-    await app.salesChannelTargetAudiencePage.selectSearchUsingUnitCode();
-    await app.salesChannelTargetAudiencePage.fillUnitCode(unitWithoutSalesChannels);
-    await app.salesChannelTargetAudiencePage.clickOnSearch();
+      await logStep('Step 03: Search by the unit code without partners sales channel > Verify no results are shown');
+      await app.salesChannelTargetAudiencePage.selectSearchUsingUnitCode();
+      await app.salesChannelTargetAudiencePage.fillUnitCode(unitWithoutSalesChannels);
+      await app.salesChannelTargetAudiencePage.clickOnSearch();
 
-    expect(await app.salesChannelTargetAudiencePage.isSearchResultEmpty()).toBe(true);
+      expect(await app.salesChannelTargetAudiencePage.isSearchResultEmpty()).toBe(true);
 
-    await logStep('Step 04: Start new booking for the customer using the unit code > Select the unit');
-    await app.developerProjectPage.bookUnitsForCustomersUsingUnitCode(userId, unitWithoutSalesChannels);
-    await waitAndClick(unitCheckbox(page, 1));
+      await logStep('Step 04: Start new booking for the customer using the unit code > Select the unit');
+      await app.developerProjectPage.bookUnitsForCustomersUsingUnitCode(userId, unitWithoutSalesChannels);
+      await waitAndClick(unitCheckbox(page, 1));
 
-    await logStep('Step 05: Click next > Verify the unit is not available for booking');
-    await app.developerProjectPage.clickOnNextButton();
-    expect(await app.salesChannelTargetAudiencePage.isBookingNotAvailable()).toBe(true);
-  });
+      await logStep('Step 05: Click next > Verify the unit is not available for booking');
+      await app.developerProjectPage.clickOnNextButton();
+      expect(await app.salesChannelTargetAudiencePage.isBookingNotAvailable()).toBe(true);
+    }
+  );
 });

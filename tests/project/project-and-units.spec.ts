@@ -1,4 +1,3 @@
-import page from 'playwright/test';
 import { test, expect } from '@fixtures/pages.fixture';
 import { ProjectPage } from '@pages/ProjectPage';
 import { UnitModelPage } from '@pages/UnitModelPage';
@@ -6,35 +5,27 @@ import { UnitDetailPage } from '@pages/UnitDetailPage';
 import { PROJECTS } from '@data/testData';
 import { findBookableNonBeneUnit, getProject } from '@helpers/marketplaceApi';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 test.describe('View projects and units', () => {
-  test('TC-01 Project detail renders all business sections About this project, Developer, Payment methods, Facilities, Location, Participating banks, Contact',
-    { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-      authenticatedPage,
-    }) => {
-    const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
-    await logStep('Step 01: Open the project detail page');
-    await project.open();
-    await project.expectLoaded();
+  test(
+    'TC-01 Project detail renders all business sections About this project, Developer, Payment methods, Facilities, Location, Participating banks, Contact',
+    { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] },
+    async ({ authenticatedPage }) => {
+      const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
+      await logStep('Step 01: Open the project detail page');
+      await project.open();
+      await project.expectLoaded();
 
-    await logStep('Step 02: Check the project sections are rendered');
-    const headings = (await project.sectionHeadings()).join(' | ');
-    for (const section of [
-      'About this project',
-      'Developer',
-      'Payment methods',
-      'Facilities',
-      'Location',
-      'Participating banks',
-      'Contact',
-    ]) {
-      expect(headings, `Section "${section}" should render`).toContain(section);
+      await logStep('Step 02: Check the project sections are rendered');
+      const headings = (await project.sectionHeadings()).join(' | ');
+      for (const section of ['About this project', 'Developer', 'Payment methods', 'Facilities', 'Location', 'Participating banks', 'Contact']) {
+        expect(headings, `Section "${section}" should render`).toContain(section);
+      }
     }
-  });
+  );
 
-  test('TC-02 Unit-model page lists units with filter chips', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-02 Unit-model page lists units with filter chips', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its model page');
     const unit = await findBookableNonBeneUnit(authenticatedPage, PROJECTS.bookable);
     const model = new UnitModelPage(authenticatedPage, unit.unitModelId);
@@ -47,9 +38,7 @@ test.describe('View projects and units', () => {
     expect(await model.unitCards.count()).toBeGreaterThan(0);
   });
 
-  test('TC-03 Unit detail shows availability and a booking CTA', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-03 Unit detail shows availability and a booking CTA', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find an available unit and open its detail page');
     const unit = await findBookableNonBeneUnit(authenticatedPage, PROJECTS.bookable);
     const detail = new UnitDetailPage(authenticatedPage, unit.id);
@@ -61,9 +50,7 @@ test.describe('View projects and units', () => {
     await expect(detail.favoriteButton.first()).toBeVisible();
   });
 
-  test('TC-04 Project -> unit model -> unit navigation chain', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-04 Project -> unit model -> unit navigation chain', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Open the project and locate a model-to-unit chain');
     const unit = await findBookableNonBeneUnit(authenticatedPage, PROJECTS.bookable);
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookable);
@@ -82,9 +69,7 @@ test.describe('View projects and units', () => {
     await unitTab.close();
   });
 
-  test('TC-05 Closed project surfaces its bookings-closed state', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage, page
-  }) => {
+  test('TC-05 Closed project surfaces its bookings-closed state', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage, page }) => {
     await logStep('Step 01: Open a known closed project');
     const info = await getProject(authenticatedPage, PROJECTS.bookingsClosed);
     const project = new ProjectPage(authenticatedPage, PROJECTS.bookingsClosed);

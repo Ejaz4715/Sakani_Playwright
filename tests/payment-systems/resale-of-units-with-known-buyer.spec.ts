@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
@@ -11,7 +11,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Resale Of Units - With Known Buyer', () => {
-  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -134,7 +134,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer adds payment schedules', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -177,7 +177,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     });
   });
 
-  test('TC-03 Developer approves sales contract', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer approves sales contract', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readResaleData.environments;
@@ -201,7 +201,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 Seller books offplan unit and pay the fees - resale of unit with known buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Seller books offplan unit and pay the fees - resale of unit with known buyer', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const environment = readResaleData.environments;
@@ -244,7 +244,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     }
   });
 
-  test('TC-05 - Seller signs sales contract - resale of unit with known buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 - Seller signs sales contract - resale of unit with known buyer', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const seller = readResaleData.services['resale-of-units'].sellerUserId;
@@ -274,7 +274,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     await app.unitBookingPage.expectSalesContractSuccess();
   });
 
-  test('TC-06 Developer confirms the booking - resale of unit with known buyer ', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer confirms the booking - resale of unit with known buyer ', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const developerUserId = readResaleData.services['resale-of-units'].developerUserId;
@@ -290,7 +290,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     await app.developerProjectPage.confirmBooking(bookedUnitCode);
   });
 
-  test('TC-07 Admin configures project-level of resale settings for known buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 Admin configures project-level of resale settings for known buyer', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
     const adminPortalUrl = readResaleData.environments.adminPortalUrl;
@@ -316,7 +316,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     await app.resaleOfUnitsPage.verifyTheToastMessage();
   });
 
-  test('TC-08 Seller submits new resale request for known buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-08 Seller submits new resale request for known buyer', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const seller = readResaleData.services['resale-of-units'].sellerUserId;
@@ -376,7 +376,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     DataHelper.updateServiceData(SERVICE, 'requestNumber', reqNum);
   });
 
-  test('TC-09 Developer approves known buyer request', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-09 Developer approves known buyer request', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const developerUserId = readResaleData.services['resale-of-units'].developerUserId;
@@ -404,7 +404,7 @@ test.describe('Resale Of Units - With Known Buyer', () => {
     await app.resaleOfUnitsPage.verifyTheRequestisApproved();
   });
 
-  test('TC-10 Buyer signs contract and pays waiver for resale request with known buyer', { annotation: [{ product: 'Shared Product', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-10 Buyer signs contract and pays waiver for resale request with known buyer', { annotation: [{ product: Products.SharedProducts, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const buyerId = readResaleData.services['resale-of-units'].buyerUserId;

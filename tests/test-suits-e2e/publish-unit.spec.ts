@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 
@@ -10,7 +10,7 @@ const readEnvironments = () => DataHelper.readData().environments;
 const filePath = path.join(process.cwd(), 'src', 'data', 'Sample image.jpg');
 
 test.describe('Publish Unit', () => {
-  test('TC-01 - Developer broker publish new unit request', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 - Developer broker publish new unit request', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -56,7 +56,7 @@ test.describe('Publish Unit', () => {
     await app.publishUnitPage.verifyPublishUnitSendModalIsVisible();
   });
 
-  test('TC-02 - Admin approves publish unit request', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 - Admin approves publish unit request', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -85,7 +85,7 @@ test.describe('Publish Unit', () => {
     await app.publishUnitPage.verifyPublishUnitApprovalSuccessMessage();
   });
 
-  test('TC-03 - Developer verify the request is finished', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 - Developer verify the request is finished', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

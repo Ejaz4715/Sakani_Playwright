@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { test, expect } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 
@@ -9,7 +9,8 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Payments and transactions', () => {
-  test('TC-01 User preview and download the invoice and receipt', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 User preview and download the invoice and receipt', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
+    await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const data = readServiceData();
     const environments = readEnvironments();
@@ -49,7 +50,7 @@ test.describe('Payments and transactions', () => {
     await app.paymentsAndTransactionsPage.verifySavedFile(downloadPath, downloadDirectory);
   });
 
-  test('TC-02 Withdraw funds from wallet', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Withdraw funds from wallet', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     const data = readServiceData();
     const environment = readEnvironments();

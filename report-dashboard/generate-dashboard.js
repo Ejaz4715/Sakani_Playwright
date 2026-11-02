@@ -15,6 +15,8 @@ const reportGeneratedAt = new Date().toLocaleString();
 const envMetadata = rawData.config?.metadata?.environments || {};
 const globalEnv = rawData.config?.metadata?.environment || process.env.TEST_ENV || 'Pre-Prod';
 
+const preferredProductOrder = ['Marketplace', 'Gov Support', 'Loyalty', 'Shared Products', 'Real Estate Data', 'Self Construction', 'Digitar Developer', 'Digitar Broker', 'Sayal'];
+
 function formatDuration(ms) {
   if (!ms || ms <= 0) return '0s';
   const totalSeconds = ms / 1000;
@@ -205,7 +207,14 @@ allTests.forEach((item, index) => {
   });
 });
 
-const allProductKeys = Array.from(new Set(rawProcessedSpecs.map((s) => s.product || 'Sakani')));
+const allProductKeys = Array.from(new Set(rawProcessedSpecs.map((s) => s.product || 'Sakani'))).sort((a, b) => {
+  const indexA = preferredProductOrder.indexOf(a);
+  const indexB = preferredProductOrder.indexOf(b);
+  if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+  if (indexA !== -1) return -1;
+  if (indexB !== -1) return 1;
+  return a.localeCompare(b);
+});
 if (allProductKeys.length === 0) allProductKeys.push('Sakani');
 
 function buildProductData(specsList) {
@@ -278,15 +287,18 @@ function buildProductData(specsList) {
 const healthCheckData = buildProductData(rawProcessedSpecs);
 const readinessData = buildProductData(rawProcessedSpecs.filter((s) => s.isCritical));
 
-const productDropdownOptionsHtml = Object.keys(healthCheckData)
-  .map(
-    (key) => `
-  <div onclick="selectProductOption('${key}')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between">
-    <span>${healthCheckData[key].product}</span>
+let productDropdownOptionsHtml = `
+  <div onclick="selectProductOption('All Products')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between border-b border-slate-100">
+    <span>All Products</span>
   </div>
-`
-  )
-  .join('');
+`;
+allProductKeys.forEach((key) => {
+  productDropdownOptionsHtml += `
+    <div onclick="selectProductOption('${key}')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between">
+      <span>${healthCheckData[key].product}</span>
+    </div>
+  `;
+});
 
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -336,7 +348,7 @@ const htmlContent = `<!DOCTYPE html>
               <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
               </svg>
-              <span class="truncate">Product: <strong id="productDropdownSelected" class="font-bold">${Object.keys(healthCheckData)[0] || 'Sakani'}</strong></span>
+              <span class="truncate">Product: <strong id="productDropdownSelected" class="font-bold">All Products</strong></span>
             </div>
             <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
@@ -347,11 +359,6 @@ const htmlContent = `<!DOCTYPE html>
             ${productDropdownOptionsHtml}
           </div>
         </div>
-
-        <!-- Executive Summary Button -->
-        <button onclick="showExecutiveSummary()" id="execSummaryBtn" class="bg-[#166242] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm shrink-0">
-          Executive Summary
-        </button>
       </div>
     </header>
 
@@ -435,6 +442,14 @@ const htmlContent = `<!DOCTYPE html>
       </div>
     </div>
 
+    <!-- Product-wise Distribution Chart Section (Visible only in Executive Summary) -->
+    <div id="productDistributionCard" class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+      <h2 class="text-base font-bold" style="color: #166242;">Product-wise Test Status Distribution</h2>
+      <div class="relative w-full h-72">
+        <canvas id="productBarChart"></canvas>
+      </div>
+    </div>
+
     <div id="testCasesCard" class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
         <h2 id="sectionTitle" class="text-base font-bold" style="color: #166242;">Test Cases (<span id="tableTagTitle">-</span>)</h2>
@@ -503,8 +518,9 @@ const htmlContent = `<!DOCTYPE html>
     let currentStatusFilter = 'all';
     let currentSuiteFilter = 'all';
     let isExecSummaryMode = true;
-    let selectedProductKey = "${Object.keys(healthCheckData)[0] || 'Sakani'}";
+    let selectedProductKey = 'All Products';
     let chartInstance = null;
+    let barChartInstance = null;
 
     function escapeHtml(str) {
       if (!str) return '';
@@ -546,28 +562,21 @@ const htmlContent = `<!DOCTYPE html>
     });
 
     function selectProductOption(key) {
-      isExecSummaryMode = false;
-      document.getElementById('execSummaryBtn').className = "bg-white hover:bg-emerald-50 text-emerald-800 font-semibold text-sm rounded-xl px-4 py-2 border-2 border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm shrink-0";
-      document.getElementById('mainTitle').innerText = "Product Specific Report";
+      currentStatusFilter = 'all';
+      document.getElementById('statusDropdownSelected').innerText = 'All';
+      currentSuiteFilter = 'all';
+      document.getElementById('suiteDropdownSelected').innerText = 'All Suites';
 
       selectedProductKey = key;
       document.getElementById('productDropdownSelected').innerText = key;
 
-      currentStatusFilter = 'all';
-      document.getElementById('statusDropdownSelected').innerText = 'All';
-
-      currentSuiteFilter = 'all';
-      document.getElementById('suiteDropdownSelected').innerText = 'All Suites';
-
-      closeAllDropdowns();
-      renderDashboard(selectedProductKey);
-    }
-
-    function showExecutiveSummary() {
-      isExecSummaryMode = true;
-      const btnExec = document.getElementById('execSummaryBtn');
-      btnExec.className = "bg-[#166242] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm shrink-0";
-      document.getElementById('mainTitle').innerText = "Sakani Test Automation Executive Summary";
+      if (key === 'All Products') {
+        isExecSummaryMode = true;
+        document.getElementById('mainTitle').innerText = "Sakani Test Automation Executive Summary";
+      } else {
+        isExecSummaryMode = false;
+        document.getElementById('mainTitle').innerText = "Product Specific Report";
+      }
 
       closeAllDropdowns();
       renderDashboard(selectedProductKey);
@@ -623,7 +632,7 @@ const htmlContent = `<!DOCTYPE html>
     }
 
     function buildDynamicProductData(specsList) {
-      const productKeys = Array.from(new Set(specsList.map(s => s.product || 'Sakani')));
+      const productKeys = Object.keys(healthCheckData);
       const productData = {};
 
       productKeys.forEach(pKey => {
@@ -721,6 +730,7 @@ const htmlContent = `<!DOCTYPE html>
       const container = document.getElementById("suitesContainer");
       const filtersWrapper = document.getElementById("filtersWrapper");
       const sectionTitle = document.getElementById("sectionTitle");
+      const productDistributionCard = document.getElementById("productDistributionCard");
 
       const activeSourceSpecs = currentMode === 'readiness' 
         ? rawProcessedSpecs.filter(s => s.isCritical) 
@@ -732,6 +742,7 @@ const htmlContent = `<!DOCTYPE html>
         if (filtersWrapper) filtersWrapper.style.display = 'none';
         if (sectionTitle) sectionTitle.parentElement.style.display = 'none';
         if (container) container.innerHTML = '';
+        if (productDistributionCard) productDistributionCard.style.display = 'block';
 
         const data = execSummary;
         document.getElementById("totalExecuted").innerText = data.total;
@@ -740,14 +751,16 @@ const htmlContent = `<!DOCTYPE html>
         document.getElementById("skippedCount").innerText = data.skipped;
 
         document.getElementById("suitesScopeValue").innerText = data.suitesCount || 0;
-        document.getElementById("productScopeValue").innerText = data.product;
+        document.getElementById("productScopeValue").innerText = "All Products";
         document.getElementById("environmentValue").innerText = data.environment;
         document.getElementById("tagDurationValue").innerText = data.formattedDuration;
 
         renderChartAndLegend(data.passed, data.failed, data.skipped, data.total);
+        renderProductBarChart(productData);
         return;
       }
 
+      if (productDistributionCard) productDistributionCard.style.display = 'none';
       if (filtersWrapper) filtersWrapper.style.display = 'flex';
       if (sectionTitle && sectionTitle.parentElement) sectionTitle.parentElement.style.display = 'flex';
       if (sectionTitle) sectionTitle.innerHTML = 'Test Cases (<span id="tableTagTitle">-</span>)';
@@ -783,7 +796,7 @@ const htmlContent = `<!DOCTYPE html>
       document.getElementById("tagDurationValue").innerText = data.formattedDuration || '0s';
 
       const suiteMenu = document.getElementById("suiteDropdownMenu");
-      const uniqueSuites = Array.from(new Set((data.specs || []).map(s => s.suite || 'General Suite')));
+      const uniqueSuites = Array.from(new Set((data.specs || []).map(s => s.suite || 'General Suite'))).sort();
       
       let suiteMenuHtml = '<div onclick="selectSuiteOption(\\'all\\', \\'All Suites\\')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">All Suites</div>';
       uniqueSuites.forEach(sName => {
@@ -820,7 +833,7 @@ const htmlContent = `<!DOCTYPE html>
           groupedBySuite[sName].push(spec);
         });
 
-        Object.keys(groupedBySuite).forEach(suiteName => {
+        Object.keys(groupedBySuite).sort().forEach(suiteName => {
           const specsInSuite = groupedBySuite[suiteName];
 
           let rowsHtml = '';
@@ -919,6 +932,68 @@ const htmlContent = `<!DOCTYPE html>
             }
           },
           cutout: '60%'
+        }
+      });
+    }
+
+    function renderProductBarChart(productData) {
+      const productKeys = Object.keys(productData);
+      const passedCounts = productKeys.map(k => productData[k].passed);
+      const failedCounts = productKeys.map(k => productData[k].failed);
+      const skippedCounts = productKeys.map(k => productData[k].skipped);
+
+      if (barChartInstance) barChartInstance.destroy();
+
+      const ctx = document.getElementById('productBarChart').getContext('2d');
+      barChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: productKeys,
+          datasets: [
+            {
+              label: 'Passed',
+              data: passedCounts,
+              backgroundColor: '#10B981',
+              borderRadius: 4
+            },
+            {
+              label: 'Failed',
+              data: failedCounts,
+              backgroundColor: '#EF4444',
+              borderRadius: 4
+            },
+            {
+              label: 'Skipped',
+              data: skippedCounts,
+              backgroundColor: '#F59E0B',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { weight: 'bold', size: 11 } }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: '#f1f5f9' },
+              ticks: { precision: 0 }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { font: { weight: 'bold', size: 12 }, boxWidth: 14 }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          }
         }
       });
     }
