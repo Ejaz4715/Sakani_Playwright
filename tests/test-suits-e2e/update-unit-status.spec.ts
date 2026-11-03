@@ -10,7 +10,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Update unit status (active/inactive) from partners', () => {
   test('TC-01 Developer updates the unit status active or inactive of available unit', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -79,7 +78,6 @@ test.describe('Update unit status (active/inactive) from partners', () => {
   });
 
   test("TC-02 Verify booked unit status can't be updated", { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();

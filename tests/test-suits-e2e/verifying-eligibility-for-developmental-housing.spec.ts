@@ -9,7 +9,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Verifying eligibility for developmental housing', () => {
   test('TC-01 - Developer verifying the eleigiblity of user for developmental housing', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();

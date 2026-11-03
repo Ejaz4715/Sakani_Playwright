@@ -9,7 +9,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Waiting List', () => {
   test('TC-01 Developer add user to a specific project for waiting list', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -45,7 +44,6 @@ test.describe('Waiting List', () => {
   });
 
   test('TC-02 Verify the registered project request is in waiting list then cancel', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

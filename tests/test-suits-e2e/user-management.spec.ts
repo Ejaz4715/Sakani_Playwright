@@ -10,7 +10,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('User Management', () => {
   test('TC-01 - Verify the user if exist then remove him', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();

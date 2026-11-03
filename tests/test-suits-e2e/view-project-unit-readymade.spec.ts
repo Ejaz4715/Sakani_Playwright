@@ -10,7 +10,6 @@ const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('View Proejct and unit of Readymade', () => {
   test('TC-01 Verify user viewing the project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environment = readEnvironments();
@@ -42,7 +41,6 @@ test.describe('View Proejct and unit of Readymade', () => {
   });
 
   test('TC-02 Verify user viewing the unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environment = readEnvironments();
