@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 import { FiltersObjects } from '@objects/FiltersObjects';
@@ -9,7 +9,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Sorting, Filters and Tags', () => {
-  test('TC-01 - Sort projects and verify orders', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 - Sort projects and verify orders', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -52,7 +52,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.sortingPage.verifyProjectNamesChanged(previousProjectNames);
   });
 
-  test('TC-02 - Validate the minimum and maximum prices fields messages', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 - Validate the minimum and maximum prices fields messages', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -79,7 +79,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.filtersPage.validateElementExists(FiltersObjects.maximumPriceMoreMessage);
   });
 
-  test('TC-03 - Validate the minimum and maximum areas fields messages', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 - Validate the minimum and maximum areas fields messages', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -106,7 +106,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.filtersPage.validateElementExists(FiltersObjects.maximumAreaMoreMessage);
   });
 
-  test('TC-04 - Verify that user able to select by eligibilty type', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 - Verify that user able to select by eligibilty type', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -130,7 +130,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.filtersPage.verifyElementValueAttribute(FiltersObjects.nonBeneficiaryValue, 'true');
   });
 
-  test('TC-05 - Verify that user able to select by construction status', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 - Verify that user able to select by construction status', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -154,7 +154,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.filtersPage.verifyElementValueAttribute(FiltersObjects.landsValue, 'true');
   });
 
-  test('TC-06 - Verify that user able to select by project status', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 - Verify that user able to select by project status', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -178,7 +178,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.filtersPage.verifyElementValueAttribute(FiltersObjects.lastUnitsRemainingValue, 'true');
   });
 
-  test('TC-07 - Verify that user able to select by property type', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 - Verify that user able to select by property type', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -210,7 +210,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.filtersPage.verifyElementValueAttribute(FiltersObjects.otherValue, 'true');
   });
 
-  test('TC-08 - Verify that user able to select rooms and bathrooms', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-08 - Verify that user able to select rooms and bathrooms', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();
@@ -235,7 +235,7 @@ test.describe('Sorting, Filters and Tags', () => {
     await app.filtersPage.clickElement(FiltersObjects.twoBathroomsCheckbox);
     await app.filtersPage.verifyElementValueAttribute(FiltersObjects.twoBathroomsValue, 'true');
   });
-  test('TC-09 - Verify that tags are present in unit card', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-09 - Verify that tags are present in unit card', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environments = readEnvironments();

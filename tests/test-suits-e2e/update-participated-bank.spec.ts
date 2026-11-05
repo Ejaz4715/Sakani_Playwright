@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 
@@ -8,7 +8,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Update Participated Bank', () => {
-  test('TC-01 Admin update the banks to be hidden', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin update the banks to be hidden', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -44,7 +44,7 @@ test.describe('Update Participated Bank', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-02 Verify the banks are hidden', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verify the banks are hidden', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -87,7 +87,7 @@ test.describe('Update Participated Bank', () => {
     }
   });
 
-  test('TC-03 Admin update the banks to be present', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-03 Admin update the banks to be present', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -123,7 +123,7 @@ test.describe('Update Participated Bank', () => {
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-04 Verify the banks are present', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-04 Verify the banks are present', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

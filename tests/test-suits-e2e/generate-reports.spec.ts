@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import { ExcelUtils } from '@pages/utils/ExcelUtils';
@@ -11,7 +11,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Generate Reoprts', () => {
-  test('TC-01 Developer generate reoprt for a project', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 Developer generate reoprt for a project', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

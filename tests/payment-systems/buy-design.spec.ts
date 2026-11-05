@@ -1,18 +1,17 @@
-import { test, expect, Page } from '@playwright/test';
-const path = require('path');
-import { WebApp } from '@base-class/web-app';
+import { test, expect } from '@playwright/test';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
-import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 import buyDesignData from '@data/test-data.json';
+import path from 'path';
 
 const SERVICE = 'buy-design';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Order design', () => {
-  test('TC-01 User buys a design (only design option)', { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-01 User buys a design (only design option)', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
+    await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const data = readServiceData();
     const environments = readEnvironments();
@@ -55,7 +54,7 @@ test.describe('Order design', () => {
     await designApp.buyDesignPage.verifyPaymentSuccess();
   });
 
-  test('TC-02 Admin adds an Moh land project (design only)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Admin adds an Moh land project (design only)', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -158,7 +157,7 @@ test.describe('Order design', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 User books moh land unit (design only)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 User books moh land unit (design only)', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
     const app = new WebApp(page);
     const data = readServiceData();
@@ -193,12 +192,11 @@ test.describe('Order design', () => {
     await expect(page.getByText('تهانينا!')).toBeVisible();
   });
 
-  test('TC-03 User buys a design (design with fitting option)', { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-03 User buys a design (design with fitting option)', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
+    await logStep('Step 00: Read data from json relative to the service');
     const app = new WebApp(page);
     const data = readServiceData();
     const environments = readEnvironments();
-
     const userId = data['with-fitting'].userId;
     const userPortalUrl = environments.userPortalUrl;
 
@@ -249,7 +247,7 @@ test.describe('Order design', () => {
     await designApp.buyDesignPage.verifyPaymentSuccess();
   });
 
-  test('TC-04 Admin adds Moh land project (design with fitting)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Admin adds Moh land project (design with fitting)', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
     const app = new WebApp(page);
     const environment = readEnvironments();
@@ -352,7 +350,7 @@ test.describe('Order design', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-05 User books moh land unit (design with fitting)', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User books moh land unit (design with fitting)', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read test data relative to the service');
     const app = new WebApp(page);
     const data = readServiceData();
@@ -387,7 +385,7 @@ test.describe('Order design', () => {
     await expect(page.getByText('تهانينا!')).toBeVisible();
   });
 
-  test('TC-06 User buys a design (design with fitting and building permit)', { annotation: [{ product: 'Self Construction', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 User buys a design (design with fitting and building permit)', { annotation: [{ product: Products.SelfConstruction, type: 'critical' }] as any }, async ({ page }) => {
     const app = new WebApp(page);
     const data = buyDesignData.services['buy-design'];
     const userId = data['with-fitting-and-building-permit'].userId;

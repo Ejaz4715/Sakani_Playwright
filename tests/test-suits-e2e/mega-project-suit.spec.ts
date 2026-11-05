@@ -1,7 +1,7 @@
 ﻿import { test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { DateUtils } from '@pages/utils/DateUtils';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import path from 'node:path';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
@@ -11,7 +11,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Mega project journey', () => {
-  test('TC-01 Admin creates new offplan Moh land project for mega project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin creates new offplan Moh land project for mega project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -135,7 +135,7 @@ test.describe('Mega project journey', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
 
-  test('TC-02 Admin creates new mega project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Admin creates new mega project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -177,7 +177,7 @@ test.describe('Mega project journey', () => {
     await page.waitForTimeout(10000);
   });
 
-  test('TC-03 Verify non-saudi user can not book offplan unit from the mega project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Verify non-saudi user can not book offplan unit from the mega project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -217,7 +217,7 @@ test.describe('Mega project journey', () => {
     }
   });
 
-  test('TC-04 Admin enables the booking for non-saudi users in the mega project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Admin enables the booking for non-saudi users in the mega project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(120000);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -242,7 +242,7 @@ test.describe('Mega project journey', () => {
     await page.waitForTimeout(10000);
   });
 
-  test('TC-05 Verify non-saudi user can book offplan unit from mega project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
+  test('TC-05 Verify non-saudi user can book offplan unit from mega project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }: { page: Page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

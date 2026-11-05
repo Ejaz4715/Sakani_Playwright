@@ -52,6 +52,19 @@ import { UserManagementPage } from '@pages/UserManagementPage';
 import { CreatingAnAdvertisingCampaignPage } from '@pages/CreatingAnAdvertisingCampaignPage';
 import { SelfConstructionPage } from '@pages/SelfConstructionPage';
 
+export enum Products {
+  Marketplace = 'Marketplace',
+  DigitarBroker = 'Digitar-Broker',
+  DigitarDeveloper = 'Digitar-Developer',
+  SharedProducts = 'Shared-Products',
+  GovSupport = 'Government-Support',
+  Loyalty = 'Loyalty',
+  SelfConstruction = 'Self-Construction',
+  MarketService = 'Market-Service',
+  RealEstateData = 'Real-Estate-Data',
+  Sayal = 'Sayal',
+}
+
 export class WebApp {
   page: Page;
   loginPage: InstanceType<typeof LoginPage>;

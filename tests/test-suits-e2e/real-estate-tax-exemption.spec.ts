@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
@@ -8,7 +8,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Real estate tax exemption Verify the certificate inquiry message', () => {
-  test('TC-01 Request real estate tax exemption', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 Request real estate tax exemption', { annotation: [{ product: Products.GovSupport, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

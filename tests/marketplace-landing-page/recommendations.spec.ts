@@ -1,8 +1,7 @@
-import { expect, test } from '@fixtures/pages.fixture';
+import { expect, test } from '@playwright/test';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
-import { WebApp } from '@base-class/web-app';
-import { fail } from 'node:assert';
+import { WebApp, Products } from '@base-class/web-app';
 
 const SERVICE = 'recommendations';
 
@@ -10,60 +9,42 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Recommendations', () => {
-  test(
-    'TC-01 Check the user ability to update the preference from user profile',
-    {
-      annotation: [
-        {
-          product: 'Real Estate Data',
-          type: 'Critical',
-        } as any,
-      ],
-    },
-    async ({ page }) => {
-      const data = readServiceData();
-      const environments = readEnvironments();
-      const app = new WebApp(page);
-      const userPortalUrl = environments.userPortalUrl;
+  test('TC-01 Check the user ability to update the preference from user profile', { annotation: [{ product: Products.RealEstateData, type: 'non-critical' } as any] }, async ({ page }) => {
+    const data = readServiceData();
+    const environments = readEnvironments();
+    const app = new WebApp(page);
+    const userPortalUrl = environments.userPortalUrl;
 
-      await logStep('Step 01: Navigate to user portal > Login');
-      await app.loginPage.gotoHomePage(userPortalUrl);
-      //await app.loginPage.acceptCookies();
-      await app.loginPage.openLogin();
-      await app.loginPage.loginWithNafath(data.sakaniUserId);
-      await app.loginPage.waitForNafathPromptToDisappear();
-      await app.loginPage.continueNewUserPopup();
-      await app.loginPage.handlePushNotificationPopup();
+    await logStep('Step 01: Navigate to user portal > Login');
+    await app.loginPage.gotoHomePage(userPortalUrl);
+    await app.loginPage.acceptCookies();
+    await app.loginPage.openLogin();
+    await app.loginPage.loginWithNafath(data.sakaniUserId);
+    await app.loginPage.waitForNafathPromptToDisappear();
+    await app.loginPage.continueNewUserPopup();
+    await app.loginPage.handlePushNotificationPopup();
 
-      await logStep('Step 02: Open Recommendations Tab');
-      await app.marketplaceLandingPage.openProfileManagement();
-      await app.recommendationsPage.clickOnRecommendations();
-      await app.recommendationsPage.openRecommendationsForm();
-      await app.recommendationsPage.selectFirstRegion();
-      await app.recommendationsPage.selectFirstCity();
-      await app.recommendationsPage.selectDistrict();
-      await app.recommendationsPage.selectProjectType();
-      await app.recommendationsPage.selectUnitType('فيلا');
-      await app.recommendationsPage.clickOnContinue();
+    await logStep('Step 02: Open Recommendations Tab');
+    await app.marketplaceLandingPage.openProfileManagement();
+    await app.recommendationsPage.clickOnRecommendations();
+    await app.recommendationsPage.openRecommendationsForm();
+    await app.recommendationsPage.selectFirstRegion();
+    await app.recommendationsPage.selectFirstCity();
+    await app.recommendationsPage.selectDistrict();
+    await app.recommendationsPage.selectProjectType();
+    await app.recommendationsPage.selectUnitType('فيلا');
+    await app.recommendationsPage.clickOnContinue();
 
-      await app.recommendationsPage.setMinimumPrice(100000);
-      await app.recommendationsPage.selectBedRoomsNumber(4);
-      await app.recommendationsPage.selectBathroomsNumber(3);
+    await app.recommendationsPage.setMinimumPrice(100000);
+    await app.recommendationsPage.selectBedRoomsNumber(4);
+    await app.recommendationsPage.selectBathroomsNumber(3);
 
-      await app.recommendationsPage.clickOnSave();
-      expect(await app.recommendationsPage.isPreferenceSavedSuccessfully()).toEqual(true);
-    }
-  );
+    await app.recommendationsPage.clickOnSave();
+    expect(await app.recommendationsPage.isPreferenceSavedSuccessfully()).toEqual(true);
+  });
   test(
     'TC-02 Verify the user is able to view project/unit from recommendations tab filter matching the preferences',
-    {
-      annotation: [
-        {
-          product: 'Real Estate Data',
-          type: 'Critical',
-        } as any,
-      ],
-    },
+    { annotation: [{ product: Products.RealEstateData, type: 'non-critical' } as any] },
     async ({ page }) => {
       const data = readServiceData();
       const environments = readEnvironments();
@@ -72,7 +53,7 @@ test.describe('Recommendations', () => {
 
       await logStep('Step 01: Navigate to user portal > Login');
       await app.loginPage.gotoHomePage(userPortalUrl);
-      //await app.loginPage.acceptCookies();
+      await app.loginPage.acceptCookies();
       await app.loginPage.openLogin();
       await app.loginPage.loginWithNafath(data.sakaniUserId);
       await app.loginPage.waitForNafathPromptToDisappear();
@@ -92,8 +73,8 @@ test.describe('Recommendations', () => {
     {
       annotation: [
         {
-          product: 'Real Estate Data',
-          type: 'Critical',
+          product: Products.RealEstateData,
+          type: 'non-critical',
         } as any,
       ],
     },
@@ -105,7 +86,7 @@ test.describe('Recommendations', () => {
 
       await logStep('Step 01: Navigate to user portal > Login');
       await app.loginPage.gotoHomePage(userPortalUrl);
-      //await app.loginPage.acceptCookies();
+      await app.loginPage.acceptCookies();
       await app.loginPage.openLogin();
       await app.loginPage.loginWithNafath(data.sakaniUserId);
       await app.loginPage.waitForNafathPromptToDisappear();
@@ -135,8 +116,8 @@ test.describe('Recommendations', () => {
     {
       annotation: [
         {
-          product: 'Real Estate Data',
-          type: 'Critical',
+          product: Products.RealEstateData,
+          type: 'non-critical',
         } as any,
       ],
     },
@@ -148,7 +129,7 @@ test.describe('Recommendations', () => {
 
       await logStep('Step 01: Navigate to user portal > Login');
       await app.loginPage.gotoHomePage(userPortalUrl);
-      //await app.loginPage.acceptCookies();
+      await app.loginPage.acceptCookies();
       await app.loginPage.openLogin();
       await app.loginPage.loginWithNafath(data.sakaniUserId);
       await app.loginPage.waitForNafathPromptToDisappear();
@@ -176,8 +157,8 @@ test.describe('Recommendations', () => {
     {
       annotation: [
         {
-          product: 'Real Estate Data',
-          type: 'Critical',
+          product: Products.RealEstateData,
+          type: 'non-critical',
         } as any,
       ],
     },
@@ -189,7 +170,7 @@ test.describe('Recommendations', () => {
 
       await logStep('Step 01: Navigate to user portal > Login');
       await app.loginPage.gotoHomePage(userPortalUrl);
-
+      await app.loginPage.acceptCookies();
       await app.filtersPage.clickOnPropertiesForSaleButton();
       await app.filtersPage.clickOnOffPlanSaleUnits();
       await app.recommendationsPage.clickOnForYou();
@@ -201,8 +182,8 @@ test.describe('Recommendations', () => {
     {
       annotation: [
         {
-          product: 'Real Estate Data',
-          type: 'Critical',
+          product: Products.RealEstateData,
+          type: 'non-critical',
         } as any,
       ],
     },
@@ -214,7 +195,7 @@ test.describe('Recommendations', () => {
 
       await logStep('Step 01: Navigate to user portal > Login');
       await app.loginPage.gotoHomePage(userPortalUrl);
-
+      await app.loginPage.acceptCookies();
       await app.filtersPage.clickOnPropertiesForSaleButton();
       await app.filtersPage.clickOnOffPlanSaleUnits();
       await app.recommendationsPage.clickOnForYou();

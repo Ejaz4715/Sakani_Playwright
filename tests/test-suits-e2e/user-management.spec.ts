@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import { UserManagementObjects } from '@objects/UserManagementObjects';
@@ -9,8 +9,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('User Management', () => {
-  test('TC-01 Verify the user if exist then remove him', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-01 - Verify the user if exist then remove him', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -33,7 +32,7 @@ test.describe('User Management', () => {
     await app.userManagementPage.clickOnAcceptButton();
     await app.userManagementPage.verifyUserDeletedMessageIsPresent();
   });
-  test('TC-02 Add a new delegate user and validate the deactivated user can not login', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Add a new delegate user and validate the deactivated user can not login', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -74,7 +73,7 @@ test.describe('User Management', () => {
     await app.userManagementPage.clickOnGoToDashboardButton();
     await app.userManagementPage.verifyUserFailedToLoginMessageIsPresent();
   });
-    test('TC-03 Developer Activate the new user', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+    test('TC-03 Developer Activate the new user', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -97,7 +96,7 @@ test.describe('User Management', () => {
     await app.userManagementPage.activateTheUser();
     await app.userManagementPage.verifySuccessActivationMessageIsPresent();
   });
-    test('TC-04 Verify the activated user able to login and have no permission', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+    test('TC-04 Verify the activated user able to login and have no permission', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -113,7 +112,7 @@ test.describe('User Management', () => {
     await logStep('Step 02: Verify the user logged in and have no permission');
     await app.userManagementPage.verifyBookingsPermissionIsNotVisible();
   });
-  test('TC-05 Developer add permission to a user', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Developer add permission to a user', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -139,7 +138,7 @@ test.describe('User Management', () => {
     await app.userManagementPage.switchOnBookingsManagementPermissionSwitchButton();
     await app.userManagementPage.verifySuccessActivationMessageIsPresent();
   });
-      test('TC-06 Verify the user have permission', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+      test('TC-06 Verify the user have permission', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -155,7 +154,7 @@ test.describe('User Management', () => {
     await logStep('Step 02: Verify the user have permission');
     await app.userManagementPage.verifyBookingsPermissionIsVisible();
   });
-  test('TC-07 Developer delete a user', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 Developer delete a user', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

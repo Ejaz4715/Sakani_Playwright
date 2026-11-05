@@ -1,12 +1,10 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { MyBookingsPage } from '@pages/MyBookingsPage';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 test.describe('My bookings - depth', () => {
-  
-  test('TC-01 My bookings lists bookings under status tabs', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-01 My bookings lists bookings under status tabs', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const myBookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the my bookings page');
@@ -20,13 +18,10 @@ test.describe('My bookings - depth', () => {
     }
 
     await logStep('Step 03: Confirm the fixture account has bookings to list');
-    expect(
-      await myBookings.hasAnyBooking(),
-      'Fixture account should have at least one booking to list',
-    ).toBeTruthy();
+    expect(await myBookings.hasAnyBooking(), 'Fixture account should have at least one booking to list').toBeTruthy();
   });
 
-  test('TC-02 The Active tab filters only lists active bookings', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-02 The Active tab filters only lists active bookings', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const myBookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the my bookings page');
@@ -37,12 +32,10 @@ test.describe('My bookings - depth', () => {
     await myBookings.selectTab(myBookings.tabActive);
 
     await logStep('Step 03: Ensure the active view does not show cancellation dates');
-    await expect(
-      authenticatedPage.getByText(/Cancellation date|تاريخ الإلغاء/i),
-    ).toHaveCount(0);
+    await expect(authenticatedPage.getByText(/Cancellation date|تاريخ الإلغاء/i)).toHaveCount(0);
   });
 
-  test('TC-03 A booking can be opened from the listing', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-03 A booking can be opened from the listing', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const myBookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the bookings list');
@@ -54,14 +47,10 @@ test.describe('My bookings - depth', () => {
 
     await logStep('Step 03: Confirm the booking detail page loads');
     await expect(authenticatedPage).toHaveURL(/view-booking\/\d+/);
-    await expect(
-      authenticatedPage.getByRole('heading', { name: /^Booking\s/i }).first(),
-    ).toBeVisible({ timeout: 90_000 });
+    await expect(authenticatedPage.getByRole('heading', { name: /^Booking\s/i }).first()).toBeVisible({ timeout: 90_000 });
   });
-  
-  test('TC-04 The Cancelled tab lists only cancelled bookings', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
-    authenticatedPage,
-  }) => {
+
+  test('TC-04 The Cancelled tab lists only cancelled bookings', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the my bookings listing');
@@ -78,7 +67,7 @@ test.describe('My bookings - depth', () => {
     expect(body).toMatch(/Cancel|ملغ/i);
   });
 
-  test('TC-05 The Completed tab renders', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-05 The Completed tab renders', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open my bookings');
@@ -92,7 +81,7 @@ test.describe('My bookings - depth', () => {
     await bookings.waitForListing();
   });
 
-  test('TC-06 The Unpaid tab renders', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
+  test('TC-06 The Unpaid tab renders', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the bookings page');
@@ -106,7 +95,7 @@ test.describe('My bookings - depth', () => {
     await bookings.waitForListing();
   });
 
-  test('TC-07 The Ready to sign tab renders', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-07 The Ready to sign tab renders', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open my bookings');
@@ -120,9 +109,7 @@ test.describe('My bookings - depth', () => {
     await bookings.waitForListing();
   });
 
-  test('TC-08 The All tab is a superset of the Active tab', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-08 The All tab is a superset of the Active tab', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the bookings listing');
@@ -139,9 +126,7 @@ test.describe('My bookings - depth', () => {
     expect(allCount).toBeGreaterThanOrEqual(activeCount);
   });
 
-  test('TC-09 Booking card carries its identifying fields', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-09 Booking card carries its identifying fields', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the bookings page');
@@ -158,7 +143,7 @@ test.describe('My bookings - depth', () => {
     expect(body).toMatch(/Unit type|Unit code|Plot code|نوع الوحدة/i);
   });
 
-  test('TC-10 View details opens the matching booking', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]}, async ({ authenticatedPage }) => {
+  test('TC-10 View details opens the matching booking', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the booking list');
@@ -174,14 +159,10 @@ test.describe('My bookings - depth', () => {
 
     await logStep('Step 04: Confirm the booking detail page is opened');
     await expect(authenticatedPage).toHaveURL(/view-booking\/\d+/);
-    await expect(
-      authenticatedPage.getByRole('heading', { name: /Booking/i }).first(),
-    ).toBeVisible({ timeout: 90_000 });
+    await expect(authenticatedPage.getByRole('heading', { name: /Booking/i }).first()).toBeVisible({ timeout: 90_000 });
   });
 
-  test('TC-11 Returning from a booking keeps the listing usable', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({
-    authenticatedPage,
-  }) => {
+  test('TC-11 Returning from a booking keeps the listing usable', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the bookings page');
@@ -200,7 +181,7 @@ test.describe('My bookings - depth', () => {
     await bookings.expectLoaded();
   });
 
-  test('TC-12 Every status tab is present', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]},async ({ authenticatedPage }) => {
+  test('TC-12 Every status tab is present', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     const bookings = new MyBookingsPage(authenticatedPage);
 
     await logStep('Step 01: Open the bookings page');
@@ -208,8 +189,6 @@ test.describe('My bookings - depth', () => {
     await bookings.expectLoaded();
 
     await logStep('Step 02: Validate the full set of status tabs');
-    expect(await bookings.tabLabels()).toEqual(
-      expect.arrayContaining(['All', 'Active', 'Cancelled', 'Completed', 'Unpaid', 'Ready to sign']),
-    );
+    expect(await bookings.tabLabels()).toEqual(expect.arrayContaining(['All', 'Active', 'Cancelled', 'Completed', 'Unpaid', 'Ready to sign']));
   });
 });

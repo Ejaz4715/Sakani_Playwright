@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects';
@@ -9,7 +9,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Card Details', () => {
-  test('TC-01 Verify user viewing the project card details', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 Verify user viewing the project card details', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

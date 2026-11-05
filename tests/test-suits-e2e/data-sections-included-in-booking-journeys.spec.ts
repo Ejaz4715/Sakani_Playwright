@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 import { BookingCancellationObjects } from '@objects/BookingCancellationObjects';
@@ -8,7 +8,7 @@ const SERVICE = 'card-details';
 const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 test.describe('Data Sections Included in Booking Journeys', () => {
-  test('TC-01 Verifty the Insights and trends included in the project is available', { annotation: [{ product: 'Real Estate Data', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 Verifty the Insights and trends included in the project is available', { annotation: [{ product: Products.RealEstateData, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -38,7 +38,7 @@ test.describe('Data Sections Included in Booking Journeys', () => {
     await app.commonMethods.clickElement(BookingCancellationObjects.monthsDropdownList);
     await app.bookingPage.verifyElementVisibility(BookingCancellationObjects.monthsOptions, true);
   });
-  test('TC-02 Verifty the transactions included in the project is available', { annotation: [{ product: 'Real Estate Data', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verifty the transactions included in the project is available', { annotation: [{ product: Products.RealEstateData, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -62,7 +62,7 @@ test.describe('Data Sections Included in Booking Journeys', () => {
     await app.marketplaceLandingPage.clickSearchedResultIfTextMatches(realEstateDataProjectName);
     await app.bookingPage.verifyElementVisibility(BookingCancellationObjects.transactionSection, true);
   });
-  test('TC-03 Verifty the demographic included in the project is available', { annotation: [{ product: 'Real Estate Data', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-03 Verifty the demographic included in the project is available', { annotation: [{ product: Products.RealEstateData, type: 'non-critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 const path = require('path');
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import { ExcelUtils } from '@pages/utils/ExcelUtils';
@@ -10,7 +10,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Update unit price from partners', () => {
-  test('TC-01 Update the price of a unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Update the price of a unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -76,7 +76,7 @@ test.describe('Update unit price from partners', () => {
     await app.updateUnitsPage.clickConfirmYesButton();
   });
 
-  test('TC-02 Verify the price of the unit has been updated', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Verify the price of the unit has been updated', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
@@ -8,8 +8,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Add flexible payment schedules', () => {
-  test('TC-01 Add flexible payment schedule (Completion percentage)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-01 Add flexible payment schedule (Completion percentage)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -70,7 +69,7 @@ test.describe('Add flexible payment schedules', () => {
     await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
   });
 
-  test('TC-02 Edit payment schedule (Completion percentage)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Edit payment schedule (Completion percentage)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -113,7 +112,7 @@ test.describe('Add flexible payment schedules', () => {
     expect(Number(valAfter?.replace('%', '').trim())).toEqual(Number(benefitPercenatage));
   });
 
-  test('TC-03 Delete flexible payment schedule (Completion percentage)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Delete flexible payment schedule (Completion percentage)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -147,7 +146,7 @@ test.describe('Add flexible payment schedules', () => {
     await app.flexiblePaymentPage.clickOnScheduleDeletedMessage();
   });
 
-  test('TC-04 Add flexible payment schedule (Specific period)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Add flexible payment schedule (Specific period)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -207,7 +206,7 @@ test.describe('Add flexible payment schedules', () => {
     await app.flexiblePaymentPage.verifyTheSuccessfulMessage();
   });
 
-  test('TC-05 Delete flexible payment schedule (Specific period)', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Delete flexible payment schedule (Specific period)', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

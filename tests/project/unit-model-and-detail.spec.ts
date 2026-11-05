@@ -3,11 +3,11 @@ import { UnitModelPage } from '@pages/UnitModelPage';
 import { UnitDetailPage } from '@pages/UnitDetailPage';
 import { PROJECTS } from '@data/testData';
 import { findBookableUnit } from '@helpers/marketplaceApi';
-import testData from '@data/test-data.json';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 test.describe('Unit model listing', () => {
-  test('TC-01 Size-band chips filter the unit list', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-01 Size-band chips filter the unit list', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its model page');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available non-beneficiary unit`);
@@ -20,9 +20,7 @@ test.describe('Unit model listing', () => {
     expect(chips.join(' | ')).toMatch(/All/i);
   });
 
-  test('TC-02 All chip count is at least any single band', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-02 All chip count is at least any single band', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its model page');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
@@ -38,7 +36,7 @@ test.describe('Unit model listing', () => {
     expect(allCount).toBeGreaterThanOrEqual(bandCount);
   });
 
-  test('TC-03 Pagination moves through the unit list', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-03 Pagination moves through the unit list', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its model page');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
@@ -46,18 +44,17 @@ test.describe('Unit model listing', () => {
     await model.open();
     await model.expectLoaded();
     await logStep('Step 02: Page through the listings and verify the first card changes');
-    const hasPaging = await model.pagination.first().isVisible().catch(() => false);
+    const hasPaging = await model.pagination
+      .first()
+      .isVisible()
+      .catch(() => false);
     test.skip(!hasPaging, 'TEST DATA BLOCKER: model has too few units to paginate');
     const firstPage = await model.unitCards.first().innerText();
     await model.pagination.filter({ hasText: '2' }).first().click({ force: true });
-    await expect
-      .poll(async () => model.unitCards.first().innerText(), { timeout: 30_000 })
-      .not.toBe(firstPage);
+    await expect.poll(async () => model.unitCards.first().innerText(), { timeout: 30_000 }).not.toBe(firstPage);
   });
 
-  test('TC-04 A small unit-model renders without pagination', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-04 A small unit-model renders without pagination', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Open a small unit-model page');
     // Model 581 (project 1187) held exactly one unit at exploration time, but
     // pre-production inventory moves, so the count is read from the model's own
@@ -76,26 +73,27 @@ test.describe('Unit model listing', () => {
     }
   });
 
-  test('TC-05 An unknown unit-model id does not render a broken page', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-05 An unknown unit-model id does not render a broken page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Attempt to open an unknown unit-model ID');
     await authenticatedPage.goto('/app/unit-models/99999999?lang=en', { waitUntil: 'commit' });
     await logStep('Step 02: Check the page still renders content instead of an empty shell');
     await expect
       .poll(
         async () => {
-          const text = await authenticatedPage.locator('body').innerText().catch(() => '');
+          const text = await authenticatedPage
+            .locator('body')
+            .innerText()
+            .catch(() => '');
           return text.replace(/\s+/g, ' ').trim().length;
         },
-        { timeout: 150_000, message: 'Unknown unit-model id rendered an empty shell' },
+        { timeout: 150_000, message: 'Unknown unit-model id rendered an empty shell' }
       )
       .toBeGreaterThan(200);
   });
 });
 
 test.describe('Unit details page', () => {
-  test('TC-01 Unit attributes are rendered in full', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-01 Unit attributes are rendered in full', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its detail page');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
@@ -108,19 +106,17 @@ test.describe('Unit details page', () => {
     expect(body).toMatch(/Number of Bedrooms|غرف النوم/i);
   });
 
-  test('TC-02 The price is labelled as excluding VAT', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-02 The price is labelled as excluding VAT', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its detail page');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
     const detail = new UnitDetailPage(authenticatedPage, unit!.id);
     await detail.open();
     await logStep('Step 02: Confirm the price label says the price excludes VAT');
-    await expect(
-      authenticatedPage.getByText(/Exl\. VAT|Excl\. VAT|غير شامل/i).first(),
-    ).toBeVisible({ timeout: 60_000 });
+    await expect(authenticatedPage.getByText(/Exl\. VAT|Excl\. VAT|غير شامل/i).first()).toBeVisible({ timeout: 60_000 });
   });
 
-  test('TC-03 A unit can be favourited', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-03 A unit can be favourited', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its detail page');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
@@ -134,7 +130,7 @@ test.describe('Unit details page', () => {
     await favorite.click({ force: true });
   });
 
-  test('TC-04 The compare control is offered', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
+  test('TC-04 The compare control is offered', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Find a bookable unit and open its detail page');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     test.skip(!unit, `TEST DATA BLOCKER: project ${PROJECTS.bookable} has no available unit`);
@@ -144,9 +140,7 @@ test.describe('Unit details page', () => {
     await expect(detail.compareButton.first()).toBeVisible();
   });
 
-  test('TC-05 The mortgage calculator CTA routes to the calculator', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage, page
-  }) => {
+  test('TC-05 The mortgage calculator CTA routes to the calculator', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage, page }) => {
     await logStep('Step 01: Open a unit detail page for mortgage evaluation');
     const unit = await findBookableUnit(authenticatedPage, PROJECTS.bookable);
     const detail = new UnitDetailPage(authenticatedPage, unit!.id);
@@ -160,33 +154,29 @@ test.describe('Unit details page', () => {
     await expect(page.locator("//h3/child::span[text()='Financial Information']")).toBeVisible({ timeout: 60_000 });
   });
 
-  test('TC-06 Unit in a closed project shows its closed state', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage, page
-  }) => {
+  test('TC-06 Unit in a closed project shows its closed state', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage, page }) => {
     await logStep('Step 01: Open a closed-project unit detail page');
     // Project 1187 is bookable=false; its units still list as available.
-    // const unitDetailPage = new UnitDetailPage();
-    await page.pause();
     const detail = new UnitDetailPage(authenticatedPage, '174918');
-    // await page.goto(testData.userPortalUrl);
     await detail.openURL();
     await logStep('Step 02: Validate the closed-project message is visible');
     await expect(detail.bookingsClosedNotice).toBeVisible({ timeout: 60000 });
   });
 
-  test('TC-07 An unknown unit id does not render a broken page', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    authenticatedPage,
-  }) => {
+  test('TC-07 An unknown unit id does not render a broken page', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ authenticatedPage }) => {
     await logStep('Step 01: Open an unknown unit ID');
     await authenticatedPage.goto('/app/units/99999999?lang=en', { waitUntil: 'commit' });
     await logStep('Step 02: Confirm the page remains non-empty instead of blank');
     await expect
       .poll(
         async () => {
-          const text = await authenticatedPage.locator('body').innerText().catch(() => '');
+          const text = await authenticatedPage
+            .locator('body')
+            .innerText()
+            .catch(() => '');
           return text.replace(/\s+/g, ' ').trim().length;
         },
-        { timeout: 150_000, message: 'Unknown unit id rendered an empty shell' },
+        { timeout: 150_000, message: 'Unknown unit id rendered an empty shell' }
       )
       .toBeGreaterThan(200);
   });
@@ -205,10 +195,7 @@ test.describe('Unit details page', () => {
    *
    * Held failing pending confirmation of the intended guest behaviour.
    */
-  test('TC-08 A guest sees the unit but is prompted to login to book', { annotation: [{ product: 'Marketplace', type: 'non-critical' } as any] }, async ({
-    page,
-    browser,
-  }) => {
+  test('TC-08 A guest sees the unit but is prompted to login to book', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page, browser }) => {
     await logStep('Step 01: Prepare a guest booking flow for a unit detail page');
     // test.fail(true, 'D16: guest booking CTA does not route to login');
 
@@ -231,7 +218,7 @@ test.describe('Unit details page', () => {
     await logStep('Step 02: Trigger booking as a guest and verify login prompt appears');
     await detail.open();
     await detail.clickBook();
-    await expect(page.locator("//app-nafath-login-modal")).toBeVisible({ timeout: 60_000 });
+    await expect(page.locator('//app-nafath-login-modal')).toBeVisible({ timeout: 60_000 });
 
     // await expect(page).toHaveURL(/\/app\/authentication\/login/, { timeout: 120_000 });
   });

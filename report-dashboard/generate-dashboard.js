@@ -11,12 +11,11 @@ if (!fs.existsSync(jsonPath)) {
 const rawData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 const reportGeneratedAt = new Date().toLocaleString();
 
-const envMetadata = rawData.config?.metadata?.environments || {
-  Sakani: 'Pre-Prod',
-  Digitar: 'STG',
-  Sayal: 'Pre-Prod',
-};
+// Read environments metadata from config
+const envMetadata = rawData.config?.metadata?.environments || {};
 const globalEnv = rawData.config?.metadata?.environment || process.env.TEST_ENV || 'Pre-Prod';
+
+const preferredProductOrder = ['Marketplace', 'Gov Support', 'Loyalty', 'Shared Products', 'Real Estate Data', 'Self Construction', 'Digitar Developer', 'Digitar Broker', 'Sayal'];
 
 function formatDuration(ms) {
   if (!ms || ms <= 0) return '0s';
@@ -30,9 +29,6 @@ function formatDuration(ms) {
   return `${seconds}s`;
 }
 
-/**
- * Converts hyphenated/lowercase suite names into clean Title Case (e.g. "banner-campaign" -> "Banner Campaign")
- */
 function formatSuiteName(name) {
   if (!name) return 'General Suite';
   return name
@@ -200,7 +196,7 @@ allTests.forEach((item, index) => {
     rawSuiteTitle: formattedSuite,
     title: item.specTitle,
     product: productKey,
-    environment: environmentKey,
+    environment: envMetadata[productKey] || environmentKey,
     durationMs: testDurationMs,
     durationStr: formatDuration(testDurationMs),
     status: status,
@@ -211,7 +207,14 @@ allTests.forEach((item, index) => {
   });
 });
 
-const allProductKeys = Array.from(new Set(rawProcessedSpecs.map((s) => s.product || 'Sakani')));
+const allProductKeys = Array.from(new Set(rawProcessedSpecs.map((s) => s.product || 'Sakani'))).sort((a, b) => {
+  const indexA = preferredProductOrder.indexOf(a);
+  const indexB = preferredProductOrder.indexOf(b);
+  if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+  if (indexA !== -1) return -1;
+  if (indexB !== -1) return 1;
+  return a.localeCompare(b);
+});
 if (allProductKeys.length === 0) allProductKeys.push('Sakani');
 
 function buildProductData(specsList) {
@@ -227,6 +230,7 @@ function buildProductData(specsList) {
       skipped: 0,
       durationMs: 0,
       suitesSet: new Set(),
+      envsSet: new Set(),
       specs: [],
     };
   });
@@ -237,18 +241,23 @@ function buildProductData(specsList) {
     if (!productData[pKey]) {
       productData[pKey] = {
         product: pKey,
-        environment: spec.environment,
+        environment: envMetadata[pKey] || spec.environment,
         total: 0,
         passed: 0,
         failed: 0,
         skipped: 0,
         durationMs: 0,
         suitesSet: new Set(),
+        envsSet: new Set(),
         specs: [],
       };
     }
 
-    productData[pKey].environment = spec.environment || productData[pKey].environment;
+    const resolvedEnv = envMetadata[pKey] || spec.environment;
+    if (resolvedEnv) {
+      productData[pKey].envsSet.add(resolvedEnv);
+    }
+    productData[pKey].environment = Array.from(productData[pKey].envsSet).join(', ') || resolvedEnv;
     productData[pKey].total += 1;
     productData[pKey].durationMs += spec.durationMs;
     if (spec.rawSuiteTitle) productData[pKey].suitesSet.add(spec.rawSuiteTitle);
@@ -259,8 +268,17 @@ function buildProductData(specsList) {
   });
 
   Object.keys(productData).forEach((key) => {
-    productData[key].formattedDuration = formatDuration(productData[key].durationMs);
+    const totalSec = productData[key].durationMs / 1000;
+    const hrs = Math.floor(totalSec / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = (totalSec % 60).toFixed(1);
+    let durStr = secs + 's';
+    if (hrs > 0) durStr = hrs + 'h ' + (mins > 0 ? mins + 'm ' : '') + secs + 's';
+    else if (mins > 0) durStr = mins + 'm ' + secs + 's';
+
+    productData[key].formattedDuration = durStr;
     productData[key].suitesCount = productData[key].suitesSet.size;
+    productData[key].environment = envMetadata[key] || Array.from(productData[key].envsSet).join(', ') || globalEnv;
   });
 
   return productData;
@@ -269,15 +287,18 @@ function buildProductData(specsList) {
 const healthCheckData = buildProductData(rawProcessedSpecs);
 const readinessData = buildProductData(rawProcessedSpecs.filter((s) => s.isCritical));
 
-const productDropdownOptionsHtml = Object.keys(healthCheckData)
-  .map(
-    (key) => `
-  <div onclick="selectProductOption('${key}')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between">
-    <span>${healthCheckData[key].product}</span>
+let productDropdownOptionsHtml = `
+  <div onclick="selectProductOption('All Products')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between border-b border-slate-100">
+    <span>All Products</span>
   </div>
-`
-  )
-  .join('');
+`;
+allProductKeys.forEach((key) => {
+  productDropdownOptionsHtml += `
+    <div onclick="selectProductOption('${key}')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors flex items-center justify-between">
+      <span>${healthCheckData[key].product}</span>
+    </div>
+  `;
+});
 
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -315,25 +336,28 @@ const htmlContent = `<!DOCTYPE html>
     
     <header class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-200 gap-4">
       <div>
-        <h1 class="text-2xl font-bold tracking-wide" style="color: #166242;">Sakani Automation Test Dashboard</h1>
+        <h1 id="mainTitle" class="text-2xl font-bold tracking-wide" style="color: #166242;">Sakani Test Automation Executive Summary</h1>
       </div>
 
-      <!-- Product Filter Dropdown -->
-      <div class="relative inline-block text-left w-full sm:w-auto min-w-[220px]" id="productDropdownContainer">
-        <button id="productDropdownBtn" onclick="toggleDropdown('productDropdownMenu')" class="w-full bg-[#166242] hover:bg-[#125036] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm flex items-center justify-between gap-2.5">
-          <div class="flex items-center gap-2 truncate">
-            <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
+      <!-- Controls Container -->
+      <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+        <!-- Product Filter Dropdown -->
+        <div class="relative inline-block text-left flex-1 sm:flex-initial min-w-[220px]" id="productDropdownContainer">
+          <button id="productDropdownBtn" onclick="toggleDropdown('productDropdownMenu')" class="w-full bg-[#166242] hover:bg-[#125036] text-white font-semibold text-sm rounded-xl px-4 py-2 border-2 border-slate-200/60 focus:outline-none focus:ring-2 focus:ring-emerald-600/40 cursor-pointer transition-all shadow-sm flex items-center justify-between gap-2.5">
+            <div class="flex items-center gap-2 truncate">
+              <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 6h10M3 10h8M3 14h6M3 18h4M17 6v12m0 0l-3-3m3 3l3-3"></path>
+              </svg>
+              <span class="truncate">Product: <strong id="productDropdownSelected" class="font-bold">All Products</strong></span>
+            </div>
+            <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
             </svg>
-            <span class="truncate">Product: <strong id="productDropdownSelected" class="font-bold">${Object.keys(healthCheckData)[0] || 'Sakani'}</strong></span>
-          </div>
-          <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+          </button>
 
-        <div id="productDropdownMenu" class="hidden absolute left-0 right-0 w-full mt-1.5 rounded-xl shadow-lg bg-white border border-slate-200 ring-1 ring-black ring-opacity-5 z-50 overflow-hidden">
-          ${productDropdownOptionsHtml}
+          <div id="productDropdownMenu" class="hidden absolute left-0 right-0 w-full mt-1.5 rounded-xl shadow-lg bg-white border border-slate-200 ring-1 ring-black ring-opacity-5 z-50 overflow-hidden">
+            ${productDropdownOptionsHtml}
+          </div>
         </div>
       </div>
     </header>
@@ -418,12 +442,20 @@ const htmlContent = `<!DOCTYPE html>
       </div>
     </div>
 
-    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-6">
+    <!-- Product-wise Distribution Chart Section (Visible only in Executive Summary) -->
+    <div id="productDistributionCard" class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+      <h2 class="text-base font-bold" style="color: #166242;">Product-wise Test Status Distribution</h2>
+      <div class="relative w-full h-72">
+        <canvas id="productBarChart"></canvas>
+      </div>
+    </div>
+
+    <div id="testCasesCard" class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
-        <h2 class="text-base font-bold" style="color: #166242;">Test Cases (<span id="tableTagTitle">-</span>)</h2>
+        <h2 id="sectionTitle" class="text-base font-bold" style="color: #166242;">Test Cases (<span id="tableTagTitle">-</span>)</h2>
         
         <!-- Filters Container -->
-        <div class="flex flex-wrap items-center gap-3">
+        <div id="filtersWrapper" class="flex flex-wrap items-center gap-3">
           
           <!-- Suite Filter Dropdown -->
           <div class="relative inline-block text-left w-full sm:w-auto min-w-[200px]" id="suiteDropdownContainer">
@@ -478,12 +510,17 @@ const htmlContent = `<!DOCTYPE html>
   <script>
     const healthCheckData = ${JSON.stringify(healthCheckData, null, 2)};
     const readinessData = ${JSON.stringify(readinessData, null, 2)};
+    const rawProcessedSpecs = ${JSON.stringify(rawProcessedSpecs, null, 2)};
+    const envMetadata = ${JSON.stringify(envMetadata, null, 2)};
+    const globalEnv = "${globalEnv}";
     
     let currentMode = 'health';
     let currentStatusFilter = 'all';
     let currentSuiteFilter = 'all';
-    let selectedProductKey = "${Object.keys(healthCheckData)[0] || 'Sakani'}";
+    let isExecSummaryMode = true;
+    let selectedProductKey = 'All Products';
     let chartInstance = null;
+    let barChartInstance = null;
 
     function escapeHtml(str) {
       if (!str) return '';
@@ -525,24 +562,21 @@ const htmlContent = `<!DOCTYPE html>
     });
 
     function selectProductOption(key) {
-      selectedProductKey = key;
-      document.getElementById('productDropdownSelected').innerText = key;
-      
-      if (currentMode === 'readiness') {
-        currentMode = 'health';
-        const btnReadiness = document.getElementById('btnReadiness');
-        const btnHealthCheck = document.getElementById('btnHealthCheck');
-        if (btnHealthCheck && btnReadiness) {
-          btnHealthCheck.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all border border-emerald-700 bg-[#166242] text-white shadow-sm";
-          btnReadiness.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all border border-emerald-700 text-emerald-800 bg-white hover:bg-emerald-50 shadow-sm";
-        }
-      }
-
       currentStatusFilter = 'all';
       document.getElementById('statusDropdownSelected').innerText = 'All';
-
       currentSuiteFilter = 'all';
       document.getElementById('suiteDropdownSelected').innerText = 'All Suites';
+
+      selectedProductKey = key;
+      document.getElementById('productDropdownSelected').innerText = key;
+
+      if (key === 'All Products') {
+        isExecSummaryMode = true;
+        document.getElementById('mainTitle').innerText = "Sakani Test Automation Executive Summary";
+      } else {
+        isExecSummaryMode = false;
+        document.getElementById('mainTitle').innerText = "Product Specific Report";
+      }
 
       closeAllDropdowns();
       renderDashboard(selectedProductKey);
@@ -597,11 +631,143 @@ const htmlContent = `<!DOCTYPE html>
       renderDashboard(selectedProductKey);
     }
 
+    function buildDynamicProductData(specsList) {
+      const productKeys = Object.keys(healthCheckData);
+      const productData = {};
+
+      productKeys.forEach(pKey => {
+        productData[pKey] = {
+          product: pKey,
+          environment: envMetadata[pKey] || globalEnv,
+          total: 0,
+          passed: 0,
+          failed: 0,
+          skipped: 0,
+          durationMs: 0,
+          suitesSet: new Set(),
+          envsSet: new Set(),
+          specs: []
+        };
+      });
+
+      specsList.forEach(spec => {
+        const pKey = spec.product || 'Sakani';
+        if (!productData[pKey]) {
+          productData[pKey] = {
+            product: pKey,
+            environment: envMetadata[pKey] || spec.environment,
+            total: 0,
+            passed: 0,
+            failed: 0,
+            skipped: 0,
+            durationMs: 0,
+            suitesSet: new Set(),
+            envsSet: new Set(),
+            specs: []
+          };
+        }
+
+        const resolvedEnv = envMetadata[pKey] || spec.environment;
+        if (resolvedEnv) {
+          productData[pKey].envsSet.add(resolvedEnv);
+        }
+        productData[pKey].environment = Array.from(productData[pKey].envsSet).join(', ') || resolvedEnv;
+        productData[pKey].total += 1;
+        productData[pKey].durationMs += spec.durationMs;
+        if (spec.rawSuiteTitle) productData[pKey].suitesSet.add(spec.rawSuiteTitle);
+        if (spec.status === 'Passed') productData[pKey].passed += 1;
+        else if (spec.status === 'Failed') productData[pKey].failed += 1;
+        else productData[pKey].skipped += 1;
+        productData[pKey].specs.push(spec);
+      });
+
+      Object.keys(productData).forEach(key => {
+        const totalSec = productData[key].durationMs / 1000;
+        const hrs = Math.floor(totalSec / 3600);
+        const mins = Math.floor((totalSec % 3600) / 60);
+        const secs = (totalSec % 60).toFixed(1);
+        let durStr = secs + 's';
+        if (hrs > 0) durStr = hrs + 'h ' + (mins > 0 ? mins + 'm ' : '') + secs + 's';
+        else if (mins > 0) durStr = mins + 'm ' + secs + 's';
+
+        productData[key].formattedDuration = durStr;
+        productData[key].suitesCount = productData[key].suitesSet.size;
+        productData[key].environment = envMetadata[key] || Array.from(productData[key].envsSet).join(', ') || globalEnv;
+      });
+
+      const allTotal = specsList.length;
+      const allPassed = specsList.filter(s => s.status === 'Passed').length;
+      const allFailed = specsList.filter(s => s.status === 'Failed').length;
+      const allSkipped = specsList.filter(s => s.status === 'Skipped').length;
+      const allDurMs = specsList.reduce((acc, s) => acc + s.durationMs, 0);
+      const allSuites = new Set(specsList.map(s => s.rawSuiteTitle));
+      const allEnvs = new Set(specsList.map(s => envMetadata[s.product] || s.environment).filter(Boolean));
+
+      const totalSecAll = allDurMs / 1000;
+      const hrsAll = Math.floor(totalSecAll / 3600);
+      const minsAll = Math.floor((totalSecAll % 3600) / 60);
+      const secsAll = (totalSecAll % 60).toFixed(1);
+      let durStrAll = secsAll + 's';
+      if (hrsAll > 0) durStrAll = hrsAll + 'h ' + (minsAll > 0 ? minsAll + 'm ' : '') + secsAll + 's';
+      else if (minsAll > 0) durStrAll = minsAll + 'm ' + secsAll + 's';
+
+      const execSummary = {
+        product: productKeys.join(', '),
+        environment: Array.from(allEnvs).join(', ') || 'Multi-Environment',
+        total: allTotal,
+        passed: allPassed,
+        failed: allFailed,
+        skipped: allSkipped,
+        formattedDuration: durStrAll,
+        suitesCount: allSuites.size,
+        specs: []
+      };
+
+      return { productData, execSummary };
+    }
+
     function renderDashboard(productKey) {
-      const activeDataMap = currentMode === 'readiness' ? readinessData : healthCheckData;
-      const availableKeys = Object.keys(activeDataMap);
-      const targetKey = activeDataMap[productKey] ? productKey : availableKeys[0];
-      const data = activeDataMap[targetKey] || {
+      const container = document.getElementById("suitesContainer");
+      const filtersWrapper = document.getElementById("filtersWrapper");
+      const sectionTitle = document.getElementById("sectionTitle");
+      const productDistributionCard = document.getElementById("productDistributionCard");
+
+      const activeSourceSpecs = currentMode === 'readiness' 
+        ? rawProcessedSpecs.filter(s => s.isCritical) 
+        : rawProcessedSpecs;
+
+      const { productData, execSummary } = buildDynamicProductData(activeSourceSpecs);
+
+      if (isExecSummaryMode) {
+        if (filtersWrapper) filtersWrapper.style.display = 'none';
+        if (sectionTitle) sectionTitle.parentElement.style.display = 'none';
+        if (container) container.innerHTML = '';
+        if (productDistributionCard) productDistributionCard.style.display = 'block';
+
+        const data = execSummary;
+        document.getElementById("totalExecuted").innerText = data.total;
+        document.getElementById("passedCount").innerText = data.passed;
+        document.getElementById("failedCount").innerText = data.failed;
+        document.getElementById("skippedCount").innerText = data.skipped;
+
+        document.getElementById("suitesScopeValue").innerText = data.suitesCount || 0;
+        document.getElementById("productScopeValue").innerText = "All Products";
+        document.getElementById("environmentValue").innerText = data.environment;
+        document.getElementById("tagDurationValue").innerText = data.formattedDuration;
+
+        renderChartAndLegend(data.passed, data.failed, data.skipped, data.total);
+        renderProductBarChart(productData);
+        return;
+      }
+
+      if (productDistributionCard) productDistributionCard.style.display = 'none';
+      if (filtersWrapper) filtersWrapper.style.display = 'flex';
+      if (sectionTitle && sectionTitle.parentElement) sectionTitle.parentElement.style.display = 'flex';
+      if (sectionTitle) sectionTitle.innerHTML = 'Test Cases (<span id="tableTagTitle">-</span>)';
+
+      const availableKeys = Object.keys(productData);
+      const targetKey = productData[productKey] ? productKey : availableKeys[0];
+      const data = productData[targetKey] || {
         product: targetKey || selectedProductKey,
         environment: 'Pre-Prod',
         total: 0,
@@ -626,11 +792,11 @@ const htmlContent = `<!DOCTYPE html>
 
       document.getElementById("suitesScopeValue").innerText = data.suitesCount || 0;
       document.getElementById("productScopeValue").innerText = data.product;
-      document.getElementById("environmentValue").innerText = data.environment || 'Pre-Prod';
+      document.getElementById("environmentValue").innerText = envMetadata[targetKey] || data.environment || 'Pre-Prod';
       document.getElementById("tagDurationValue").innerText = data.formattedDuration || '0s';
 
       const suiteMenu = document.getElementById("suiteDropdownMenu");
-      const uniqueSuites = Array.from(new Set((data.specs || []).map(s => s.suite || 'General Suite')));
+      const uniqueSuites = Array.from(new Set((data.specs || []).map(s => s.suite || 'General Suite'))).sort();
       
       let suiteMenuHtml = '<div onclick="selectSuiteOption(\\'all\\', \\'All Suites\\')" class="px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#166242] hover:text-white cursor-pointer transition-colors">All Suites</div>';
       uniqueSuites.forEach(sName => {
@@ -644,7 +810,6 @@ const htmlContent = `<!DOCTYPE html>
         document.getElementById('suiteDropdownSelected').innerText = 'All Suites';
       }
 
-      const container = document.getElementById("suitesContainer");
       container.innerHTML = "";
 
       const filteredSpecs = (data.specs || []).filter(spec => {
@@ -668,7 +833,7 @@ const htmlContent = `<!DOCTYPE html>
           groupedBySuite[sName].push(spec);
         });
 
-        Object.keys(groupedBySuite).forEach(suiteName => {
+        Object.keys(groupedBySuite).sort().forEach(suiteName => {
           const specsInSuite = groupedBySuite[suiteName];
 
           let rowsHtml = '';
@@ -722,6 +887,10 @@ const htmlContent = `<!DOCTYPE html>
         });
       }
 
+      renderChartAndLegend(passed, failed, skipped, total);
+    }
+
+    function renderChartAndLegend(passed, failed, skipped, total) {
       const passedPct = total > 0 ? ((passed / total) * 100).toFixed(1) + '%' : '0.0%';
       const failedPct = total > 0 ? ((failed / total) * 100).toFixed(1) + '%' : '0.0%';
       const skippedPct = total > 0 ? ((skipped / total) * 100).toFixed(1) + '%' : '0.0%';
@@ -767,7 +936,69 @@ const htmlContent = `<!DOCTYPE html>
       });
     }
 
-    setExecutionMode('health');
+    function renderProductBarChart(productData) {
+      const productKeys = Object.keys(productData);
+      const passedCounts = productKeys.map(k => productData[k].passed);
+      const failedCounts = productKeys.map(k => productData[k].failed);
+      const skippedCounts = productKeys.map(k => productData[k].skipped);
+
+      if (barChartInstance) barChartInstance.destroy();
+
+      const ctx = document.getElementById('productBarChart').getContext('2d');
+      barChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: productKeys,
+          datasets: [
+            {
+              label: 'Passed',
+              data: passedCounts,
+              backgroundColor: '#10B981',
+              borderRadius: 4
+            },
+            {
+              label: 'Failed',
+              data: failedCounts,
+              backgroundColor: '#EF4444',
+              borderRadius: 4
+            },
+            {
+              label: 'Skipped',
+              data: skippedCounts,
+              backgroundColor: '#F59E0B',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { weight: 'bold', size: 11 } }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: '#f1f5f9' },
+              ticks: { precision: 0 }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { font: { weight: 'bold', size: 12 }, boxWidth: 14 }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          }
+        }
+      });
+    }
+
+    renderDashboard(selectedProductKey);
   </script>
 </body>
 </html>`;

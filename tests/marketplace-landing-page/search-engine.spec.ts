@@ -1,7 +1,7 @@
-import { expect, test } from '@fixtures/pages.fixture';
+import { expect, test } from '@playwright/test';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 
 const SERVICE = 'search-engine';
 
@@ -14,7 +14,7 @@ test.describe('Search Engine', () => {
     {
       annotation: [
         {
-          product: 'Real Estate Data',
+          product: Products.RealEstateData,
           type: 'non-critical',
         } as any,
       ],
@@ -27,7 +27,7 @@ test.describe('Search Engine', () => {
 
       await logStep('Step 01: Navigate to user portal > Login');
       await app.loginPage.gotoHomePage(userPortalUrl);
-      //await app.loginPage.acceptCookies();
+      await app.loginPage.acceptCookies();
       await app.loginPage.openLogin();
       await app.loginPage.loginWithNafath(data.sakaniUserId);
       await app.loginPage.waitForNafathPromptToDisappear();
@@ -45,7 +45,7 @@ test.describe('Search Engine', () => {
     {
       annotation: [
         {
-          product: 'Real Estate Data',
+          product: Products.RealEstateData,
           type: 'non-critical',
         } as any,
       ],
@@ -58,7 +58,7 @@ test.describe('Search Engine', () => {
 
       await logStep('Step 01: Navigate to user portal > Login');
       await app.loginPage.gotoHomePage(userPortalUrl);
-      //await app.loginPage.acceptCookies();
+      await app.loginPage.acceptCookies();
       await app.loginPage.openLogin();
       await app.loginPage.loginWithNafath(data.sakaniUserId);
       await app.loginPage.waitForNafathPromptToDisappear();

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 
@@ -9,8 +9,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Update unit status (active/inactive) from partners', () => {
-  test('TC-01 Developer updates the unit status active or inactive of available unit', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-01 Developer updates the unit status active or inactive of available unit', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -78,8 +77,7 @@ test.describe('Update unit status (active/inactive) from partners', () => {
     await app.updateUnitsPage.expectUnitStatus(unitStatusArNew);
   });
 
-  test("TC-02 Verify booked unit status can't be updated", { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test("TC-02 Verify booked unit status can't be updated", { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();

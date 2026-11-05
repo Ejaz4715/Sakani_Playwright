@@ -1,6 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
@@ -133,7 +133,7 @@ const createInactiveDeal = (page: Page) => createDealAndVerifyStatus(page, INACT
 test.describe('Loyalty admin deals Update,creat,Delete', () => {
   test.use({ storageState: adminSessionFile });
 
-  test('TC-01 Loyalty admin deal - create, update and delete', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Loyalty admin deal - create, update and delete', { annotation: [{ product: Products.Loyalty, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const app = new WebApp(page);
 
@@ -180,7 +180,7 @@ test.describe('Loyalty admin deals Update,creat,Delete', () => {
     await expect(updatedDealRow).toHaveCount(0);
   });
 
-  test('TC-02 Loyalty admin deals filter and reset', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Loyalty admin deals filter and reset', { annotation: [{ product: Products.Loyalty, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const app = new WebApp(page);
 

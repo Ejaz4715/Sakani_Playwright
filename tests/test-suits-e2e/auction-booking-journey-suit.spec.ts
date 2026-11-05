@@ -1,7 +1,7 @@
 ﻿import { test } from '@playwright/test';
 import path from 'node:path';
 const XLSX = require('xlsx');
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 
@@ -36,7 +36,7 @@ function updateAuctionUnitsFile(data: any) {
 }
 
 test.describe('Auction booking journey', () => {
-  test('TC-01 Add new electronic auction project', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Add new electronic auction project', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(180000);
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
@@ -192,7 +192,7 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.publishProject();
   });
 
-  test('TC-02 User bids electronic auction and pays fee', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 User bids electronic auction and pays fee', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -227,7 +227,7 @@ test.describe('Auction booking journey', () => {
     await app.auctionPage.expectAuctionPaymentPending();
   });
 
-  test('TC-03 Admin adds new hybrid auction project without fee', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Admin adds new hybrid auction project without fee', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(180000);
     const app = new WebApp(page);
 
@@ -380,7 +380,7 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.publishProject();
   });
 
-  test('TC-04 User joins hybrid auction and signs contract', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 User joins hybrid auction and signs contract', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');
@@ -416,7 +416,7 @@ test.describe('Auction booking journey', () => {
     await app.auctionPage.expectAuctionSuccess();
   });
 
-  test('TC-05 Admin adds new hybrid auction project with fee', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Admin adds new hybrid auction project with fee', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(180000);
     const app = new WebApp(page);
 
@@ -575,7 +575,7 @@ test.describe('Auction booking journey', () => {
     await electronicAuctionPage.publishProject();
   });
 
-  test('TC-06 User joins hybrid auction and pays the fee', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 User joins hybrid auction and pays the fee', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     const app = new WebApp(page);
     await logStep('Step 00: Read data from json relative to the service');

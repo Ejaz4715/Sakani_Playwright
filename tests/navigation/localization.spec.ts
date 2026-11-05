@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 import { test, expect } from '@fixtures/pages.fixture';
-import { MarketplacePage } from '@pages/MarketplacePage';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 /**
  * I18N / A11Y — localisation, RTL and accessibility.
@@ -23,16 +23,14 @@ test.describe('Marketplace Localization', () => {
    * navigation budget, so the `goto` itself timed out before any assertion ran.
    * `commit` is the repo-wide convention for exactly this reason.
    */
-  test('TC-01 Arabic renders right-to-left', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-01 Arabic renders right-to-left', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page }) => {
     await logStep('Step 01: Load the Arabic marketing page');
     await page.goto('/?lang=ar', { waitUntil: 'commit' });
     await page.locator('body').waitFor({ state: 'attached', timeout: 90_000 });
 
     await logStep('Step 02: Verify Arabic language and RTL direction are applied');
 
-    await expect
-      .poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 90_000 })
-      .toMatch(/ar/i);
+    await expect.poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 90_000 }).toMatch(/ar/i);
 
     const dir = await page.evaluate(() => {
       const root = document.documentElement;
@@ -41,16 +39,14 @@ test.describe('Marketplace Localization', () => {
     expect(dir).toMatch(/rtl/i);
   });
 
-  test('TC-02 English renders left-to-right', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-02 English renders left-to-right', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page }) => {
     await logStep('Step 01: Load the English marketing page');
     await page.goto('/?lang=en', { waitUntil: 'commit' });
     await page.locator('body').waitFor({ state: 'attached', timeout: 90_000 });
 
     await logStep('Step 02: Verify English language and LTR direction are applied');
 
-    await expect
-      .poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 90_000 })
-      .toMatch(/en/i);
+    await expect.poll(() => page.evaluate(() => document.documentElement.lang), { timeout: 90_000 }).toMatch(/en/i);
 
     const dir = await page.evaluate(() => {
       const root = document.documentElement;
@@ -69,10 +65,9 @@ test.describe('Marketplace Localization', () => {
    * can do its job; `.catch()` covers the execution context being destroyed by
    * the `/?lang=ar` -> `/en` redirect mid-evaluate.
    */
-  const documentLang = (page: Page) =>
-    page.evaluate(() => document.documentElement?.lang ?? '').catch(() => '');
+  const documentLang = (page: Page) => page.evaluate(() => document.documentElement?.lang ?? '').catch(() => '');
 
-  test('TC-03 Selected language survives navigation', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-03 Selected language survives navigation', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page }) => {
     await logStep('Step 01: Start on the Arabic marketing page');
     await page.goto('/?lang=ar', { waitUntil: 'commit' });
     await page.locator('body').waitFor({ state: 'attached', timeout: 90_000 });
@@ -87,7 +82,7 @@ test.describe('Marketplace Localization', () => {
     await expect.poll(() => documentLang(page), { timeout: 150_000 }).toMatch(/ar/i);
   });
 
-  test('TC-04 Arabic marketplace renders localized content', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-04 Arabic marketplace renders localized content', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page }) => {
     await logStep('Step 01: Open the Arabic marketplace');
     await page.goto('/app/marketplace?lang=ar', { waitUntil: 'commit' });
 
@@ -99,17 +94,20 @@ test.describe('Marketplace Localization', () => {
     await expect
       .poll(
         async () => {
-          const body = await page.locator('body').innerText().catch(() => '');
+          const body = await page
+            .locator('body')
+            .innerText()
+            .catch(() => '');
           return (body.match(/[؀-ۿ]/g) ?? []).length;
         },
-        { timeout: 150_000, message: 'Arabic marketplace never rendered Arabic content' },
+        { timeout: 150_000, message: 'Arabic marketplace never rendered Arabic content' }
       )
       .toBeGreaterThan(50);
   });
 });
 
 test.describe('Marketplace Accessibility', () => {
-  test('TC-01 Form fields expose accessible labels', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-01 Form fields expose accessible labels', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page }) => {
     await logStep('Step 01: Open the login page for an accessibility check');
     await page.goto('/app/authentication/login?lang=en', { waitUntil: 'commit' });
     await expect(page.locator('#username')).toBeVisible({ timeout: 150_000 });
@@ -125,7 +123,7 @@ test.describe('Marketplace Accessibility', () => {
     expect(accessibleName.trim().length).toBeGreaterThan(0);
   });
 
-  test('TC-02 Login form is operable by keyboard alone', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ page }) => {
+  test('TC-02 Login form is operable by keyboard alone', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ page }) => {
     await logStep('Step 01: Open the login page and focus the username field');
     await page.goto('/app/authentication/login?lang=en', { waitUntil: 'commit' });
     await expect(page.locator('#username')).toBeVisible({ timeout: 150_000 });

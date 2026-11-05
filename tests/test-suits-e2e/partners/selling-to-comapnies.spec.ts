@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
@@ -17,7 +17,7 @@ const writeServiceData = (key: string, value: any) => DataHelper.updateServiceDa
 
 test.describe('Selling to companies', () => {
   let companyUnitCode: string;
-  test('TC-01 Admin adds new offplan moh land project for selling unit to company', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin adds new offplan moh land project for selling unit to company', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -152,7 +152,7 @@ test.describe('Selling to companies', () => {
        await expect(saveSuccessToast).toBeVisible({timeout: 120000});*/
   });
 
-  test('TC-02 Developer adds payment schedules to project for selling to comapanies', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer adds payment schedules to project for selling to comapanies', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -193,7 +193,7 @@ test.describe('Selling to companies', () => {
     });
   });
 
-  test('TC-03 Developer approves sales contract for companies', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer approves sales contract for companies', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -218,7 +218,7 @@ test.describe('Selling to companies', () => {
     await app.developerProjectPage.verifyOtp();
   });
 
-  test('TC-04 Developer create new booking for a company user', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Developer create new booking for a company user', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -252,7 +252,7 @@ test.describe('Selling to companies', () => {
     expect(await app.developerProjectPage.isCompanyBookingConfirmed()).toBe(true);
   });
 
-  test('TC-05 Company user pays the invocie of booked unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Company user pays the invocie of booked unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -289,7 +289,7 @@ test.describe('Selling to companies', () => {
     await page.waitForTimeout(5000);
   });
 
-  test('TC-06 Company user signs sale contract of booked unit', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Company user signs sale contract of booked unit', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -325,7 +325,7 @@ test.describe('Selling to companies', () => {
     await expect.poll(() => app.offPlanBasketMultipleBookingPage.isSuccessfulContractSignMessage(), { timeout: LONG_TIMEOUT }).toBe(true);
   });
 
-  test('TC-07 Developer confirms the bookings of company', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 Developer confirms the bookings of company', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

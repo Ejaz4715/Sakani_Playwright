@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 import { RegistrationObjects } from '@objects/RegistrationObjects';
@@ -35,7 +35,7 @@ test.describe('User registration and check eligibility', () => {
     await app.registrationPage.fillOtp('1234');
     await app.registrationPage.isNewUserContinueButtonVisible();
   });
-  test('TC-02 Check the eligibility for the user', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Check the eligibility for the user', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -82,7 +82,7 @@ test.describe('User registration and check eligibility', () => {
     await logStep('Step 06: Verify the eligibility status');
     await app.registrationPage.getEligibilityResult();
   });
-  test('TC-03 Submit financial advisory', { annotation: [{ product: 'Gov Support', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Submit financial advisory', { annotation: [{ product: Products.GovSupport, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

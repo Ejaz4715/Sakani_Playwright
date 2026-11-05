@@ -56,21 +56,22 @@ export class UserProfilePage extends BasePage {
   readonly favoritesHeading: Locator;
   readonly registeredInterestsHeading: Locator;
   readonly exploreMarketplaceButton: Locator;
-  
+
   // --- My Company ---
   readonly companyBookingsHeading: Locator;
   readonly companyPaymentsHeading: Locator;
   readonly bookingCard: Locator;
   readonly invoiceCard: Locator;
 
-
+  // --- Payments and transactions ---
+  readonly firstButton: Locator;
 
   constructor(page: Page) {
     super(page);
 
     this.notifications = page.locator("//span[normalize-space() = 'Notifications']");
-    this.notificationsCentre = page.getByText("Notification centre");
-    
+    this.notificationsCentre = page.getByText('Notification centre');
+
     this.sidebar = page.getByText('Dashboard', { exact: true }).first();
 
     this.startServiceButton = page.getByRole('button', { name: /Start service/i });
@@ -87,10 +88,12 @@ export class UserProfilePage extends BasePage {
     // so the locator survives whichever surface it is pointed at.
     this.walletBalance = page.getByRole('heading', { name: /^\s*SA?R\s*[\d,.]+\s*$/ }).first();
     this.withdrawButton = page.getByRole('button', { name: /^\s*(Withdraw|سحب)\s*$/i });
-    this.balanceTab = page.getByRole('button', { name: /Balance & Transactions/i })
+    this.balanceTab = page
+      .getByRole('button', { name: /Balance & Transactions/i })
       .or(page.getByText('Balance & Transactions', { exact: true }))
       .first();
-    this.bankAccountTab = page.getByRole('button', { name: /Bank account/i })
+    this.bankAccountTab = page
+      .getByRole('button', { name: /Bank account/i })
       .or(page.getByText('Bank account', { exact: true }))
       .first();
 
@@ -106,16 +109,23 @@ export class UserProfilePage extends BasePage {
     this.previewReceiptButton = page.getByRole('button', { name: /Preview receipt/i });
 
     this.favoritesHeading = page.getByRole('heading', { name: /^\s*Favorites\s*$/i });
-    this.registeredInterestsHeading = page.getByRole('heading', { name: /Registered interests/i });    
-    this.exploreMarketplaceButton = page.getByRole('button', {
-      name: /Explore Marketplace/i,
-    }).or(page.getByRole('link', { name: /Explore Marketplace/i })).first();
-
+    this.registeredInterestsHeading = page.getByRole('heading', { name: /Registered interests/i });
+    this.exploreMarketplaceButton = page
+      .getByRole('button', {
+        name: /Explore Marketplace/i,
+      })
+      .or(page.getByRole('link', { name: /Explore Marketplace/i }))
+      .first();
 
     this.companyBookingsHeading = page.getByRole('heading', { name: /Company Bookings/i });
     this.companyPaymentsHeading = page.getByRole('heading', { name: /Company Payments/i });
-    this.bookingCard = page.locator("//app-booking-card-v5").first();
-    this.invoiceCard = page.locator("//app-invoice-card-v5").first();
+    this.bookingCard = page.locator('//app-booking-card-v5').first();
+    this.invoiceCard = page.locator('//app-invoice-card-v5').first();
+
+    /**
+     * Payments and transactions Page
+     */
+    this.firstButton = page.locator("//button[@aria-label='First page']");
   }
 
   /** Open one of the profile routes and wait for its own readiness signal. */
@@ -129,7 +139,7 @@ export class UserProfilePage extends BasePage {
   }
 
   async expectNotificationsCentreVisible(): Promise<void> {
-    await expect(this.notificationsCentre).toBeVisible({timeout: 20000});
+    await expect(this.notificationsCentre).toBeVisible({ timeout: 20000 });
   }
 
   async openDashboard(): Promise<void> {
@@ -180,16 +190,17 @@ export class UserProfilePage extends BasePage {
 
   /** Labels from the given set that are actually rendered. */
   async visibleTabLabels(expected: readonly string[]): Promise<string[]> {
-    return this.page.evaluate((labels) => {
-      const visible = (e: Element) => {
-        const r = e.getBoundingClientRect();
-        return r.width > 0 && r.height > 0;
-      };
-      const found = [...document.querySelectorAll('a, button, li, [role="tab"]')]
-        .filter(visible)
-        .map((e) => (e.textContent ?? '').replace(/\s+/g, ' ').trim());
-      return labels.filter((l) => found.includes(l));
-    }, [...expected]);
+    return this.page.evaluate(
+      (labels) => {
+        const visible = (e: Element) => {
+          const r = e.getBoundingClientRect();
+          return r.width > 0 && r.height > 0;
+        };
+        const found = [...document.querySelectorAll('a, button, li, [role="tab"]')].filter(visible).map((e) => (e.textContent ?? '').replace(/\s+/g, ' ').trim());
+        return labels.filter((l) => found.includes(l));
+      },
+      [...expected]
+    );
   }
 
   /** Every left-navigation label currently rendered. */
@@ -199,13 +210,8 @@ export class UserProfilePage extends BasePage {
         const r = e.getBoundingClientRect();
         return r.width > 0 && r.height > 0;
       };
-      const known = [
-        'Dashboard', 'My information', 'My Wallet', 'Financial Advisory', 'Activities',
-        'Preferences', 'Payment and transactions', 'Favorites', 'Help & support', 'Logout',
-      ];
-      const found = [...document.querySelectorAll('a, li, button')]
-        .filter(visible)
-        .map((e) => (e.textContent ?? '').replace(/\s+/g, ' ').trim());
+      const known = ['Dashboard', 'My information', 'My Wallet', 'Financial Advisory', 'Activities', 'Preferences', 'Payment and transactions', 'Favorites', 'Help & support', 'Logout'];
+      const found = [...document.querySelectorAll('a, li, button')].filter(visible).map((e) => (e.textContent ?? '').replace(/\s+/g, ' ').trim());
       return known.filter((k) => found.includes(k));
     });
   }

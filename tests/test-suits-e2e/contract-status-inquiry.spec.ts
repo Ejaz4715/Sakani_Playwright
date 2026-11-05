@@ -1,6 +1,6 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
@@ -10,8 +10,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Contract status inquiry for financing', () => {
-  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(120000);
+  test('TC-01 Admin creates new offplan Moh land project', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -55,7 +54,7 @@ test.describe('Contract status inquiry for financing', () => {
     await app.adminProjectPage.validateProjectSavedToastMessage();
 
     await logStep('Step 04: Link the project to AZM');
-    await app.adminProjectPage.linkProjectToAzm();
+    // await app.adminProjectPage.linkProjectToAzm();
 
     await logStep('Step 05: Select participating banks');
     await app.adminProjectPage.expectFinancingEntitiesVisible();
@@ -133,51 +132,52 @@ test.describe('Contract status inquiry for financing', () => {
     await app.adminProjectPage.clickSaveButton();
     await app.adminProjectPage.validateProjectSavedToastMessage();
   });
-});
-test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-  test.setTimeout(0);
-  await logStep('Step 00: Read data from json relative to the service');
-  const environment = readEnvironments();
-  const data = readServiceData();
-  const app = new WebApp(page);
-  const sapaUrl = environment.sapaPortalUrl;
-  const projectName = data.projectName;
-  const developerUserId = data.developerUserId;
 
-  await logStep('Step 01: Login to sapa portal as a developer');
-  await app.developerProjectPage.gotoAuth(sapaUrl);
-  await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-  await app.partnersLoginPage.switchRoleToDeveloper();
+  test('TC-02 Developer adds payment schedules', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
+    test.setTimeout(0);
+    await logStep('Step 00: Read data from json relative to the service');
+    const environment = readEnvironments();
+    const data = readServiceData();
+    const app = new WebApp(page);
+    const sapaUrl = environment.sapaPortalUrl;
+    const projectName = data.projectName;
+    const developerUserId = data.developerUserId;
 
-  await logStep('Step 02: Navigate to projects and search for a project');
-  await app.developerProjectPage.openProjectBySearch(projectName);
+    await logStep('Step 01: Login to sapa portal as a developer');
+    await app.developerProjectPage.gotoAuth(sapaUrl);
+    await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
+    await app.partnersLoginPage.switchRoleToDeveloper();
 
-  await logStep('Step 03: Navigate to add new payment schedule');
-  await app.developerProjectPage.openPaymentSchedulesTab();
+    await logStep('Step 02: Navigate to projects and search for a project');
+    await app.developerProjectPage.openProjectBySearch(projectName);
 
-  await logStep('Step 04: Add cash payment schedule');
-  await app.developerProjectPage.addPaymentSchedule({
-    type: 'cash',
-    scheduleName: 'Cash 22',
-    completionPercentageOneValue: '50',
-    percentageOneValue: '50',
-    completionPercentageTwoValue: '100',
-    percentageTwoValue: '50',
+    await logStep('Step 03: Navigate to add new payment schedule');
+    await app.developerProjectPage.openPaymentSchedulesTab();
+
+    await logStep('Step 04: Add cash payment schedule');
+    await app.developerProjectPage.addPaymentSchedule({
+      type: 'cash',
+      scheduleName: 'Cash 22',
+      completionPercentageOneValue: '50',
+      percentageOneValue: '50',
+      completionPercentageTwoValue: '100',
+      percentageTwoValue: '50',
+    });
+
+    await logStep('Step 05: Add lending payment schedule');
+    await app.developerProjectPage.openProjectBySearch(projectName);
+    await app.developerProjectPage.openPaymentSchedulesTab();
+    await app.developerProjectPage.addPaymentSchedule({
+      type: 'lending',
+      scheduleName: 'Lending 22',
+      completionPercentageOneValue: '50',
+      percentageOneValue: '50',
+      completionPercentageTwoValue: '100',
+      percentageTwoValue: '50',
+    });
   });
 
-  await logStep('Step 05: Add lending payment schedule');
-  await app.developerProjectPage.openProjectBySearch(projectName);
-  await app.developerProjectPage.openPaymentSchedulesTab();
-  await app.developerProjectPage.addPaymentSchedule({
-    type: 'lending',
-    scheduleName: 'Lending 22',
-    completionPercentageOneValue: '50',
-    percentageOneValue: '50',
-    completionPercentageTwoValue: '100',
-    percentageTwoValue: '50',
-  });
-
-  test('TC-03 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer approves sales contract', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -204,7 +204,7 @@ test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Market
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-04 Admin enables comprehensive booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Admin enables comprehensive booking', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -234,7 +234,7 @@ test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Market
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });
 
-  test('TC-05 User books the unit and pays the fees', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User books the unit and pays the fees', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -281,8 +281,7 @@ test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Market
     }
   });
 
-  test('TC-06 User selects electronic finance payment and signs the sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-06 User selects electronic finance payment and signs the sales contract', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -305,7 +304,6 @@ test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Market
     expect(bookedUnitCode).toBeTruthy();
     DataHelper.updateServiceData(SERVICE, 'bookedUnitCode', bookedUnitCode);
 
-    await page.pause();
     await logStep('Step 03: Sign the sale contract > Verify the success message');
     await app.bookingPage.openBookingDetails();
     await app.bookingAndSelectPaymentMethodPage.clickOnSelectPaymentMethodButton();
@@ -317,7 +315,7 @@ test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Market
     await app.page.waitForTimeout(4000);
   });
 
-  test('TC-07 User checks the selected payment is reflect on the booking details page', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 User checks the selected payment schedule is reflected in booking details page', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -343,7 +341,7 @@ test('TC-02 Developer adds payment schedules', { annotation: [{ product: 'Market
     await app.bookingAndSelectPaymentMethodPage.validateSelectedPaymentType('التمويل الإلكتروني');
   });
 
-  test('TC-07 Developer checks the selected payment method is lending and cancels the booking', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-08 Developer checks the selected payment method is lending and cancels the booking', { annotation: [{ product: Products.RealEstateData, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

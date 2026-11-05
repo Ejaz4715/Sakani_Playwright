@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import path from 'node:path';
@@ -10,7 +10,7 @@ const readEnvironments = () => DataHelper.readData().environments;
 const stampImagePath = path.join(process.cwd(), 'src', 'data', 'stamp.png');
 
 test.describe('Stamp Management', () => {
-  test('TC-01 View the last stamp ', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-01 View the last stamp ', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);
@@ -29,7 +29,7 @@ test.describe('Stamp Management', () => {
     expect(await app.stampManagementPage.isLastStampImageVisible()).toBe(true);
   });
 
-  test('TC-02 Add a new stamp', { annotation: [{ product: 'Marketplace', type: 'non-critical' }] as any }, async ({ page }) => {
+  test('TC-02 Add a new stamp', { annotation: [{ product: Products.Marketplace, type: 'non-critical' }] as any }, async ({ page }) => {
     const data = readServiceData();
     const environments = readEnvironments();
     const app = new WebApp(page);

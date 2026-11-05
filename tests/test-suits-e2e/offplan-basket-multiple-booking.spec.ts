@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { DateUtils } from '@pages/utils/DateUtils';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
@@ -28,7 +28,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
   let unit1Code: string;
   let unit2Code: string;
 
-  test('TC-01 Admin adds a new offplan project for (unit basket mulitple booking) ', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Admin adds a new offplan project for (unit basket mulitple booking) ', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();
@@ -162,7 +162,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
     expect(await page.locator("input[formcontrolname='maximum_booking_per_non_beneficiary']").inputValue()).toEqual('5');
   });
 
-  test('TC-02 Developer approves sales contract', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer approves sales contract', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -187,7 +187,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
     await app.developerProjectPage.verifyApprovalSuccessMessage();
   });
 
-  test('TC-03 Developer books multiple units', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer books multiple units', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -216,7 +216,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
     expect(await app.developerProjectPage.isBookingListButtonVisible()).toBe(true);
   });
 
-  test('TC-04 User pays the invoices for all units', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 User pays the invoices for all units', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -254,7 +254,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
     await expect.poll(() => app.offPlanBasketMultipleBookingPage.isSuccessfulPayment(), { timeout: LONG_TIMEOUT }).toBe(true);
   });
 
-  test('TC-05 User signs sale contract for all units', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 User signs sale contract for all units', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -291,7 +291,7 @@ test.describe('OffPlan unit basket - Multiple units booking ', () => {
     await expect.poll(() => app.offPlanBasketMultipleBookingPage.isSuccessfulContractSignMessage(), { timeout: LONG_TIMEOUT }).toBe(true);
   });
 
-  test('TC-06 Developer confirms the bookings of multiple units', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer confirms the bookings of multiple units', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();

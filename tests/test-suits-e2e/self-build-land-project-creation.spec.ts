@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import path from 'node:path';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import { SelfConstructionObjects } from '@objects/SelfConstructionObjects';
@@ -129,7 +129,7 @@ test.describe('Self-Build Land Project Creation', () => {
     await app.commonMethods.verifyElementVisible(SelfConstructionObjects.succsessfullToasMessage);
   });
 
-  test('TC-03  Admin approve media and publish the project', { annotation: [{ product: 'Marketplace', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03  Admin approve media and publish the project', { annotation: [{ product: Products.Marketplace, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();

@@ -1,8 +1,9 @@
 import { test, expect } from '@fixtures/pages.fixture';
 import { logStep } from '@helpers/LogSteps';
+import { Products } from '@base-class/web-app';
 
 test.describe('Navigation & site structure', () => {
-  test('TC-01 home page loads with the primary navigation', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ homePage }) => {
+  test('TC-01 home page loads with the primary navigation', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ homePage }) => {
     await logStep('Step 01: Open the marketing homepage');
     await homePage.open();
     await homePage.expectLoaded();
@@ -16,7 +17,7 @@ test.describe('Navigation & site structure', () => {
     await expect(homePage.header.loginButton.first()).toBeVisible();
   });
 
-  test('TC-02 Properties for Sale menu links to the buy journeys', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ homePage }) => {
+  test('TC-02 Properties for Sale menu links to the buy journeys', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ homePage }) => {
     await logStep('Step 01: Open the homepage and inspect the buy menu');
     await homePage.open();
     const links = await homePage.header.megaMenuLinks(homePage.header.propertiesForSale.first());
@@ -26,7 +27,7 @@ test.describe('Navigation & site structure', () => {
     expect(joined).toMatch(/Lands|أراضي/i);
   });
 
-  test('TC-03 Services menu exposes the service catalogue', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ homePage }) => {
+  test('TC-03 Services menu exposes the service catalogue', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ homePage }) => {
     await logStep('Step 01: Open the homepage and inspect the services menu');
     await homePage.open();
     const links = await homePage.header.megaMenuLinks(homePage.header.services.first());
@@ -35,7 +36,7 @@ test.describe('Navigation & site structure', () => {
     expect(joined).toMatch(/Mortgage Calculator|حاسبة/i);
   });
 
-  test('TC-04 Footer exposes the site map', {annotation: [{ product: 'Marketplace', type: 'non-critical' } as any]} , async ({ homePage, page }) => {
+  test('TC-04 Footer exposes the site map', { annotation: [{ product: Products.Marketplace, type: 'non-critical' } as any] }, async ({ homePage, page }) => {
     await logStep('Step 01: Open the homepage and inspect the footer links');
     await homePage.open();
     for (const [label, href] of [

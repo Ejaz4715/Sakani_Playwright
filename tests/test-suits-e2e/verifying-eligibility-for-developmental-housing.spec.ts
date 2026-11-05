@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { WebApp, Products } from '@base-class/web-app';
 import { logStep } from '@helpers/LogSteps';
 import { DataHelper } from '@helpers/DataHelper';
 
@@ -8,8 +8,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Verifying eligibility for developmental housing', () => {
-  test('TC-01 - Developer verifying the eleigiblity of user for developmental housing', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
-    test.setTimeout(0);
+  test('TC-01 - Developer verifying the eleigiblity of user for developmental housing', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
     const data = readServiceData();

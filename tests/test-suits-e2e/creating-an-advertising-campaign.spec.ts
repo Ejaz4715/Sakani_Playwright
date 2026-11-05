@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { WebApp } from '@base-class/web-app';
+import { Products, WebApp } from '@base-class/web-app';
 import { DataHelper } from '@helpers/DataHelper';
 import { logStep } from '@helpers/LogSteps';
 import { DateUtils } from '@pages/utils/DateUtils';
@@ -10,7 +10,7 @@ const readServiceData = () => DataHelper.readData().services[SERVICE];
 const readEnvironments = () => DataHelper.readData().environments;
 
 test.describe('Creating an advertising campaign', () => {
-  test('TC-01 Developer creates an advirtising campaign with WhatsApp Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-01 Developer creates an advirtising campaign with WhatsApp Channel', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
     const environments = readEnvironments();
@@ -24,7 +24,6 @@ test.describe('Creating an advertising campaign', () => {
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
 
-    await page.pause();
     await logStep('Step 02: Navigate to create an advistisng campaign  > Select WhatsApp channel');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.advertisingCampaigntLink);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.newRequestButton);
@@ -46,7 +45,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
 
-  test('TC-02 Developer creates an advirtising campaign with SMS Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer creates an advirtising campaign with SMS Channel', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -60,14 +59,14 @@ test.describe('Creating an advertising campaign', () => {
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
-    await logStep('Step 02: Navigate to create an advistisng campaign  > Select SMS channel');
 
+    await logStep('Step 02: Navigate to create an advistisng campaign  > Select SMS channel');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.advertisingCampaigntLink);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.newRequestButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.smsCheckbox);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.nextButton);
-    await logStep('Step 03: Fill all information > Click next then send > Take the request number');
 
+    await logStep('Step 03: Fill all information > Click next then send > Take the request number');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.campaignNameInputfield, 'SMS Title');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.requestDescriptionTextarea, 'SMS Description');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.headingButton);
@@ -81,7 +80,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
 
-  test('TC-02 Developer creates an advirtising campaign with Email Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-02 Developer creates an advirtising campaign with Email Channel', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -117,7 +116,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
 
-  test('TC-04 Developer creates an advirtising campaign with Sakani App Notification Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Developer creates an advirtising campaign with Sakani App Notification Channel', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -154,7 +153,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
 
-  test('TC-05 Developer creates an advirtising campaign with Sakani Platform Banner Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-05 Developer creates an advirtising campaign with Sakani Platform Banner Channel', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -168,15 +167,15 @@ test.describe('Creating an advertising campaign', () => {
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
-    await logStep('Step 02: Navigate to create an advistisng campaign  > Select Sakani Platform Banner channel');
 
+    await logStep('Step 02: Navigate to create an advistisng campaign  > Select Sakani Platform Banner channel');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.advertisingCampaigntLink);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.newRequestButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.InAppWebOrProomotionDropdDownButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.sakaniPlatformBannerCheckbox);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.nextButton);
-    await logStep('Step 03: Fill all information > Click next then send > Take the request number');
 
+    await logStep('Step 03: Fill all information > Click next then send > Take the request number');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.campaignNameInputfield, 'Notification Title');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.requestDescriptionTextarea, 'Notification Description');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.headingButton);
@@ -187,7 +186,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
 
-  test('TC-06 Developer creates an advirtising campaign with Pop Up Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Developer creates an advirtising campaign with Pop Up Channel', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -201,15 +200,15 @@ test.describe('Creating an advertising campaign', () => {
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
     await app.partnersLoginPage.switchRoleToDeveloper();
-    await logStep('Step 02: Navigate to create an advistisng campaign  > Select Pop Up channel');
 
+    await logStep('Step 02: Navigate to create an advistisng campaign  > Select Pop Up channel');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.advertisingCampaigntLink);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.newRequestButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.InAppWebOrProomotionDropdDownButton);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.PopUpCheckbox);
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.nextButton);
-    await logStep('Step 03: Fill all information > Click next then send > Take the request number');
 
+    await logStep('Step 03: Fill all information > Click next then send > Take the request number');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.campaignNameInputfield, 'Popup Title');
     await app.creatingAnAdvertisingCampaignPage.fillInputField(CreatingAnAdvertisingCampaignObjects.requestDescriptionTextarea, 'Popup Description');
     await app.creatingAnAdvertisingCampaignPage.clickElement(CreatingAnAdvertisingCampaignObjects.headingButton);
@@ -220,7 +219,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
 
-  test('TC-07 Admin rejects the request', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-07 Admin rejects the request', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -253,7 +252,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.verifyElementVisible(CreatingAnAdvertisingCampaignObjects.rejectionSuccessMessage);
   });
 
-  test('TC-08 Developer creates an advirtising campaign with Cold Call Channel', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-08 Developer creates an advirtising campaign with Cold Call Channel', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
@@ -286,7 +285,7 @@ test.describe('Creating an advertising campaign', () => {
     await app.creatingAnAdvertisingCampaignPage.saveRequestNumber(CreatingAnAdvertisingCampaignObjects.requestNumber);
   });
 
-  test('TC-09 Admin approves the request', { annotation: [{ product: 'Digitar Developer', type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-09 Admin approves the request', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const data = readServiceData();
