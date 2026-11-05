@@ -355,7 +355,7 @@ export const AdminProjectObjects = {
   projectPublishedToggle: "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
   rightTabArrow: "//mat-icon[contains (text(), 'chevron_right')]",
   settingsSectionHeading: "//span[contains(text(), 'إعدادات المشاريع')]",
-  maxBookingsPerNonBeneInput: "//input[formcontrolname='maximum_booking_per_non_beneficiary']",
+  maxBookingsPerNonBeneInput: "//input[@formcontrolname='maximum_booking_per_non_beneficiary']",
   activateMultipleBookingToggleMob: "//mat-slide-toggle[@formcontrolname='active_multiple_bookings_for_web_mobile']/descendant::button",
   activateMultipleBookingTogglePartner: "//mat-slide-toggle[@formcontrolname='active_multiple_bookings_for_partner']/descendant::button",
 
