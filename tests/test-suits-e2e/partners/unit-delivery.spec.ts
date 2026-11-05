@@ -151,6 +151,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await logStep('Step 12: Activate multiple units booking for non-beneficiary > Verify setting is saved');
     await page.keyboard.press('PageDown');
     await app.adminProjectPage.expandProjectSettingsSection();
+    await app.adminProjectPage.activateMultipleBookingToggles();
     await app.adminProjectPage.fillMaxBookingPerNonBene('5');
     await page.keyboard.press('PageDown');
     await app.adminProjectPage.clickSaveButton();

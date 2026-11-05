@@ -158,7 +158,7 @@ export class RegistrationPage {
 
     async selectDropdownOption(
         dropdownObject: { readonly xpath: string },
-        optionObject: { readonly role: "option"; readonly name: string },
+        optionObject: { readonly role: "option"; readonly name: string;},
     ) {
         const currentRegion = this.page.locator(
             dropdownObject.xpath,
@@ -237,7 +237,7 @@ export class RegistrationPage {
         }
         throw new Error("Eligibility result message did not become visible");
     }
-async clickFinancialAdvisoryLink() {
+    async clickFinancialAdvisoryLink() {
         const link = this.page.locator(
             RegistrationObjects.financialAdvisoryLink.xpath,
         );
@@ -287,5 +287,5 @@ async clickFinancialAdvisoryLink() {
         await button.waitFor({ state: "visible" });
         await button.click();
     }
-    
+
 }

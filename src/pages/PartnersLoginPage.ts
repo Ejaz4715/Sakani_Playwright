@@ -153,4 +153,40 @@ export class PartnersLoginPage {
     await this.page.waitForTimeout(3000);
     await this.dismissNewServiceAlertPopUp();
   }
+  async registerNewUser(nationalId: string){
+     const acceptCookiesButton = this.page.getByRole(DeveloperObjects.acceptCookiesButton.role, { name: DeveloperObjects.acceptCookiesButton.name }).first();
+    await acceptCookiesButton.waitFor({ state: 'visible', timeout: 120000 });
+    await this.page.waitForTimeout(2000);
+    await acceptCookiesButton.click();
+
+    // The cookie modal fades out; wait for it and its backdrop so they don't block the next click
+    await this.page
+      .locator(DeveloperObjects.acceptCookiesModal)
+      .waitFor({ state: 'hidden', timeout: 15000 })
+      .catch(() => {});
+    await this.page
+      .locator('.modal-backdrop')
+      .waitFor({ state: 'detached', timeout: 15000 })
+      .catch(() => {});
+
+    const usernameInput = this.page.locator(DeveloperObjects.usernameInput.xpath);
+    await this.waitForVisible(usernameInput);
+    await usernameInput.fill(nationalId);
+
+    const loginToButton = this.page.locator(DeveloperObjects.loginToButton.xpath);
+    await this.waitForVisible(loginToButton);
+    await loginToButton.click();
+
+    const continueButton = this.page.locator(DeveloperObjects.continueButton.xpath);
+    await this.waitForVisible(continueButton);
+    await continueButton.click();
+
+    const nafathModal = this.page.locator('//app-nafath-login-modal');
+    await nafathModal.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
+
+    while (await nafathModal.isVisible().catch(() => false)) {
+      await this.page.waitForTimeout(3000);
+    }
+    await this.page.waitForTimeout(3000);
+  }
 }
