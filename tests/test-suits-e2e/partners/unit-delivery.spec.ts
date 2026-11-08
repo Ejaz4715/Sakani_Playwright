@@ -190,7 +190,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     const environments = readEnvironments();
     const app = new WebApp(page);
     const nationalId = data.sakaniUserIdEligible;
-    const unitCode = data.unitCodeOffplanMoh;
+    const projectName = data.projectName;
     const developerUserId = data.developerUserId;
     const bankName = 'بنك الأهلي السعودي';
 
@@ -200,7 +200,7 @@ test.describe('Unit Delivery Partner/Marketplace', () => {
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Start new individual booking > Enter user id');
-    await app.developerProjectPage.bookUnitsForCustomersUsingUnitCode(nationalId, unitCode);
+    await app.developerProjectPage.bookUnitsForCustomers(nationalId, projectName);
     await page.waitForTimeout(5000);
 
     await logStep('Step 03: Select unit and move to financial information page');

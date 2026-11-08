@@ -358,7 +358,6 @@ test.describe('Auction booking journey', () => {
     await page.waitForTimeout(1000);
     await electronicAuctionPage.publishUnitModel();
     await electronicAuctionPage.waitForUnitMediaApproval();
-    await page.pause();
 
     await logStep('Step 12: Upload and save the auction legal documents');
     await page.waitForTimeout(1000);

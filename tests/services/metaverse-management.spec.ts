@@ -51,7 +51,7 @@ test.describe('Metaverse Management', () => {
 
       await logStep('Step 01: Navigate to partners portal > Login as developer');
       await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.partnersLoginPage.loginToSapaPortal(data.sapaCompanyUser);
+      await app.partnersLoginPage.loginToSapaPortalBeta(data.sapaCompanyUser);
 
       await app.metaverseManagementPage.clickOnSakaniMetaverse();
       await app.metaverseManagementPage.clickOnSakaniMetaverseAccessButton();
@@ -76,7 +76,7 @@ test.describe('Metaverse Management', () => {
 
       await logStep('Step 01: Navigate to partners portal > Login as developer');
       await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.partnersLoginPage.loginToSapaPortal(data.sapaCompanyAdmin);
+      await app.partnersLoginPage.loginToSapaPortalBeta(data.sapaCompanyAdmin);
 
       await app.metaverseManagementPage.clickOnSakaniMetaverseRequests();
       await app.metaverseManagementPage.fillIdentityNumber(data.sapaCompanyUser);
@@ -108,7 +108,7 @@ test.describe('Metaverse Management', () => {
 
       await logStep('Step 01: Navigate to partners portal > Login as developer');
       await app.developerProjectPage.gotoAuth(environments.sapaPortalUrl);
-      await app.partnersLoginPage.loginToSapaPortal(data.sapaCompanyUser);
+      await app.partnersLoginPage.loginToSapaPortalBeta(data.sapaCompanyUser);
 
       await app.metaverseManagementPage.clickOnSakaniMetaverse();
       await app.metaverseManagementPage.clickOnSakaniMetaverseAccessButton();

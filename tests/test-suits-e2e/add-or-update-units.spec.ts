@@ -22,7 +22,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-    await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for project');
@@ -86,7 +85,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-    await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for project');
@@ -125,7 +123,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
     await app.loginPage.continueNewUserPopup();
     await app.loginPage.handlePushNotificationPopup();
 
-    await page.pause();
     await logStep('Step 02: Find the project and open its unit model');
     await app.marketplaceLandingPage.openSearch();
     await app.marketplaceLandingPage.searchForProject(projectName);
@@ -158,7 +155,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
       await logStep('Step 01: Login as developer to sapa portal and open the project');
       await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
       await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-      await page.pause();
       await app.partnersLoginPage.switchRoleToDeveloper();
 
       await logStep('Step 02: Search for project');
@@ -224,7 +220,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-    await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for project');
@@ -288,7 +283,6 @@ test.describe('Add, update or delete the units of an offplan project through SAP
     await logStep('Step 01: Login as developer to sapa portal and open the project');
     await app.partnersLoginPage.gotoAuth(sapaPortalUrl);
     await app.partnersLoginPage.loginToSapaPortalBeta(developerUserId);
-    await page.pause();
     await app.partnersLoginPage.switchRoleToDeveloper();
 
     await logStep('Step 02: Search for project');

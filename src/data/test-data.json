@@ -7,42 +7,42 @@
   },
   "services": {
     "offplan-booking": {
-      "projectName": "Automation Project Offplan 20261027165654",
+      "projectName": "Automation Project Offplan 20261108022956",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
       "sakaniUserId": "1300061022",
-      "bookedUnitCode": "01-01-0746-15-111"
+      "bookedUnitCode": "01-01-0831-14-110"
     },
     "auction-journey": {
-      "projectName": "Automation Auction 20261028114433",
+      "projectName": "Automation Auction 20261107235845",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserId": "1300061022",
-      "auctionStartDate": "28-10-2026",
-      "auctionEndDate": "28-10-2026",
-      "auctionStartTime": "16:44",
-      "auctionEndTime": "18:44"
+      "auctionStartDate": "08-11-2026",
+      "auctionEndDate": "08-11-2026",
+      "auctionStartTime": "04:58",
+      "auctionEndTime": "06:58"
     },
     "moh-land-booking-journey": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserIdMoh": "1119880072",
-      "projectName": "Automation Moh Land Project 20261027144934"
+      "projectName": "Automation Moh Land Project 20261108014824"
     },
     "mega-project": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "megaProjectName": "",
-      "projectName": "Automation Moh Land Project 20261015084302",
+      "megaProjectName": "Mega Project 20261108014302",
+      "projectName": "Automation Project Offplan 20261108014148",
       "sakaniUserId": ""
     },
     "loyalty-sharrai": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserId": "1019075926",
-      "companyName": "Automation Test Company 20261029154813",
-      "dealName": "Automation Test Deal 20260928145426"
+      "companyName": "Automation Test Company 20261107225300",
+      "dealName": "Automation Test Deal 20261107225300"
     },
     "waiting-list": {
       "developerUserId": "1023129537",
@@ -53,7 +53,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261028143428",
+      "projectName": "Automation Project Offplan 20261108005221",
       "sakaniUserId": "1107270611",
       "unitPriceBeforeDiscount": "100000",
       "unitPriceAfterDiscount": "70000",
@@ -63,7 +63,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project 20261029172456",
+      "projectName": "Automation Project 20261108032936",
       "sakaniUserId": "1119800005",
       "bookedUnitCode": "01-01-0752-17-113"
     },
@@ -71,7 +71,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261028121120",
+      "projectName": "Automation Project Offplan 20261108000431",
       "sakaniUserId": "1441376098",
       "bookedUnitCode": "01-01-0749-6-102"
     },
@@ -79,7 +79,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261029163843",
+      "projectName": "Automation Project Offplan 20261108002105",
       "sakaniUserId": "1441376098",
       "bookedUnitCode": "01-01-0728-6-102"
     },
@@ -89,13 +89,13 @@
       "developerUserId": "1023129537",
       "advertiserId": "1023129537",
       "lastAdLicenseCounter": 8986749517,
-      "AdLicenseNumber": "20261008141610"
+      "AdLicenseNumber": "20261108032308"
     },
     "offPlan-basket-multiple-booking": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261028140004",
+      "projectName": "Automation Project Offplan 20261108015323",
       "sakaniUserId": "1300070834",
       "unit1Code": "01-01-0753-6-102",
       "unit2Code": "01-01-0753-5-101"
@@ -113,7 +113,7 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project 20261029161038",
+      "projectName": "Automation Project 20261108024328",
       "sakaniUserId": "1300070834",
       "deliveryUnitCode": "01-01-0759-6-102"
     },
@@ -123,7 +123,7 @@
     "buy-design": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "projectName": "Automation Moh Land Project 20261027173036",
+      "projectName": "Automation Moh Land Project 20261107224753",
       "designName": "TestCrew test",
       "only-design": {
         "userId": "1300065299"
@@ -137,14 +137,14 @@
     },
     "resale-of-units": {
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261029095725",
+      "projectName": "Automation Project Offplan 20261107232440",
       "sellerUserId": "1300061022",
       "buyerUserId": "1300067088",
       "buyerDOB": "16051428",
-      "requestNumber": "2026-10-28-0001",
+      "requestNumber": "2026-11-07-0002",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "bookedUnitCode": "01-01-0635-16-112"
+      "bookedUnitCode": "01-01-0831-14-110"
     },
     "auction": {
       "projectName": "Automation Auction 20261027132307",
@@ -232,8 +232,8 @@
     "flexible-payment-schedule": {
       "projectName": "Automation Project P_003",
       "developerUserId": "1023129537",
-      "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261027124521",
-      "scheduleTitleEn": "Automation Flexible Payment Schedule 20261027124521"
+      "scheduleTitleAr": "جدول دفع مرن لخدمات أتمتة الاختبارات 20261108013043",
+      "scheduleTitleEn": "Automation Flexible Payment Schedule 20261108013043"
     },
     "generate-reports": {
       "projectName": "Automation Project P_003",
@@ -252,7 +252,7 @@
       "OffplanMohProject": "Automation Project Offplan 20261006132208"
     },
     "request-publish-project": {
-      "projectName": "Automation Project Offplan 20261006143505",
+      "projectName": "Automation Developer Project Offplan 20261108034310",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
@@ -285,13 +285,13 @@
       "sakaniUserId": "1300070834",
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "bankName": "Test Automation Bank 20261015121126",
+      "bankName": "Test Automation Bank 20261108060720",
       "projectName": "Automation Project Offplan 20261006132208"
     },
     "voucher-management": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "voucherName": "Test Automation Voucher 20261015142228"
+      "voucherName": "Test Automation Voucher 20261108062238"
     },
     "real-estate-tax-exemption": {
       "sakaniUserId": "1119880074"
@@ -318,27 +318,27 @@
     "engineering-offices": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "engineeringOfficeName": "Engineering Office Name 20261018071409",
-      "designerNameInputfield": "Designer Name 20261018075539"
+      "engineeringOfficeName": "Engineering Office Name 20261108012353",
+      "designerNameInputfield": "Designer Name 20261108012421"
     },
     "self-build-land-project-creation": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "projectName": "SelfConstruction Prject Name 20261018103818",
+      "projectName": "SelfConstruction Prject Name 20261108055157",
       "servicesPackegesUrl": "https://pre-sakani-admin.housingapps.sa/nrep/service_packages/45?tab=2"
     },
     "payment-tracking": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "developerUserId": "1023129537",
-      "projectName": "Automation Project Offplan 20261028133140",
+      "projectName": "Automation Project Offplan 20261108030929",
       "sakaniUserId": "1441376098",
       "bookedUnitCode": "01-01-0751-11-107"
     },
     "events-tags": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
-      "tagName": "Tag 13a"
+      "tagName": "Tag Name 20261108012454"
     }
   }
 }

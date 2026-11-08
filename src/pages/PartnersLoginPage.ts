@@ -91,15 +91,6 @@ export class PartnersLoginPage {
     await this.clickIfVisible(cancelButton.first());
   }
 
-  async loginToSapaPortal(nationalId: string) {
-    await this.fillNationalId(nationalId);
-    await this.clickContinueButton();
-    await this.confirmIdentityIfRequired();
-    await this.waitForProfileIcon();
-    await this.page.waitForTimeout(3000);
-    await this.dismissNewServiceAlertPopUp();
-  }
-
   async loginToSapaPortalBeta(nationalId: string) {
     // const loginButton = this.page.locator(DeveloperObjects.loginButton.xpath);
     // await this.waitForVisible(loginButton);
@@ -132,7 +123,7 @@ export class PartnersLoginPage {
     await this.waitForVisible(continueButton);
     await continueButton.click();
 
-    const nafathModal = this.page.locator('//app-nafath-login-modal');
+    const nafathModal = this.page.locator(DeveloperObjects.nafathModel);
     await nafathModal.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
 
     while (await nafathModal.isVisible().catch(() => false)) {
@@ -142,7 +133,7 @@ export class PartnersLoginPage {
     const profileIcon = this.page.locator(DeveloperObjects.profileIcon);
     await this.waitForVisible(profileIcon);
     await this.page.waitForTimeout(3000);
-    const cancelButton = this.page.getByRole('button', { name: 'إلغاء' });
+    const cancelButton = this.page.getByRole(DeveloperObjects.cancelButtonOnPopUp.role, { name: DeveloperObjects.cancelButtonOnPopUp.name });
     await this.clickIfVisible(cancelButton.first());
   }
 
@@ -153,8 +144,9 @@ export class PartnersLoginPage {
     await this.page.waitForTimeout(3000);
     await this.dismissNewServiceAlertPopUp();
   }
-  async registerNewUser(nationalId: string){
-     const acceptCookiesButton = this.page.getByRole(DeveloperObjects.acceptCookiesButton.role, { name: DeveloperObjects.acceptCookiesButton.name }).first();
+
+  async registerNewUser(nationalId: string) {
+    const acceptCookiesButton = this.page.getByRole(DeveloperObjects.acceptCookiesButton.role, { name: DeveloperObjects.acceptCookiesButton.name }).first();
     await acceptCookiesButton.waitFor({ state: 'visible', timeout: 120000 });
     await this.page.waitForTimeout(2000);
     await acceptCookiesButton.click();
