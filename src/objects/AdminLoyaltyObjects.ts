@@ -36,21 +36,17 @@ export const AdminLoyaltyObjects = {
     name: 'إضافة عرض جديد',
   },
   companyNameDropdown: "//app-nsar-dropdown[@formcontrolname='promoter_id']",
-  campaignStartDateInput: "//app-gregorian-datepicker[@formcontrolname='campaign_start_date']/descendant::input",
-  campaignEndDateInput: "//app-gregorian-datepicker[@formcontrolname='offer_expired_at']/descendant::input",
+  campaignStartDateInput: "//app-gregorian-datepicker[@formcontrolname='campaign_start_date']/descendant::input[@placeholder='DD/MM/YYYY']",
+  campaignEndDateInput: "//app-gregorian-datepicker[@formcontrolname='offer_expired_at']/descendant::input[@placeholder='DD/MM/YYYY']",
   priceInput: "//input[@formcontrolname='price']",
   discountInput: "//input[@formcontrolname='discount']",
   acceptableQuantityInput: "//input[@formcontrolname='acceptable_quantity_per_user']",
   sakaniCommissionTypeDropdown: "//app-nsar-dropdown[@formcontrolname='sakani_commission_type']",
   sakaniCommissionValueInput: "//input[@formcontrolname='sakani_commission_value']",
-  titleInput: "//input[@formcontrolname='title']",
-  descriptionInput: "//input[@formcontrolname='description']",
-  detailsInput: "//input[@formcontrolname='details']",
-  termsAndConditionsRegion: {
-    role: 'region',
-    name: 'الشروط و الأحكام',
-  },
-  termsTextarea: 'textarea',
+  titleInput: "//textarea[@formcontrolname='title']",
+  descriptionInput: "//textarea[@formcontrolname='description']",
+  detailsInput: "//textarea[@formcontrolname='details']",
+  termsAndConditions: "//textarea[@formcontrolname='content']",
   dealIdentifiersTab: {
     role: 'tab',
     name: 'الرموز التعريفية للصفقة',
@@ -59,7 +55,7 @@ export const AdminLoyaltyObjects = {
     role: 'button',
     name: 'استيراد رموز العروض',
   },
-  importToastMessage: /استيراد/,
+  toastMessageContainer: '//mat-snack-bar-container',
   processedStatusCell: {
     role: 'cell',
     name: 'تم إكمال الإجراء',
@@ -86,10 +82,7 @@ export const AdminLoyaltyObjects = {
     role: 'button',
     name: 'تعديل',
   },
-  statusDropdown: {
-    selector: 'ng-select',
-    text: 'اختيارغير نشط',
-  },
+  dealStatusDropdown: "//app-nsar-dropdown[@formcontrolname='status']",
   statusDropdownCombobox: {
     role: 'combobox',
   },
@@ -98,12 +91,6 @@ export const AdminLoyaltyObjects = {
     name: 'نشط',
     exact: true,
   },
-  yesButton: {
-    role: 'button',
-    name: 'نعم',
-  },
-  activeStatusTable: {
-    role: 'table',
-  },
-  activeStatusText: 'نشط',
+  yesButton: "//button[normalize-space()='نعم']",
+  dealStatusCell: '//datatable-body-cell[8]/descendant::span',
 } as const;

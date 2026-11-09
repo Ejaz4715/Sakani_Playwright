@@ -70,16 +70,16 @@ test.describe('Loyalty Sharrai Program', () => {
     await app.adminLoyaltyPage.fillAcceptableQuantityPerUser('1');
     await app.adminLoyaltyPage.selectSakaniCommissionType('كمية');
     await app.adminLoyaltyPage.fillSakaniCommissionValue('100');
-    await app.adminLoyaltyPage.fillTitle('Test Deal');
-    await app.adminLoyaltyPage.fillDescription('Test Desc');
-    await app.adminLoyaltyPage.fillDetails('Test Details');
-    await app.adminLoyaltyPage.fillTermsAndConditions('Testing terms and condition for sharrai offer');
+    await app.adminLoyaltyPage.fillTitle(dealName);
+    await app.adminLoyaltyPage.fillDescription(faker.lorem.paragraph());
+    await app.adminLoyaltyPage.fillDetails(faker.lorem.paragraph());
+    await app.adminLoyaltyPage.fillTermsAndConditions(faker.lorem.paragraph());
     await app.adminLoyaltyPage.clickSave();
 
     await logStep('Step 07: Import deal file > Save the file');
     await app.adminLoyaltyPage.clickDealIdentifiersTab();
     await app.adminLoyaltyPage.clickImportOfferCodes();
-    const importDealFilePath = path.join(process.cwd(), 'src', 'data', 'Sample image 2.png');
+    const importDealFilePath = path.join(process.cwd(), 'src', 'data', 'deal-codes.xlsx');
     await app.adminLoyaltyPage.uploadDealFile(importDealFilePath);
     await app.adminLoyaltyPage.clickSave();
     await app.adminLoyaltyPage.validateTheFileImportToast();
@@ -92,13 +92,14 @@ test.describe('Loyalty Sharrai Program', () => {
     await app.adminLoyaltyPage.clickManageDeals();
 
     await logStep('Step 09: Change the deal status to Active');
-    await app.adminLoyaltyPage.searchAndNavigateToDeal(dealName);
+    await app.adminLoyaltyPage.searchAndNavigateToDeal(companyName);
     await app.adminLoyaltyPage.clickEdit();
     await app.adminLoyaltyPage.selectStatusToActive('نشط');
     await app.adminLoyaltyPage.clickSave();
     await app.adminLoyaltyPage.clickYesOnPopUp();
-    await app.adminLoyaltyPage.verifyActiveStatusVisible();
-    // await page.locator('ng-select').filter({ hasText: 'اختيارغير نشط' }).getByRole('combobox').click();
+
+    await logStep('Step 10: Validate the deal status is Active');
+    await app.adminLoyaltyPage.verifyActiveStatusVisible(companyName, 'نشط');
   });
 
   test('TC-05 User buys the deal and pay', { annotation: [{ product: Products.Loyalty, type: 'critical' }] as any }, async ({ page }) => {
@@ -108,21 +109,29 @@ test.describe('Loyalty Sharrai Program', () => {
     const app = new WebApp(page);
     const userPortalUrl = environment.userPortalUrl;
     const userID = data.sakaniUserId;
-    const projectName = data.projectName;
+    const dealName = data.dealName;
 
     await logStep('Step 01: Navigate to user portal > Login');
-    // await app.loginPage.gotoHomePage(userPortalUrl);
-    // await app.loginPage.acceptCookies();
-    // await app.loginPage.openLogin();
-    // await app.loginPage.loginWithNafath(userID);
-    // await app.loginPage.waitForNafathPromptToDisappear();
-    // await app.loginPage.continueNewUserPopup();
-    // await app.loginPage.handlePushNotificationPopup();
+    await app.loginPage.gotoHomePage(userPortalUrl);
+    await app.loginPage.acceptCookies();
+    await app.loginPage.openLogin();
+    await app.loginPage.loginWithNafath(userID);
+    await app.loginPage.waitForNafathPromptToDisappear();
+    await app.loginPage.continueNewUserPopup();
+    await app.loginPage.handlePushNotificationPopup();
 
-    await logStep('Step 02: Navigate to services');
+    await logStep('Step 02: Navigate to sakani landing page');
+    app.userLoyaltyPage.clickOnSakaniLogo();
 
-    await logStep('Step 03: Go to sakani offers');
+    await logStep('Step 03: Select the deal to buy');
+    app.userLoyaltyPage.clickLaterButton();
+    app.userLoyaltyPage.clickBuyNowLinkOnLandingPage();
+    app.userLoyaltyPage.clickBuyNowButtonOnDealDetailsPage();
+    app.userLoyaltyPage.selectCreditCardPaymentRadio();
+    app.userLoyaltyPage.clickContinuePayment();
 
-    await logStep('Step 04: Select a deal and pay');
+    await logStep('Step 04: Pay the amount and validate the payment is successful');
+    await page.waitForTimeout(20000);
+    app.userLoyaltyPage.verifyPaymentFailed();
   });
 });

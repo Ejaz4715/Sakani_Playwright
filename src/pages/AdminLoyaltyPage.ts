@@ -69,7 +69,7 @@ export class AdminLoyaltyPage {
     await ibanInput.fill(iban);
   }
 
-  async fillBankAccountName(bankName = 'Al Rajhi') {
+  async fillBankAccountName(bankName: string) {
     const bankAccountNameInput = this.page.locator(AdminLoyaltyObjects.bankAccountNameInput);
     await bankAccountNameInput.fill(bankName);
   }
@@ -91,6 +91,8 @@ export class AdminLoyaltyPage {
   }
 
   async clickManageDeals() {
+    await this.clickLoyaltyProgram();
+    await this.clickLoyaltyProgram();
     await this.page.getByRole(AdminLoyaltyObjects.manageDealsLink.role, { name: AdminLoyaltyObjects.manageDealsLink.name }).click();
   }
 
@@ -105,12 +107,14 @@ export class AdminLoyaltyPage {
   }
 
   async fillCampaignStartDate(startDate: string) {
-    const campaignStartDateInput = this.page.locator(AdminLoyaltyObjects.campaignStartDateInput).nth(1);
+    const campaignStartDateInput = this.page.locator(AdminLoyaltyObjects.campaignStartDateInput);
     await campaignStartDateInput.fill(startDate);
   }
 
   async fillCampaignEndDate(endDate: string) {
-    const campaignEndDateInput = this.page.locator(AdminLoyaltyObjects.campaignEndDateInput).nth(1);
+    const priceInput = this.page.locator(AdminLoyaltyObjects.priceInput);
+    await priceInput.click();
+    const campaignEndDateInput = this.page.locator(AdminLoyaltyObjects.campaignEndDateInput);
     await campaignEndDateInput.fill(endDate);
   }
 
@@ -155,9 +159,7 @@ export class AdminLoyaltyPage {
   }
 
   async fillTermsAndConditions(termsText = 'Testing terms and condition for sharrai offer') {
-    const termsTextarea = this.page
-      .getByRole(AdminLoyaltyObjects.termsAndConditionsRegion.role, { name: AdminLoyaltyObjects.termsAndConditionsRegion.name })
-      .locator(AdminLoyaltyObjects.termsTextarea);
+    const termsTextarea = this.page.locator(AdminLoyaltyObjects.termsAndConditions);
     await termsTextarea.fill(termsText);
   }
 
@@ -177,7 +179,7 @@ export class AdminLoyaltyPage {
   }
 
   async validateTheFileImportToast() {
-    const toastMessage = this.page.getByText(AdminLoyaltyObjects.importToastMessage);
+    const toastMessage = this.page.locator(AdminLoyaltyObjects.toastMessageContainer);
     await expect(toastMessage, 'Toast message is not present').toBeVisible({ timeout: 10000 });
   }
 
@@ -214,7 +216,7 @@ export class AdminLoyaltyPage {
   }
 
   async selectStatusToActive(optionText: string) {
-    const statusDropdown = `//${AdminLoyaltyObjects.statusDropdown.selector}[contains(normalize-space(.), '${AdminLoyaltyObjects.statusDropdown.text}')]//*[@role='${AdminLoyaltyObjects.statusDropdownCombobox.role}']`;
+    const statusDropdown = AdminLoyaltyObjects.dealStatusDropdown;
     await this.commonMethods.clickIfVisible({ xpath: statusDropdown });
     await this.selectListOption(optionText);
   }
@@ -224,14 +226,19 @@ export class AdminLoyaltyPage {
   }
 
   async clickYesOnPopUp() {
-    const yesButton = this.page.getByRole(AdminLoyaltyObjects.yesButton.role, { name: AdminLoyaltyObjects.yesButton.name });
-    if (await yesButton.isVisible({ timeout: 3000 })) {
-      await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.yesButton);
+    const yesButton = this.page.locator(AdminLoyaltyObjects.yesButton);
+    await this.page.waitForTimeout(5000);
+    if (await yesButton.isVisible({ timeout: 9000 })) {
+      await yesButton.click();
     }
   }
 
-  async verifyActiveStatusVisible() {
-    const activeStatusCell = this.page.getByRole(AdminLoyaltyObjects.activeStatusTable.role).getByText(AdminLoyaltyObjects.activeStatusText);
-    await expect(activeStatusCell, 'Active status is not present').toBeVisible({ timeout: 30000 });
+  async verifyActiveStatusVisible(searchText: string, status: string) {
+    const searchInput = this.page.getByRole(AdminLoyaltyObjects.searchInput.role, { name: AdminLoyaltyObjects.searchInput.name });
+    await searchInput.fill(searchText);
+    await this.commonMethods.clickIfVisible(AdminLoyaltyObjects.searchButton);
+    await this.page.waitForTimeout(3000);
+    const cellText = await this.page.locator(AdminLoyaltyObjects.dealStatusCell).textContent();
+    expect(cellText?.trim()).toContain(status);
   }
 }

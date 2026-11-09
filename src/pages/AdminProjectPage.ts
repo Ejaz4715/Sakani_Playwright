@@ -1,13 +1,17 @@
 import { AdminProjectObjects } from '@objects/AdminProjectsObjects';
 import { expect, Page } from '@playwright/test';
+import path from 'node:path';
+import fs from 'fs';
 
 export class AdminProjectPage {
   page: Page;
+  private authFile = path.join(process.cwd(), '.auth', 'admin-auth-session.json');
+
   constructor(page: Page) {
     this.page = page;
   }
 
-  async login(url: string, username: string, password: string, otp = '1234') {
+  async loginOld(url: string, username: string, password: string, otp = '1234') {
     await this.page.goto(url);
     await this.page.locator(AdminProjectObjects.loginUsernameInput).fill(username);
     await this.page.locator(AdminProjectObjects.loginPasswordInput).fill(password);
@@ -24,6 +28,87 @@ export class AdminProjectPage {
         name: AdminProjectObjects.otpConfirmButton.name,
       })
       .click();
+  }
+
+  async login(url: string, username: string, password: string, otp = '1234') {
+    const dir = path.dirname(this.authFile);
+
+    // Define the selector for a reliable element that only appears when logged in (e.g., admin menu link)
+    const adminMenuLink = this.page.locator(AdminProjectObjects.internalInventoryLink.selector).filter({ hasText: AdminProjectObjects.internalInventoryLink.hasText });
+
+    // 1. Fail-safe: Ensure the local directory for storing session files exists
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    // 2. Check if a previously saved session state file exists
+    if (fs.existsSync(this.authFile)) {
+      try {
+        const storageState = JSON.parse(fs.readFileSync(this.authFile, 'utf-8'));
+
+        // Validate that the JSON file contains actual cookies or localStorage credentials
+        const hasCookies = Array.isArray(storageState.cookies) && storageState.cookies.length > 0;
+        const hasLocalStorage =
+          Array.isArray(storageState.origins) && storageState.origins.some((origin: { localStorage?: unknown[] }) => Array.isArray(origin.localStorage) && origin.localStorage.length > 0);
+
+        // If stored data exists, try applying it to bypass manual login
+        if (hasCookies || hasLocalStorage) {
+          await this.page.context().setStorageState(storageState);
+          await this.page.goto(url);
+
+          // Check if the session is still active by waiting for an authenticated UI element to appear
+          const isAuthenticated = await adminMenuLink
+            .waitFor({ state: 'visible', timeout: 15000 })
+            .then(() => true)
+            .catch(() => false);
+
+          // If valid, exit early and skip the credential/OTP flow entirely
+          if (isAuthenticated) {
+            return;
+          }
+
+          console.log('Session expired or invalid. Re-authenticating...');
+        }
+      } catch (error) {
+        console.warn('Could not load session file, proceeding with fresh login.', error);
+      }
+
+      // If the session file was corrupted or expired, clean it up
+      if (fs.existsSync(this.authFile)) {
+        fs.unlinkSync(this.authFile);
+      }
+    }
+
+    // 3. Fallback: Perform standard manual login (username + password)
+    await this.page.goto(url);
+    await this.page.locator(AdminProjectObjects.loginUsernameInput).fill(username);
+    await this.page.locator(AdminProjectObjects.loginPasswordInput).fill(password);
+    await this.page
+      .getByRole(AdminProjectObjects.loginButton.role, {
+        name: AdminProjectObjects.loginButton.name,
+      })
+      .click();
+
+    // 4. Handle the OTP verification step
+    const otpInput = this.page.locator(AdminProjectObjects.otpInput);
+    await expect(otpInput).toBeVisible({ timeout: 30000 });
+    await otpInput.fill(otp);
+    await this.page
+      .getByRole(AdminProjectObjects.otpConfirmButton.role, {
+        name: AdminProjectObjects.otpConfirmButton.name,
+      })
+      .click();
+
+    // 5. Verify successful login completion and dashboard arrival
+    await expect(otpInput, 'OTP step should close after successful confirmation').toBeHidden({
+      timeout: 40000,
+    });
+    await expect(adminMenuLink, 'Admin navigation should appear after login').toBeVisible({
+      timeout: 40000,
+    });
+
+    // 6. Capture and save the fresh, fully authenticated session state for future test runs
+    await this.page.context().storageState({ path: this.authFile });
   }
 
   async openProjectCreation() {

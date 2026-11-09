@@ -51,19 +51,7 @@ import { VoucherManagementPage } from '@pages/VoucherManagementPage';
 import { UserManagementPage } from '@pages/UserManagementPage';
 import { CreatingAnAdvertisingCampaignPage } from '@pages/CreatingAnAdvertisingCampaignPage';
 import { SelfConstructionPage } from '@pages/SelfConstructionPage';
-
-export enum Products {
-  Marketplace = 'Marketplace',
-  DigitarBroker = 'Digitar-Broker',
-  DigitarDeveloper = 'Digitar-Developer',
-  SharedProducts = 'Shared-Products',
-  GovSupport = 'Government-Support',
-  Loyalty = 'Loyalty',
-  SelfConstruction = 'Self-Construction',
-  MarketService = 'Market-Service',
-  RealEstateData = 'Real-Estate-Data',
-  Sayal = 'Sayal',
-}
+import { UserLoyaltyPage } from '@pages/UserLoyaltyPage';
 
 export class WebApp {
   page: Page;
@@ -112,7 +100,6 @@ export class WebApp {
   metaverseManagementPage: InstanceType<typeof MetaverseManagementPage>;
   recommendationsPage: InstanceType<typeof RecommendationsPage>;
   favoritesPage: InstanceType<typeof FavoritesPage>;
-
   voucherManagementPage: InstanceType<typeof VoucherManagementPage>;
   realEstateTaxExemptionPage: InstanceType<typeof RealEstateTaxExemptionPage>;
   loyaltyAdminDealsPage: InstanceType<typeof LoyaltyAdminDealsPage>;
@@ -120,6 +107,7 @@ export class WebApp {
   creatingAnAdvertisingCampaignPage: InstanceType<typeof CreatingAnAdvertisingCampaignPage>;
   commonMethods: InstanceType<typeof CommonMethods>;
   selfConstructionPage: InstanceType<typeof SelfConstructionPage>;
+  userLoyaltyPage: InstanceType<typeof UserLoyaltyPage>;
 
   constructor(page: Page) {
     this.page = page;
@@ -225,5 +213,19 @@ export class WebApp {
     this.creatingAnAdvertisingCampaignPage = new CreatingAnAdvertisingCampaignPage(page);
     this.commonMethods = new CommonMethods(page);
     this.selfConstructionPage = new SelfConstructionPage(page);
+    this.userLoyaltyPage = new UserLoyaltyPage(page);
   }
+}
+
+export enum Products {
+  Marketplace = 'Marketplace',
+  DigitarBroker = 'Digitar-Broker',
+  DigitarDeveloper = 'Digitar-Developer',
+  SharedProducts = 'Shared-Products',
+  GovSupport = 'Government-Support',
+  Loyalty = 'Loyalty',
+  SelfConstruction = 'Self-Construction',
+  MarketService = 'Market-Service',
+  RealEstateData = 'Real-Estate-Data',
+  Sayal = 'Sayal',
 }

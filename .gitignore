@@ -11,6 +11,7 @@ report-dashboard/dashboard.html
 
 # Certificates & Secrets
 certs/
+.auth/
 
 # AI & IDE Cache / Logs
 .claude/
