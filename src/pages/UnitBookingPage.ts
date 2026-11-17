@@ -62,7 +62,6 @@ export class UnitBookingPage {
   }
 
   async expectSalesContractSuccess() {
-    const { expect } = require('@playwright/test');
     await expect(this.page.getByRole('heading', { name: 'تهانينا' })).toBeVisible();
   }
 }
