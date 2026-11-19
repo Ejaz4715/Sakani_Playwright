@@ -229,7 +229,7 @@ test.describe('Contract status inquiry for financing', () => {
 
     await logStep('Step 04: Enbale comprehensive booking from project setting and save the project');
     await app.paymentTrackingPage.clickOnProjectSettings();
-    await app.paymentTrackingPage.clickOnUseGeneralSettingSwitch();
+    await app.paymentTrackingPage.enableComprehensiveJourney();
     await app.paymentTrackingPage.clickOnSaveButton();
     await app.paymentTrackingPage.verifySaveSuccessToast();
   });

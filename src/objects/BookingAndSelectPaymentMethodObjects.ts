@@ -35,4 +35,29 @@ export const BookingAndSelectPaymentMethodObjects = {
   paymentTypeText(type: string) {
     return `//app-offplan-payment-details-section/descendant::span[normalize-space() = '${type}']`;
   },
+
+  /**Real estate advisor service */
+  completeFinancingRequirementHeading: {
+    xpath: "//span[normalize-space()='أكمل متطلبات التمويل الخاصة بك']",
+  },
+  completeRequirementsButton: {
+    role: 'button',
+    name: 'استيفاء المتطلبات',
+  },
+  financialAdvisorPageHeading: {
+    role: 'heading',
+    name: 'مستشار عقاري',
+  },
+  completeBookingButton: {
+    role: 'button',
+    name: 'استكمال الحجز',
+  },
+  newRequestButton: {
+    role: 'button',
+    name: 'طلب جديد',
+  },
+  ignoreInputsButton: {
+    role: 'button',
+    name: 'تجاهل المدخلات',
+  },
 } as const;

@@ -1,6 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage, APP_READY_TIMEOUT } from './BasePage';
 import { PROFILE_ROUTES } from '@data/testData';
+import { UserProfileObjects } from '@objects/UserProfileObjects';
 
 /**
  * The account portal's non-Activities pages
@@ -218,5 +219,16 @@ export class UserProfilePage extends BasePage {
 
   async expectHeading(heading: Locator): Promise<void> {
     await expect(heading).toBeVisible({ timeout: APP_READY_TIMEOUT });
+  }
+
+  async clickFinancialAdvisorySideMenu() {
+    const tab = this.page.locator(UserProfileObjects.financialAdvisoryTab.xpath);
+    await tab.waitFor({ state: 'visible', timeout: 20000 });
+    await tab.click();
+  }
+
+  async validateThePresenceOfPurchasingPower() {
+    const power = this.page.getByRole(UserProfileObjects.updateFinancialInformationButton.role, { name: UserProfileObjects.updateFinancialInformationButton.name });
+    await expect(power, 'Purchasing power is not available').toBeVisible({ timeout: 20000 });
   }
 }

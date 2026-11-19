@@ -339,6 +339,21 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "tagName": "Tag Name 20261109092051"
+    },
+    "show-real-estate-advisor": {
+      "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
+      "adminPassword": "admin",
+      "projectName": "Automation Project 20261103095019",
+      "developerUserId": "1023129537",
+      "bene": {
+        "userId": "1070001356"
+      },
+      "nonBene": {
+        "userId": "1070001739"
+      },
+      "beneWithCertificate": {
+        "userId": "1070001592"
+      }
     }
   }
 }

@@ -52,7 +52,8 @@ export class BookingAndSelectPaymentMethodPage {
 
   async clickOnElectronicFinancePaymentRadioButton() {
     const electronicFinancePaymentRadioButton = this.page.locator(BookingAndSelectPaymentMethodObjects.electronicFinancePaymentRadioButton.xpath);
-    await this.clickVisibleButton(electronicFinancePaymentRadioButton);
+    await electronicFinancePaymentRadioButton.waitFor({ state: 'visible', timeout: 20000 });
+    await electronicFinancePaymentRadioButton.click();
   }
 
   async clickOnSaveAndContinueButton() {
@@ -91,5 +92,26 @@ export class BookingAndSelectPaymentMethodPage {
   async validateSelectedPaymentType(type: string) {
     const paymentTypeText = this.page.locator(BookingAndSelectPaymentMethodObjects.paymentTypeText(type));
     await expect(paymentTypeText, 'Payment type text is not found').toBeVisible({ timeout: 20000 });
+  }
+
+  async validatePresenceOfCompleteFinancingRequrementText() {
+    const heading = this.page.locator(BookingAndSelectPaymentMethodObjects.completeFinancingRequirementHeading.xpath);
+    await expect(heading, 'Complete financing requirement text is not found').toBeVisible({ timeout: 20000 });
+  }
+
+  async validateCompleteFinancingRequrementTextisNotPresent() {
+    const heading = this.page.locator(BookingAndSelectPaymentMethodObjects.completeFinancingRequirementHeading.xpath);
+    await expect(heading, 'Complete financing requirement text is not found').not.toBeVisible({ timeout: 20000 });
+  }
+
+  async clickComepleteRequirements() {
+    const button = this.page.getByRole(BookingAndSelectPaymentMethodObjects.completeRequirementsButton.role, { name: BookingAndSelectPaymentMethodObjects.completeRequirementsButton.name });
+    await button.waitFor({ state: 'visible', timeout: 20000 });
+    await button.click();
+  }
+
+  async validatePresenceOfFinancialAdvisoryPageHeading() {
+    const heading = this.page.getByRole(BookingAndSelectPaymentMethodObjects.financialAdvisorPageHeading.role, { name: BookingAndSelectPaymentMethodObjects.financialAdvisorPageHeading.name });
+    await expect(heading, 'Financial advisor page heading is not present').toBeVisible({ timeout: 20000 });
   }
 }

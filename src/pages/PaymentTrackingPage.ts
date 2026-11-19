@@ -8,17 +8,28 @@ export class PaymentTrackingPage {
   }
 
   async clickOnProjectSettings() {
-    const projectSettings = this.page.getByText(PaymentTrackingObjects.projectSettings.text);
+    const projectSettings = this.page.locator(PaymentTrackingObjects.projectSettings.xpath);
 
     await expect(projectSettings).toBeVisible({ timeout: 90000 });
     await projectSettings.click();
   }
 
-  async clickOnUseGeneralSettingSwitch() {
-    const useGeneralSettingSwitch = this.page.getByRole(PaymentTrackingObjects.useGeneralSettingSwitch.role, { name: PaymentTrackingObjects.useGeneralSettingSwitch.name });
+  async enableComprehensiveJourney() {
+    const toggle = this.page.locator(PaymentTrackingObjects.comprehensiveJourneyToggle.xapth);
+    await toggle.waitFor({ state: 'visible', timeout: 90000 });
+    const isChecked = await toggle.getAttribute('aria-checked');
+    if (isChecked !== 'true') {
+      await toggle.click();
+    }
+  }
 
-    await expect(useGeneralSettingSwitch).toBeVisible({ timeout: 90000 });
-    await useGeneralSettingSwitch.click();
+  async disableComprehensiveJourney() {
+    const toggle = this.page.locator(PaymentTrackingObjects.comprehensiveJourneyToggle.xapth);
+    await toggle.waitFor({ state: 'visible', timeout: 90000 });
+    const isChecked = await toggle.getAttribute('aria-checked');
+    if (isChecked !== 'false') {
+      await toggle.click();
+    }
   }
 
   async clickOnPaymentCollectionAutomationSwitch() {

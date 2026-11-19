@@ -558,6 +558,18 @@ export class DeveloperProjectPage {
     await selectAndContinue.click({ timeout: 20000 });
   }
 
+  async selectUnitAndContinue() {
+    await this.page.waitForTimeout(3000);
+    const selectAnotherUnit = this.page.locator(DeveloperObjects.selectAnotherUnitButton.xpath);
+    const isPresent = await selectAnotherUnit.isVisible({ timeout: 3000 }).catch(() => false);
+    if (isPresent) {
+      await this.clickContinueBookingButton();
+    } else {
+      await this.clickSelectAndContinue();
+      await this.clickContinueBookingButton();
+    }
+  }
+
   async validateSuccessReservationPopup() {
     const reservationSuccessPopup = this.page.locator(DeveloperObjects.reservationSuccessPopup);
     await expect(reservationSuccessPopup, 'Reservation successful message pop up is not present').toBeVisible({ timeout: 20000 });

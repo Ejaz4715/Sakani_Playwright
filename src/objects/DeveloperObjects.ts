@@ -158,7 +158,9 @@ export const DeveloperObjects = {
     return `//datatable-row-wrapper[${row}]/descendant::app-sapa-checkbox-v2`;
   },
   contiueBookingButton: "//button[normalize-space() = 'مواصلة الحجز']",
-  selectAnotherUnitButton: "//button[normalize-space() = 'حدد وحدة أخرى']",
+  selectAnotherUnitButton: {
+    xpath: "//button[normalize-space() = 'حدد وحدة أخرى']",
+  },
   bankDropdown: '//app-bank-list-dropdown-control/descendant::input',
   bankOptions(bankName: string) {
     return `//div[@role='option']/descendant::span[normalize-space() = '${bankName}']`;

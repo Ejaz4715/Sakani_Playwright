@@ -359,9 +359,14 @@ export const AdminProjectObjects = {
   activateMultipleBookingToggleMob: "//mat-slide-toggle[@formcontrolname='active_multiple_bookings_for_web_mobile']/descendant::button",
   activateMultipleBookingTogglePartner: "//mat-slide-toggle[@formcontrolname='active_multiple_bookings_for_partner']/descendant::button",
 
-  //** Add, update or delete unit requests */
+  /* Add, update or delete unit requests */
   accpetButton: {
     role: 'button',
     name: 'قبول',
+  },
+
+  /** Show real estate advisor */
+  enableShowRealEstateAdvisorToggle: {
+    xpath: "//mat-slide-toggle[@formcontrolname='enable_show_real_estate_advisor']/descendant::button",
   },
 } as const;

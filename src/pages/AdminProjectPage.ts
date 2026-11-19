@@ -1,7 +1,7 @@
 import { AdminProjectObjects } from '@objects/AdminProjectsObjects';
 import { expect, Page } from '@playwright/test';
-import path from 'node:path';
 import fs from 'fs';
+import path from 'node:path';
 
 export class AdminProjectPage {
   page: Page;
@@ -31,57 +31,72 @@ export class AdminProjectPage {
   }
 
   async login(url: string, username: string, password: string, otp = '1234') {
-    const dir = path.dirname(this.authFile);
-
-    // Define the selector for a reliable element that only appears when logged in (e.g., admin menu link)
     const adminMenuLink = this.page.locator(AdminProjectObjects.internalInventoryLink.selector).filter({ hasText: AdminProjectObjects.internalInventoryLink.hasText });
 
-    // 1. Fail-safe: Ensure the local directory for storing session files exists
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    const authDirectory = path.dirname(this.authFile);
+    if (!fs.existsSync(authDirectory)) {
+      fs.mkdirSync(authDirectory, { recursive: true });
     }
 
-    // 2. Check if a previously saved session state file exists
+    let restoredSession = false;
     if (fs.existsSync(this.authFile)) {
       try {
         const storageState = JSON.parse(fs.readFileSync(this.authFile, 'utf-8'));
-
-        // Validate that the JSON file contains actual cookies or localStorage credentials
-        const hasCookies = Array.isArray(storageState.cookies) && storageState.cookies.length > 0;
-        const hasLocalStorage =
-          Array.isArray(storageState.origins) && storageState.origins.some((origin: { localStorage?: unknown[] }) => Array.isArray(origin.localStorage) && origin.localStorage.length > 0);
-
-        // If stored data exists, try applying it to bypass manual login
-        if (hasCookies || hasLocalStorage) {
-          await this.page.context().setStorageState(storageState);
-          await this.page.goto(url);
-
-          // Check if the session is still active by waiting for an authenticated UI element to appear
-          const isAuthenticated = await adminMenuLink
-            .waitFor({ state: 'visible', timeout: 15000 })
-            .then(() => true)
-            .catch(() => false);
-
-          // If valid, exit early and skip the credential/OTP flow entirely
-          if (isAuthenticated) {
-            return;
-          }
-
-          console.log('Session expired or invalid. Re-authenticating...');
-        }
+        await this.page.context().setStorageState(storageState);
+        restoredSession = true;
       } catch (error) {
-        console.warn('Could not load session file, proceeding with fresh login.', error);
-      }
-
-      // If the session file was corrupted or expired, clean it up
-      if (fs.existsSync(this.authFile)) {
-        fs.unlinkSync(this.authFile);
+        console.warn('Could not restore the cached admin session; logging in with credentials.', error);
       }
     }
 
-    // 3. Fallback: Perform standard manual login (username + password)
-    await this.page.goto(url);
-    await this.page.locator(AdminProjectObjects.loginUsernameInput).fill(username);
+    if (restoredSession) {
+      const projectsResponseCheck = this.page
+        .waitForResponse((response) => new URL(response.url()).pathname === '/mainIntermediaryApi/v4/admin/projects', { timeout: 30000 })
+        .then(
+          (response) => ({ response }),
+          (error: unknown) => ({ error })
+        );
+      await this.page.goto(url, { waitUntil: 'domcontentloaded' });
+      try {
+        await adminMenuLink.waitFor({ state: 'visible', timeout: 15000 });
+        await adminMenuLink.click({ timeout: 15000 });
+        await this.page
+          .getByRole(AdminProjectObjects.projectsLink.role, {
+            name: AdminProjectObjects.projectsLink.name,
+          })
+          .click({ timeout: 15000 });
+      } catch (error) {
+        if (!(error instanceof Error && error.name === 'TimeoutError')) {
+          throw error;
+        }
+      }
+
+      const result = await projectsResponseCheck;
+      if ('response' in result && result.response.ok()) {
+        await this.page.goto(url, { waitUntil: 'domcontentloaded' });
+        return;
+      }
+      if ('error' in result && !(result.error instanceof Error && result.error.name === 'TimeoutError')) {
+        throw result.error;
+      }
+
+      console.info('Cached admin session is expired or invalid; logging in with credentials.');
+      fs.unlinkSync(this.authFile);
+      await this.page.context().clearCookies();
+      await this.page.evaluate(() => {
+        localStorage.clear();
+        sessionStorage.clear();
+      });
+      await this.page.reload({ waitUntil: 'domcontentloaded' });
+    } else {
+      await this.page.goto(url, { waitUntil: 'domcontentloaded' });
+    }
+
+    const usernameInput = this.page.locator(AdminProjectObjects.loginUsernameInput);
+    await expect(usernameInput, 'Admin login username field should be visible').toBeVisible({
+      timeout: 30000,
+    });
+    await usernameInput.fill(username);
     await this.page.locator(AdminProjectObjects.loginPasswordInput).fill(password);
     await this.page
       .getByRole(AdminProjectObjects.loginButton.role, {
@@ -107,7 +122,6 @@ export class AdminProjectPage {
       timeout: 40000,
     });
 
-    // 6. Capture and save the fresh, fully authenticated session state for future test runs
     await this.page.context().storageState({ path: this.authFile });
   }
 
@@ -948,5 +962,23 @@ export class AdminProjectPage {
     const maxBookingTextbox = this.page.locator(AdminProjectObjects.maxBookingsPerNonBeneInput);
     await maxBookingTextbox.waitFor({ state: 'visible', timeout: 20000 });
     await maxBookingTextbox.fill(maxBookings);
+  }
+
+  async enableShowRealEstateAdvisorSetting() {
+    const enableShowRealEstateAdvisorToggle = this.page.locator(AdminProjectObjects.enableShowRealEstateAdvisorToggle.xpath);
+    await enableShowRealEstateAdvisorToggle.waitFor({ state: 'visible', timeout: 20000 });
+    const isChecked = await enableShowRealEstateAdvisorToggle.getAttribute('aria-checked');
+    if (isChecked !== 'true') {
+      await enableShowRealEstateAdvisorToggle.click();
+    }
+  }
+
+  async disableShowRealEstateAdvisorSetting() {
+    const enableShowRealEstateAdvisorToggle = this.page.locator(AdminProjectObjects.enableShowRealEstateAdvisorToggle.xpath);
+    await enableShowRealEstateAdvisorToggle.waitFor({ state: 'visible', timeout: 20000 });
+    const isChecked = await enableShowRealEstateAdvisorToggle.getAttribute('aria-checked');
+    if (isChecked !== 'false') {
+      await enableShowRealEstateAdvisorToggle.click();
+    }
   }
 }
