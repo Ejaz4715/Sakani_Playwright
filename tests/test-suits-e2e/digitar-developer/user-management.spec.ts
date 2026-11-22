@@ -73,7 +73,7 @@ test.describe('User Management', () => {
     await app.userManagementPage.clickOnGoToDashboardButton();
     await app.userManagementPage.verifyUserFailedToLoginMessageIsPresent();
   });
-    test('TC-03 Developer Activate the new user', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-03 Developer Activate the new user', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -96,7 +96,7 @@ test.describe('User Management', () => {
     await app.userManagementPage.activateTheUser();
     await app.userManagementPage.verifySuccessActivationMessageIsPresent();
   });
-    test('TC-04 Verify the activated user able to login and have no permission', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-04 Verify the activated user able to login and have no permission', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
@@ -138,7 +138,7 @@ test.describe('User Management', () => {
     await app.userManagementPage.switchOnBookingsManagementPermissionSwitchButton();
     await app.userManagementPage.verifySuccessActivationMessageIsPresent();
   });
-      test('TC-06 Verify the user have permission', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
+  test('TC-06 Verify the user have permission', { annotation: [{ product: Products.DigitarDeveloper, type: 'critical' }] as any }, async ({ page }) => {
     test.setTimeout(0);
     await logStep('Step 00: Read data from json relative to the service');
     const environment = readEnvironments();
