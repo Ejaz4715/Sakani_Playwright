@@ -220,12 +220,45 @@ export class AdminProjectPage {
     await this.page.locator(AdminProjectObjects.maxSubsidyAmountField).fill(amount);
   }
 
+  async clickDeveloperPartnerShipDropdown() {
+    const dropdown = this.page.locator(AdminProjectObjects.developerPartnerShipTypeDropdown);
+    await dropdown.waitFor({ state: 'visible', timeout: 20000 });
+    await dropdown.click();
+  }
+
+  async validateThePresenceOfPartnershipOption(option: string) {
+    const listOption = this.page.locator(AdminProjectObjects.developerPartnerShipTypeListOptions(option));
+    await expect(listOption, 'Partnership option is not present (' + option + ')').toBeVisible({ timeout: 20000 });
+  }
+
+  async selectPartnershipOption(option: string) {
+    const listOption = this.page.locator(AdminProjectObjects.developerPartnerShipTypeListOptions(option));
+    await listOption.waitFor({ state: 'visible', timeout: 20000 });
+    await listOption.click();
+  }
+
   async fillProjectAgreementDate(date: string) {
-    await this.page
-      .getByRole(AdminProjectObjects.projectAgreementDate.role, {
-        name: AdminProjectObjects.projectAgreementDate.name,
-      })
-      .fill(date);
+    const signDate = this.page.locator(AdminProjectObjects.projectAgreementDate.xpath);
+    await signDate.clear();
+    await signDate.fill(date);
+  }
+
+  async fillProjectAgreementEndDate(date: string) {
+    const endDate = this.page.locator(AdminProjectObjects.agreementEndDate.xpath);
+    await endDate.clear();
+    await endDate.fill(date);
+  }
+
+  async validatePresenceOfAgreementDateRequiredText() {
+    const errorMessage = this.page.locator(AdminProjectObjects.projectAgreementDateRequiredMessage.xpath);
+    await expect(errorMessage, 'Error message is not present').toBeVisible({ timeout: 20000 });
+  }
+
+  async enterAgreementAmount(amount: string) {
+    const textbox = this.page.locator(AdminProjectObjects.agreementAmount.xpath);
+    await textbox.waitFor({ state: 'visible', timeout: 20000 });
+    await textbox.clear();
+    await textbox.fill(amount);
   }
 
   async fillProjectLicenseNumber(licenseNumber: string) {
@@ -711,7 +744,7 @@ export class AdminProjectPage {
 
   async publishProject() {
     await this.waitForMediaApproval();
-    const publishedToggle = this.page.locator(AdminProjectObjects.projectPublishedToggle);
+    const publishedToggle = this.page.locator(AdminProjectObjects.projectPublishedToggle.xpath);
     await expect(publishedToggle).toBeVisible({ timeout: 30000 });
     if ((await publishedToggle.getAttribute('aria-checked')) === 'false') {
       await publishedToggle.click();

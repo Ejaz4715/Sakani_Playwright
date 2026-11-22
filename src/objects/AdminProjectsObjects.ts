@@ -91,9 +91,31 @@ export const AdminProjectObjects = {
     return `//mat-option/child::span[normalize-space() ='${text}']`;
   },
   maxSubsidyAmountField: "//input[@formcontrolname='max_subsidy_amount']",
+  developerPartnerShipTypeDropdown: "//mat-select[@formcontrolname='partnership_type']",
+  developerPartnerShipTypeListOptions(text: string) {
+    return `//mat-option[@role='option']/child::span[normalize-space() ='${text}']`;
+  },
+
   projectAgreementDate: {
-    role: 'textbox',
-    name: 'تاريخ توقيع الاتفاقيه للمشروع',
+    xpath: "//app-gregorian-datepicker[@formcontrolname='agreement_date']/descendant::input[@placeholder='DD/MM/YYYY']",
+  },
+  projectAgreementDateRequiredMessage: {
+    xpath: "//form-field-component[@fieldname='agreement_date']/descendant::label[normalize-space() = 'الحقل مطلوب']",
+  },
+  agreementAmount: {
+    xpath: "//input[@formcontrolname='agreement_amount']",
+  },
+  agreementEndDate: {
+    xpath: "//app-gregorian-datepicker[@formcontrolname='agreement_end_date']/descendant::input[@placeholder='DD/MM/YYYY']",
+  },
+  saleAndListingSubTypeDropdown: {
+    xpath: "//mat-select[@formcontrolname='sale_and_listing_sub_type']",
+  },
+  agreementAmountTextboxErrorMessage: {
+    xpath: "//form-field-component[@fieldname='agreement_amount']/descendant::mat-error",
+  },
+  agreementEndDateErrorMessage: {
+    xpath: "//form-field-component[@fieldname='agreement_end_date']/descendant::label[contains (@class , 'invalid')]",
   },
   projectLicenseNumber: {
     role: 'textbox',
@@ -352,7 +374,9 @@ export const AdminProjectObjects = {
     xpath: '//app-phone-input/descendant::input',
   },
   bookingAvailableToggle: "//label[contains (text(), 'قابل للحجز')]/preceding-sibling::button",
-  projectPublishedToggle: "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
+  projectPublishedToggle: {
+    xpath: "//label[contains (text(), 'هل تم نشر المشروع')]/preceding-sibling::button",
+  },
   rightTabArrow: "//mat-icon[contains (text(), 'chevron_right')]",
   settingsSectionHeading: "//span[contains(text(), 'إعدادات المشاريع')]",
   maxBookingsPerNonBeneInput: "//input[@formcontrolname='maximum_booking_per_non_beneficiary']",
