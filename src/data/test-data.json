@@ -28,7 +28,9 @@
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
       "adminPassword": "admin",
       "sakaniUserIdMoh": "1119880072",
-      "projectName": "Automation Moh Land Project 20261108014824"
+      "sakaniUserRecheckEligibility": "1119880072",
+      "projectName": "Automation Moh Land Project 20261015084302",
+      "exisitingProject": "Hessah New Lands"
     },
     "mega-project": {
       "adminUsername": "super_admin@test1-admin-sakani.housingapps.sa",
